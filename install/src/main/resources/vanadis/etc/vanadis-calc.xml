@@ -1,0 +1,83 @@
+<!--
+  ~ Copyright 2009 Kjetil Valstadsve
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- Simple calculator applications     -->
+<!-- To call up calculator, go to:      -->
+<!--   http://<location + 80>/scripting -->
+<blueprints default-version="1.1-SNAPSHOT"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://vanadis.sf.net/vanadis-blueprints">
+
+  <!-- Vanilla java modules -->
+  <blueprint name="vanadis-javacalc" extends="vanadis-basic">
+    <bundles group="net.sf.vanadis.modules.examples.javacalc"
+             artifact-prefix="net.sf.vanadis.modules.examples.javacalc">
+      <bundle artifact="calcservices"/>
+      <bundle artifact="add"/>
+      <bundle artifact="sub"/>
+      <bundle artifact="mul"/>
+      <bundle artifact="div"/>
+      <bundle artifact="calculator"/>
+    </bundles>
+
+    <module type="javacalc-add"/>
+    <module type="javacalc-sub"/>
+    <module type="javacalc-div"/>
+    <module type="javacalc-mul"/>
+    <module type="javacalc-calculator"/>
+  </blueprint>
+
+  <!-- A contrived example with a filtered inject and a property-endowed adder -->
+  <blueprint name="vanadis-javacalc-shaky" extends="vanadis-javacalc">
+    <module type="javacalc-add" name="shaky-javacalc-add">
+      <expose name="adder">
+        <properties>
+          <property name="shaky" type="boolean">true</property>
+        </properties>
+      </expose>
+    </module>
+
+    <module type="javacalc-calculator" name="shaky-javacalc-calculator">
+      <track name="adders">
+        <properties>
+          <property name="shaky" type="boolean">true</property>
+        </properties>
+      </track>
+    </module>
+  </blueprint>
+
+  <!-- Fancy Scala modules -->
+  <blueprint name="vanadis-scalacalc" extends="vanadis-basic">
+    <bundle group="org.scala-lang-osgi" artifact="scala-library" version="2.7.4"/>
+    <bundle group="org.scala-lang-osgi" artifact="scala-compiler" version="2.7.4"/>
+
+    <bundles group="net.sf.vanadis.modules.examples.scalacalc"
+             artifact-prefix="net.sf.vanadis.modules.examples.scalacalca">
+      <bundle artifact="calcmodules"/>
+      <bundle artifact="add"/>
+      <bundle artifact="sub"/>
+      <bundle artifact="mul"/>
+      <bundle artifact="div"/>
+      <bundle artifact="calculator"/>
+    </bundles>
+
+    <module type="scalacalc-add"/>
+    <module type="scalacalc-sub"/>
+    <module type="scalacalc-div"/>
+    <module type="scalacalc-mul"/>
+    <module type="scalacalc-calculator"/>
+  </blueprint>
+</blueprints>

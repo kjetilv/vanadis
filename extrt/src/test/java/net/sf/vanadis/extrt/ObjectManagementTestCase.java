@@ -1,0 +1,55 @@
+/*
+ * Copyright 2009 Kjetil Valstadsve
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package net.sf.vanadis.extrt;
+
+import net.sf.vanadis.blueprints.ModuleSpecification;
+import net.sf.vanadis.core.io.Location;
+import net.sf.vanadis.ext.ObjectManager;
+import net.sf.vanadis.osgi.impl.BareBonesContext;
+import org.junit.After;
+import org.junit.Before;
+
+public abstract class ObjectManagementTestCase {
+
+    private BareBonesContext context;
+
+    protected static final Location location = new Location("localhost", 4200);
+
+    protected ObjectManager manage(ModuleSpecification moduleSpecification,
+                                   Object managed) {
+        return ObjectManagerImpl.create
+                (context, moduleSpecification, null, managed, null, null);
+    }
+
+    protected ObjectManager manage(Object managed) {
+        return ObjectManagerImpl.create
+                (context, null, null, managed, null, null);
+    }
+
+    @Before
+    public void before() {
+        context = new BareBonesContext().setLocation(location);
+    }
+
+    @After
+    public void after() {
+        context = null;
+    }
+
+    public BareBonesContext getContext() {
+        return context;
+    }
+}

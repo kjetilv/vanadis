@@ -1,0 +1,99 @@
+<!--
+  ~ Copyright 2009 Kjetil Valstadsve
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <relativePath>../pom.xml</relativePath>
+    <groupId>net.sf.vanadis.modules</groupId>
+    <artifactId>net.sf.vanadis.modules.examples</artifactId>
+    <version>1.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.vanadis.modules.examples</groupId>
+  <artifactId>net.sf.vanadis.modules.examples.scalacalc</artifactId>
+  <version>1.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <description>Vanadis Module: Example: Scala Calc</description>
+  <name>${artifactId}</name>
+  <modules>
+    <module>calcservices</module>
+    <module>add</module>
+    <module>sub</module>
+    <module>div</module>
+    <module>mul</module>
+    <module>calculator</module>
+  </modules>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>net.sf.vanadis.modules.examples.scalacalc</groupId>
+        <artifactId>net.sf.vanadis.modules.examples.scalacalc.add</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>net.sf.vanadis.modules.examples.scalacalc</groupId>
+        <artifactId>net.sf.vanadis.modules.examples.scalacalc.calcservices</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>net.sf.vanadis.modules.examples.scalacalc</groupId>
+        <artifactId>net.sf.vanadis.modules.examples.scalacalc.calculator</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>net.sf.vanadis.modules.examples.scalacalc</groupId>
+        <artifactId>net.sf.vanadis.modules.examples.scalacalc.div</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>net.sf.vanadis.modules.examples.scalacalc</groupId>
+        <artifactId>net.sf.vanadis.modules.examples.scalacalc.mul</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>net.sf.vanadis.modules.examples.scalacalc</groupId>
+        <artifactId>net.sf.vanadis.modules.examples.scalacalc.sub</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.scala-lang-osgi</groupId>
+      <artifactId>scala-library</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.scala-lang-osgi</groupId>
+      <artifactId>scala-compiler</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.vanadis</groupId>
+      <artifactId>net.sf.vanadis.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.vanadis</groupId>
+      <artifactId>net.sf.vanadis.ext</artifactId>
+    </dependency>
+  </dependencies>
+  <profiles>
+    <profile>
+      <id>vanadis-install-scalacalc</id>
+      <modules>
+        <module>install</module>
+      </modules>
+    </profile>
+  </profiles>
+</project>
