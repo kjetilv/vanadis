@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.annopro;
+package vanadis.annopro;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.reflection.Retyper;
+import vanadis.core.lang.ToString;
+import vanadis.core.reflection.Retyper;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;

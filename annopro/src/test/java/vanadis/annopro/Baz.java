@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.annopro;
+package vanadis.annopro;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

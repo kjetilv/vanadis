@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.reflection;
+package vanadis.core.reflection;
 
-import net.sf.vanadis.core.lang.VarArgs;
+import vanadis.core.lang.VarArgs;
 
 import java.lang.reflect.Method;
 

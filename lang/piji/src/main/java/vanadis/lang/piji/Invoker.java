@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji;
+package vanadis.lang.piji;
 
-import net.sf.vanadis.lang.piji.hold.DataHolderFactory;
-import net.sf.vanadis.lang.piji.loading.FieldFinder;
-import net.sf.vanadis.lang.piji.loading.MethodFinder;
+import vanadis.lang.piji.hold.DataHolderFactory;
+import vanadis.lang.piji.loading.FieldFinder;
+import vanadis.lang.piji.loading.MethodFinder;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

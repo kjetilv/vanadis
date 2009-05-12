@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.annopro.AnnotationDatum;
-import net.sf.vanadis.annopro.AnnotationsDigest;
-import net.sf.vanadis.annopro.AnnotationsDigests;
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Closeables;
-import net.sf.vanadis.core.lang.Strings;
-import net.sf.vanadis.core.test.ForTestingPurposes;
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.util.concurrent.OperationQueuer;
+import vanadis.annopro.AnnotationDatum;
+import vanadis.annopro.AnnotationsDigest;
+import vanadis.annopro.AnnotationsDigests;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Closeables;
+import vanadis.core.lang.Strings;
+import vanadis.core.test.ForTestingPurposes;
+import vanadis.ext.*;
+import vanadis.osgi.Context;
+import vanadis.util.concurrent.OperationQueuer;
 import org.osgi.framework.Bundle;
 
 import java.io.IOException;

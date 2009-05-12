@@ -1,7 +1,7 @@
-package net.sf.vanadis.core.properties;
+package vanadis.core.properties;
 
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.ToString;
 
 /**
  * <p>A unifying map key class, collapsing strings in three case conventions into

@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.annopro.AnnotationDatum;
-import net.sf.vanadis.annopro.AnnotationsDigest;
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.ext.*;
-import static net.sf.vanadis.ext.ManagedState.*;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Reference;
-import net.sf.vanadis.osgi.Registration;
-import net.sf.vanadis.osgi.ServiceProperties;
-import net.sf.vanadis.util.concurrent.OperationQueuer;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.annopro.AnnotationDatum;
+import vanadis.annopro.AnnotationsDigest;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Location;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
+import vanadis.ext.*;
+import static vanadis.ext.ManagedState.*;
+import vanadis.osgi.Context;
+import vanadis.osgi.Reference;
+import vanadis.osgi.Registration;
+import vanadis.osgi.ServiceProperties;
+import vanadis.util.concurrent.OperationQueuer;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import javax.management.DynamicMBean;
 import java.lang.annotation.Annotation;
@@ -70,8 +70,8 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
     private final AnnotationsDigest annotationsDigest;
 
     /**
-     * Tracks injectors such as {@link net.sf.vanadis.extrt.MethodInjector}
-     * and {@link net.sf.vanadis.extrt.TrackingInjector}.
+     * Tracks injectors such as {@link vanadis.extrt.MethodInjector}
+     * and {@link vanadis.extrt.TrackingInjector}.
      */
     private final DependencyTracker<Injector<?>> injectorDependencyTracker = new DependencyTracker<Injector<?>>();
 

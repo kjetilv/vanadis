@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.reposerv;
+package vanadis.modules.reposerv;
 
-import net.sf.vanadis.ext.*;
+import vanadis.ext.*;
 
 import javax.servlet.Servlet;
 

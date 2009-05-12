@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.concurrent;
+package vanadis.util.concurrent;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.time.TimeSpan;
+import vanadis.core.lang.ToString;
+import vanadis.core.time.TimeSpan;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ScheduledExecutorService;

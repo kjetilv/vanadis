@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.concurrent;
+package vanadis.util.concurrent;
 
-import net.sf.vanadis.core.time.InterruptedRuntimeException;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.time.InterruptedRuntimeException;
+import vanadis.core.time.TimeSpan;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.util.Collections;
 import java.util.List;

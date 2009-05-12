@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.blueprints;
+package vanadis.blueprints;
 
 import junit.framework.Assert;
 import static junit.framework.Assert.*;
-import net.sf.vanadis.util.mvn.Coordinate;
-import net.sf.vanadis.util.mvn.Repo;
+import vanadis.util.mvn.Coordinate;
+import vanadis.util.mvn.Repo;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.annopro.AnnotationDatum;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.reflection.GetNSet;
+import vanadis.annopro.AnnotationDatum;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.reflection.GetNSet;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

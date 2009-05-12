@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.ext.CoreProperty;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Registration;
-import net.sf.vanadis.osgi.ServiceProperties;
+import vanadis.core.lang.Not;
+import vanadis.core.properties.PropertySet;
+import vanadis.ext.CoreProperty;
+import vanadis.osgi.Context;
+import vanadis.osgi.Registration;
+import vanadis.osgi.ServiceProperties;
 
 import javax.management.DynamicMBean;
 import javax.management.MalformedObjectNameException;

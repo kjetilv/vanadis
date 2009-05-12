@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.httpservice;
+package vanadis.modules.httpservice;
 
-import net.sf.vanadis.osgi.Context;
+import vanadis.osgi.Context;
 import org.osgi.service.http.HttpContext;
 
 import javax.servlet.http.HttpServletRequest;

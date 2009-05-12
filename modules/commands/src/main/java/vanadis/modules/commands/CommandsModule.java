@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.commands;
+package vanadis.modules.commands;
 
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.osgi.Context;
+import vanadis.ext.*;
+import vanadis.osgi.Context;
 
 @Module(moduleType = "commands", launch = @AutoLaunch(name = "commands"))
 public class CommandsModule extends AbstractContextAware {

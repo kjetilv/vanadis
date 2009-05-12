@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.core.test;
+package vanadis.core.test;
 
 import junit.framework.Assert;
-import net.sf.vanadis.core.lang.AccessibleHelper;
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.VarArgs;
+import vanadis.core.lang.AccessibleHelper;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.VarArgs;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

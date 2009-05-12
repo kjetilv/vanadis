@@ -1,6 +1,6 @@
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.ext.ConfigureSummary;
+import vanadis.ext.ConfigureSummary;
 
 class ConfigureSummaryImpl implements ConfigureSummary {
 

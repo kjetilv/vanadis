@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.networker;
+package vanadis.modules.networker;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.collections.Pair;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Filters;
-import net.sf.vanadis.osgi.ServiceProperties;
-import net.sf.vanadis.osgi.impl.BareBonesContext;
-import net.sf.vanadis.remoting.RemotingImpl;
-import net.sf.vanadis.services.networking.Node;
-import net.sf.vanadis.services.networking.Router;
-import net.sf.vanadis.services.remoting.Remoting;
+import vanadis.core.collections.Generic;
+import vanadis.core.collections.Pair;
+import vanadis.core.io.Location;
+import vanadis.core.properties.PropertySets;
+import vanadis.core.time.TimeSpan;
+import vanadis.ext.*;
+import vanadis.osgi.Context;
+import vanadis.osgi.Filters;
+import vanadis.osgi.ServiceProperties;
+import vanadis.osgi.impl.BareBonesContext;
+import vanadis.remoting.RemotingImpl;
+import vanadis.services.networking.Node;
+import vanadis.services.networking.Router;
+import vanadis.services.remoting.Remoting;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;

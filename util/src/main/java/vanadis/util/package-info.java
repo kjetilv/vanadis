@@ -5,4 +5,4 @@
  *
  * <P>Please see the individual package descriptions for further info.</P>
  */
-package net.sf.vanadis.util;
+package vanadis.util;

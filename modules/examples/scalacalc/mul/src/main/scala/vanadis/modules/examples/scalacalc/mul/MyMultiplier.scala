@@ -1,4 +1,4 @@
-package net.sf.vanadis.modules.examples.scalacalc.mul
+package vanadis.modules.examples.scalacalc.mul
 
 import calcservices.Multiplier
 

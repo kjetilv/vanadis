@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.properties.PropertySet;
+import vanadis.core.io.Location;
+import vanadis.core.lang.Not;
+import vanadis.core.properties.PropertySet;
 
 import java.util.regex.Pattern;
 

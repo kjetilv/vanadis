@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji;
+package vanadis.lang.piji;
 
 import java.io.InputStream;
 import java.io.Reader;

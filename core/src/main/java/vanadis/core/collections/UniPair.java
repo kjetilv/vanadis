@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.collections;
+package vanadis.core.collections;
 
-import net.sf.vanadis.core.lang.EqHc;
+import vanadis.core.lang.EqHc;
 
 /**
  * A pair of two objects, called one and two.  They have the same type.

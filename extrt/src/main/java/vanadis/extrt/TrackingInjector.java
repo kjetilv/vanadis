@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.reflection.Invoker;
-import net.sf.vanadis.ext.Track;
-import net.sf.vanadis.osgi.Mediator;
-import net.sf.vanadis.osgi.MediatorListener;
-import net.sf.vanadis.osgi.Reference;
+import vanadis.core.lang.ToString;
+import vanadis.core.reflection.Invoker;
+import vanadis.ext.Track;
+import vanadis.osgi.Mediator;
+import vanadis.osgi.MediatorListener;
+import vanadis.osgi.Reference;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;

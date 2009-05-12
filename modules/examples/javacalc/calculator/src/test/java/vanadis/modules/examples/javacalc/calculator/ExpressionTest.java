@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.examples.javacalc.calculator;
+package vanadis.modules.examples.javacalc.calculator;
 
 import junit.framework.Assert;
 import org.junit.Test;

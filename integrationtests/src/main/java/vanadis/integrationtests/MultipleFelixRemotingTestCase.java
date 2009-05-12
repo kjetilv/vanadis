@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.integrationtests;
+package vanadis.integrationtests;
 
 import junit.framework.Assert;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.core.reflection.Invoker;
-import net.sf.vanadis.core.time.TimeSpan;
-import static net.sf.vanadis.core.time.TimeSpan.*;
-import static net.sf.vanadis.ext.ManagedState.ACTIVE;
-import static net.sf.vanadis.ext.ManagedState.RESOLVING_DEPENDENCIES;
-import net.sf.vanadis.osgi.Reference;
+import vanadis.core.io.Location;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
+import vanadis.core.reflection.Invoker;
+import vanadis.core.time.TimeSpan;
+import static vanadis.core.time.TimeSpan.*;
+import static vanadis.ext.ManagedState.ACTIVE;
+import static vanadis.ext.ManagedState.RESOLVING_DEPENDENCIES;
+import vanadis.osgi.Reference;
 
 import java.lang.reflect.Method;
 
@@ -77,12 +77,12 @@ public class MultipleFelixRemotingTestCase extends FelixTestCase {
             felix.waitForObjectManager("networker");
         }
 
-        master.registerVBundle("net.sf.vanadis.modules.examples.javacalc", "calcservices");
-        master.registerVBundle("net.sf.vanadis.modules.examples.javacalc", "calculator");
+        master.registerVBundle("vanadis.modules.examples.javacalc", "calcservices");
+        master.registerVBundle("vanadis.modules.examples.javacalc", "calculator");
 
         for (int i = 0; i < slaves.length; i++) {
-            slaves[i].registerVBundle("net.sf.vanadis.modules.examples.javacalc", "calcservices");
-            slaves[i].registerVBundle("net.sf.vanadis.modules.examples.javacalc", types[i]);
+            slaves[i].registerVBundle("vanadis.modules.examples.javacalc", "calcservices");
+            slaves[i].registerVBundle("vanadis.modules.examples.javacalc", types[i]);
         }
 
         master.registerLaunch(CALCULATOR);
@@ -124,8 +124,8 @@ public class MultipleFelixRemotingTestCase extends FelixTestCase {
         FelixTestSession freshSlave = slaves[i];
         freshSlave.startRemoting(1);
         freshSlave.startNetworking(routedTo(masterLocation));
-        freshSlave.registerVBundle("net.sf.vanadis.modules.examples.javacalc", "calcservices");
-        freshSlave.registerVBundle("net.sf.vanadis.modules.examples.javacalc", type);
+        freshSlave.registerVBundle("vanadis.modules.examples.javacalc", "calcservices");
+        freshSlave.registerVBundle("vanadis.modules.examples.javacalc", type);
         startService(type, freshSlave);
         master.waitForObjectManagerState(CALCULATOR, ACTIVE);
     }
@@ -165,14 +165,14 @@ public class MultipleFelixRemotingTestCase extends FelixTestCase {
         felix1.registerLaunch("javacalc-add");
         felix1.registerLaunch("javacalc-sub");
 
-        felix1.registerVBundle("net.sf.vanadis.modules.examples.javacalc", "add");
-        felix1.registerVBundle("net.sf.vanadis.modules.examples.javacalc", "sub");
-        felix1.registerVBundle("net.sf.vanadis.modules.examples.javacalc", "mul");
-        felix1.registerVBundle("net.sf.vanadis.modules.examples.javacalc", "div");
-        felix1.registerVBundle("net.sf.vanadis.modules.examples.javacalc", "calcservices");
+        felix1.registerVBundle("vanadis.modules.examples.javacalc", "add");
+        felix1.registerVBundle("vanadis.modules.examples.javacalc", "sub");
+        felix1.registerVBundle("vanadis.modules.examples.javacalc", "mul");
+        felix1.registerVBundle("vanadis.modules.examples.javacalc", "div");
+        felix1.registerVBundle("vanadis.modules.examples.javacalc", "calcservices");
 
-        felix2.registerVBundle("net.sf.vanadis.modules.examples.javacalc", "calcservices");
-        felix2.registerVBundle("net.sf.vanadis.modules.examples.javacalc", "calculator");
+        felix2.registerVBundle("vanadis.modules.examples.javacalc", "calcservices");
+        felix2.registerVBundle("vanadis.modules.examples.javacalc", "calculator");
 
         felix2.registerLaunch(CALCULATOR);
         felix2.waitForObjectManager(CALCULATOR);
@@ -217,7 +217,7 @@ public class MultipleFelixRemotingTestCase extends FelixTestCase {
 
     private void op(FelixTestSession felix, String op, String service, int arg1, int arg2, int answer) {
         Reference<?> reference = felix.getContext().getReference
-                ("net.sf.vanadis.modules.examples.javacalc.calcservices." + service);
+                ("vanadis.modules.examples.javacalc.calcservices." + service);
         Object oper = reference.getRawService();
         try {
             Method method = oper.getClass().getMethod(op, int[].class);
@@ -234,7 +234,7 @@ public class MultipleFelixRemotingTestCase extends FelixTestCase {
 
     private void calc(FelixTestSession felix, String expr, int answer) {
         Reference<?> reference = felix.getContext().getSingleReference
-                ("net.sf.vanadis.modules.examples.javacalc.calcservices.PocketCalculator", null);
+                ("vanadis.modules.examples.javacalc.calcservices.PocketCalculator", null);
         Object calc = reference.getRawService();
         try {
             Method method = calc.getClass().getMethod("calculate", String.class);

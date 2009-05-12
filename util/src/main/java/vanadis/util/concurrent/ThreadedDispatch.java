@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.concurrent;
+package vanadis.util.concurrent;
 
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.lang.VarArgs;
-import net.sf.vanadis.core.time.TimeSpan;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.core.lang.VarArgs;
+import vanadis.core.time.TimeSpan;
 
 import java.lang.reflect.Proxy;
 import java.util.concurrent.Callable;

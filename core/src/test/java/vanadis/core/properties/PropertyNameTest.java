@@ -1,4 +1,4 @@
-package net.sf.vanadis.core.properties;
+package vanadis.core.properties;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
 import junit.framework.Assert;
 import static junit.framework.Assert.*;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.osgi.*;
-import net.sf.vanadis.osgi.impl.BonyRegistration;
+import vanadis.core.collections.Generic;
+import vanadis.core.properties.PropertySet;
+import vanadis.ext.*;
+import vanadis.osgi.*;
+import vanadis.osgi.impl.BonyRegistration;
 import org.junit.Test;
 
 import java.util.Collection;

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi;
+package vanadis.osgi;
 
 import static junit.framework.Assert.*;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
+import vanadis.core.collections.Generic;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
 import org.junit.Test;
 import org.osgi.framework.Constants;
 

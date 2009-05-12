@@ -36,7 +36,7 @@ done
 CP=${ETC}${CP}
 
 mkdir -p $VANADIS_HOME/var
-echo $JAVA_HOME/bin/java $VANADIS_OPTS -classpath $CP net.sf.vanadis.main.Main \
+echo $JAVA_HOME/bin/java $VANADIS_OPTS -classpath $CP vanadis.main.Main \
  -blueprint-sheets vanadis-basic \
  -defaultHome $VANADIS_HOME -defaultLocation $VANADIS_LOCATION -defaultRepo repo $* \
  > $VANADIS_HOME/var/command

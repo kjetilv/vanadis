@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.osgi;
+package vanadis.osgi;
 
 import org.osgi.framework.Bundle;
 
@@ -23,8 +23,8 @@ import java.util.Collection;
 /**
  * <P>This mediator helps keep track of the bundles in the {@link Bundle#ACTIVE ACTIVE} state.</P>
  *
- * <P>Create this mediator from the {@link net.sf.vanadis.osgi.Context#createBundleMediator(BundleMediatorListener)}
- * method, optionally passing a {@link net.sf.vanadis.osgi.BundleMediatorListener mediator listener}.
+ * <P>Create this mediator from the {@link vanadis.osgi.Context#createBundleMediator(BundleMediatorListener)}
+ * method, optionally passing a {@link vanadis.osgi.BundleMediatorListener mediator listener}.
  */
 public interface BundleMediator {
 

@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi.impl;
+package vanadis.osgi.impl;
 
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.osgi.OSGiUtils;
-import net.sf.vanadis.osgi.Registration;
-import net.sf.vanadis.osgi.ServiceProperties;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.osgi.OSGiUtils;
+import vanadis.osgi.Registration;
+import vanadis.osgi.ServiceProperties;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceRegistration;
 

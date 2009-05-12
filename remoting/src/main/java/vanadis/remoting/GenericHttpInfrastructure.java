@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.remoting;
+package vanadis.remoting;
 
 import com.sun.grizzly.tcp.http11.GrizzlyAdapter;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.time.TimeSpan;
+import vanadis.core.io.Location;
+import vanadis.core.time.TimeSpan;
 
 public class GenericHttpInfrastructure extends AbstractHttpInfrastructure {
 

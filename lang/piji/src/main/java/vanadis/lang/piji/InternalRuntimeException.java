@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji;
+package vanadis.lang.piji;
 
 /**
  * A runtime exception subclass for signalling <EM>to the developer</EM>

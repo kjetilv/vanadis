@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.mvn;
+package vanadis.util.mvn;
 
 import java.io.File;
 import java.io.FileFilter;

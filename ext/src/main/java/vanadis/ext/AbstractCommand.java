@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
-import net.sf.vanadis.core.collections.Pair;
-import net.sf.vanadis.core.io.Closeables;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.system.VM;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.collections.Pair;
+import vanadis.core.io.Closeables;
+import vanadis.core.lang.ToString;
+import vanadis.core.system.VM;
+import vanadis.osgi.Context;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 

@@ -1,6 +1,6 @@
-package net.sf.vanadis.core.properties;
+package vanadis.core.properties;
 
-import net.sf.vanadis.core.collections.Generic;
+import vanadis.core.collections.Generic;
 
 import java.io.InputStream;
 import java.util.Map;

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.ext.ObjectManager;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.util.concurrent.OperationQueuer;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
+import vanadis.ext.ObjectManager;
+import vanadis.osgi.Context;
+import vanadis.util.concurrent.OperationQueuer;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

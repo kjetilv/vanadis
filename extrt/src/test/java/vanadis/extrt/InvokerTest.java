@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
 import static junit.framework.Assert.*;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.core.reflection.InvokeException;
-import static net.sf.vanadis.core.reflection.Invoker.*;
-import net.sf.vanadis.core.time.TimeSpan;
+import vanadis.core.io.Location;
+import vanadis.core.properties.PropertySets;
+import vanadis.core.reflection.InvokeException;
+import static vanadis.core.reflection.Invoker.*;
+import vanadis.core.time.TimeSpan;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

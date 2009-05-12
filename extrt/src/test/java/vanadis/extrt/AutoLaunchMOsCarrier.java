@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.ext.AutoLaunch;
-import net.sf.vanadis.ext.Module;
+import vanadis.ext.AutoLaunch;
+import vanadis.ext.Module;
 
 @Module(moduleType = "manidged", launch = {
         @AutoLaunch(name = "almo1"),

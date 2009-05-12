@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.modules.h2db;
+package vanadis.modules.h2db;
 
-import net.sf.vanadis.services.db.Connections;
-import net.sf.vanadis.services.db.DbException;
-import net.sf.vanadis.util.lang.ToString;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.services.db.Connections;
+import vanadis.services.db.DbException;
+import vanadis.util.lang.ToString;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 import org.h2.Driver;
 
 import java.io.File;

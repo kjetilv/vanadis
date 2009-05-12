@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.annopro;
+package vanadis.annopro;
 
-import net.sf.vanadis.core.lang.Proxies;
-import net.sf.vanadis.core.properties.PropertySet;
+import vanadis.core.lang.Proxies;
+import vanadis.core.properties.PropertySet;
 import org.junit.Assert;
 import static org.junit.Assert.*;
 import org.junit.Test;

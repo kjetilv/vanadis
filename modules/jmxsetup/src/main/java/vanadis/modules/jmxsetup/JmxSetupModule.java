@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.jmxsetup;
+package vanadis.modules.jmxsetup;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.jmx.Jmx;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.*;
-import static net.sf.vanadis.ext.CoreProperty.OBJECTNAME;
-import static net.sf.vanadis.ext.CoreProperty.OBJECTNAME_NAME;
-import net.sf.vanadis.osgi.ServiceProperties;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.collections.Generic;
+import vanadis.core.jmx.Jmx;
+import vanadis.core.lang.ToString;
+import vanadis.ext.*;
+import static vanadis.ext.CoreProperty.OBJECTNAME;
+import static vanadis.ext.CoreProperty.OBJECTNAME_NAME;
+import vanadis.osgi.ServiceProperties;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import javax.management.DynamicMBean;
 import javax.management.ObjectName;

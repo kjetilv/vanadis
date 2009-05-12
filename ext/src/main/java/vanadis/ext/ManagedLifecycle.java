@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 /**
  * A callback interface for reacting to vanadis management events.  A convenient
- * way to support this interface is to extend {@link net.sf.vanadis.ext.AbstractCommand}.
+ * way to support this interface is to extend {@link vanadis.ext.AbstractCommand}.
  */
 public interface ManagedLifecycle {
 

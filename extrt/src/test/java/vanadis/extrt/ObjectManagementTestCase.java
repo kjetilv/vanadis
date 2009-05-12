@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.ext.ObjectManager;
-import net.sf.vanadis.osgi.impl.BareBonesContext;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.io.Location;
+import vanadis.ext.ObjectManager;
+import vanadis.osgi.impl.BareBonesContext;
 import org.junit.After;
 import org.junit.Before;
 

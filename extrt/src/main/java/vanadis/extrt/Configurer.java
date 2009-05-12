@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.annopro.AnnotationDatum;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.Strings;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.core.reflection.GetNSet;
-import net.sf.vanadis.core.reflection.Invoker;
-import net.sf.vanadis.ext.Configuration;
-import net.sf.vanadis.ext.Configure;
-import net.sf.vanadis.ext.ModuleSystemException;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
-import net.sf.vanadis.util.xml.Xml;
+import vanadis.annopro.AnnotationDatum;
+import vanadis.core.io.Location;
+import vanadis.core.lang.Strings;
+import vanadis.core.lang.ToString;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
+import vanadis.core.reflection.GetNSet;
+import vanadis.core.reflection.Invoker;
+import vanadis.ext.Configuration;
+import vanadis.ext.Configure;
+import vanadis.ext.ModuleSystemException;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
+import vanadis.util.xml.Xml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

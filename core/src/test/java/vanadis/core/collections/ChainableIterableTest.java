@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.collections;
+package vanadis.core.collections;
 
 import junit.framework.Assert;
 import org.junit.Test;

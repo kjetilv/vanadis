@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.ext.ObjectManager;
-import net.sf.vanadis.ext.ObjectManagerFactory;
-import net.sf.vanadis.osgi.impl.BareBonesContext;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.ext.ObjectManager;
+import vanadis.ext.ObjectManagerFactory;
+import vanadis.osgi.impl.BareBonesContext;
 import org.junit.Test;
 
 import java.io.InputStream;

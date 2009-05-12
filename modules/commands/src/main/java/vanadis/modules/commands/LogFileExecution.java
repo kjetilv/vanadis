@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.modules.commands;
+package vanadis.modules.commands;
 
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Filter;
-import net.sf.vanadis.osgi.Filters;
-import net.sf.vanadis.osgi.Reference;
+import vanadis.osgi.Context;
+import vanadis.osgi.Filter;
+import vanadis.osgi.Filters;
+import vanadis.osgi.Reference;
 
 import java.io.File;
 

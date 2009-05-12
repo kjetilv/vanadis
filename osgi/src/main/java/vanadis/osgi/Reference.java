@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi;
+package vanadis.osgi;
 
 import java.io.Closeable;
 
 /**
  * A service reference, wrapping the OSGi ServiceReference.
- * Generically typed.  Also contains a {@link net.sf.vanadis.osgi.ServiceProperties
+ * Generically typed.  Also contains a {@link vanadis.osgi.ServiceProperties
  * service properties} object.
  */
 public interface Reference<T> extends Closeable {

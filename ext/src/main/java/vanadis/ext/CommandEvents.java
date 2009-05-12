@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
-import net.sf.vanadis.core.collections.Generic;
+import vanadis.core.collections.Generic;
 import org.osgi.service.event.Event;
 
 import java.util.Dictionary;

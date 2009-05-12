@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi;
+package vanadis.osgi;
 
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.properties.PropertySet;
+import vanadis.core.io.Location;
+import vanadis.core.properties.PropertySet;
 
 import java.net.URI;
 import java.util.Collection;
@@ -226,7 +226,7 @@ public interface Context {
     /**
      * <P>Create a bundle mediator.  Passing a bundle mediator listener is optional.  If it
      * is passed, it will immediately be
-     * {@link net.sf.vanadis.osgi.BundleMediatorListener#activated(org.osgi.framework.Bundle) added}
+     * {@link vanadis.osgi.BundleMediatorListener#activated(org.osgi.framework.Bundle) added}
      * with all existing bundles.</P>
      *
      * @param bundleMediatorListener Bundle mediator listener

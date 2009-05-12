@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.deployer;
+package vanadis.deployer;
 
-import net.sf.vanadis.blueprints.BundleSpecification;
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.osgi.Registration;
+import vanadis.blueprints.BundleSpecification;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.osgi.Registration;
 
 import java.net.URI;
 

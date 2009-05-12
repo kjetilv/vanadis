@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.properties;
+package vanadis.core.properties;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.reflection.Retyper;
+import vanadis.core.collections.Generic;
+import vanadis.core.reflection.Retyper;
 
 import java.io.IOException;
 import java.io.OutputStream;

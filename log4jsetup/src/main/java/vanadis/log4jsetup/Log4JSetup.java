@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.log4jsetup;
+package vanadis.log4jsetup;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Files;
-import net.sf.vanadis.core.io.Location;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Files;
+import vanadis.core.io.Location;
 import org.apache.log4j.*;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
@@ -92,7 +92,7 @@ public final class Log4JSetup {
     private static void setupLog4J(BundleContext bundleContext, String home, String location) {
         Logger logger = LogManager.getRootLogger();
         logger.setLevel(Level.DEBUG);
-        LogManager.getLogger("net.sf.vanadis").setLevel(Level.ALL);
+        LogManager.getLogger("vanadis").setLevel(Level.ALL);
         LogManager.getLogger("org.jgroups").setLevel(Level.ERROR);
         try {
             File file = setupLogFile(bundleContext, home, location);

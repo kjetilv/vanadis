@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji;
+package vanadis.lang.piji;
 
 /**
  * An umbrella exception for all the bad things that may happen

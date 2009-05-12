@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.annopro;
+package vanadis.annopro;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.ToString;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
 import org.objectweb.asm.AnnotationVisitor;
 
 import java.lang.reflect.AnnotatedElement;

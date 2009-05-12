@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.felixcmds;
+package vanadis.modules.felixcmds;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.osgi.Registration;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.collections.Generic;
+import vanadis.ext.*;
+import vanadis.osgi.Registration;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.io.PrintStream;
 import java.util.Map;

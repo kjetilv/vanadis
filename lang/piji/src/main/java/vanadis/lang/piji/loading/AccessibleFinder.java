@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.loading;
+package vanadis.lang.piji.loading;
 
-import net.sf.vanadis.lang.piji.hold.Holder;
+import vanadis.lang.piji.hold.Holder;
 
 import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;

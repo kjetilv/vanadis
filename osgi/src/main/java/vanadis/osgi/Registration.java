@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi;
+package vanadis.osgi;
 
 /**
  * A service registration, wrapping the OSGi ServiceRegistration and decorating
- * it with typed {@link net.sf.vanadis.osgi.ServiceProperties}.
+ * it with typed {@link vanadis.osgi.ServiceProperties}.
  */
 public interface Registration<T> {
 

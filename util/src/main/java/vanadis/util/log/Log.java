@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.log;
+package vanadis.util.log;
 
 public interface Log {
 

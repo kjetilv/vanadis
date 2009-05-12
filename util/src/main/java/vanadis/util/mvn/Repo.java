@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.mvn;
+package vanadis.util.mvn;
 
-import net.sf.vanadis.core.system.VM;
+import vanadis.core.system.VM;
 
 import java.io.File;
 import java.io.IOException;

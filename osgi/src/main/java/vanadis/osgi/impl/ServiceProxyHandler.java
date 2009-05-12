@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.osgi.impl;
+package vanadis.osgi.impl;
 
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Filter;
-import net.sf.vanadis.osgi.Reference;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.lang.Not;
+import vanadis.osgi.Context;
+import vanadis.osgi.Filter;
+import vanadis.osgi.Reference;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;

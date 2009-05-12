@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.modules.commands;
+package vanadis.modules.commands;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.system.VM;
-import net.sf.vanadis.ext.CommandExecution;
+import vanadis.core.lang.ToString;
+import vanadis.core.system.VM;
+import vanadis.ext.CommandExecution;
 
 public abstract class AbstractCommandExecution implements CommandExecution {
 

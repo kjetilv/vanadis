@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.examples.javacalc.calculator;
+package vanadis.modules.examples.javacalc.calculator;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.AbstractModule;
-import net.sf.vanadis.ext.Module;
-import net.sf.vanadis.modules.examples.javacalc.calcservices.*;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.ToString;
+import vanadis.ext.AbstractModule;
+import vanadis.ext.Module;
+import vanadis.modules.examples.javacalc.calcservices.*;
 
 import java.util.Set;
 

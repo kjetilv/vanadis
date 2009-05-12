@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.properties;
+package vanadis.core.properties;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;

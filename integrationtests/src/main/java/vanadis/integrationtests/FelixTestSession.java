@@ -13,34 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.integrationtests;
+package vanadis.integrationtests;
 
 import junit.framework.Assert;
 import static junit.framework.Assert.assertTrue;
-import net.sf.vanadis.blueprints.BundleSpecification;
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.blueprints.SystemSpecification;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.collections.Pair;
-import net.sf.vanadis.core.io.Files;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.VarArgs;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.core.system.VM;
-import net.sf.vanadis.core.time.Deadline;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.core.ver.Version;
-import net.sf.vanadis.ext.CoreProperty;
-import net.sf.vanadis.ext.ManagedState;
-import net.sf.vanadis.ext.ObjectManager;
-import net.sf.vanadis.main.LaunchSite;
-import net.sf.vanadis.osgi.*;
-import net.sf.vanadis.services.networking.RemoteNode;
-import net.sf.vanadis.services.networking.Router;
-import net.sf.vanadis.util.mvn.Coordinate;
-import net.sf.vanadis.util.mvn.Repo;
+import vanadis.blueprints.BundleSpecification;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.blueprints.SystemSpecification;
+import vanadis.core.collections.Generic;
+import vanadis.core.collections.Pair;
+import vanadis.core.io.Files;
+import vanadis.core.io.Location;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.VarArgs;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
+import vanadis.core.system.VM;
+import vanadis.core.time.Deadline;
+import vanadis.core.time.TimeSpan;
+import vanadis.core.ver.Version;
+import vanadis.ext.CoreProperty;
+import vanadis.ext.ManagedState;
+import vanadis.ext.ObjectManager;
+import vanadis.main.LaunchSite;
+import vanadis.osgi.*;
+import vanadis.services.networking.RemoteNode;
+import vanadis.services.networking.Router;
+import vanadis.util.mvn.Coordinate;
+import vanadis.util.mvn.Repo;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -97,13 +97,13 @@ public final class FelixTestSession {
                                        site.getLocation(),
                                        site.getSystemSpecification().getRepo());
         if (full) {
-            registerVBundle("net.sf.vanadis", "remoting");
-            registerVBundle("net.sf.vanadis.modules", "networker");
-            registerVBundle("net.sf.vanadis.modules", "remoting");
-            registerVBundle("net.sf.vanadis.modules", "httpprovider");
+            registerVBundle("vanadis", "remoting");
+            registerVBundle("vanadis.modules", "networker");
+            registerVBundle("vanadis.modules", "remoting");
+            registerVBundle("vanadis.modules", "httpprovider");
             registerBundle("org.apache.felix", "org.apache.felix.eventadmin", "1.0.0");
-            waitForRequiredBundle("net.sf.vanadis.modules.remoting");
-            waitForRequiredBundle("net.sf.vanadis.modules.httpprovider");
+            waitForRequiredBundle("vanadis.modules.remoting");
+            waitForRequiredBundle("vanadis.modules.httpprovider");
             waitForRequiredBundle("org.apache.felix.eventadmin");
         }
         waitForAllActive(timeout, TimeSpan.SECOND);
@@ -379,15 +379,15 @@ public final class FelixTestSession {
              id("com.sun.grizzly:grizzly-framework:1.9.14"),
              id("com.sun.grizzly:grizzly-http:1.9.14"),
              id("org.apache.commons:com.springsource.org.apache.commons.logging:1.1.1"),
-             ver("net.sf.vanadis.modules", "log", "1.1-SNAPSHOT"),
-             ver("net.sf.vanadis", "log4jsetup", "1.1-SNAPSHOT"),
-             ver("net.sf.vanadis", "deployer", "1.1-SNAPSHOT"),
-             ver("net.sf.vanadis", "osgi", "1.1-SNAPSHOT"),
-             ver("net.sf.vanadis", "blueprints", "1.1-SNAPSHOT"),
-             ver("net.sf.vanadis", "services", "1.1-SNAPSHOT"),
-             ver("net.sf.vanadis", "annopro", "1.1-SNAPSHOT"),
-             ver("net.sf.vanadis", "ext", "1.1-SNAPSHOT"),
-             ver("net.sf.vanadis", "extrt", "1.1-SNAPSHOT"));
+             ver("vanadis.modules", "log", "1.1-SNAPSHOT"),
+             ver("vanadis", "log4jsetup", "1.1-SNAPSHOT"),
+             ver("vanadis", "deployer", "1.1-SNAPSHOT"),
+             ver("vanadis", "osgi", "1.1-SNAPSHOT"),
+             ver("vanadis", "blueprints", "1.1-SNAPSHOT"),
+             ver("vanadis", "services", "1.1-SNAPSHOT"),
+             ver("vanadis", "annopro", "1.1-SNAPSHOT"),
+             ver("vanadis", "ext", "1.1-SNAPSHOT"),
+             ver("vanadis", "extrt", "1.1-SNAPSHOT"));
 
     private static BundleSpecification id(String id) {
         return BundleSpecification.create(Coordinate.at(id), 1, null);

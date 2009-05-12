@@ -16,8 +16,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.vanadis</groupId>
-  <artifactId>net.sf.vanadis</artifactId>
+  <groupId>vanadis</groupId>
+  <artifactId>vanadis</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <description>Vanadis</description>
@@ -158,18 +158,18 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.examples</groupId>
-        <artifactId>net.sf.vanadis.examples.rclient</artifactId>
+        <groupId>vanadis.examples</groupId>
+        <artifactId>vanadis.examples.rclient</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.examples</groupId>
-        <artifactId>net.sf.vanadis.examples.scalatest</artifactId>
+        <groupId>vanadis.examples</groupId>
+        <artifactId>vanadis.examples.scalatest</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.lang</groupId>
-        <artifactId>net.sf.vanadis.lang.piji</artifactId>
+        <groupId>vanadis.lang</groupId>
+        <artifactId>vanadis.lang.piji</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -183,199 +183,199 @@
         <version>1.5.6</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules</groupId>
-        <artifactId>net.sf.vanadis.modules.commands</artifactId>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.commands</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.ext</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.ext</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.main</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.main</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.extrt</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.extrt</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.ext</artifactId>
-        <version>1.1-SNAPSHOT</version>
-        <type>test-jar</type>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.extrt</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.ext</artifactId>
         <version>1.1-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.deployer</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.extrt</artifactId>
+        <version>1.1-SNAPSHOT</version>
+        <type>test-jar</type>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.deployer</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.install</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.install</artifactId>
         <classifier>vanadis-felix</classifier>
         <version>1.1-SNAPSHOT</version>
         <type>zip</type>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules</groupId>
-        <artifactId>net.sf.vanadis.modules.felix</artifactId>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.felix</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules.felix</groupId>
-        <artifactId>net.sf.vanadis.modules.felix.cmds</artifactId>
+        <groupId>vanadis.modules.felix</groupId>
+        <artifactId>vanadis.modules.felix.cmds</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.felix</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.felix</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.equinox</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.equinox</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules</groupId>
-        <artifactId>net.sf.vanadis.modules.h2db</artifactId>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.h2db</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules</groupId>
-        <artifactId>net.sf.vanadis.modules.httpservice</artifactId>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.httpservice</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.install</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.install</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules</groupId>
-        <artifactId>net.sf.vanadis.modules.jmxsetup</artifactId>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.jmxsetup</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules</groupId>
-        <artifactId>net.sf.vanadis.modules.log</artifactId>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.log</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules.lang</groupId>
-        <artifactId>net.sf.vanadis.modules.lang.piji</artifactId>
+        <groupId>vanadis.modules.lang</groupId>
+        <artifactId>vanadis.modules.lang.piji</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.log4jsetup</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.log4jsetup</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules</groupId>
-        <artifactId>net.sf.vanadis.modules.networker</artifactId>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.networker</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.services</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.services</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules</groupId>
-        <artifactId>net.sf.vanadis.modules.remoting</artifactId>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.remoting</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules</groupId>
-        <artifactId>net.sf.vanadis.modules.httpprovider</artifactId>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.httpprovider</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules</groupId>
-        <artifactId>net.sf.vanadis.modules.rmiprovider</artifactId>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.rmiprovider</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis.modules</groupId>
-        <artifactId>net.sf.vanadis.modules.scripting</artifactId>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.scripting</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.osgi</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.osgi</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.remoting</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.remoting</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.remoting</artifactId>
-        <version>1.1-SNAPSHOT</version>
-        <type>test-jar</type>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.util</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.core</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.core</artifactId>
-        <version>1.1-SNAPSHOT</version>
-        <type>test-jar</type>
-      </dependency>
-      <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.annopro</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.launcher</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.blueprints</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.util</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.remoting</artifactId>
         <version>1.1-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.osgi</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.util</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>net.sf.vanadis</groupId>
-        <artifactId>net.sf.vanadis.osgi</artifactId>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.core</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.core</artifactId>
+        <version>1.1-SNAPSHOT</version>
+        <type>test-jar</type>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.annopro</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.launcher</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.blueprints</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.util</artifactId>
+        <version>1.1-SNAPSHOT</version>
+        <type>test-jar</type>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.osgi</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.osgi</artifactId>
         <version>1.1-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>

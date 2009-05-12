@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.osgi.Reference;
-import net.sf.vanadis.osgi.ServiceProperties;
+import vanadis.osgi.Reference;
+import vanadis.osgi.ServiceProperties;
 
 import java.util.Map;
 

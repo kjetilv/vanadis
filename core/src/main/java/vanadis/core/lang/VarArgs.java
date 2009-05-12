@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.lang;
+package vanadis.core.lang;
 
-import net.sf.vanadis.core.collections.Generic;
+import vanadis.core.collections.Generic;
 
 import java.util.Arrays;
 import java.util.Collections;

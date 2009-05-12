@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.io;
+package vanadis.core.io;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.collections.Pair;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.VarArgs;
-import net.sf.vanadis.core.system.VM;
+import vanadis.core.collections.Generic;
+import vanadis.core.collections.Pair;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.VarArgs;
+import vanadis.core.system.VM;
 
 import java.io.*;
 import java.nio.charset.Charset;

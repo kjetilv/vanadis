@@ -17,13 +17,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <relativePath>../pom.xml</relativePath>
-    <groupId>net.sf.vanadis</groupId>
-    <artifactId>net.sf.vanadis</artifactId>
+    <groupId>vanadis</groupId>
+    <artifactId>vanadis</artifactId>
     <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.vanadis</groupId>
-  <artifactId>net.sf.vanadis.lang</artifactId>
+  <groupId>vanadis</groupId>
+  <artifactId>vanadis.lang</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <description>Vanadis Supported Languages</description>

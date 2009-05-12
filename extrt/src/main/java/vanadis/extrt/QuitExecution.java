@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.ext.CommandExecution;
-import net.sf.vanadis.osgi.Context;
+import vanadis.core.lang.Not;
+import vanadis.ext.CommandExecution;
+import vanadis.osgi.Context;
 
 class QuitExecution implements CommandExecution {
 

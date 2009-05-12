@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.services.scripting;
+package vanadis.services.scripting;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.system.VM;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.ToString;
+import vanadis.core.system.VM;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;

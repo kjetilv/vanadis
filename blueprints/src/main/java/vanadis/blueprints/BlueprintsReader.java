@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.blueprints;
+package vanadis.blueprints;
 
-import net.sf.vanadis.blueprints.gen.*;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.Strings;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.core.reflection.Retyper;
+import vanadis.blueprints.gen.*;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.Strings;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
+import vanadis.core.reflection.Retyper;
 import org.w3c.dom.Element;
 
 import javax.xml.bind.JAXBElement;

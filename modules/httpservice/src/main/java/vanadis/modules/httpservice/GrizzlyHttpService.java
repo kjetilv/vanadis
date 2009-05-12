@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.httpservice;
+package vanadis.modules.httpservice;
 
 import com.sun.grizzly.http.SelectorThread;
 import com.sun.grizzly.http.servlet.ServletAdapter;
 import com.sun.grizzly.standalone.StaticStreamAlgorithm;
-import net.sf.vanadis.core.collections.EnumerationIterable;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.osgi.Context;
+import vanadis.core.collections.EnumerationIterable;
+import vanadis.core.io.Location;
+import vanadis.core.lang.ToString;
+import vanadis.osgi.Context;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;

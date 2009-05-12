@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.felix;
+package vanadis.felix;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Files;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.launcher.AbstractOSGiLauncher;
-import net.sf.vanadis.launcher.ShutdownException;
-import net.sf.vanadis.launcher.StartupException;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Files;
+import vanadis.core.io.Location;
+import vanadis.core.lang.ToString;
+import vanadis.launcher.AbstractOSGiLauncher;
+import vanadis.launcher.ShutdownException;
+import vanadis.launcher.StartupException;
 import org.apache.felix.framework.Felix;
 import org.apache.felix.framework.cache.BundleCache;
 import org.osgi.framework.BundleContext;

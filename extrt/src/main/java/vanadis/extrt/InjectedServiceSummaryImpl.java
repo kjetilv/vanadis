@@ -1,9 +1,9 @@
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.InjectedServiceSummary;
-import net.sf.vanadis.ext.InjectionType;
-import net.sf.vanadis.osgi.Filter;
+import vanadis.core.lang.ToString;
+import vanadis.ext.InjectedServiceSummary;
+import vanadis.ext.InjectionType;
+import vanadis.osgi.Filter;
 
 class InjectedServiceSummaryImpl extends AbstractManagedFeatureSummary implements InjectedServiceSummary {
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.concurrent;
+package vanadis.util.concurrent;
 
 import java.util.concurrent.TimeoutException;
 

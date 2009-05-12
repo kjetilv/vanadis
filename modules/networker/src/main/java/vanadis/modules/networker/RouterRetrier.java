@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.networker;
+package vanadis.modules.networker;
 
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.ext.RemoteExposure;
-import net.sf.vanadis.ext.RemoteInjectPoint;
-import net.sf.vanadis.modules.networker.actions.RegisterRemoteExposuresAction;
-import net.sf.vanadis.modules.networker.actions.RegisterRemoteInjectPointsAction;
-import net.sf.vanadis.modules.networker.actions.UnregisterRemoteExposuresAction;
-import net.sf.vanadis.modules.networker.actions.UnregisterRemoteInjectPointsAction;
-import net.sf.vanadis.services.networking.Router;
-import net.sf.vanadis.util.concurrent.AbstractRetrier;
+import vanadis.core.time.TimeSpan;
+import vanadis.ext.RemoteExposure;
+import vanadis.ext.RemoteInjectPoint;
+import vanadis.modules.networker.actions.RegisterRemoteExposuresAction;
+import vanadis.modules.networker.actions.RegisterRemoteInjectPointsAction;
+import vanadis.modules.networker.actions.UnregisterRemoteExposuresAction;
+import vanadis.modules.networker.actions.UnregisterRemoteInjectPointsAction;
+import vanadis.services.networking.Router;
+import vanadis.util.concurrent.AbstractRetrier;
 
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;

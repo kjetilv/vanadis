@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.lang;
+package vanadis.core.lang;
 
 import java.util.Collections;
 import java.util.Iterator;

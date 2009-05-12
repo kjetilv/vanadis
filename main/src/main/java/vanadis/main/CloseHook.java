@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.main;
+package vanadis.main;
 
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.lang.ToString;
 
 class CloseHook implements Runnable {
 

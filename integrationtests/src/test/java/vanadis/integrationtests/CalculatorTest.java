@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.integrationtests;
+package vanadis.integrationtests;
 
 import static junit.framework.Assert.assertNotNull;
-import net.sf.vanadis.blueprints.BundleSpecification;
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.core.time.TimeSpan;
-import static net.sf.vanadis.ext.ManagedState.ACTIVE;
-import static net.sf.vanadis.ext.ManagedState.RESOLVING_DEPENDENCIES;
-import net.sf.vanadis.ext.ObjectManager;
-import net.sf.vanadis.osgi.Reference;
-import net.sf.vanadis.osgi.Registration;
+import vanadis.blueprints.BundleSpecification;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.time.TimeSpan;
+import static vanadis.ext.ManagedState.ACTIVE;
+import static vanadis.ext.ManagedState.RESOLVING_DEPENDENCIES;
+import vanadis.ext.ObjectManager;
+import vanadis.osgi.Reference;
+import vanadis.osgi.Registration;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -61,21 +61,21 @@ public class CalculatorTest extends SingleFelixTestCase {
 
         String[] types = new String[]{"add", "sub", "mul", "div"};
 
-        Registration<BundleSpecification> addBundle = registerBundle("net.sf.vanadis.modules.examples.javacalc", "add");
-        Registration<BundleSpecification> subBundle = registerBundle("net.sf.vanadis.modules.examples.javacalc", "sub");
-        Registration<BundleSpecification> mulBundle = registerBundle("net.sf.vanadis.modules.examples.javacalc", "mul");
-        Registration<BundleSpecification> divBundle = registerBundle("net.sf.vanadis.modules.examples.javacalc", "div");
+        Registration<BundleSpecification> addBundle = registerBundle("vanadis.modules.examples.javacalc", "add");
+        Registration<BundleSpecification> subBundle = registerBundle("vanadis.modules.examples.javacalc", "sub");
+        Registration<BundleSpecification> mulBundle = registerBundle("vanadis.modules.examples.javacalc", "mul");
+        Registration<BundleSpecification> divBundle = registerBundle("vanadis.modules.examples.javacalc", "div");
         Registration<?>[] bundles = new Registration<?>[]{addBundle, subBundle, mulBundle, divBundle};
 
-        registerBundle("net.sf.vanadis.modules.examples.javacalc", "calcservices");
-        registerBundle("net.sf.vanadis.modules.examples.javacalc", "calculator");
+        registerBundle("vanadis.modules.examples.javacalc", "calcservices");
+        registerBundle("vanadis.modules.examples.javacalc", "calculator");
 
-        waitForActiveBundle("net.sf.vanadis.modules.examples.javacalc.add");
-        waitForActiveBundle("net.sf.vanadis.modules.examples.javacalc.sub");
-        waitForActiveBundle("net.sf.vanadis.modules.examples.javacalc.mul");
-        waitForActiveBundle("net.sf.vanadis.modules.examples.javacalc.div");
-        waitForActiveBundle("net.sf.vanadis.modules.examples.javacalc.calcservices");
-        waitForActiveBundle("net.sf.vanadis.modules.examples.javacalc.calculator");
+        waitForActiveBundle("vanadis.modules.examples.javacalc.add");
+        waitForActiveBundle("vanadis.modules.examples.javacalc.sub");
+        waitForActiveBundle("vanadis.modules.examples.javacalc.mul");
+        waitForActiveBundle("vanadis.modules.examples.javacalc.div");
+        waitForActiveBundle("vanadis.modules.examples.javacalc.calcservices");
+        waitForActiveBundle("vanadis.modules.examples.javacalc.calculator");
 
         waitForObjectManagerFactory("javacalc-calculator");
         waitForObjectManagerFactory("javacalc-add");
@@ -118,11 +118,11 @@ public class CalculatorTest extends SingleFelixTestCase {
                 assertObjectManagerState("javacalc-calculator", RESOLVING_DEPENDENCIES);
                 bundles[i].unregister();
                 waitForLostObjectManager(session(), "javacalc-" + types[i]);
-                waitForLostBundle(session(), "net.sf.vanadis.modules.examples.javacalc." + types[i], timeout);
+                waitForLostBundle(session(), "vanadis.modules.examples.javacalc." + types[i], timeout);
 
                 services[i] = registerLaunch("javacalc-" + types[i]);
-                registerBundle("net.sf.vanadis.modules.examples.javacalc", types[i]);
-                waitForActiveBundle("net.sf.vanadis.modules.examples.javacalc." + types[i]);
+                registerBundle("vanadis.modules.examples.javacalc", types[i]);
+                waitForActiveBundle("vanadis.modules.examples.javacalc." + types[i]);
                 waitForObjectManagerFactory("javacalc-" + types[i]);
                 waitForObjectManager("javacalc-" + types[i]);
                 assertObjectManagerState("javacalc-calculator", ACTIVE);

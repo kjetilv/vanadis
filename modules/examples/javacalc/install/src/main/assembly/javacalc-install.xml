@@ -33,12 +33,12 @@
                 <useTransitiveDependencies>false</useTransitiveDependencies>
                 <unpack>true</unpack>
                 <includes>
-                    <include>net.sf.vanadis.install:net.sf.vanadis.install</include>
+                    <include>vanadis.install:vanadis.install</include>
                 </includes>
                 <unpackOptions>
                     <excludes>
-                        <exclude>vanadis-felix/deploy/bundle/net.sf.vanadis.modules.ris.rmi*</exclude>
-                        <exclude>vanadis-felix/deploy/bundle/net.sf.vanadis.rmiprovider*</exclude>
+                        <exclude>vanadis-felix/deploy/bundle/vanadis.modules.ris.rmi*</exclude>
+                        <exclude>vanadis-felix/deploy/bundle/vanadis.rmiprovider*</exclude>
                         <exclude>vanadis-felix/deploy/launch/distributor.xml</exclude>
                     </excludes>
                 </unpackOptions>
@@ -49,10 +49,10 @@
                     vanadis-felix/deploy/bundle
                 </outputDirectory>
                 <includes>
-                    <include>net.sf.vanadis.modules.examples.javacalc.*</include>
+                    <include>vanadis.modules.examples.javacalc.*</include>
                 </includes>
                 <excludes>
-                    <exclude>net.sf.vanadis.modules.examples.javacalc.install*</exclude>
+                    <exclude>vanadis.modules.examples.javacalc.install*</exclude>
                 </excludes>
             </dependencySet>
         </dependencySets>

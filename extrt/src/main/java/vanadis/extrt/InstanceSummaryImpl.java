@@ -1,9 +1,9 @@
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.ext.InstanceSummary;
-import net.sf.vanadis.osgi.Reference;
-import net.sf.vanadis.osgi.Registration;
-import net.sf.vanadis.osgi.ServiceProperties;
+import vanadis.ext.InstanceSummary;
+import vanadis.osgi.Reference;
+import vanadis.osgi.Registration;
+import vanadis.osgi.ServiceProperties;
 
 class InstanceSummaryImpl implements InstanceSummary {
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.FIELD;
@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * Configured fields and methods are automatically set at startup time.  To find the
  * values, we look at service
  * specification {@link ModuleSpecification#getPropertySet() properties},
- * {@link net.sf.vanadis.osgi.Context#getPropertySet() context properties,
+ * {@link vanadis.osgi.Context#getPropertySet() context properties,
  * or System properties.
  */
 @Documented

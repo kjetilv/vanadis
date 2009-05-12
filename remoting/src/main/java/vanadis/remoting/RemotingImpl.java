@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.remoting;
+package vanadis.remoting;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.services.remoting.RemoteClientFactory;
-import net.sf.vanadis.services.remoting.Remoting;
-import net.sf.vanadis.services.remoting.RemotingInfrastructure;
-import net.sf.vanadis.services.remoting.TargetHandle;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Location;
+import vanadis.core.lang.ToString;
+import vanadis.services.remoting.RemoteClientFactory;
+import vanadis.services.remoting.Remoting;
+import vanadis.services.remoting.RemotingInfrastructure;
+import vanadis.services.remoting.TargetHandle;
 
 import java.util.Map;
 

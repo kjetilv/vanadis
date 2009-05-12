@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.reflection;
+package vanadis.core.reflection;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.AccessibleHelper;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.VarArgs;
-import net.sf.vanadis.core.properties.PropertySet;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.AccessibleHelper;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.VarArgs;
+import vanadis.core.properties.PropertySet;
 
 import java.lang.reflect.*;
 import java.util.Arrays;

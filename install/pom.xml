@@ -17,13 +17,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <relativePath>../pom.xml</relativePath>
-    <groupId>net.sf.vanadis</groupId>
-    <artifactId>net.sf.vanadis</artifactId>
+    <groupId>vanadis</groupId>
+    <artifactId>vanadis</artifactId>
     <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.vanadis.install</groupId>
-  <artifactId>net.sf.vanadis.install</artifactId>
+  <groupId>vanadis.install</groupId>
+  <artifactId>vanadis.install</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <description>Vanadis: Installer</description>
@@ -37,72 +37,72 @@
   -->
   <dependencies>
     <dependency>
-      <groupId>net.sf.vanadis.util</groupId>
-      <artifactId>net.sf.vanadis.util</artifactId>
+      <groupId>vanadis.util</groupId>
+      <artifactId>vanadis.util</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.annopro</groupId>
-      <artifactId>net.sf.vanadis.annopro</artifactId>
+      <groupId>vanadis.annopro</groupId>
+      <artifactId>vanadis.annopro</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.launcher</groupId>
-      <artifactId>net.sf.vanadis.launcher</artifactId>
+      <groupId>vanadis.launcher</groupId>
+      <artifactId>vanadis.launcher</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.osgi</groupId>
-      <artifactId>net.sf.vanadis.osgi</artifactId>
+      <groupId>vanadis.osgi</groupId>
+      <artifactId>vanadis.osgi</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.ext</groupId>
-      <artifactId>net.sf.vanadis.ext</artifactId>
+      <groupId>vanadis.ext</groupId>
+      <artifactId>vanadis.ext</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.extrt</groupId>
-      <artifactId>net.sf.vanadis.extrt</artifactId>
+      <groupId>vanadis.extrt</groupId>
+      <artifactId>vanadis.extrt</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.main</groupId>
-      <artifactId>net.sf.vanadis.main</artifactId>
+      <groupId>vanadis.main</groupId>
+      <artifactId>vanadis.main</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.modules.remoting</groupId>
-      <artifactId>net.sf.vanadis.modules.remoting</artifactId>
+      <groupId>vanadis.modules.remoting</groupId>
+      <artifactId>vanadis.modules.remoting</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.modules.jmxsetup</groupId>
-      <artifactId>net.sf.vanadis.modules.jmxsetup</artifactId>
+      <groupId>vanadis.modules.jmxsetup</groupId>
+      <artifactId>vanadis.modules.jmxsetup</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.modules.log</groupId>
-      <artifactId>net.sf.vanadis.modules.log</artifactId>
+      <groupId>vanadis.modules.log</groupId>
+      <artifactId>vanadis.modules.log</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.log4jsetup</groupId>
-      <artifactId>net.sf.vanadis.log4jsetup</artifactId>
+      <groupId>vanadis.log4jsetup</groupId>
+      <artifactId>vanadis.log4jsetup</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.deployer</groupId>
-      <artifactId>net.sf.vanadis.deployer</artifactId>
+      <groupId>vanadis.deployer</groupId>
+      <artifactId>vanadis.deployer</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.modules.networker</groupId>
-      <artifactId>net.sf.vanadis.modules.networker</artifactId>
+      <groupId>vanadis.modules.networker</groupId>
+      <artifactId>vanadis.modules.networker</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.services</groupId>
-      <artifactId>net.sf.vanadis.services</artifactId>
+      <groupId>vanadis.services</groupId>
+      <artifactId>vanadis.services</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.modules.httpprovider</groupId>
-      <artifactId>net.sf.vanadis.modules.httpprovider</artifactId>
+      <groupId>vanadis.modules.httpprovider</groupId>
+      <artifactId>vanadis.modules.httpprovider</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.remoting</groupId>
-      <artifactId>net.sf.vanadis.remoting</artifactId>
+      <groupId>vanadis.remoting</groupId>
+      <artifactId>vanadis.remoting</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.modules.commands</groupId>
-      <artifactId>net.sf.vanadis.modules.commands</artifactId>
+      <groupId>vanadis.modules.commands</groupId>
+      <artifactId>vanadis.modules.commands</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.log4j</groupId>
@@ -121,20 +121,20 @@
       <artifactId>grizzly-http</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.lang.piji</groupId>
-      <artifactId>net.sf.vanadis.lang.piji</artifactId>
+      <groupId>vanadis.lang.piji</groupId>
+      <artifactId>vanadis.lang.piji</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.modules.rmiprovider</groupId>
-      <artifactId>net.sf.vanadis.modules.rmiprovider</artifactId>
+      <groupId>vanadis.modules.rmiprovider</groupId>
+      <artifactId>vanadis.modules.rmiprovider</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.modules.scripting</groupId>
-      <artifactId>net.sf.vanadis.modules.scripting</artifactId>
+      <groupId>vanadis.modules.scripting</groupId>
+      <artifactId>vanadis.modules.scripting</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.modules.lang.piji</groupId>
-      <artifactId>net.sf.vanadis.modules.lang.piji</artifactId>
+      <groupId>vanadis.modules.lang.piji</groupId>
+      <artifactId>vanadis.modules.lang.piji</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.felix</groupId>
@@ -146,8 +146,8 @@
       <id>vanadis-equinox</id>
       <dependencies>
         <dependency>
-          <groupId>net.sf.vanadis.equinox</groupId>
-          <artifactId>net.sf.vanadis.equinox</artifactId>
+          <groupId>vanadis.equinox</groupId>
+          <artifactId>vanadis.equinox</artifactId>
         </dependency>
         <dependency>
           <groupId>org.eclipse.osgi</groupId>
@@ -204,12 +204,12 @@
       </activation>
       <dependencies>
         <dependency>
-          <groupId>net.sf.vanadis.felix</groupId>
-          <artifactId>net.sf.vanadis.felix</artifactId>
+          <groupId>vanadis.felix</groupId>
+          <artifactId>vanadis.felix</artifactId>
         </dependency>
         <dependency>
-          <groupId>net.sf.vanadis.modules.felix.cmds</groupId>
-          <artifactId>net.sf.vanadis.modules.felix.cmds</artifactId>
+          <groupId>vanadis.modules.felix.cmds</groupId>
+          <artifactId>vanadis.modules.felix.cmds</artifactId>
         </dependency>
         <dependency>
           <groupId>org.apache.felix</groupId>

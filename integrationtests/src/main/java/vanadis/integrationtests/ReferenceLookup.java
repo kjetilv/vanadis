@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.integrationtests;
+package vanadis.integrationtests;
 
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Filter;
-import net.sf.vanadis.osgi.OSGiUtils;
-import net.sf.vanadis.osgi.Reference;
+import vanadis.osgi.Context;
+import vanadis.osgi.Filter;
+import vanadis.osgi.OSGiUtils;
+import vanadis.osgi.Reference;
 
 import java.util.concurrent.Callable;
 

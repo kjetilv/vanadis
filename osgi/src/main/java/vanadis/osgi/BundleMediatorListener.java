@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.osgi;
+package vanadis.osgi;
 
 import org.osgi.framework.Bundle;
 
 /**
- * A callback interface for the {@link net.sf.vanadis.osgi.BundleMediator}.
+ * A callback interface for the {@link vanadis.osgi.BundleMediator}.
  */
 public interface BundleMediatorListener {
 
@@ -27,7 +27,7 @@ public interface BundleMediatorListener {
      * <p>A bundle was activated, i.e. it has entered the {@link Bundle#ACTIVE} state.</p>
      *
      * <p>This method is called for all existing, active bundles when the mediator is
-     * {@link net.sf.vanadis.osgi.Context#createBundleMediator(BundleMediatorListener) created}.</p>
+     * {@link vanadis.osgi.Context#createBundleMediator(BundleMediatorListener) created}.</p>
      *
      * @param bundle Bundle
      */

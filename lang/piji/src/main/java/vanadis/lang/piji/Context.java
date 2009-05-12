@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji;
+package vanadis.lang.piji;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.TraverseIterable;
-import net.sf.vanadis.lang.piji.hold.DataHolderFactory;
-import net.sf.vanadis.lang.piji.loading.ClassResolver;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.TraverseIterable;
+import vanadis.lang.piji.hold.DataHolderFactory;
+import vanadis.lang.piji.loading.ClassResolver;
 
 import java.util.Collection;
 import java.util.Iterator;

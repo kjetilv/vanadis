@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.blueprints;
+package vanadis.blueprints;
 
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
 
 import java.io.Serializable;
 

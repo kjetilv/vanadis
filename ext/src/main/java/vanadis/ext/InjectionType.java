@@ -1,7 +1,7 @@
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 /**
- * Enum to help us distinguish the different types of {@link net.sf.vanadis.ext.InjectedServiceSummary injectios}.
+ * Enum to help us distinguish the different types of {@link vanadis.ext.InjectedServiceSummary injectios}.
  */
 public enum InjectionType {
 

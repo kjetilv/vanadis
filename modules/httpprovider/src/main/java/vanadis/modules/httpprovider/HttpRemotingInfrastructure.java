@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.httpprovider;
+package vanadis.modules.httpprovider;
 
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.remoting.AbstractHttpInfrastructure;
-import net.sf.vanadis.remoting.GenericHttpInfrastructure;
+import vanadis.core.io.Location;
+import vanadis.core.time.TimeSpan;
+import vanadis.remoting.AbstractHttpInfrastructure;
+import vanadis.remoting.GenericHttpInfrastructure;
 
 public class HttpRemotingInfrastructure extends GenericHttpInfrastructure {
 

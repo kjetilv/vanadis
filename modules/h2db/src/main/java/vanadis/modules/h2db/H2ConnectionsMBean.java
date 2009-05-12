@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.modules.h2db;
+package vanadis.modules.h2db;
 
-import net.sf.vanadis.services.db.ConnectionsMBean;
-import net.sf.vanadis.util.lang.Verify;
+import vanadis.services.db.ConnectionsMBean;
+import vanadis.util.lang.Verify;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;

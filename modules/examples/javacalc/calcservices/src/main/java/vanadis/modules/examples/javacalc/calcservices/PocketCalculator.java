@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.examples.javacalc.calcservices;
+package vanadis.modules.examples.javacalc.calcservices;
 
 public interface PocketCalculator {
 

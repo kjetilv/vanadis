@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.xml;
+package vanadis.util.xml;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.Strings;
-import net.sf.vanadis.core.reflection.Enums;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.Strings;
+import vanadis.core.reflection.Enums;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

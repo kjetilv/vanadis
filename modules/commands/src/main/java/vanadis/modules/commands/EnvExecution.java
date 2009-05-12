@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.modules.commands;
+package vanadis.modules.commands;
 
-import net.sf.vanadis.core.system.VM;
-import net.sf.vanadis.osgi.Context;
+import vanadis.core.system.VM;
+import vanadis.osgi.Context;
 
 final class EnvExecution extends AbstractCommandExecution {
 

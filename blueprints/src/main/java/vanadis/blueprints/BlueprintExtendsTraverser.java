@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.blueprints;
+package vanadis.blueprints;
 
-import net.sf.vanadis.core.lang.TraverseIterable;
+import vanadis.core.lang.TraverseIterable;
 
 final class BlueprintExtendsTraverser extends TraverseIterable<Blueprint> {
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.xml;
+package vanadis.util.xml;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

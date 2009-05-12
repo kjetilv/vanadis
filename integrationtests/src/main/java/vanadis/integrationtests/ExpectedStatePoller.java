@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.integrationtests;
+package vanadis.integrationtests;
 
-import net.sf.vanadis.core.reflection.Invoker;
-import net.sf.vanadis.ext.ManagedState;
+import vanadis.core.reflection.Invoker;
+import vanadis.ext.ManagedState;
 
 import java.util.concurrent.Callable;
 

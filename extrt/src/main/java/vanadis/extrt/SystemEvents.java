@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.ext.ObjectManagerObserver;
-import net.sf.vanadis.osgi.BundleMediatorListener;
+import vanadis.ext.ObjectManagerObserver;
+import vanadis.osgi.BundleMediatorListener;
 
 interface SystemEvents extends BundleMediatorListener,
                                ObjectManagerObserver,

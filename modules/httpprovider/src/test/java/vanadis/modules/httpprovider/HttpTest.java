@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.httpprovider;
+package vanadis.modules.httpprovider;
 
 import junit.framework.Assert;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.time.Time;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.remoting.Accessor;
-import net.sf.vanadis.remoting.MapTargetReference;
-import net.sf.vanadis.services.remoting.TargetHandle;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Location;
+import vanadis.core.time.Time;
+import vanadis.core.time.TimeSpan;
+import vanadis.remoting.Accessor;
+import vanadis.remoting.MapTargetReference;
+import vanadis.services.remoting.TargetHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi.impl;
+package vanadis.osgi.impl;
 
-import net.sf.vanadis.core.io.Files;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.system.VM;
+import vanadis.core.io.Files;
+import vanadis.core.io.Location;
+import vanadis.core.system.VM;
 import org.osgi.framework.BundleContext;
 
 import java.io.File;

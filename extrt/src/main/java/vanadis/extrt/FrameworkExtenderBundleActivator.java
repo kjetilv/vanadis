@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.ext.Command;
-import net.sf.vanadis.ext.GenericCommand;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Registration;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.ToString;
+import vanadis.core.time.TimeSpan;
+import vanadis.ext.Command;
+import vanadis.ext.GenericCommand;
+import vanadis.osgi.Context;
+import vanadis.osgi.Registration;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 

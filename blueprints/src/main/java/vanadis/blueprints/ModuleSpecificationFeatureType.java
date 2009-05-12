@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.blueprints;
+package vanadis.blueprints;
 
 public enum ModuleSpecificationFeatureType {
     

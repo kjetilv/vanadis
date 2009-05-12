@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.blueprints;
+package vanadis.blueprints;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.collections.Iterables;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.collections.Generic;
+import vanadis.core.collections.Iterables;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
 
 import java.net.URI;
 import java.util.*;

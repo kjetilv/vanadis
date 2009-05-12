@@ -1,8 +1,8 @@
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 /**
  * Common interface for simple status reports, providing some reflection into
- * an {@link net.sf.vanadis.ext.ObjectManager}.
+ * an {@link vanadis.ext.ObjectManager}.
  *
  * @see ObjectManager#getExposedServices()
  * @see ObjectManager#getInjectedServices()

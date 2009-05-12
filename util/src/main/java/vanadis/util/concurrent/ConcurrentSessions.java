@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.concurrent;
+package vanadis.util.concurrent;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.time.Time;
-import net.sf.vanadis.core.time.TimeSpan;
+import vanadis.core.collections.Generic;
+import vanadis.core.time.Time;
+import vanadis.core.time.TimeSpan;
 
 import java.util.Map;
 import java.util.NoSuchElementException;

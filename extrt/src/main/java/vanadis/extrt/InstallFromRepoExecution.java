@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.blueprints.BundleSpecification;
-import net.sf.vanadis.core.system.VM;
-import net.sf.vanadis.ext.CommandExecution;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.util.mvn.Coordinate;
+import vanadis.blueprints.BundleSpecification;
+import vanadis.core.system.VM;
+import vanadis.ext.CommandExecution;
+import vanadis.osgi.Context;
+import vanadis.util.mvn.Coordinate;
 
 import java.net.URI;
 

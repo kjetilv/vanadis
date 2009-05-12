@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.FIELD;
@@ -27,9 +27,9 @@ import java.lang.annotation.Target;
  * the OSGi service registry.</P>
  *
  * <P>Note that multi-value injects must be matched up with a corresponding
- * {@link net.sf.vanadis.ext.Retract retraction}.</P>
+ * {@link vanadis.ext.Retract retraction}.</P>
  *
- * @see net.sf.vanadis.ext.Retract
+ * @see vanadis.ext.Retract
  */
 @Documented
 @Target({METHOD, FIELD})

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi;
+package vanadis.osgi;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
 import org.osgi.framework.Constants;
 
 import java.io.Serializable;
@@ -29,15 +29,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <P>Service Properties aggregate a regular {@link net.sf.vanadis.core.properties.PropertySet} object with a
+ * <P>Service Properties aggregate a regular {@link vanadis.core.properties.PropertySet} object with a
  * service interface.  Unlike the Properties class, instances of ServiceProperties
  * are always immutable, and protect their Properties objects.
  * Any changes will return a new instance.</P>
  *
- * <P>ServiceProperties instances are used for {@link net.sf.vanadis.osgi.Context}
- * {@link net.sf.vanadis.osgi.Registration registrations}, and have a
+ * <P>ServiceProperties instances are used for {@link vanadis.osgi.Context}
+ * {@link vanadis.osgi.Registration registrations}, and have a
  * {@link #getMainClass() main class} property that reflects the service interface
- * for the registration, e.g. {@link net.sf.vanadis.osgi.Context#register(Object, ServiceProperties)}</P>
+ * for the registration, e.g. {@link vanadis.osgi.Context#register(Object, ServiceProperties)}</P>
  *
  * <P>ServiceProperties are serializable, but they are sensitive to class loading
  * issues at deserialization.  As such, a deserialized instance will have lost its
@@ -353,7 +353,7 @@ public class ServiceProperties<T> implements Serializable {
     }
 
     /**
-     * The {@link net.sf.vanadis.core.properties.PropertySet} that make up this
+     * The {@link vanadis.core.properties.PropertySet} that make up this
      * service registration.
      *
      * @return Properties

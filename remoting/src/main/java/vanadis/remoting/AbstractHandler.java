@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.remoting;
+package vanadis.remoting;
 
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.services.remoting.RemotingException;
-import net.sf.vanadis.services.remoting.TargetHandle;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.services.remoting.RemotingException;
+import vanadis.services.remoting.TargetHandle;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

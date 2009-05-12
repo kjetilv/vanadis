@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.reflection;
+package vanadis.core.reflection;
 
-import net.sf.vanadis.core.collections.Generic;
+import vanadis.core.collections.Generic;
 
 import java.io.IOException;
 import java.io.InputStream;

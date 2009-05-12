@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.ext.ObjectManager;
-import net.sf.vanadis.ext.ObjectManagerObserver;
+import vanadis.ext.ObjectManager;
+import vanadis.ext.ObjectManagerObserver;
 
 class NullObjectManagerObserver implements ObjectManagerObserver {
 

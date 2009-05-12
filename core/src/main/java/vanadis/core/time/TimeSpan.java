@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.time;
+package vanadis.core.time;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.collections.Pair;
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.Not;
+import vanadis.core.collections.Generic;
+import vanadis.core.collections.Pair;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.Not;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -37,7 +37,7 @@ import java.util.concurrent.locks.Condition;
  * <P>The {@link #parse(String) parse factory method} embodies some rules for converting string representations
  * to time spans, round-trippable with {@link #toTimeSpanString()} .</P>
  *
- * <P>Intervals can be {@link #newDeadline() converted} to {@link net.sf.vanadis.core.time.Deadline deadlines}.<P>
+ * <P>Intervals can be {@link #newDeadline() converted} to {@link vanadis.core.time.Deadline deadlines}.<P>
  */
 public final class TimeSpan implements Comparable<TimeSpan>, Waiting, Serializable {
 

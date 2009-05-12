@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.reposerv;
+package vanadis.modules.reposerv;
 
-import net.sf.vanadis.core.io.Closeables;
-import net.sf.vanadis.core.io.Files;
-import net.sf.vanadis.core.io.IO;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.Attribute;
-import net.sf.vanadis.ext.Manageable;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
-import net.sf.vanadis.util.mvn.Repo;
+import vanadis.core.io.Closeables;
+import vanadis.core.io.Files;
+import vanadis.core.io.IO;
+import vanadis.core.lang.ToString;
+import vanadis.ext.Attribute;
+import vanadis.ext.Manageable;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
+import vanadis.util.mvn.Repo;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

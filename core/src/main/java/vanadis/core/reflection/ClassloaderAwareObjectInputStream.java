@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.reflection;
+package vanadis.core.reflection;
 
 import java.io.IOException;
 import java.io.InputStream;

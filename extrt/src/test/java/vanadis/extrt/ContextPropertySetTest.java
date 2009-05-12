@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
 import static junit.framework.Assert.assertEquals;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.impl.BareBonesContext;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
+import vanadis.osgi.Context;
+import vanadis.osgi.impl.BareBonesContext;
 import org.junit.Test;
 
 public class ContextPropertySetTest {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.FIELD;
@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 
 /**
  * Tracked methods and fields track a collection of services, with the
- * semantics of a {@link net.sf.vanadis.osgi.Mediator Mediator}.  The annotated method should return
+ * semantics of a {@link vanadis.osgi.Mediator Mediator}.  The annotated method should return
  * a {@link java.util.Collection collection}, which will be
  * {@link java.util.Collection#add(Object) added} to and
  * {@link java.util.Collection#remove(Object) removed} from, according

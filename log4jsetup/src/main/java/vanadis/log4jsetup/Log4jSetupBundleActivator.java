@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.log4jsetup;
+package vanadis.log4jsetup;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.scripting;
+package vanadis.modules.scripting;
 
-import net.sf.vanadis.ext.CommandExecution;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.services.scripting.ScriptingSession;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.ext.CommandExecution;
+import vanadis.osgi.Context;
+import vanadis.services.scripting.ScriptingSession;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.util.Arrays;
 

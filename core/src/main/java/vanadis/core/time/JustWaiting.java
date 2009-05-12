@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.time;
+package vanadis.core.time;
 
 import java.text.MessageFormat;
 import java.util.concurrent.ExecutionException;

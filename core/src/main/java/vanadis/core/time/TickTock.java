@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.time;
+package vanadis.core.time;
 
 /**
      * This interface is only used for unit testing.

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.remoting;
+package vanadis.remoting;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.services.remoting.TargetReference;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.Not;
+import vanadis.services.remoting.TargetReference;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.lang.reflect.Method;
 import java.util.List;

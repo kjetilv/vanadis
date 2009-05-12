@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.integrationtests;
+package vanadis.integrationtests;
 
-import net.sf.vanadis.main.LaunchSite;
+import vanadis.main.LaunchSite;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.osgi;
+package vanadis.osgi;
 
 public interface ServiceProxyFactory {
 

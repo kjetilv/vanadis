@@ -1,4 +1,4 @@
-package net.sf.vanadis.modules.examples.scalacalc.calculator
+package vanadis.modules.examples.scalacalc.calculator
 
 import _root_.java.lang.String
 import calcservices._

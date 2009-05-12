@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.ObjectManager;
-import net.sf.vanadis.ext.ObjectManagerMBean;
+import vanadis.core.lang.ToString;
+import vanadis.ext.ObjectManager;
+import vanadis.ext.ObjectManagerMBean;
 
 class ObjectManagerMBeanImpl implements ObjectManagerMBean {
 

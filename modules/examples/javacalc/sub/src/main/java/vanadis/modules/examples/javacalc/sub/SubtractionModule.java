@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.examples.javacalc.sub;
+package vanadis.modules.examples.javacalc.sub;
 
-import net.sf.vanadis.ext.Expose;
-import net.sf.vanadis.ext.Module;
-import net.sf.vanadis.modules.examples.javacalc.calcservices.Subtractor;
+import vanadis.ext.Expose;
+import vanadis.ext.Module;
+import vanadis.modules.examples.javacalc.calcservices.Subtractor;
 
 @Module(moduleType = "javacalc-sub")
 public class SubtractionModule {

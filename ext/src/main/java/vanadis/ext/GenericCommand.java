@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.osgi.Context;
+import vanadis.core.lang.ToString;
+import vanadis.osgi.Context;
 
 /**
- * A generic, simple command that just needs a single {@link net.sf.vanadis.ext.CommandExecution command execution}
+ * A generic, simple command that just needs a single {@link vanadis.ext.CommandExecution command execution}
  * implementation.
  */
 public final class GenericCommand extends AbstractCommand {

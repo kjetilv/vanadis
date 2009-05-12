@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.reflection;
+package vanadis.core.reflection;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.core.ver.Version;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Location;
+import vanadis.core.lang.Not;
+import vanadis.core.time.TimeSpan;
+import vanadis.core.ver.Version;
 
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
@@ -68,7 +68,7 @@ public final class Retyper {
     private static final Map<String, Class<?>> coercedTypeNames = Generic.map();
 
     /**
-     * True iff the class coercable, i.e. we have a {@link net.sf.vanadis.core.reflection.Retyper.Coercer coercer}
+     * True iff the class coercable, i.e. we have a {@link vanadis.core.reflection.Retyper.Coercer coercer}
      * for it.
      *
      * @param clazz Class
@@ -262,7 +262,7 @@ public final class Retyper {
 
     /**
      * SPI for coercion.  Register instances for new types using
-     * {@link Retyper#map(net.sf.vanadis.core.reflection.Retyper.Coercer, Class[])}
+     * {@link Retyper#map(vanadis.core.reflection.Retyper.Coercer, Class[])}
      */
     public interface Coercer<T> {
 

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.reflection.Invoker;
-import net.sf.vanadis.ext.Inject;
-import net.sf.vanadis.osgi.Reference;
+import vanadis.core.reflection.Invoker;
+import vanadis.ext.Inject;
+import vanadis.osgi.Reference;
 
 import java.lang.reflect.Field;
 

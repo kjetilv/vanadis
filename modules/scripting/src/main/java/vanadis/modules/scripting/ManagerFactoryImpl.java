@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.scripting;
+package vanadis.modules.scripting;
 
-import net.sf.vanadis.core.collections.Generic;
+import vanadis.core.collections.Generic;
 
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;

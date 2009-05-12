@@ -1,4 +1,4 @@
-package net.sf.vanadis.modules.examples.scalacalc.calcservices
+package vanadis.modules.examples.scalacalc.calcservices
 
 trait PocketCalculator {
 

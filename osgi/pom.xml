@@ -17,25 +17,25 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <relativePath>../pom.xml</relativePath>
-    <groupId>net.sf.vanadis</groupId>
-    <artifactId>net.sf.vanadis</artifactId>
+    <groupId>vanadis</groupId>
+    <artifactId>vanadis</artifactId>
     <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.vanadis</groupId>
-  <artifactId>net.sf.vanadis.osgi</artifactId>
+  <groupId>vanadis</groupId>
+  <artifactId>vanadis.osgi</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <description>Vanadis OSGi4j</description>
   <name>${artifactId}</name>
   <dependencies>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.util</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.util</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.util</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.util</artifactId>
       <type>test-jar</type>
     </dependency>
     <dependency>
@@ -69,7 +69,7 @@
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
-          <excludePackageNames>net.sf.vanadis.osgi.impl</excludePackageNames>
+          <excludePackageNames>vanadis.osgi.impl</excludePackageNames>
         </configuration>
       </plugin>
     </plugins>

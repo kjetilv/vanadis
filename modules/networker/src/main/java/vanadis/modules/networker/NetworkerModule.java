@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.networker;
+package vanadis.modules.networker;
 
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.EntryPoint;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.osgi.ServiceProperties;
-import net.sf.vanadis.services.networking.LocalNode;
-import net.sf.vanadis.services.networking.Node;
-import net.sf.vanadis.services.networking.RemoteNode;
-import net.sf.vanadis.services.networking.Router;
-import net.sf.vanadis.services.remoting.Remoting;
-import net.sf.vanadis.util.concurrent.ExecutorUtils;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.io.Location;
+import vanadis.core.lang.EntryPoint;
+import vanadis.core.lang.ToString;
+import vanadis.core.time.TimeSpan;
+import vanadis.ext.*;
+import vanadis.osgi.ServiceProperties;
+import vanadis.services.networking.LocalNode;
+import vanadis.services.networking.Node;
+import vanadis.services.networking.RemoteNode;
+import vanadis.services.networking.Router;
+import vanadis.services.remoting.Remoting;
+import vanadis.util.concurrent.ExecutorUtils;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.util.Collections;
 import java.util.List;
@@ -91,7 +91,7 @@ public class NetworkerModule extends AbstractContextAware {
     }
 
     /**
-     * Listen for exposed objects that have {@link net.sf.vanadis.ext.Inject#remotable()
+     * Listen for exposed objects that have {@link vanadis.ext.Inject#remotable()
      * remotable} set to true.
      *
      * @param remoteReachable   Remote-exposed object

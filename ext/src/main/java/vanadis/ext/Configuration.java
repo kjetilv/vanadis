@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.FIELD;
@@ -25,9 +25,9 @@ import java.lang.annotation.Target;
 
 /**
  * Configuration fields and methods are automatically assigned the
- * full configuration {@link net.sf.vanadis.core.properties.PropertySet properties}.
+ * full configuration {@link vanadis.core.properties.PropertySet properties}.
  * Fields should be of type Dictionary, Properties, Map, Hashtable or
- * {@link net.sf.vanadis.core.properties.PropertySet}.  Methods should have a
+ * {@link vanadis.core.properties.PropertySet}.  Methods should have a
  * single argument, typed to one of the same types.
  */
 @Documented

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.fun;
+package vanadis.lang.piji.fun;
 
-import net.sf.vanadis.lang.piji.AbstractFunction;
-import net.sf.vanadis.lang.piji.Context;
-import net.sf.vanadis.lang.piji.Expression;
+import vanadis.lang.piji.AbstractFunction;
+import vanadis.lang.piji.Context;
+import vanadis.lang.piji.Expression;
 
 public abstract class AbstractLetFunction extends AbstractFunction {
 

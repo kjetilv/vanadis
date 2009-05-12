@@ -1,11 +1,11 @@
-package net.sf.vanadis.integrationtests;
+package vanadis.integrationtests;
 
 import junit.framework.Assert;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.util.concurrent.ConcurrentSessions;
-import net.sf.vanadis.util.concurrent.ScavengeResult;
-import net.sf.vanadis.util.concurrent.SessionFactory;
+import vanadis.core.collections.Generic;
+import vanadis.core.time.TimeSpan;
+import vanadis.util.concurrent.ConcurrentSessions;
+import vanadis.util.concurrent.ScavengeResult;
+import vanadis.util.concurrent.SessionFactory;
 import org.junit.Test;
 
 import java.util.List;

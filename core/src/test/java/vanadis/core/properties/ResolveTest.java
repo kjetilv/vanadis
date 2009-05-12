@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.properties;
+package vanadis.core.properties;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;

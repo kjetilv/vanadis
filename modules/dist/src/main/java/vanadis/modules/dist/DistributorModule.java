@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.dist;
+package vanadis.modules.dist;
 
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.services.remoting.Remoting;
-import net.sf.vanadis.util.collect.Generic;
-import net.sf.vanadis.util.io.Location;
-import net.sf.vanadis.util.lang.ToString;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
-import net.sf.vanadis.util.time.TimeSpan;
+import vanadis.ext.*;
+import vanadis.services.remoting.Remoting;
+import vanadis.util.collect.Generic;
+import vanadis.util.io.Location;
+import vanadis.util.lang.ToString;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
+import vanadis.util.time.TimeSpan;
 import org.jgroups.JChannel;
 import org.w3c.dom.Element;
 

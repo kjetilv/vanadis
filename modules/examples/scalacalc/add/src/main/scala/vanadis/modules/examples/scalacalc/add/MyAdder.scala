@@ -1,4 +1,4 @@
-package net.sf.vanadis.modules.examples.scalacalc.add
+package vanadis.modules.examples.scalacalc.add
 
 import calcservices.Adder
 

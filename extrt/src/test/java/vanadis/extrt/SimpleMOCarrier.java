@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.ext.Module;
+import vanadis.ext.Module;
 
 @Module
 public class SimpleMOCarrier {

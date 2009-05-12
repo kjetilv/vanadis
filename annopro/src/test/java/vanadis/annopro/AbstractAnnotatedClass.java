@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.annopro;
+package vanadis.annopro;
 
 @Foo2("inherited-interface")
 public abstract class AbstractAnnotatedClass implements AnnotatedInterface {

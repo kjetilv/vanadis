@@ -46,10 +46,10 @@
       <repository>
         <outputDirectory>vanadis/repo</outputDirectory>
         <excludes>
-          <exclude>*net.sf.vanadis.felix*</exclude>
-          <exclude>*net.sf.vanadis.util*</exclude>
-          <exclude>*net.sf.vanadis.main*</exclude>
-          <exclude>*net.sf.vanadis.launcher*</exclude>
+          <exclude>*vanadis.felix*</exclude>
+          <exclude>*vanadis.util*</exclude>
+          <exclude>*vanadis.main*</exclude>
+          <exclude>*vanadis.launcher*</exclude>
           <exclude>*org.apache.felix.main*</exclude>
           <exclude>*com.springsource.org.apache.log4j*</exclude>
         </excludes>
@@ -60,10 +60,10 @@
         <useTransitiveDependencies>false</useTransitiveDependencies>
         <outputDirectory>vanadis/lib</outputDirectory>
         <includes>
-          <include>*net.sf.vanadis.felix*</include>
-          <include>*net.sf.vanadis.util*</include>
-          <include>*net.sf.vanadis.main*</include>
-          <include>*net.sf.vanadis.launcher*</include>
+          <include>*vanadis.felix*</include>
+          <include>*vanadis.util*</include>
+          <include>*vanadis.main*</include>
+          <include>*vanadis.launcher*</include>
           <include>*org.apache.felix.main*</include>
           <include>*com.springsource.org.apache.log4j*</include>
         </includes>

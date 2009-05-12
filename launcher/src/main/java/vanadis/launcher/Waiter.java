@@ -1,4 +1,4 @@
-package net.sf.vanadis.launcher;
+package vanadis.launcher;
 
 import java.io.PrintStream;
 import java.util.concurrent.Callable;

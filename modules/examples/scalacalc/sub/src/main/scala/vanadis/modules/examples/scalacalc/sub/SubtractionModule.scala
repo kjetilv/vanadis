@@ -1,4 +1,4 @@
-package net.sf.vanadis.modules.examples.scalacalc.sub
+package vanadis.modules.examples.scalacalc.sub
 
 import calcservices.Subtractor
 import ext.{Module, Expose}

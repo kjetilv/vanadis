@@ -1,6 +1,6 @@
-package net.sf.vanadis.core.collections;
+package vanadis.core.collections;
 
-import net.sf.vanadis.core.lang.TraverseIterable;
+import vanadis.core.lang.TraverseIterable;
 
 public final class CausesIterable extends TraverseIterable<Throwable> {
 

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
-import net.sf.vanadis.osgi.Context;
+import vanadis.osgi.Context;
 
 /**
- * Simplified input to the {@link net.sf.vanadis.ext.GenericCommand generic command} implementation.
+ * Simplified input to the {@link vanadis.ext.GenericCommand generic command} implementation.
  */
 public interface CommandExecution {
 

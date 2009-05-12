@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.scripting;
+package vanadis.modules.scripting;
 
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.osgi.Reference;
-import net.sf.vanadis.services.scripting.ScriptingException;
-import net.sf.vanadis.services.scripting.ScriptingSession;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.ToString;
+import vanadis.osgi.Reference;
+import vanadis.services.scripting.ScriptingException;
+import vanadis.services.scripting.ScriptingSession;
 
 import javax.script.*;
 

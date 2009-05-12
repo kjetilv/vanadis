@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.examples.javacalc.calcservices;
+package vanadis.modules.examples.javacalc.calcservices;
 
-import net.sf.vanadis.ext.Expose;
-import net.sf.vanadis.ext.Track;
+import vanadis.ext.Expose;
+import vanadis.ext.Track;
 
 import java.util.Set;
 

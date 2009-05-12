@@ -17,14 +17,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <relativePath>../pom.xml</relativePath>
-    <groupId>net.sf.vanadis.modules.3rdp</groupId>
-    <artifactId>net.sf.vanadis.modules.3rdp</artifactId>
+    <groupId>vanadis.modules.3rdp</groupId>
+    <artifactId>vanadis.modules.3rdp</artifactId>
     <version>1.1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.vanadis.modules.3rdp.jgroups</groupId>
-  <artifactId>net.sf.vanadis.modules.3rdp.jgroups</artifactId>
+  <groupId>vanadis.modules.3rdp.jgroups</groupId>
+  <artifactId>vanadis.modules.3rdp.jgroups</artifactId>
   <version>2.6.2</version>
   <packaging>bundle</packaging>
   <description>Vanadis Module: 3rdp: JGroups</description>

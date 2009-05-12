@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.integrationtests;
+package vanadis.integrationtests;
 
-import net.sf.vanadis.ext.CoreProperty;
-import net.sf.vanadis.ext.ObjectManager;
-import net.sf.vanadis.osgi.Filter;
+import vanadis.ext.CoreProperty;
+import vanadis.ext.ObjectManager;
+import vanadis.osgi.Filter;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 
@@ -34,13 +34,13 @@ public class DeployLaunchesTest extends SingleFelixTestCase {
 
     @Test(timeout = 60000L)
     public void simpleLaunch() {
-        registerVBundle(session(), "net.sf.vanadis.modules.examples.javacalc", "calcservices");
+        registerVBundle(session(), "vanadis.modules.examples.javacalc", "calcservices");
         int[] states1 = new int[]{Bundle.STARTING, Bundle.ACTIVE};
-        waitForBundle(session(), "net.sf.vanadis.modules.examples.javacalc.calcservices", states1);
+        waitForBundle(session(), "vanadis.modules.examples.javacalc.calcservices", states1);
 
-        registerVBundle(session(), "net.sf.vanadis.modules.examples.javacalc", "add");
+        registerVBundle(session(), "vanadis.modules.examples.javacalc", "add");
         int[] states = new int[]{Bundle.STARTING, Bundle.ACTIVE};
-        waitForBundle(session(), "net.sf.vanadis.modules.examples.javacalc.add", states);
+        waitForBundle(session(), "vanadis.modules.examples.javacalc.add", states);
         waitForObjectManagerFactory(session(), "javacalc-add");
         registerLaunch(session(), TYPE, NAME);
         waitForNonNull(session(), ObjectManager.class, OM_FILTER);

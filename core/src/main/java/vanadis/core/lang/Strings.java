@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.lang;
+package vanadis.core.lang;
 
 /**
  * String utilities.

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.FIELD;
@@ -23,7 +23,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
 
 /**
- * For tagging {@link net.sf.vanadis.ext.Operation Operation} parameters.
+ * For tagging {@link vanadis.ext.Operation Operation} parameters.
  */
 @Documented
 @Retention(RUNTIME)

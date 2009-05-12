@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.lang;
+package vanadis.core.lang;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;

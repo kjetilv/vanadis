@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.dist;
+package vanadis.modules.dist;
 
-import net.sf.vanadis.util.io.Location;
+import vanadis.util.io.Location;
 import org.junit.Test;
 
 import java.io.IOException;

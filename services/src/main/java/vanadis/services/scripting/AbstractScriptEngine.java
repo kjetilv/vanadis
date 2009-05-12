@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.services.scripting;
+package vanadis.services.scripting;
 
-import net.sf.vanadis.core.io.IO;
+import vanadis.core.io.IO;
 
 import javax.script.*;
 import java.io.Reader;

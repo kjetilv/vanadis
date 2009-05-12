@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.lang.piji.jsr223;
+package vanadis.lang.piji.jsr223;
 
-import net.sf.vanadis.lang.piji.Context;
-import net.sf.vanadis.lang.piji.Interpreter;
-import net.sf.vanadis.lang.piji.Result;
-import net.sf.vanadis.lang.piji.Symbol;
-import net.sf.vanadis.services.scripting.AbstractScriptEngine;
+import vanadis.lang.piji.Context;
+import vanadis.lang.piji.Interpreter;
+import vanadis.lang.piji.Result;
+import vanadis.lang.piji.Symbol;
+import vanadis.services.scripting.AbstractScriptEngine;
 
 import javax.script.Bindings;
 import javax.script.ScriptException;

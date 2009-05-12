@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.blueprints;
+package vanadis.blueprints;
 
 import static junit.framework.Assert.*;
-import static net.sf.vanadis.blueprints.ModuleSpecificationFeatureType.EXPOSE;
-import static net.sf.vanadis.blueprints.ModuleSpecificationFeatureType.INJECT;
-import net.sf.vanadis.core.properties.PropertySet;
+import static vanadis.blueprints.ModuleSpecificationFeatureType.EXPOSE;
+import static vanadis.blueprints.ModuleSpecificationFeatureType.INJECT;
+import vanadis.core.properties.PropertySet;
 import org.junit.Test;
 import org.w3c.dom.Element;
 

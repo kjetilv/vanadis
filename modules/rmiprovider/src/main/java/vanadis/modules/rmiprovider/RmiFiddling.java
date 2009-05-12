@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.rmiprovider;
+package vanadis.modules.rmiprovider;
 
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.services.remoting.RemotingException;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.io.Location;
+import vanadis.services.remoting.RemotingException;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.net.MalformedURLException;
 import java.rmi.*;

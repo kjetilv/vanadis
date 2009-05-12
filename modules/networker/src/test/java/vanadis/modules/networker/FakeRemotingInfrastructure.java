@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.networker;
+package vanadis.modules.networker;
 
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.remoting.AbstractRemotingInfrastructure;
+import vanadis.core.io.Location;
+import vanadis.remoting.AbstractRemotingInfrastructure;
 
 public class FakeRemotingInfrastructure extends AbstractRemotingInfrastructure {
 

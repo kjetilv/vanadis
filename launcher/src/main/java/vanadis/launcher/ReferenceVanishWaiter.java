@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.launcher;
+package vanadis.launcher;
 
-import net.sf.vanadis.core.lang.Not;
+import vanadis.core.lang.Not;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 

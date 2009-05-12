@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.networker;
+package vanadis.modules.networker;
 
-import net.sf.vanadis.osgi.impl.BareBonesContext;
-import net.sf.vanadis.remoting.AbstractRemoteClientFactory;
-import net.sf.vanadis.services.remoting.TargetHandle;
+import vanadis.osgi.impl.BareBonesContext;
+import vanadis.remoting.AbstractRemoteClientFactory;
+import vanadis.services.remoting.TargetHandle;
 
 public class FakeRemoteClientFactory extends AbstractRemoteClientFactory {
 

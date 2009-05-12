@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.util;
+package vanadis.util;
 
-import net.sf.vanadis.core.test.Capture;
+import vanadis.core.test.Capture;
 import org.hamcrest.Matcher;
 
 import java.util.concurrent.atomic.AtomicReference;

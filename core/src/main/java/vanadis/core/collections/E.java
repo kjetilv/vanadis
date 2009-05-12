@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.collections;
+package vanadis.core.collections;
 
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.lang.ToString;
 
 import java.util.Map;
 

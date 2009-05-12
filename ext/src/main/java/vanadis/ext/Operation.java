@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 import javax.management.MBeanOperationInfo;
 import java.lang.annotation.Documented;
@@ -24,8 +24,8 @@ import java.lang.annotation.Target;
 
 /**
  * For tagging methods as JMX operations.  Applies to
- * {@link net.sf.vanadis.ext.Module modules} and
- * {@link net.sf.vanadis.ext.Expose exposed} objects.
+ * {@link vanadis.ext.Module modules} and
+ * {@link vanadis.ext.Expose exposed} objects.
  */
 @Documented
 @Retention(RUNTIME)

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.remoting;
+package vanadis.modules.remoting;
 
-import net.sf.vanadis.core.lang.EntryPoint;
+import vanadis.core.lang.EntryPoint;
 
 public interface RemotingMBean {
 

@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
-import net.sf.vanadis.core.lang.EntryPoint;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.osgi.Context;
+import vanadis.core.lang.EntryPoint;
+import vanadis.core.lang.ToString;
+import vanadis.osgi.Context;
 
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * A convenience support class for the {@link net.sf.vanadis.ext.ManagedLifecycle managed life cycle}.
+ * A convenience support class for the {@link vanadis.ext.ManagedLifecycle managed life cycle}.
  */
 public abstract class AbstractModule implements ManagedLifecycle {
 
@@ -32,7 +32,7 @@ public abstract class AbstractModule implements ManagedLifecycle {
     private final AtomicReference<Context> context = new AtomicReference<Context>();
 
     /**
-     * Implement {@link net.sf.vanadis.ext.ContextAware} to have this method invoked.
+     * Implement {@link vanadis.ext.ContextAware} to have this method invoked.
      * The context is available as {@link #context()} and {@link #requiredContext()}.
      *
      * @param context Context

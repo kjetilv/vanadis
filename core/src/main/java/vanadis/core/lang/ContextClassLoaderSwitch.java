@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.lang;
+package vanadis.core.lang;
 
 /**
  * A one-time switch to {@link #ContextClassLoaderSwitch(ClassLoader) set the thread context class loader},

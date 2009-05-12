@@ -1,6 +1,6 @@
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
-import net.sf.vanadis.osgi.Filter;
+import vanadis.osgi.Filter;
 
 /**
  * Information about an injection points.

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.fun;
+package vanadis.lang.piji.fun;
 
-import net.sf.vanadis.core.lang.EntryPoint;
-import net.sf.vanadis.lang.piji.AbstractFunction;
-import net.sf.vanadis.lang.piji.Context;
-import net.sf.vanadis.lang.piji.Expression;
-import net.sf.vanadis.lang.piji.hold.DataHolderFactory;
+import vanadis.core.lang.EntryPoint;
+import vanadis.lang.piji.AbstractFunction;
+import vanadis.lang.piji.Context;
+import vanadis.lang.piji.Expression;
+import vanadis.lang.piji.hold.DataHolderFactory;
 
 @EntryPoint("Reflection")
 public final class IsNullFunction extends AbstractFunction {

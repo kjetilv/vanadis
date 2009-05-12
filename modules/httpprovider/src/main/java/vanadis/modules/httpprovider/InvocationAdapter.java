@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.httpprovider;
+package vanadis.modules.httpprovider;
 
 import com.sun.grizzly.tcp.http11.GrizzlyAdapter;
 import com.sun.grizzly.tcp.http11.GrizzlyRequest;
 import com.sun.grizzly.tcp.http11.GrizzlyResponse;
-import net.sf.vanadis.core.io.Closeables;
-import net.sf.vanadis.core.lang.ContextClassLoaderSwitch;
-import net.sf.vanadis.core.reflection.ContextClassLoaderObjectInputStream;
-import net.sf.vanadis.remoting.*;
-import net.sf.vanadis.services.remoting.RemotingException;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.io.Closeables;
+import vanadis.core.lang.ContextClassLoaderSwitch;
+import vanadis.core.reflection.ContextClassLoaderObjectInputStream;
+import vanadis.remoting.*;
+import vanadis.services.remoting.RemotingException;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.io.*;
 

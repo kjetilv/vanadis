@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.services.scripting;
+package vanadis.services.scripting;
 
-import net.sf.vanadis.osgi.Reference;
+import vanadis.osgi.Reference;
 
 public interface ScriptingSessions extends Iterable<String> {
 
     /**
      * Default language used when passing a null language to
-     * {@link #newSession(String, String, net.sf.vanadis.osgi.Reference, String)}.
+     * {@link #newSession(String, String, vanadis.osgi.Reference, String)}.
      *
      * @return Default language
      */

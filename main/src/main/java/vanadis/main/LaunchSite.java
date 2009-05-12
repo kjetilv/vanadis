@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.main;
+package vanadis.main;
 
-import net.sf.vanadis.blueprints.BlueprintHelper;
-import net.sf.vanadis.blueprints.Blueprints;
-import net.sf.vanadis.blueprints.SystemSpecification;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Files;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.jmx.Jmx;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.system.VM;
-import net.sf.vanadis.launcher.LaunchResult;
-import net.sf.vanadis.launcher.OSGiLauncher;
-import net.sf.vanadis.launcher.StartupException;
+import vanadis.blueprints.BlueprintHelper;
+import vanadis.blueprints.Blueprints;
+import vanadis.blueprints.SystemSpecification;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Files;
+import vanadis.core.io.Location;
+import vanadis.core.jmx.Jmx;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.core.system.VM;
+import vanadis.launcher.LaunchResult;
+import vanadis.launcher.OSGiLauncher;
+import vanadis.launcher.StartupException;
 
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
@@ -247,8 +247,8 @@ public final class LaunchSite {
     private static final String LAUNCHER_PROPERTY = "vanadis.launcher";
 
     private static final String DEFAULT_LAUNCHERS =
-            "net.sf.vanadis.felix.FelixOSGiLauncher," +
-                    "net.sf.vanadis.equinox.EquinoxOSGiLauncher";
+            "vanadis.felix.FelixOSGiLauncher," +
+                    "vanadis.equinox.EquinoxOSGiLauncher";
 
     private static void write(StringBuilder sb, String sep, Iterable<?> list) {
         for (Object object : list) {

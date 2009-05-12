@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.ManagedLifecycle;
-import net.sf.vanadis.ext.ManagedState;
-import static net.sf.vanadis.ext.ManagedState.FAILED;
-import net.sf.vanadis.ext.ObjectManager;
-import net.sf.vanadis.ext.ObjectManagerObserver;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.lang.ToString;
+import vanadis.ext.ManagedLifecycle;
+import vanadis.ext.ManagedState;
+import static vanadis.ext.ManagedState.FAILED;
+import vanadis.ext.ObjectManager;
+import vanadis.ext.ObjectManagerObserver;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 class ObjectManagerState {
 

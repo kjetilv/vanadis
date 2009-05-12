@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.hold;
+package vanadis.lang.piji.hold;
 
-import net.sf.vanadis.core.collections.Generic;
+import vanadis.core.collections.Generic;
 
 import java.util.Map;
 

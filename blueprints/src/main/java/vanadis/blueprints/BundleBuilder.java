@@ -1,9 +1,9 @@
-package net.sf.vanadis.blueprints;
+package vanadis.blueprints;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.ver.Version;
-import net.sf.vanadis.util.mvn.Coordinate;
+import vanadis.core.lang.ToString;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.ver.Version;
+import vanadis.util.mvn.Coordinate;
 
 import java.math.BigInteger;
 

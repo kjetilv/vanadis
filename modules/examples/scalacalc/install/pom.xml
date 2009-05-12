@@ -17,48 +17,48 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-        <groupId>net.sf.vanadis.modules.examples.scalacalc</groupId>
-        <artifactId>net.sf.vanadis.modules.examples.scalacalc</artifactId>
+        <groupId>vanadis.modules.examples.scalacalc</groupId>
+        <artifactId>vanadis.modules.examples.scalacalc</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.sf.vanadis.modules.examples.scalacalc.install</groupId>
-    <artifactId>net.sf.vanadis.modules.examples.scalacalc.install</artifactId>
+    <groupId>vanadis.modules.examples.scalacalc.install</groupId>
+    <artifactId>vanadis.modules.examples.scalacalc.install</artifactId>
     <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>Vanadis Module: Example: Scala Calc: Install</description>
     <name>${artifactId}</name>
     <dependencies>
         <dependency>
-            <groupId>net.sf.vanadis.install</groupId>
-            <artifactId>net.sf.vanadis.install</artifactId>
+            <groupId>vanadis.install</groupId>
+            <artifactId>vanadis.install</artifactId>
             <classifier>vanadis-felix</classifier>
             <type>zip</type>
         </dependency>
         <dependency>
-            <groupId>net.sf.vanadis.modules.examples.scalacalc.add</groupId>
-            <artifactId>net.sf.vanadis.modules.examples.scalacalc.add</artifactId>
+            <groupId>vanadis.modules.examples.scalacalc.add</groupId>
+            <artifactId>vanadis.modules.examples.scalacalc.add</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sf.vanadis.modules.examples.scalacalc.sub</groupId>
-            <artifactId>net.sf.vanadis.modules.examples.scalacalc.sub</artifactId>
+            <groupId>vanadis.modules.examples.scalacalc.sub</groupId>
+            <artifactId>vanadis.modules.examples.scalacalc.sub</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sf.vanadis.modules.examples.scalacalc.div</groupId>
-            <artifactId>net.sf.vanadis.modules.examples.scalacalc.div</artifactId>
+            <groupId>vanadis.modules.examples.scalacalc.div</groupId>
+            <artifactId>vanadis.modules.examples.scalacalc.div</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sf.vanadis.modules.examples.scalacalc.mul</groupId>
-            <artifactId>net.sf.vanadis.modules.examples.scalacalc.mul</artifactId>
+            <groupId>vanadis.modules.examples.scalacalc.mul</groupId>
+            <artifactId>vanadis.modules.examples.scalacalc.mul</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sf.vanadis.modules.examples.scalacalc.calculator</groupId>
-            <artifactId>net.sf.vanadis.modules.examples.scalacalc.calculator</artifactId>
+            <groupId>vanadis.modules.examples.scalacalc.calculator</groupId>
+            <artifactId>vanadis.modules.examples.scalacalc.calculator</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sf.vanadis.modules.examples.scalacalc.calcservices</groupId>
-            <artifactId>net.sf.vanadis.modules.examples.scalacalc.calcservices</artifactId>
+            <groupId>vanadis.modules.examples.scalacalc.calcservices</groupId>
+            <artifactId>vanadis.modules.examples.scalacalc.calcservices</artifactId>
         </dependency>
     </dependencies>
     <build>

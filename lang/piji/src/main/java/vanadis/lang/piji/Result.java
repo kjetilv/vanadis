@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji;
+package vanadis.lang.piji;
 
-import net.sf.vanadis.lang.piji.hold.DataHolderFactory;
-import net.sf.vanadis.lang.piji.hold.Holder;
-import net.sf.vanadis.lang.piji.hold.PrimitiveHolder;
+import vanadis.lang.piji.hold.DataHolderFactory;
+import vanadis.lang.piji.hold.Holder;
+import vanadis.lang.piji.hold.PrimitiveHolder;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

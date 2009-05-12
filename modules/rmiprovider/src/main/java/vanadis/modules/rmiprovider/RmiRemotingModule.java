@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.rmiprovider;
+package vanadis.modules.rmiprovider;
 
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.AbstractModule;
-import net.sf.vanadis.ext.Configure;
-import net.sf.vanadis.ext.Expose;
-import net.sf.vanadis.ext.Module;
-import net.sf.vanadis.services.remoting.RemoteClientFactory;
-import net.sf.vanadis.services.remoting.RemotingInfrastructure;
+import vanadis.core.io.Location;
+import vanadis.core.lang.ToString;
+import vanadis.ext.AbstractModule;
+import vanadis.ext.Configure;
+import vanadis.ext.Expose;
+import vanadis.ext.Module;
+import vanadis.services.remoting.RemoteClientFactory;
+import vanadis.services.remoting.RemotingInfrastructure;
 
 @Module(moduleType = "rmiprovider")
 public class RmiRemotingModule extends AbstractModule {

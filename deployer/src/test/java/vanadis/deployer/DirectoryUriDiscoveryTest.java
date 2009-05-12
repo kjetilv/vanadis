@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.deployer;
+package vanadis.deployer;
 
 import static junit.framework.Assert.*;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.system.VM;
+import vanadis.core.collections.Generic;
+import vanadis.core.system.VM;
 import org.junit.After;
 import org.junit.Test;
 

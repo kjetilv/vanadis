@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.loading;
+package vanadis.lang.piji.loading;
 
 import java.lang.reflect.Constructor;
 

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.lang.ToString;
-import static net.sf.vanadis.core.reflection.Invoker.invoke;
-import net.sf.vanadis.ext.Inject;
-import net.sf.vanadis.ext.ModuleSystemException;
-import net.sf.vanadis.osgi.Reference;
-import net.sf.vanadis.osgi.ServiceProperties;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.lang.ToString;
+import static vanadis.core.reflection.Invoker.invoke;
+import vanadis.ext.Inject;
+import vanadis.ext.ModuleSystemException;
+import vanadis.osgi.Reference;
+import vanadis.osgi.ServiceProperties;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.lang.reflect.Method;
 import java.util.Map;

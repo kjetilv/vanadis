@@ -17,13 +17,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <relativePath>../pom.xml</relativePath>
-    <groupId>net.sf.vanadis</groupId>
-    <artifactId>net.sf.vanadis</artifactId>
+    <groupId>vanadis</groupId>
+    <artifactId>vanadis</artifactId>
     <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.vanadis</groupId>
-  <artifactId>net.sf.vanadis.felix</artifactId>
+  <groupId>vanadis</groupId>
+  <artifactId>vanadis.felix</artifactId>
   <packaging>jar</packaging>
   <description>Vanadis: Felix Launcher</description>
   <name>${artifactId}</name>
@@ -33,8 +33,8 @@
       <artifactId>org.apache.felix.main</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.main</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.main</artifactId>
     </dependency>
   </dependencies>
   <build>
@@ -67,7 +67,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>net.sf.vanadis.main.Main</mainClass>
+              <mainClass>vanadis.main.Main</mainClass>
             </manifest>
           </archive>
           <tarLongFileMode>gnu</tarLongFileMode>

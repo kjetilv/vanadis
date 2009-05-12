@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.fun;
+package vanadis.lang.piji.fun;
 
-import net.sf.vanadis.core.lang.EntryPoint;
-import net.sf.vanadis.lang.piji.*;
-import net.sf.vanadis.lang.piji.hold.PrimitiveDataHolder;
-import net.sf.vanadis.lang.piji.hold.PrimitiveIntegerHolder;
-import net.sf.vanadis.lang.piji.hold.PrimitiveNumberHolder;
+import vanadis.core.lang.EntryPoint;
+import vanadis.lang.piji.*;
+import vanadis.lang.piji.hold.PrimitiveDataHolder;
+import vanadis.lang.piji.hold.PrimitiveIntegerHolder;
+import vanadis.lang.piji.hold.PrimitiveNumberHolder;
 
 import java.lang.reflect.Array;
 

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.blueprints;
+package vanadis.blueprints;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.properties.PropertyName;
-import net.sf.vanadis.core.properties.PropertySet;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.core.properties.PropertyName;
+import vanadis.core.properties.PropertySet;
 
 import java.net.URI;
 import java.util.Collections;

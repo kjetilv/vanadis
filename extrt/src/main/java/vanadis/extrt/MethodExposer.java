@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.core.reflection.Invoker;
-import net.sf.vanadis.ext.Expose;
-import net.sf.vanadis.osgi.ServiceProperties;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
+import vanadis.core.reflection.Invoker;
+import vanadis.ext.Expose;
+import vanadis.osgi.ServiceProperties;
 
 import java.lang.reflect.Method;
 

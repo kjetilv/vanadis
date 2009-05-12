@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi.impl;
+package vanadis.osgi.impl;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.osgi.Filter;
-import net.sf.vanadis.osgi.Registration;
-import net.sf.vanadis.osgi.ServiceProperties;
+import vanadis.core.lang.ToString;
+import vanadis.osgi.Filter;
+import vanadis.osgi.Registration;
+import vanadis.osgi.ServiceProperties;
 
 public class BonyRegistration<T> implements Registration<T> {
 

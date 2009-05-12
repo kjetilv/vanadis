@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.launcher;
+package vanadis.launcher;
 
-import net.sf.vanadis.core.io.Location;
+import vanadis.core.io.Location;
 
 import java.io.IOException;
 import java.net.ConnectException;

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.deployer;
+package vanadis.deployer;
 
-import net.sf.vanadis.core.io.Files;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.osgi.Context;
+import vanadis.core.io.Files;
+import vanadis.core.lang.ToString;
+import vanadis.core.time.TimeSpan;
+import vanadis.ext.*;
+import vanadis.osgi.Context;
 
 import java.io.File;
 

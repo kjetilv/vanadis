@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.remoting;
+package vanadis.remoting;
 
-import net.sf.vanadis.core.lang.ContextClassLoaderSwitch;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.lang.VarArgs;
-import net.sf.vanadis.services.remoting.TargetReference;
+import vanadis.core.lang.ContextClassLoaderSwitch;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.core.lang.VarArgs;
+import vanadis.services.remoting.TargetReference;
 
 import java.io.IOException;
 import java.io.ObjectInput;

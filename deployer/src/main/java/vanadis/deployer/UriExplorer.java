@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.deployer;
+package vanadis.deployer;
 
-import net.sf.vanadis.core.time.Time;
+import vanadis.core.time.Time;
 
 interface UriExplorer {
 

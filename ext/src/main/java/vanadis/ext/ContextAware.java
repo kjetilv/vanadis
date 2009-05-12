@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
-import net.sf.vanadis.osgi.Context;
+import vanadis.osgi.Context;
 
 /**
- * To receive a reference to your bundle's {@link net.sf.vanadis.osgi.Context context},
+ * To receive a reference to your bundle's {@link vanadis.osgi.Context context},
  * implement this interface.  One convenient way to do this is to extend
- * {@link net.sf.vanadis.ext.AbstractModule} and declare implementation this interface.
+ * {@link vanadis.ext.AbstractModule} and declare implementation this interface.
  */
 public interface ContextAware {
 

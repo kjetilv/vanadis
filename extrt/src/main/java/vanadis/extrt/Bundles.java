@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.blueprints.BundleSpecification;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.collections.Member;
-import net.sf.vanadis.core.io.Closeables;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.OSGiException;
-import net.sf.vanadis.osgi.OSGiUtils;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.blueprints.BundleSpecification;
+import vanadis.core.collections.Generic;
+import vanadis.core.collections.Member;
+import vanadis.core.io.Closeables;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.osgi.Context;
+import vanadis.osgi.OSGiException;
+import vanadis.osgi.OSGiUtils;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -256,7 +256,7 @@ class Bundles implements Iterable<Bundle>, Closeable {
         return inactive;
     }
 
-    private static final Log log = Logs.get(net.sf.vanadis.extrt.Bundles.class);
+    private static final Log log = Logs.get(vanadis.extrt.Bundles.class);
 
     private static final String EQUINOX_UNRESOLVED = "bundle could not be resolved";
 

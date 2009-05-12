@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.deployer;
+package vanadis.deployer;
 
-import net.sf.vanadis.core.io.Closeables;
-import net.sf.vanadis.core.io.IORuntimeException;
+import vanadis.core.io.Closeables;
+import vanadis.core.io.IORuntimeException;
 
 import java.io.*;
 import java.util.jar.JarEntry;

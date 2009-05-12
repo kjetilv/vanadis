@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji;
+package vanadis.lang.piji;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.lang.piji.hold.Holder;
-import net.sf.vanadis.lang.piji.loading.MethodFinder;
+import vanadis.core.collections.Generic;
+import vanadis.lang.piji.hold.Holder;
+import vanadis.lang.piji.loading.MethodFinder;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

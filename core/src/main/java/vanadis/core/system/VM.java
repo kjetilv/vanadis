@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.system;
+package vanadis.core.system;
 
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
 
 import javax.management.MBeanServer;
 import java.io.File;

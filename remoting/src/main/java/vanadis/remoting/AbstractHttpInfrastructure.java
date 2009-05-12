@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.remoting;
+package vanadis.remoting;
 
 import com.sun.grizzly.http.SelectorThread;
 import com.sun.grizzly.tcp.http11.GrizzlyAdapter;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.system.VM;
-import net.sf.vanadis.core.time.Time;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.services.remoting.RemotingException;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.io.Location;
+import vanadis.core.lang.ToString;
+import vanadis.core.system.VM;
+import vanadis.core.time.Time;
+import vanadis.core.time.TimeSpan;
+import vanadis.services.remoting.RemotingException;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.io.File;
 import java.io.IOException;

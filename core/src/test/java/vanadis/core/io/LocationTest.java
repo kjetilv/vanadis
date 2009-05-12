@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.core.io;
+package vanadis.core.io;
 
 import static junit.framework.Assert.assertEquals;
 import org.junit.Assert;

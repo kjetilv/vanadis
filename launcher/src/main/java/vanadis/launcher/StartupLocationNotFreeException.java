@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.launcher;
+package vanadis.launcher;
 
 class StartupLocationNotFreeException extends StartupException {
 

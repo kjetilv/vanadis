@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.time;
+package vanadis.core.time;
 
 final class SystemTickTock implements TickTock {
     @Override

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.main;
+package vanadis.main;
 
 public interface LaunchSiteMBean {
 

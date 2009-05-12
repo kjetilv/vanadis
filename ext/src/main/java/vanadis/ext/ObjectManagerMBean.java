@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 public interface ObjectManagerMBean {
 

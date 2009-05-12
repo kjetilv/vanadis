@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi.impl;
+package vanadis.osgi.impl;
 
-import net.sf.vanadis.osgi.AbstractReference;
-import net.sf.vanadis.osgi.ServiceProperties;
+import vanadis.osgi.AbstractReference;
+import vanadis.osgi.ServiceProperties;
 
 public class BonyReference<T> extends AbstractReference<T> {
 

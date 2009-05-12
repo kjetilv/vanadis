@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.io;
+package vanadis.core.io;
 
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.lang.ToString;
 
 import java.io.PrintStream;
 

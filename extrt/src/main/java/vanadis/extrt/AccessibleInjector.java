@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.ext.Inject;
-import net.sf.vanadis.osgi.AbstractContextListener;
-import net.sf.vanadis.osgi.ContextListener;
-import net.sf.vanadis.osgi.Reference;
+import vanadis.ext.Inject;
+import vanadis.osgi.AbstractContextListener;
+import vanadis.osgi.ContextListener;
+import vanadis.osgi.Reference;
 
 import java.util.Map;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.services.db;
+package vanadis.services.db;
 
 import java.sql.Connection;
 

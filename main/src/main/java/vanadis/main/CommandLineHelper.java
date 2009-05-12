@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.main;
+package vanadis.main;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Location;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Location;
 
 import java.io.File;
 import java.net.URI;

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.remoting;
+package vanadis.remoting;
 
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.services.remoting.RemotingException;
-import net.sf.vanadis.services.remoting.RemotingInfrastructure;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.io.Location;
+import vanadis.services.remoting.RemotingException;
+import vanadis.services.remoting.RemotingInfrastructure;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.util.concurrent.atomic.AtomicReference;
 

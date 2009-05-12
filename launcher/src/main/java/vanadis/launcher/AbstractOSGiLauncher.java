@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.launcher;
+package vanadis.launcher;
 
-import net.sf.vanadis.blueprints.BundleSpecification;
-import net.sf.vanadis.blueprints.SystemSpecification;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.collections.Member;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.EntryPoint;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.VarArgs;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.blueprints.BundleSpecification;
+import vanadis.blueprints.SystemSpecification;
+import vanadis.core.collections.Generic;
+import vanadis.core.collections.Member;
+import vanadis.core.io.Location;
+import vanadis.core.lang.EntryPoint;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.VarArgs;
+import vanadis.core.time.TimeSpan;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 import org.osgi.framework.*;
 import org.osgi.service.packageadmin.PackageAdmin;
 
@@ -230,10 +230,10 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
     private void unregisterAll(PrintStream stream) {
         print(stream, "[");
         unregister(moduleRegistrations);
-        defaultWait(new ReferenceVanishWaiter("net.sf.vanadis.ext.ObjectManager", null, 5, stream, launchResult),
+        defaultWait(new ReferenceVanishWaiter("vanadis.ext.ObjectManager", null, 5, stream, launchResult),
                     "ObjectManagers still present, continuing...");
         unregister(bundleRegistrations);
-        defaultWait(new ReferenceVanishWaiter("net.sf.vanadis.ext.ObjectManagerFactory", null, 5, stream, launchResult),
+        defaultWait(new ReferenceVanishWaiter("vanadis.ext.ObjectManagerFactory", null, 5, stream, launchResult),
                     "ObjectManagers still present, continuing...");
         print(stream, "|");
         uninstallAll(launchResult.getNonCoreBundles(), stream);

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.networker;
+package vanadis.modules.networker;
 
-import net.sf.vanadis.ext.Expose;
-import net.sf.vanadis.ext.Property;
+import vanadis.ext.Expose;
+import vanadis.ext.Property;
 
 public class RemotedObject {
 

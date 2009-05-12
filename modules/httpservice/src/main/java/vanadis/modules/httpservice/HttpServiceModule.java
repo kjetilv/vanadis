@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.httpservice;
+package vanadis.modules.httpservice;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Closeables;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.osgi.ServiceProperties;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Closeables;
+import vanadis.core.io.Location;
+import vanadis.ext.*;
+import vanadis.osgi.ServiceProperties;
 import org.osgi.service.http.HttpService;
 
 import javax.servlet.Servlet;

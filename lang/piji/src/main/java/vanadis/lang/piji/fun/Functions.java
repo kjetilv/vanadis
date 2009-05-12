@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.fun;
+package vanadis.lang.piji.fun;
 
 /**
  * @author kjetil $Id: Functions.java,v 1.2 2004/05/26 06:51:20 kjetil Exp $ $Revision: 1.2 $ $Author: kjetil $ $Date: 2004/05/26 06:51:20 $

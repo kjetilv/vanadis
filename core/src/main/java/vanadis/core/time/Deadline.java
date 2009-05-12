@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.time;
+package vanadis.core.time;
 
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.lang.ToString;
 
 import java.io.Serializable;
 import java.util.concurrent.Callable;

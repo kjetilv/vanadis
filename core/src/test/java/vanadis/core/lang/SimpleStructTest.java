@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.core.lang;
+package vanadis.core.lang;
 
-import net.sf.vanadis.core.test.VAsserts;
+import vanadis.core.test.VAsserts;
 import org.junit.Test;
 
 public class SimpleStructTest {

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.ObjectManagerInjectPointMBean;
+import vanadis.core.lang.ToString;
+import vanadis.ext.ObjectManagerInjectPointMBean;
 
 class ObjectManagerInjectPointMBeanImpl implements ObjectManagerInjectPointMBean {
 

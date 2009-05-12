@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.lang.piji;
+package vanadis.modules.lang.piji;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.Expose;
-import net.sf.vanadis.ext.Module;
-import net.sf.vanadis.lang.piji.jsr223.PijiScriptEngineFactory;
+import vanadis.core.lang.ToString;
+import vanadis.ext.Expose;
+import vanadis.ext.Module;
+import vanadis.lang.piji.jsr223.PijiScriptEngineFactory;
 
 import javax.script.ScriptEngineFactory;
 

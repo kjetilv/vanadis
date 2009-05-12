@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.hold;
+package vanadis.lang.piji.hold;
 
 /**
  * <P>A primitive number holder.</P>

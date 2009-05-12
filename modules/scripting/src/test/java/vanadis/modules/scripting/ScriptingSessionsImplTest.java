@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.scripting;
+package vanadis.modules.scripting;
 
-import net.sf.vanadis.osgi.impl.BonyReference;
-import net.sf.vanadis.services.scripting.AbstractScriptEngine;
-import net.sf.vanadis.services.scripting.AbstractScriptEngineFactory;
+import vanadis.osgi.impl.BonyReference;
+import vanadis.services.scripting.AbstractScriptEngine;
+import vanadis.services.scripting.AbstractScriptEngineFactory;
 import org.junit.Test;
 
 import javax.script.Bindings;

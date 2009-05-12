@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.rmiprovider;
+package vanadis.modules.rmiprovider;
 
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.ToString;
-import static net.sf.vanadis.modules.rmiprovider.RmiFiddling.*;
-import net.sf.vanadis.remoting.AbstractRemotingInfrastructure;
+import vanadis.core.io.Location;
+import vanadis.core.lang.ToString;
+import static vanadis.modules.rmiprovider.RmiFiddling.*;
+import vanadis.remoting.AbstractRemotingInfrastructure;
 
 class RmiRemotingInfrastructure extends AbstractRemotingInfrastructure {
 

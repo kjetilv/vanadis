@@ -17,13 +17,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <relativePath>../pom.xml</relativePath>
-    <groupId>net.sf.vanadis</groupId>
-    <artifactId>net.sf.vanadis</artifactId>
+    <groupId>vanadis</groupId>
+    <artifactId>vanadis</artifactId>
     <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.vanadis</groupId>
-  <artifactId>net.sf.vanadis.integrationtests</artifactId>
+  <groupId>vanadis</groupId>
+  <artifactId>vanadis.integrationtests</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>Vanadis Module: Integration Tests</description>
@@ -63,36 +63,36 @@
       <!-- That's right -->
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.util</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.util</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.launcher</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.launcher</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.blueprints</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.blueprints</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.main</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.main</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.ext</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.ext</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.osgi</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.osgi</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.services</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.services</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.felix</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.felix</artifactId>
       <scope>runtime</scope>
     </dependency>
     <dependency>
@@ -100,18 +100,18 @@
       <artifactId>com.springsource.org.apache.log4j</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.extrt</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.extrt</artifactId>
       <type>test-jar</type>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.osgi</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.osgi</artifactId>
       <type>test-jar</type>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis</groupId>
-      <artifactId>net.sf.vanadis.extrt</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.extrt</artifactId>
       <type>test-jar</type>
     </dependency>
   </dependencies>

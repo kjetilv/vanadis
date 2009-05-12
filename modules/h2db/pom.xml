@@ -17,33 +17,33 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <relativePath>../pom.xml</relativePath>
-    <groupId>net.sf.vanadis.modules</groupId>
-    <artifactId>net.sf.vanadis.modules</artifactId>
+    <groupId>vanadis.modules</groupId>
+    <artifactId>vanadis.modules</artifactId>
     <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.vanadis.modules.h2db</groupId>
-  <artifactId>net.sf.vanadis.modules.h2db</artifactId>
+  <groupId>vanadis.modules.h2db</groupId>
+  <artifactId>vanadis.modules.h2db</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <description>Vanadis Module: H2 Database</description>
   <name>${artifactId}</name>
   <dependencies>
     <dependency>
-      <groupId>net.sf.vanadis.util</groupId>
-      <artifactId>net.sf.vanadis.util</artifactId>
+      <groupId>vanadis.util</groupId>
+      <artifactId>vanadis.util</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.osgi</groupId>
-      <artifactId>net.sf.vanadis.osgi</artifactId>
+      <groupId>vanadis.osgi</groupId>
+      <artifactId>vanadis.osgi</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.ext</groupId>
-      <artifactId>net.sf.vanadis.ext</artifactId>
+      <groupId>vanadis.ext</groupId>
+      <artifactId>vanadis.ext</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.sf.vanadis.services</groupId>
-      <artifactId>net.sf.vanadis.services</artifactId>
+      <groupId>vanadis.services</groupId>
+      <artifactId>vanadis.services</artifactId>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>

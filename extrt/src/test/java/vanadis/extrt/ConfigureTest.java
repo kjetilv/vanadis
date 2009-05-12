@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.core.system.VM;
-import net.sf.vanadis.ext.Configuration;
-import net.sf.vanadis.ext.Configure;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.io.Location;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
+import vanadis.core.system.VM;
+import vanadis.ext.Configuration;
+import vanadis.ext.Configure;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;

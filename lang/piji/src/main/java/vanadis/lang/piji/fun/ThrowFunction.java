@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.fun;
+package vanadis.lang.piji.fun;
 
-import net.sf.vanadis.core.lang.EntryPoint;
-import net.sf.vanadis.lang.piji.AbstractFunction;
-import net.sf.vanadis.lang.piji.Context;
-import net.sf.vanadis.lang.piji.EvaluationException;
-import net.sf.vanadis.lang.piji.Expression;
+import vanadis.core.lang.EntryPoint;
+import vanadis.lang.piji.AbstractFunction;
+import vanadis.lang.piji.Context;
+import vanadis.lang.piji.EvaluationException;
+import vanadis.lang.piji.Expression;
 
 @EntryPoint("Reflection")
 public final class ThrowFunction extends AbstractFunction {

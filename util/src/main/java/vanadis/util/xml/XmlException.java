@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.xml;
+package vanadis.util.xml;
 
 public final class XmlException extends RuntimeException {
 

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.services.networking;
+package vanadis.services.networking;
 
-import net.sf.vanadis.ext.RemoteConnection;
+import vanadis.ext.RemoteConnection;
 
 public interface RemoteNode {
 

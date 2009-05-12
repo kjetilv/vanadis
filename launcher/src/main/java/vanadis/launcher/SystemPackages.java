@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.launcher;
+package vanadis.launcher;
 
 public class SystemPackages {
 
@@ -25,21 +25,21 @@ public class SystemPackages {
             "com.jprofiler.agent,org.netbeans.lib.profiler.server";
 
     public static final String UTIL =
-            "net.sf.vanadis.core.collections," +
-                    "net.sf.vanadis.core.lang," +
-                    "net.sf.vanadis.core.properties," +
-                    "net.sf.vanadis.core.system," +
-                    "net.sf.vanadis.core.io," +
-                    "net.sf.vanadis.core.reflection," +
-                    "net.sf.vanadis.core.time," +
-                    "net.sf.vanadis.core.jmx," +
-                    "net.sf.vanadis.core.ver," +
-                    "net.sf.vanadis.util.concurrent," +
-                    "net.sf.vanadis.util.exceptions," +
-                    "net.sf.vanadis.util.log," +
-                    "net.sf.vanadis.util.mvn," +
-                    "net.sf.vanadis.util.xml," +
-                    "net.sf.vanadis.blueprints";
+            "vanadis.core.collections," +
+                    "vanadis.core.lang," +
+                    "vanadis.core.properties," +
+                    "vanadis.core.system," +
+                    "vanadis.core.io," +
+                    "vanadis.core.reflection," +
+                    "vanadis.core.time," +
+                    "vanadis.core.jmx," +
+                    "vanadis.core.ver," +
+                    "vanadis.util.concurrent," +
+                    "vanadis.util.exceptions," +
+                    "vanadis.util.log," +
+                    "vanadis.util.mvn," +
+                    "vanadis.util.xml," +
+                    "vanadis.blueprints";
 
     public static final String JDK = "javax.accessibility," +
             "javax.activation," +

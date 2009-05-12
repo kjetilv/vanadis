@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.annopro;
+package vanadis.annopro;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.collections.Iterables;
-import net.sf.vanadis.core.collections.Pair;
-import net.sf.vanadis.core.collections.SuperclassIterable;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.collections.Generic;
+import vanadis.core.collections.Iterables;
+import vanadis.core.collections.Pair;
+import vanadis.core.collections.SuperclassIterable;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
 
 import java.io.InputStream;
 import java.lang.annotation.Annotation;

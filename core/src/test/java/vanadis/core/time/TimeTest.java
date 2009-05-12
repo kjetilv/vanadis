@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.core.time;
+package vanadis.core.time;
 
-import net.sf.vanadis.core.test.VAsserts;
+import vanadis.core.test.VAsserts;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;

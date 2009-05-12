@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.util;
+package vanadis.util;
 
 import junit.framework.Assert;
-import net.sf.vanadis.core.io.Files;
-import net.sf.vanadis.core.time.TimeSpan;
+import vanadis.core.io.Files;
+import vanadis.core.time.TimeSpan;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.concurrent;
+package vanadis.util.concurrent;
 
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.core.time.TimeSpan;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

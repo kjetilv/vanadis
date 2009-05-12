@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.log;
+package vanadis.util.log;
 
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.lang.ToString;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

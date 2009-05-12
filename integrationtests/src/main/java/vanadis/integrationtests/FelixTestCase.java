@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.integrationtests;
+package vanadis.integrationtests;
 
-import net.sf.vanadis.blueprints.BundleSpecification;
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.ext.CoreProperty;
-import net.sf.vanadis.ext.ManagedState;
-import net.sf.vanadis.ext.ObjectManager;
-import net.sf.vanadis.ext.ObjectManagerFactory;
-import net.sf.vanadis.osgi.Filter;
-import net.sf.vanadis.osgi.Reference;
-import net.sf.vanadis.osgi.Registration;
+import vanadis.blueprints.BundleSpecification;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Location;
+import vanadis.core.time.TimeSpan;
+import vanadis.ext.CoreProperty;
+import vanadis.ext.ManagedState;
+import vanadis.ext.ObjectManager;
+import vanadis.ext.ObjectManagerFactory;
+import vanadis.osgi.Filter;
+import vanadis.osgi.Reference;
+import vanadis.osgi.Registration;
 import org.junit.After;
 import org.osgi.framework.Bundle;
 

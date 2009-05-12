@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.services.networking;
+package vanadis.services.networking;
 
 public interface Node extends RemoteNode, LocalNode {
 

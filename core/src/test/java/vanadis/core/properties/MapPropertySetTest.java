@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.core.properties;
+package vanadis.core.properties;
 
 import junit.framework.Assert;
-import net.sf.vanadis.core.collections.Generic;
+import vanadis.core.collections.Generic;
 import org.junit.Test;
 
 import java.util.Map;

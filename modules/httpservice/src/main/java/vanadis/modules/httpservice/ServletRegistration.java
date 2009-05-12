@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.modules.httpservice;
+package vanadis.modules.httpservice;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.osgi.ServiceProperties;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.core.properties.PropertySet;
+import vanadis.osgi.ServiceProperties;
 
 import javax.servlet.Servlet;
 import java.util.Dictionary;

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.fun;
+package vanadis.lang.piji.fun;
 
-import net.sf.vanadis.core.lang.EntryPoint;
-import net.sf.vanadis.lang.piji.*;
-import net.sf.vanadis.lang.piji.hold.Place;
+import vanadis.core.lang.EntryPoint;
+import vanadis.lang.piji.*;
+import vanadis.lang.piji.hold.Place;
 
 import java.util.Arrays;
 

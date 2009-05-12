@@ -1,4 +1,4 @@
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
 public class UnknownBundleException extends RuntimeException {
 

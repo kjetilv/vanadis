@@ -1,10 +1,10 @@
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.ext.InstanceSummary;
-import net.sf.vanadis.ext.ManagedFeatureSummary;
-import net.sf.vanadis.osgi.Reference;
-import net.sf.vanadis.osgi.Registration;
+import vanadis.core.collections.Generic;
+import vanadis.ext.InstanceSummary;
+import vanadis.ext.ManagedFeatureSummary;
+import vanadis.osgi.Reference;
+import vanadis.osgi.Registration;
 
 import java.util.Collection;
 import java.util.Iterator;

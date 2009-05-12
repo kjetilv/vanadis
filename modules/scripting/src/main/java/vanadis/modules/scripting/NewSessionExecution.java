@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.scripting;
+package vanadis.modules.scripting;
 
-import net.sf.vanadis.ext.CommandExecution;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Reference;
-import net.sf.vanadis.services.scripting.ScriptingSessions;
+import vanadis.ext.CommandExecution;
+import vanadis.osgi.Context;
+import vanadis.osgi.Reference;
+import vanadis.services.scripting.ScriptingSessions;
 
 public class NewSessionExecution implements CommandExecution {
 

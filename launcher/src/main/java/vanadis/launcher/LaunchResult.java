@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.launcher;
+package vanadis.launcher;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.lang;
+package vanadis.core.lang;
 
-import net.sf.vanadis.core.system.VM;
+import vanadis.core.system.VM;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

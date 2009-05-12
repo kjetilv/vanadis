@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi;
+package vanadis.osgi;
 
 import junit.framework.Assert;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.osgi.impl.BareBonesContext;
-import net.sf.vanadis.osgi.impl.BonyReference;
-import net.sf.vanadis.osgi.impl.BonyRegistration;
+import vanadis.core.collections.Generic;
+import vanadis.osgi.impl.BareBonesContext;
+import vanadis.osgi.impl.BonyReference;
+import vanadis.osgi.impl.BonyRegistration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

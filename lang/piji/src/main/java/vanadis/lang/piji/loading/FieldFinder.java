@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.loading;
+package vanadis.lang.piji.loading;
 
-import net.sf.vanadis.core.collections.Generic;
+import vanadis.core.collections.Generic;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

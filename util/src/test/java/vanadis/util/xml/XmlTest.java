@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.util.xml;
+package vanadis.util.xml;
 
 import junit.framework.Assert;
 import org.junit.Test;

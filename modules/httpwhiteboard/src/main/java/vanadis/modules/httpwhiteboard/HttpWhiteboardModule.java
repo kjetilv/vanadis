@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.httpwhiteboard;
+package vanadis.modules.httpwhiteboard;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.AutoLaunch;
-import net.sf.vanadis.ext.Inject;
-import net.sf.vanadis.ext.Module;
-import net.sf.vanadis.ext.Retract;
-import net.sf.vanadis.osgi.ServiceProperties;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.ToString;
+import vanadis.ext.AutoLaunch;
+import vanadis.ext.Inject;
+import vanadis.ext.Module;
+import vanadis.ext.Retract;
+import vanadis.osgi.ServiceProperties;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 import org.osgi.service.http.HttpService;
 
 import javax.servlet.Servlet;

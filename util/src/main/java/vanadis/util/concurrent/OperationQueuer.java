@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.concurrent;
+package vanadis.util.concurrent;
 
-import net.sf.vanadis.core.time.TimeSpan;
+import vanadis.core.time.TimeSpan;
 
 import java.io.Closeable;
 import java.util.concurrent.Future;

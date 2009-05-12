@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.Strings;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.core.reflection.Retyper;
-import net.sf.vanadis.ext.CoreProperty;
-import net.sf.vanadis.ext.ObjectManagerInjectPointMBean;
-import net.sf.vanadis.ext.Property;
-import net.sf.vanadis.ext.RemoteInjectPoint;
-import net.sf.vanadis.osgi.*;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.Strings;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
+import vanadis.core.reflection.Retyper;
+import vanadis.ext.CoreProperty;
+import vanadis.ext.ObjectManagerInjectPointMBean;
+import vanadis.ext.Property;
+import vanadis.ext.RemoteInjectPoint;
+import vanadis.osgi.*;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.util.Map;
 import java.util.Set;

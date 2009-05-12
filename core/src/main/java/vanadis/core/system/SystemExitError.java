@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.system;
+package vanadis.core.system;
 
 import java.io.PrintStream;
 

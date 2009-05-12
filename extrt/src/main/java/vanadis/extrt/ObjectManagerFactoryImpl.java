@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.util.concurrent.OperationQueuer;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.core.properties.PropertySets;
+import vanadis.ext.*;
+import vanadis.osgi.Context;
+import vanadis.util.concurrent.OperationQueuer;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.util.Collection;
 import java.util.Iterator;

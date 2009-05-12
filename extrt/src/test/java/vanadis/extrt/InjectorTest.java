@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
 import junit.framework.Assert;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.ext.Inject;
-import net.sf.vanadis.ext.ModuleSystemException;
-import net.sf.vanadis.ext.ObjectManager;
-import net.sf.vanadis.ext.Retract;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Registration;
-import net.sf.vanadis.osgi.ServiceProperties;
-import net.sf.vanadis.osgi.impl.BareBonesContext;
-import net.sf.vanadis.util.concurrent.OperationQueuer;
-import net.sf.vanadis.util.concurrent.ThreadedDispatch;
+import vanadis.core.time.TimeSpan;
+import vanadis.ext.Inject;
+import vanadis.ext.ModuleSystemException;
+import vanadis.ext.ObjectManager;
+import vanadis.ext.Retract;
+import vanadis.osgi.Context;
+import vanadis.osgi.Registration;
+import vanadis.osgi.ServiceProperties;
+import vanadis.osgi.impl.BareBonesContext;
+import vanadis.util.concurrent.OperationQueuer;
+import vanadis.util.concurrent.ThreadedDispatch;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

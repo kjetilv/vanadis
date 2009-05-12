@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.io;
+package vanadis.core.io;
 
 import java.io.File;
 import java.io.Reader;

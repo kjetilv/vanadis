@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
-import net.sf.vanadis.core.time.Time;
+import vanadis.core.time.Time;
 
 /**
  * Describes a failure situation registred in a module.

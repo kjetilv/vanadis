@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Express service properties in {@link Inject injected} and {@link net.sf.vanadis.ext.Expose exposed}
+ * Express service properties in {@link Inject injected} and {@link vanadis.ext.Expose exposed}
  * elements.
  */
 @Documented

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.util.concurrent;
+package vanadis.util.concurrent;
 
 class VeryDummySessionFactory implements SessionFactory<Integer, VeryDummySession> {
 

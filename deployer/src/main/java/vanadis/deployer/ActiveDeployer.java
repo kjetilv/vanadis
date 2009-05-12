@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.deployer;
+package vanadis.deployer;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.lang.VarArgs;
-import net.sf.vanadis.core.time.Time;
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.osgi.Registration;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.ToString;
+import vanadis.core.lang.VarArgs;
+import vanadis.core.time.Time;
+import vanadis.core.time.TimeSpan;
+import vanadis.osgi.Registration;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 import org.osgi.framework.ServiceRegistration;
 
 import java.net.URI;

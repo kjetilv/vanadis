@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi;
+package vanadis.osgi;
 
 import java.util.Collection;
 
 /**
  * <P>A Mediator wraps a ServiceTracker.  It adds genericity,
  * and is conveniently {@link Iterable} over its current tracked
- * set.  Created with {@link net.sf.vanadis.osgi.Context#createMediator(Class, MediatorListener)},
- * passing a {@link net.sf.vanadis.osgi.MediatorListener}.</P>
+ * set.  Created with {@link vanadis.osgi.Context#createMediator(Class, MediatorListener)},
+ * passing a {@link vanadis.osgi.MediatorListener}.</P>
  *
- * @see net.sf.vanadis.osgi.MediatorListener
+ * @see vanadis.osgi.MediatorListener
  */
 public interface Mediator<T> extends Iterable<T> {
 

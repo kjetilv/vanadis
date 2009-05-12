@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.remoting;
+package vanadis.modules.remoting;
 
-import net.sf.vanadis.core.io.Closeables;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.AbstractContextAware;
-import net.sf.vanadis.ext.Expose;
-import net.sf.vanadis.ext.Inject;
-import net.sf.vanadis.ext.Module;
-import net.sf.vanadis.remoting.RemotingImpl;
-import net.sf.vanadis.services.remoting.RemoteClientFactory;
-import net.sf.vanadis.services.remoting.Remoting;
-import net.sf.vanadis.services.remoting.RemotingInfrastructure;
+import vanadis.core.io.Closeables;
+import vanadis.core.io.Location;
+import vanadis.core.lang.ToString;
+import vanadis.ext.AbstractContextAware;
+import vanadis.ext.Expose;
+import vanadis.ext.Inject;
+import vanadis.ext.Module;
+import vanadis.remoting.RemotingImpl;
+import vanadis.services.remoting.RemoteClientFactory;
+import vanadis.services.remoting.Remoting;
+import vanadis.services.remoting.RemotingInfrastructure;
 
 @Module(moduleType = "remoting")
 public class RemotingModule extends AbstractContextAware {

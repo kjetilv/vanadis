@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.services.remoting;
+package vanadis.services.remoting;
 
-import net.sf.vanadis.core.io.Location;
+import vanadis.core.io.Location;
 
 public interface RemotingInfrastructure {
 

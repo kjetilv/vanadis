@@ -11,10 +11,10 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License. */
-package net.sf.vanadis.modules.lang.groovy;
+package vanadis.modules.lang.groovy;
 
-import net.sf.vanadis.osgi.MOF;
-import net.sf.vanadis.ext.Expose;
+import vanadis.osgi.MOF;
+import vanadis.ext.Expose;
 
 import javax.script.ScriptEngineFactory;
 

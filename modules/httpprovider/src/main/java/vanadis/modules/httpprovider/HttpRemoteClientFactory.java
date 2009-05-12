@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.httpprovider;
+package vanadis.modules.httpprovider;
 
-import net.sf.vanadis.core.lang.Proxies;
-import net.sf.vanadis.remoting.AbstractRemoteClientFactory;
-import net.sf.vanadis.services.remoting.TargetHandle;
+import vanadis.core.lang.Proxies;
+import vanadis.remoting.AbstractRemoteClientFactory;
+import vanadis.services.remoting.TargetHandle;
 
 public class HttpRemoteClientFactory extends AbstractRemoteClientFactory {
 

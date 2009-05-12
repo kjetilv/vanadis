@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.networker.actions;
+package vanadis.modules.networker.actions;
 
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.ext.RemoteExposure;
-import net.sf.vanadis.services.networking.Router;
-import net.sf.vanadis.util.concurrent.AbstractRetriableAction;
+import vanadis.core.time.TimeSpan;
+import vanadis.ext.RemoteExposure;
+import vanadis.services.networking.Router;
+import vanadis.util.concurrent.AbstractRetriableAction;
 
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;

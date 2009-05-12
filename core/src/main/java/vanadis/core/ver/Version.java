@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.ver;
+package vanadis.core.ver;
 
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.lang.VarArgs;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
+import vanadis.core.lang.VarArgs;
 
 import java.io.Serializable;
 import java.util.Arrays;

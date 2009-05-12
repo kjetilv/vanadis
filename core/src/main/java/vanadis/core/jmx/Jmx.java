@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.jmx;
+package vanadis.core.jmx;
 
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.system.VM;
+import vanadis.core.lang.Not;
+import vanadis.core.system.VM;
 
 import javax.management.*;
 

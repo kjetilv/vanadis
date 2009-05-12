@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.annopro;
+package vanadis.annopro;
 
 @Foo("interface-impl")
 class AnotherAnnotatedTypeImpl implements AnotherAnnotatedType {

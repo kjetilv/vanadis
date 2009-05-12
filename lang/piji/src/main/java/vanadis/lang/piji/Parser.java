@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji;
+package vanadis.lang.piji;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.IORuntimeException;
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.IORuntimeException;
+import vanadis.core.lang.ToString;
 
 import java.io.*;
 import java.util.List;

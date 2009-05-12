@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.modules.commands;
+package vanadis.modules.commands;
 
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Filter;
-import net.sf.vanadis.osgi.Reference;
-import net.sf.vanadis.osgi.ServiceProperties;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.collections.Generic;
+import vanadis.core.properties.PropertySet;
+import vanadis.ext.*;
+import vanadis.osgi.Context;
+import vanadis.osgi.Filter;
+import vanadis.osgi.Reference;
+import vanadis.osgi.ServiceProperties;
 
 import java.util.Arrays;
 import java.util.Collection;

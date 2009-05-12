@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji;
+package vanadis.lang.piji;
 
-import net.sf.vanadis.lang.piji.hold.DataHolderFactory;
-import net.sf.vanadis.lang.piji.hold.Holder;
-import net.sf.vanadis.lang.piji.hold.PrimitiveHolder;
-import net.sf.vanadis.lang.piji.loading.ConstructorFinder;
-import net.sf.vanadis.lang.piji.loading.FieldFinder;
-import net.sf.vanadis.lang.piji.loading.MethodFinder;
+import vanadis.lang.piji.hold.DataHolderFactory;
+import vanadis.lang.piji.hold.Holder;
+import vanadis.lang.piji.hold.PrimitiveHolder;
+import vanadis.lang.piji.loading.ConstructorFinder;
+import vanadis.lang.piji.loading.FieldFinder;
+import vanadis.lang.piji.loading.MethodFinder;
 
 public class Reflector {
 

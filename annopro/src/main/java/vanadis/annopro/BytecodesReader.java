@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.annopro;
+package vanadis.annopro;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.Not;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.Not;
 import org.objectweb.asm.ClassReader;
 
 import java.io.IOException;

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.equinox;
+package vanadis.equinox;
 
-import net.sf.vanadis.launcher.AbstractOSGiLauncher;
-import net.sf.vanadis.launcher.ShutdownException;
-import net.sf.vanadis.launcher.StartupException;
+import vanadis.launcher.AbstractOSGiLauncher;
+import vanadis.launcher.ShutdownException;
+import vanadis.launcher.StartupException;
 import org.eclipse.core.runtime.adaptor.EclipseStarter;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;

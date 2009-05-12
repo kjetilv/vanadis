@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi;
+package vanadis.osgi;
 
-import net.sf.vanadis.core.lang.VarArgs;
-import net.sf.vanadis.core.properties.PropertySet;
+import vanadis.core.lang.VarArgs;
+import vanadis.core.properties.PropertySet;
 
 import java.util.Collection;
 

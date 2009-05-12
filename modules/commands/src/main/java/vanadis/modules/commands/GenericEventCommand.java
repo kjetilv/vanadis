@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.commands;
+package vanadis.modules.commands;
 
-import net.sf.vanadis.ext.AbstractCommand;
-import net.sf.vanadis.osgi.Context;
+import vanadis.ext.AbstractCommand;
+import vanadis.osgi.Context;
 
 public class GenericEventCommand extends AbstractCommand {
 

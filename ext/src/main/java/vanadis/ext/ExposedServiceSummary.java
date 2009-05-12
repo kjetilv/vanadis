@@ -1,4 +1,4 @@
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 /**
  * Information about an expose point.

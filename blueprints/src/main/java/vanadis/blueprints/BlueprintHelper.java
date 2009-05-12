@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.blueprints;
+package vanadis.blueprints;
 
-import net.sf.vanadis.blueprints.gen.BlueprintsType;
-import net.sf.vanadis.core.io.Closeables;
-import net.sf.vanadis.core.lang.Not;
+import vanadis.blueprints.gen.BlueprintsType;
+import vanadis.core.io.Closeables;
+import vanadis.core.lang.Not;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;

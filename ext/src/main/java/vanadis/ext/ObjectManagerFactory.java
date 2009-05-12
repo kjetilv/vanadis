@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
-import net.sf.vanadis.blueprints.ModuleSpecification;
+import vanadis.blueprints.ModuleSpecification;
 
 import java.util.Collection;
 
 /**
  * The object manager factory is associated with exactly one
  * module.  It is capable of creating new instances of
- * {@link net.sf.vanadis.ext.ObjectManager object managers} from
+ * {@link vanadis.ext.ObjectManager object managers} from
  * {@link ModuleSpecification service specifications}.
  */
 public interface ObjectManagerFactory extends Iterable<ModuleSpecification> {
@@ -67,7 +67,7 @@ public interface ObjectManagerFactory extends Iterable<ModuleSpecification> {
     void close(ModuleSpecification moduleSpecification);
 
     /**
-     * All returned {@link net.sf.vanadis.ext.ObjectManager object managers} will have
+     * All returned {@link vanadis.ext.ObjectManager object managers} will have
      * this {@link ObjectManager#getType() type}.
      *
      * @return Type

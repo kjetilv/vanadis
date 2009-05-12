@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.lang.VarArgs;
-import net.sf.vanadis.ext.ManagedLifecycle;
-import net.sf.vanadis.ext.ManagedState;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.ToString;
+import vanadis.core.lang.VarArgs;
+import vanadis.ext.ManagedLifecycle;
+import vanadis.ext.ManagedState;
 
 import java.util.Set;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.annopro;
+package vanadis.annopro;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

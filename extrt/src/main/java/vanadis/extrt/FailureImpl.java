@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.time.Time;
-import net.sf.vanadis.ext.Failure;
+import vanadis.core.lang.ToString;
+import vanadis.core.time.Time;
+import vanadis.ext.Failure;
 
 final class FailureImpl implements Failure {
 

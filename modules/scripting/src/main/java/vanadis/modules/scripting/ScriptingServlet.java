@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.scripting;
+package vanadis.modules.scripting;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Closeables;
-import net.sf.vanadis.core.io.IO;
-import net.sf.vanadis.core.io.IORuntimeException;
-import net.sf.vanadis.core.lang.Strings;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.system.VM;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Reference;
-import net.sf.vanadis.services.scripting.ScriptingSession;
-import net.sf.vanadis.services.scripting.ScriptingSessions;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Closeables;
+import vanadis.core.io.IO;
+import vanadis.core.io.IORuntimeException;
+import vanadis.core.lang.Strings;
+import vanadis.core.lang.ToString;
+import vanadis.core.system.VM;
+import vanadis.osgi.Context;
+import vanadis.osgi.Reference;
+import vanadis.services.scripting.ScriptingSession;
+import vanadis.services.scripting.ScriptingSessions;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

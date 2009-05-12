@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 /**
  * Describes all known module failures registered in a module.

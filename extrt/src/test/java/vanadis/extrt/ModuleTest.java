@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
 import junit.framework.Assert;
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.ext.Configure;
-import net.sf.vanadis.ext.Expose;
-import net.sf.vanadis.ext.Inject;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.ContextListener;
-import net.sf.vanadis.osgi.impl.BareBonesContext;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Location;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
+import vanadis.ext.Configure;
+import vanadis.ext.Expose;
+import vanadis.ext.Inject;
+import vanadis.osgi.Context;
+import vanadis.osgi.ContextListener;
+import vanadis.osgi.impl.BareBonesContext;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.ObjectManagerFactory;
-import net.sf.vanadis.ext.ObjectManagerFactoryMBean;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.ToString;
+import vanadis.ext.ObjectManagerFactory;
+import vanadis.ext.ObjectManagerFactoryMBean;
 
 import java.util.List;
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.core.collections;
+package vanadis.core.collections;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

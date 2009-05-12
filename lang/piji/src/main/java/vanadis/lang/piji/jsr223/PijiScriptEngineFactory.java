@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.lang.piji.jsr223;
+package vanadis.lang.piji.jsr223;
 
-import net.sf.vanadis.services.scripting.AbstractScriptEngineFactory;
+import vanadis.services.scripting.AbstractScriptEngineFactory;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;

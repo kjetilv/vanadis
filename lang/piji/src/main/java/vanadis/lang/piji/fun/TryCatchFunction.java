@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.fun;
+package vanadis.lang.piji.fun;
 
-import net.sf.vanadis.core.lang.EntryPoint;
-import net.sf.vanadis.lang.piji.*;
+import vanadis.core.lang.EntryPoint;
+import vanadis.lang.piji.*;
 
 @EntryPoint("Reflection")
 public final class TryCatchFunction extends AbstractFunction {

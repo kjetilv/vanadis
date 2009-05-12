@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 /**
  * A callback interface for the module.  The module receives an instance
- * of this interface by implementing {@link net.sf.vanadis.ext.ModuleSystemAware}.
+ * of this interface by implementing {@link vanadis.ext.ModuleSystemAware}.
  */
 public interface ModuleSystemCallback {
 

@@ -13,24 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.annopro.AnnotationDatum;
-import net.sf.vanadis.annopro.AnnotationsDigest;
-import net.sf.vanadis.annopro.AnnotationsDigests;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.collections.Pair;
-import net.sf.vanadis.core.lang.AccessibleHelper;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.Strings;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.reflection.ArgumentTypeMismatchException;
-import net.sf.vanadis.core.reflection.GetNSet;
-import net.sf.vanadis.core.reflection.Invoker;
-import net.sf.vanadis.ext.Attribute;
-import net.sf.vanadis.ext.Manageable;
-import net.sf.vanadis.ext.Operation;
-import net.sf.vanadis.ext.Param;
+import vanadis.annopro.AnnotationDatum;
+import vanadis.annopro.AnnotationsDigest;
+import vanadis.annopro.AnnotationsDigests;
+import vanadis.core.collections.Generic;
+import vanadis.core.collections.Pair;
+import vanadis.core.lang.AccessibleHelper;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.Strings;
+import vanadis.core.lang.ToString;
+import vanadis.core.reflection.ArgumentTypeMismatchException;
+import vanadis.core.reflection.GetNSet;
+import vanadis.core.reflection.Invoker;
+import vanadis.ext.Attribute;
+import vanadis.ext.Manageable;
+import vanadis.ext.Operation;
+import vanadis.ext.Param;
 
 import javax.management.*;
 import java.lang.reflect.Field;
@@ -220,7 +220,7 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
         }
         for (Map.Entry<String, AnnotationDatum<Field>> entry : attributeFields.entrySet()) {
             Field field = entry.getValue().getElement();
-            net.sf.vanadis.ext.Attribute annotation = field.getAnnotation(Attribute.class);
+            vanadis.ext.Attribute annotation = field.getAnnotation(Attribute.class);
             infos.add(new MBeanAttributeInfo
                     (entry.getKey(),
                      annotation.string() ? STRING : type(field.getType()),

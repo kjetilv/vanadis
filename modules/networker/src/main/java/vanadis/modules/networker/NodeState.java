@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.networker;
+package vanadis.modules.networker;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.RemoteExposure;
-import net.sf.vanadis.ext.RemoteInjectPoint;
-import net.sf.vanadis.osgi.ServiceProperties;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Location;
+import vanadis.core.lang.ToString;
+import vanadis.ext.RemoteExposure;
+import vanadis.ext.RemoteInjectPoint;
+import vanadis.osgi.ServiceProperties;
 
 import java.util.Arrays;
 import java.util.Map;

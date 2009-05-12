@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.fun;
+package vanadis.lang.piji.fun;
 
-import net.sf.vanadis.core.collections.EnumerationIterator;
-import net.sf.vanadis.core.lang.EntryPoint;
-import net.sf.vanadis.lang.piji.*;
+import vanadis.core.collections.EnumerationIterator;
+import vanadis.core.lang.EntryPoint;
+import vanadis.lang.piji.*;
 
 import java.util.Arrays;
 import java.util.Collection;

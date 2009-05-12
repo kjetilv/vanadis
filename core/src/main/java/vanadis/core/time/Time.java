@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.time;
+package vanadis.core.time;
 
-import net.sf.vanadis.core.lang.EqHc;
+import vanadis.core.lang.EqHc;
 
 import java.io.File;
 import java.util.Date;

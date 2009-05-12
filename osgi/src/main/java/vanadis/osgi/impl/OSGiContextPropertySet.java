@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi.impl;
+package vanadis.osgi.impl;
 
-import net.sf.vanadis.core.properties.AbstractPropertySet;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.osgi.Context;
+import vanadis.core.properties.AbstractPropertySet;
+import vanadis.core.properties.PropertySet;
+import vanadis.osgi.Context;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

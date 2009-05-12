@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.examples.javacalc.mul;
+package vanadis.modules.examples.javacalc.mul;
 
-import net.sf.vanadis.ext.Expose;
-import net.sf.vanadis.ext.Module;
-import net.sf.vanadis.modules.examples.javacalc.calcservices.Multiplier;
+import vanadis.ext.Expose;
+import vanadis.ext.Module;
+import vanadis.modules.examples.javacalc.calcservices.Multiplier;
 
 @Module(moduleType = "javacalc-mul")
 public class MultiplicationModule {

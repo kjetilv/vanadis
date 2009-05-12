@@ -1,4 +1,4 @@
-package net.sf.vanadis.modules.examples.scalacalc.calculator
+package vanadis.modules.examples.scalacalc.calculator
 
 import ext.{Inject, AbstractModule, Module, Expose}
 import scala.collection.mutable

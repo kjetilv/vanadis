@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -22,8 +22,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for JMX-exposed beans.  Applies to {@link net.sf.vanadis.ext.Module modules} and
- * {@link net.sf.vanadis.ext.Expose exposed} objects.
+ * Annotation for JMX-exposed beans.  Applies to {@link vanadis.ext.Module modules} and
+ * {@link vanadis.ext.Expose exposed} objects.
  */
 @Documented
 @Retention(RUNTIME)

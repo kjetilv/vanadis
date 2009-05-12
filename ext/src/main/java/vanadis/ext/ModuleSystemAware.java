@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 /**
  * Modules can implement this interface to receive a callback interface
  * towards the module system.  One convenient way to do this is to extend
- * {@link net.sf.vanadis.ext.AbstractModule} and declare implementation this interface.
+ * {@link vanadis.ext.AbstractModule} and declare implementation this interface.
  */
 public interface ModuleSystemAware {
 

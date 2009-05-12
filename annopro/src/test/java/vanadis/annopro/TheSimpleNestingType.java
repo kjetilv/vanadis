@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.annopro;
+package vanadis.annopro;
 
 @Nest(nested = @Nested(value = "level0", longs = {}), type = NestType.SIMPLE)
 public class TheSimpleNestingType {

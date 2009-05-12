@@ -23,8 +23,8 @@
 
   <!-- Vanilla java modules -->
   <blueprint name="vanadis-javacalc" extends="vanadis-basic">
-    <bundles group="net.sf.vanadis.modules.examples.javacalc"
-             artifact-prefix="net.sf.vanadis.modules.examples.javacalc">
+    <bundles group="vanadis.modules.examples.javacalc"
+             artifact-prefix="vanadis.modules.examples.javacalc">
       <bundle artifact="calcservices"/>
       <bundle artifact="add"/>
       <bundle artifact="sub"/>
@@ -64,8 +64,8 @@
     <bundle group="org.scala-lang-osgi" artifact="scala-library" version="2.7.4"/>
     <bundle group="org.scala-lang-osgi" artifact="scala-compiler" version="2.7.4"/>
 
-    <bundles group="net.sf.vanadis.modules.examples.scalacalc"
-             artifact-prefix="net.sf.vanadis.modules.examples.scalacalca">
+    <bundles group="vanadis.modules.examples.scalacalc"
+             artifact-prefix="vanadis.modules.examples.scalacalca">
       <bundle artifact="calcmodules"/>
       <bundle artifact="add"/>
       <bundle artifact="sub"/>

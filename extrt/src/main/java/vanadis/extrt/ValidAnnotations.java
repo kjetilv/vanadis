@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.annopro.AnnotationDatum;
-import net.sf.vanadis.annopro.AnnotationsDigest;
-import net.sf.vanadis.annopro.AnnotationsDigests;
-import net.sf.vanadis.core.lang.AccessibleHelper;
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.osgi.ServiceProperties;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.annopro.AnnotationDatum;
+import vanadis.annopro.AnnotationsDigest;
+import vanadis.annopro.AnnotationsDigests;
+import vanadis.core.lang.AccessibleHelper;
+import vanadis.core.properties.PropertySet;
+import vanadis.ext.*;
+import vanadis.osgi.ServiceProperties;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;

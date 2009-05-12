@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.blueprints.ModuleSpecification;
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.ToString;
 
 final class ServiceStatus {
 

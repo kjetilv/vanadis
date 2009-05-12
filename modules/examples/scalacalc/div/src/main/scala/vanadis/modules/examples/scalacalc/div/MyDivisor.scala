@@ -1,4 +1,4 @@
-package net.sf.vanadis.modules.examples.scalacalc.div
+package vanadis.modules.examples.scalacalc.div
 
 import calcservices.Divisor
 

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.properties;
+package vanadis.core.properties;
 
-import net.sf.vanadis.core.lang.VarArgs;
+import vanadis.core.lang.VarArgs;
 
 final class Resolve {
 

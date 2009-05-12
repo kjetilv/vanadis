@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.launcher;
+package vanadis.launcher;
 
-import net.sf.vanadis.blueprints.SystemSpecification;
-import net.sf.vanadis.core.io.Location;
+import vanadis.blueprints.SystemSpecification;
+import vanadis.core.io.Location;
 
 import java.io.PrintStream;
 import java.net.URI;

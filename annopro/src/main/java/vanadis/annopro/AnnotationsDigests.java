@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.annopro;
+package vanadis.annopro;
 
-import net.sf.vanadis.core.lang.Not;
+import vanadis.core.lang.Not;
 
 import java.io.InputStream;
 

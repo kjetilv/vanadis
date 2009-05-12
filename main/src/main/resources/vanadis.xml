@@ -28,7 +28,7 @@
     <!-- ASM -->
     <auto-bundle group="org.objectweb.asm" artifact="com.springsource.org.objectweb.asm"
                  version="3.1.0"/>
-    <bundles group="net.sf.vanadis" artifact-prefix="net.sf.vanadis">
+    <bundles group="vanadis" artifact-prefix="vanadis">
       <!-- Log setup -->
       <auto-bundle artifact="log4jsetup"/>
       <!-- Annotation muncher -->
@@ -42,7 +42,7 @@
     </bundles>
 
     <!-- Log Service -->
-    <auto-bundle group="net.sf.vanadis.modules" artifact="net.sf.vanadis.modules.log"/>
+    <auto-bundle group="vanadis.modules" artifact="vanadis.modules.log"/>
   </blueprint>
 
   <!-- Shell-enabled extension of the base -->
@@ -55,7 +55,7 @@
 
   <!-- Extensions adding vanadis commands -->
   <blueprint name="base-commands" extends="base-shell">
-    <bundles group="net.sf.vanadis.modules" artifact-prefix="net.sf.vanadis.modules">
+    <bundles group="vanadis.modules" artifact-prefix="vanadis.modules">
       <bundle artifact="commands"/>
       <bundle artifact="felixcmds"/>
     </bundles>
@@ -64,12 +64,12 @@
   <!-- Template for full stand-alone vanadis -->
   <blueprint name="vanadis-basic" extends="base-commands">
     <bundle group="org.apache.felix" artifact="org.apache.felix.eventadmin" version="1.0.0"/>
-    <bundles group="net.sf.vanadis" artifact-prefix="net.sf.vanadis">
+    <bundles group="vanadis" artifact-prefix="vanadis">
       <bundle artifact="deployer"/>
       <bundle artifact="remoting"/>
       <bundle artifact="services"/>
     </bundles>
-    <bundle group="net.sf.vanadis.lang" artifact="net.sf.vanadis.lang.piji"/>
+    <bundle group="vanadis.lang" artifact="vanadis.lang.piji"/>
 
     <!-- Grizzly -->
     <bundle group="javax.servlet" artifact="com.springsource.javax.servlet" version="2.5.0"/>
@@ -80,7 +80,7 @@
       </properties>
     </bundle>
 
-    <bundles group="net.sf.vanadis.modules" artifact-prefix="net.sf.vanadis.modules">
+    <bundles group="vanadis.modules" artifact-prefix="vanadis.modules">
       <bundle artifact="httpwhiteboard"/>
       <bundle artifact="commands"/>
       <bundle artifact="jmxsetup"/>
@@ -90,7 +90,7 @@
       <bundle artifact="reposerv"/>
       <bundle artifact="scripting"/>
     </bundles>
-    <bundle group="net.sf.vanadis.modules.lang" artifact="net.sf.vanadis.modules.lang.piji"/>
+    <bundle group="vanadis.modules.lang" artifact="vanadis.modules.lang.piji"/>
 
     <module name="httpprovider" type="httpprovider">
       <properties>

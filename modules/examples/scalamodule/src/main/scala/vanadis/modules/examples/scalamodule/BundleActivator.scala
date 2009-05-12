@@ -1,6 +1,6 @@
-package net.sf.vanadis.modules.examples.scalamodule;
+package vanadis.modules.examples.scalamodule;
 
-//import net.sf.vanadis.osgi._
+//import vanadis.osgi._
 import org.osgi.framework._
 
 class BundleActivator extends org.osgi.framework.BundleActivator {

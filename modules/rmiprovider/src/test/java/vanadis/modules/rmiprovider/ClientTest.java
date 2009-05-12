@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.rmiprovider;
+package vanadis.modules.rmiprovider;
 
 import junit.framework.Assert;
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.core.io.Closeables;
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.remoting.MapTargetReference;
-import net.sf.vanadis.remoting.RemotingImpl;
-import net.sf.vanadis.remoting.TestTarget;
-import net.sf.vanadis.remoting.TestTargetImpl;
-import net.sf.vanadis.services.remoting.Remoting;
-import net.sf.vanadis.services.remoting.TargetHandle;
+import vanadis.core.collections.Generic;
+import vanadis.core.io.Closeables;
+import vanadis.core.io.Location;
+import vanadis.remoting.MapTargetReference;
+import vanadis.remoting.RemotingImpl;
+import vanadis.remoting.TestTarget;
+import vanadis.remoting.TestTargetImpl;
+import vanadis.services.remoting.Remoting;
+import vanadis.services.remoting.TargetHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;

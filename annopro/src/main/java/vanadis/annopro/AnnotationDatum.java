@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.annopro;
+package vanadis.annopro;
 
-import net.sf.vanadis.core.lang.EqHc;
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.Proxies;
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.core.properties.PropertySet;
+import vanadis.core.lang.EqHc;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.Proxies;
+import vanadis.core.lang.ToString;
+import vanadis.core.properties.PropertySet;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;

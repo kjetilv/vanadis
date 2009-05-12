@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.httpprovider;
+package vanadis.modules.httpprovider;
 
-import net.sf.vanadis.core.io.Closeables;
-import net.sf.vanadis.core.lang.ContextClassLoaderSwitch;
-import net.sf.vanadis.core.reflection.ContextClassLoaderObjectInputStream;
-import net.sf.vanadis.remoting.AbstractHandler;
-import net.sf.vanadis.remoting.MethodCall;
-import net.sf.vanadis.remoting.MethodCallResult;
-import net.sf.vanadis.services.remoting.RemotingException;
-import net.sf.vanadis.services.remoting.TargetHandle;
+import vanadis.core.io.Closeables;
+import vanadis.core.lang.ContextClassLoaderSwitch;
+import vanadis.core.reflection.ContextClassLoaderObjectInputStream;
+import vanadis.remoting.AbstractHandler;
+import vanadis.remoting.MethodCall;
+import vanadis.remoting.MethodCallResult;
+import vanadis.services.remoting.RemotingException;
+import vanadis.services.remoting.TargetHandle;
 
 import java.io.*;
 import java.net.HttpURLConnection;

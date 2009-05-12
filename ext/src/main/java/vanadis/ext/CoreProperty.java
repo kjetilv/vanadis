@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
-import net.sf.vanadis.core.properties.PropertySet;
-import net.sf.vanadis.core.properties.PropertySets;
-import net.sf.vanadis.core.reflection.Retyper;
-import net.sf.vanadis.osgi.Filter;
-import net.sf.vanadis.osgi.Filters;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
+import vanadis.core.reflection.Retyper;
+import vanadis.osgi.Filter;
+import vanadis.osgi.Filters;
 import org.osgi.framework.Constants;
 
 import javax.management.ObjectName;

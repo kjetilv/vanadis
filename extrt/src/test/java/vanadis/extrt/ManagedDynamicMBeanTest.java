@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.ext.Attribute;
-import net.sf.vanadis.ext.Manageable;
-import net.sf.vanadis.ext.Operation;
-import net.sf.vanadis.ext.Param;
+import vanadis.ext.Attribute;
+import vanadis.ext.Manageable;
+import vanadis.ext.Operation;
+import vanadis.ext.Param;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.util.concurrent;
+package vanadis.util.concurrent;
 
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.lang.ToString;
 
 final class ScavengeProgress<V> {
 

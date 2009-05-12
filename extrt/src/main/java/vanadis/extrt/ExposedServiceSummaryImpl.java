@@ -1,7 +1,7 @@
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.core.lang.ToString;
-import net.sf.vanadis.ext.ExposedServiceSummary;
+import vanadis.core.lang.ToString;
+import vanadis.ext.ExposedServiceSummary;
 
 class ExposedServiceSummaryImpl extends AbstractManagedFeatureSummary implements ExposedServiceSummary {
 

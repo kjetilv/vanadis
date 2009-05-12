@@ -17,7 +17,7 @@
 /*
  * Generated file - Do not edit!
  */
-package net.sf.vanadis.lang.piji;
+package vanadis.lang.piji;
 
 /**
  * MBean interface.

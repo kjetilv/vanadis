@@ -17,48 +17,48 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-        <groupId>net.sf.vanadis.modules.examples.javacalc</groupId>
-        <artifactId>net.sf.vanadis.modules.examples.javacalc</artifactId>
+        <groupId>vanadis.modules.examples.javacalc</groupId>
+        <artifactId>vanadis.modules.examples.javacalc</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.sf.vanadis.modules.examples.javacalc.install</groupId>
-    <artifactId>net.sf.vanadis.modules.examples.javacalc.install</artifactId>
+    <groupId>vanadis.modules.examples.javacalc.install</groupId>
+    <artifactId>vanadis.modules.examples.javacalc.install</artifactId>
     <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>Vanadis Module: Example: Java Calc: Install</description>
     <name>${artifactId}</name>
     <dependencies>
         <dependency>
-            <groupId>net.sf.vanadis.install</groupId>
-            <artifactId>net.sf.vanadis.install</artifactId>
+            <groupId>vanadis.install</groupId>
+            <artifactId>vanadis.install</artifactId>
             <classifier>vanadis-felix</classifier>
             <type>zip</type>
         </dependency>
         <dependency>
-            <groupId>net.sf.vanadis.modules.examples.javacalc.add</groupId>
-            <artifactId>net.sf.vanadis.modules.examples.javacalc.add</artifactId>
+            <groupId>vanadis.modules.examples.javacalc.add</groupId>
+            <artifactId>vanadis.modules.examples.javacalc.add</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sf.vanadis.modules.examples.javacalc.sub</groupId>
-            <artifactId>net.sf.vanadis.modules.examples.javacalc.sub</artifactId>
+            <groupId>vanadis.modules.examples.javacalc.sub</groupId>
+            <artifactId>vanadis.modules.examples.javacalc.sub</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sf.vanadis.modules.examples.javacalc.div</groupId>
-            <artifactId>net.sf.vanadis.modules.examples.javacalc.div</artifactId>
+            <groupId>vanadis.modules.examples.javacalc.div</groupId>
+            <artifactId>vanadis.modules.examples.javacalc.div</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sf.vanadis.modules.examples.javacalc.mul</groupId>
-            <artifactId>net.sf.vanadis.modules.examples.javacalc.mul</artifactId>
+            <groupId>vanadis.modules.examples.javacalc.mul</groupId>
+            <artifactId>vanadis.modules.examples.javacalc.mul</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sf.vanadis.modules.examples.javacalc.calculator</groupId>
-            <artifactId>net.sf.vanadis.modules.examples.javacalc.calculator</artifactId>
+            <groupId>vanadis.modules.examples.javacalc.calculator</groupId>
+            <artifactId>vanadis.modules.examples.javacalc.calculator</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sf.vanadis.modules.examples.javacalc.calcservices</groupId>
-            <artifactId>net.sf.vanadis.modules.examples.javacalc.calcservices</artifactId>
+            <groupId>vanadis.modules.examples.javacalc.calcservices</groupId>
+            <artifactId>vanadis.modules.examples.javacalc.calcservices</artifactId>
         </dependency>
     </dependencies>
     <build>

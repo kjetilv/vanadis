@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.networker;
+package vanadis.modules.networker;
 
-import net.sf.vanadis.core.time.TimeSpan;
-import net.sf.vanadis.ext.RemoteConnection;
-import net.sf.vanadis.modules.networker.actions.ConnectAction;
-import net.sf.vanadis.modules.networker.actions.DisconnectAction;
-import net.sf.vanadis.services.networking.RemoteNode;
-import net.sf.vanadis.util.concurrent.AbstractRetrier;
+import vanadis.core.time.TimeSpan;
+import vanadis.ext.RemoteConnection;
+import vanadis.modules.networker.actions.ConnectAction;
+import vanadis.modules.networker.actions.DisconnectAction;
+import vanadis.services.networking.RemoteNode;
+import vanadis.util.concurrent.AbstractRetrier;
 
 import java.util.concurrent.ScheduledExecutorService;
 

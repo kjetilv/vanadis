@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.remoting;
+package vanadis.remoting;
 
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Filter;
-import net.sf.vanadis.osgi.Reference;
+import vanadis.osgi.Context;
+import vanadis.osgi.Filter;
+import vanadis.osgi.Reference;
 
 import java.util.Collection;
 

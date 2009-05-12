@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
 public enum EnumPenum {
 

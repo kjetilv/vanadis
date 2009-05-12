@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.osgi.impl;
+package vanadis.osgi.impl;
 
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.core.lang.Proxies;
-import net.sf.vanadis.osgi.Context;
-import net.sf.vanadis.osgi.Filter;
-import net.sf.vanadis.osgi.ServiceProxyFactory;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.Proxies;
+import vanadis.osgi.Context;
+import vanadis.osgi.Filter;
+import vanadis.osgi.ServiceProxyFactory;
 
 import java.lang.reflect.InvocationHandler;
 

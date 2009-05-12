@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.launcher;
+package vanadis.launcher;
 
 public class StartupException extends RuntimeException {
 

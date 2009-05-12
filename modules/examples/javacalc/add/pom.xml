@@ -17,21 +17,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <relativePath>../pom.xml</relativePath>
-    <groupId>net.sf.vanadis.modules.examples</groupId>
-    <artifactId>net.sf.vanadis.modules.examples.javacalc</artifactId>
+    <groupId>vanadis.modules.examples</groupId>
+    <artifactId>vanadis.modules.examples.javacalc</artifactId>
     <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.vanadis.modules.examples.javacalc</groupId>
-  <artifactId>net.sf.vanadis.modules.examples.javacalc.add</artifactId>
+  <groupId>vanadis.modules.examples.javacalc</groupId>
+  <artifactId>vanadis.modules.examples.javacalc.add</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <description>Vanadis Module: Example: Java Calc: Addition Service</description>
   <name>${artifactId}</name>
   <dependencies>
     <dependency>
-      <groupId>net.sf.vanadis.modules.examples.javacalc</groupId>
-      <artifactId>net.sf.vanadis.modules.examples.javacalc.calcservices</artifactId>
+      <groupId>vanadis.modules.examples.javacalc</groupId>
+      <artifactId>vanadis.modules.examples.javacalc.calcservices</artifactId>
     </dependency>
   </dependencies>
 </project>

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi;
+package vanadis.osgi;
 
 import java.io.Serializable;
 
 /**
  * A programmatic model of the string-based OSGi service filter.
- * To create instances of this interface, use the {@link net.sf.vanadis.osgi.Filters}
+ * To create instances of this interface, use the {@link vanadis.osgi.Filters}
  * class and its static factory methods.
  */
 public interface Filter extends Serializable {

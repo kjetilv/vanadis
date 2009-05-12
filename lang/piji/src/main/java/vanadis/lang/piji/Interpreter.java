@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji;
+package vanadis.lang.piji;
 
-import net.sf.vanadis.lang.piji.fun.Functions;
-import net.sf.vanadis.util.log.Log;
-import net.sf.vanadis.util.log.Logs;
+import vanadis.lang.piji.fun.Functions;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
@@ -181,7 +181,7 @@ public final class Interpreter {
     private static void loadFunctions() {
         for (int i = 0; i < Functions.MAP.length; i++) {
             String[] spec = Functions.MAP[i];
-            String classname = "net.sf.vanadis.lang.piji.fun." + spec[0];
+            String classname = "vanadis.lang.piji.fun." + spec[0];
             preload(spec[1], classname);
         }
     }

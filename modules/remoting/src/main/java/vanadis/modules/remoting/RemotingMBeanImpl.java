@@ -1,7 +1,7 @@
-package net.sf.vanadis.modules.remoting;
+package vanadis.modules.remoting;
 
-import net.sf.vanadis.core.io.Location;
-import net.sf.vanadis.core.lang.ToString;
+import vanadis.core.io.Location;
+import vanadis.core.lang.ToString;
 
 final class RemotingMBeanImpl implements RemotingMBean {
 

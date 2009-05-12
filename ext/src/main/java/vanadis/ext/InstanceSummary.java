@@ -1,6 +1,6 @@
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
-import net.sf.vanadis.osgi.ServiceProperties;
+import vanadis.osgi.ServiceProperties;
 
 public interface InstanceSummary {
 

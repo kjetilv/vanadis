@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.rmiprovider;
+package vanadis.modules.rmiprovider;
 
-import net.sf.vanadis.core.lang.Not;
-import net.sf.vanadis.remoting.AbstractHandler;
-import net.sf.vanadis.remoting.MethodCall;
-import net.sf.vanadis.remoting.MethodCallResult;
-import net.sf.vanadis.services.remoting.RemotingException;
-import net.sf.vanadis.services.remoting.TargetHandle;
+import vanadis.core.lang.Not;
+import vanadis.remoting.AbstractHandler;
+import vanadis.remoting.MethodCall;
+import vanadis.remoting.MethodCallResult;
+import vanadis.services.remoting.RemotingException;
+import vanadis.services.remoting.TargetHandle;
 
 import java.rmi.RemoteException;
 

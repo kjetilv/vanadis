@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.services.networking;
+package vanadis.services.networking;
 
-import net.sf.vanadis.ext.RemoteExposure;
-import net.sf.vanadis.ext.RemoteInjectPoint;
+import vanadis.ext.RemoteExposure;
+import vanadis.ext.RemoteInjectPoint;
 
 import java.util.List;
 

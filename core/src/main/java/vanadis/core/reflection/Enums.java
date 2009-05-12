@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.core.reflection;
+package vanadis.core.reflection;
 
-import net.sf.vanadis.core.lang.Not;
+import vanadis.core.lang.Not;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

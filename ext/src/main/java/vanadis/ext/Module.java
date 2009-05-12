@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.ext;
+package vanadis.ext;
 
 import java.lang.annotation.*;
 
 /**
  * <P>Indicates a module class. Objects with this annotation are picked up from bundles at
  * load time and managed as modules.  It defines a unique
- * {@link net.sf.vanadis.ext.Module#moduleType() module type}
- * and an {@link net.sf.vanadis.ext.ObjectManagerFactory} is created for it.  If the Module
+ * {@link vanadis.ext.Module#moduleType() module type}
+ * and an {@link vanadis.ext.ObjectManagerFactory} is created for it.  If the Module
  * has any {@link #launch() launch specifications}, it will immediately be called upon
  * to {@link ObjectManagerFactory#autoLaunch() auto-launch} them.</P>
  *

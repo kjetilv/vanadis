@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.osgi.impl;
+package vanadis.osgi.impl;
 
-import net.sf.vanadis.core.collections.Generic;
-import net.sf.vanadis.osgi.BundleMediator;
-import net.sf.vanadis.osgi.BundleMediatorListener;
+import vanadis.core.collections.Generic;
+import vanadis.osgi.BundleMediator;
+import vanadis.osgi.BundleMediatorListener;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.ext.ObjectManagerExposePointMBean;
+import vanadis.ext.ObjectManagerExposePointMBean;
 
 class ObjectManagerExposePointMBeanImpl implements ObjectManagerExposePointMBean {
 

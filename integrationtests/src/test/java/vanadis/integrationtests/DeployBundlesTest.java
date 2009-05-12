@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.integrationtests;
+package vanadis.integrationtests;
 
 import junit.framework.Assert;
-import net.sf.vanadis.core.time.Deadline;
-import net.sf.vanadis.core.time.TimeSpan;
+import vanadis.core.time.Deadline;
+import vanadis.core.time.TimeSpan;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 
@@ -29,10 +29,10 @@ public class DeployBundlesTest extends SingleFelixTestCase {
     public void simpleDeploy() {
         Bundle[] bundles = session().getLaunch().getLaunchResult().getBundleContext().getBundles();
         int count = bundles.length;
-        registerVBundle(session(), "net.sf.vanadis.modules.examples.javacalc", "calcservices");
-        registerVBundle(session(), "net.sf.vanadis.modules.examples.javacalc", "add");
+        registerVBundle(session(), "vanadis.modules.examples.javacalc", "calcservices");
+        registerVBundle(session(), "vanadis.modules.examples.javacalc", "add");
 
-        waitForBundle(session(), "net.sf.vanadis.modules.examples.javacalc.add", Bundle.ACTIVE);
+        waitForBundle(session(), "vanadis.modules.examples.javacalc.add", Bundle.ACTIVE);
 
         Deadline deadline = TimeSpan.MINUTE.newDeadline();
         int newCount = session().getLaunch().getLauncher().getLaunchResult().getAllBundles().length;

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.blueprints.BundleSpecification;
-import net.sf.vanadis.blueprints.ModuleSpecification;
+import vanadis.blueprints.BundleSpecification;
+import vanadis.blueprints.ModuleSpecification;
 import org.osgi.framework.Bundle;
 
 interface ModuleSystemListener {
@@ -26,7 +26,7 @@ interface ModuleSystemListener {
      * {@link org.osgi.framework.BundleListener#bundleChanged(org.osgi.framework.BundleEvent)} is invoked.
      * When this happens, it is either because we installed the bundle, or someone else did.  Either way,
      * that will force us to look through the bundle for
-     * {@link net.sf.vanadis.ext.ObjectManagerFactory object manager factories}.</P>
+     * {@link vanadis.ext.ObjectManagerFactory object manager factories}.</P>
      *
      * <p>Properties respected:</p>
      *
@@ -47,16 +47,16 @@ interface ModuleSystemListener {
 
     /**
      * <P>Notify that a launch has been added.  This launch will refer to an existing (or future)
-     * {@link net.sf.vanadis.ext.ObjectManagerFactory object manager factory},
+     * {@link vanadis.ext.ObjectManagerFactory object manager factory},
      * and specify the creation of an actual, named
-     * {@link net.sf.vanadis.ext.ObjectManager object manager}.
+     * {@link vanadis.ext.ObjectManager object manager}.
      *
      * @param moduleSpecification Actual launch specification
      */
     void moduleSpecificationAdded(ModuleSpecification moduleSpecification);
 
     /**
-     * A launch has been removed.  Take down the {@link net.sf.vanadis.ext.ObjectManager object manager}
+     * A launch has been removed.  Take down the {@link vanadis.ext.ObjectManager object manager}
      * that was specified by it.
      *
      * @param moduleSpecification Actual launch specification

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.modules.scripting;
+package vanadis.modules.scripting;
 
-import net.sf.vanadis.ext.*;
-import net.sf.vanadis.services.scripting.ScriptingSessions;
+import vanadis.ext.*;
+import vanadis.services.scripting.ScriptingSessions;
 
 import javax.script.ScriptEngineFactory;
 import javax.servlet.Servlet;

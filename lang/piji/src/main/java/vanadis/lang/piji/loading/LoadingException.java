@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.lang.piji.loading;
+package vanadis.lang.piji.loading;
 
 /**
  * Exception signalling misbehaviour of some loading function

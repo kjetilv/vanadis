@@ -19,4 +19,4 @@
  *
  * <P>Returns an {@link
  */
-package net.sf.vanadis.annopro;
+package vanadis.annopro;

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.vanadis.util.concurrent;
+package vanadis.util.concurrent;
 
 import junit.framework.Assert;
-import net.sf.vanadis.core.time.TimeSpan;
+import vanadis.core.time.TimeSpan;
 import org.junit.Test;
 
 import java.util.concurrent.atomic.AtomicBoolean;

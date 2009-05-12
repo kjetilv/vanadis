@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.sf.vanadis.extrt;
+package vanadis.extrt;
 
-import net.sf.vanadis.blueprints.BundleSpecification;
-import net.sf.vanadis.osgi.MediatorListener;
-import net.sf.vanadis.osgi.Reference;
+import vanadis.blueprints.BundleSpecification;
+import vanadis.osgi.MediatorListener;
+import vanadis.osgi.Reference;
 
 class BundleSpecMediatorListener implements MediatorListener<BundleSpecification> {
 
