@@ -1,27 +1,37 @@
 package vanadis.core.properties;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import vanadis.core.collections.Generic;
+
+import java.util.Map;
 
 public class PropertyNameTest {
 
     @Test
     public void sameCase() {
-        Assert.assertEquals(new PropertyName("caseName"), new PropertyName("caseName"));
+        assertEquals(new PropertyName("caseName"), new PropertyName("caseName"));
     }
     @Test
     public void sameHash() {
-        Assert.assertEquals(new PropertyName("caseName").hashCode(), new PropertyName("caseName").hashCode());
+        assertEquals(new PropertyName("caseName").hashCode(), new PropertyName("caseName").hashCode());
     }
 
     @Test
     public void differentCase() {
-        Assert.assertEquals(new PropertyName("caseName"), new PropertyName("CaseName"));
+        assertEquals(new PropertyName("caseName"), new PropertyName("CaseName"));
     }
 
     @Test
     public void snakeAndCamelCase() {
-        Assert.assertEquals(new PropertyName("case_name"), new PropertyName("CaseName"));
-        Assert.assertEquals(new PropertyName("case_name"), new PropertyName("caseName"));
+        assertEquals(new PropertyName("case_name"), new PropertyName("CaseName"));
+        assertEquals(new PropertyName("case_name"), new PropertyName("caseName"));
+    }
+
+    @Test
+    public void mapTest() {
+        Map<PropertyName,String> map = Generic.map();
+        map.put(new PropertyName("someCrazyKey"), "foo");
+        assertEquals("foo", map.get(new PropertyName("some_crazy_key")));
     }
 }

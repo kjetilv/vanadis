@@ -13,7 +13,15 @@ import vanadis.core.lang.ToString;
  *  <li>snake_case</li>
  * </ul>
  *
- * <p>That is, <code>new PropertyName("snake_case")</code> is equals to <code>new PropertyName("SnakeCase")</code></p>
+ * <p>I.e. <code>new PropertyName("snake_case")</code> is equals to <code>new PropertyName("SnakeCase")</code>,
+ * allowing clients of Maps/Sets to use any of the supported conventions,
+ * and leaving the key class itself to do the resoultion:</p>
+ *
+ * <pre>
+ * Map&lt;PropertyName,String&gt; map = Generic.map();
+ * map.put(new PropertyName("someCrazyKey"), "foo");
+ * assertEquals("foo", map.get(new PropertyName("some_crazy_key")));
+ * </pre>
  */
 public final class PropertyName {
 
