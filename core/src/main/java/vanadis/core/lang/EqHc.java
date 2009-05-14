@@ -25,16 +25,17 @@ import java.util.List;
  *
  * <P><PRE>
  * public boolean equals(Object o) {
- * if (o == this) {
- * return true; // This shortcut is not necessary, but it <b>is</b> a shortcut, FWIW
- * }
- * MyClass ok = {@link #retyped(Object, Object) EqHc.retyped}(this, o); // Legal cast or null
- * return ok != null && {@link #eq(Object[]) EqHc.eq}(fieldOne, ok.fieldOne,
- * fieldTwo, ok.fieldTwo);
+ *     if (o == this) {
+ *         return true; // This shortcut is not necessary, but it <b>is</b> a shortcut, FWIW
+ *     }
+ *     MyClass ok = {@link #retyped(Object, Object) EqHc.retyped}(this, o); // Legal cast or null
+ *     return ok != null && {@link #eq(Object[]) EqHc.eq}
+ *         (fieldOne, ok.fieldOne,
+ *          fieldTwo, ok.fieldTwo);
  * }
  *
  * public int hashCode() {
- * return {@link #hc(Object[]) EqHc.hc}(fieldOne, fieldTwo);
+ *     return {@link #hc(Object[]) EqHc.hc}(fieldOne, fieldTwo);
  * }
  * </PRE></P>
  *
@@ -42,18 +43,18 @@ import java.util.List;
  *
  * <P><PRE>
  * public boolean equals(Object o) {
- * MyClass ok = {@link #retyped(Object, Object) EqHc.retyped}(this, o);
- * return <b>this == ok ||</b> ok != null &&
- * {@link #eq(Object[]) EqHc.eq}(fieldOne, ok.fieldOne, fieldTwo, ok.fieldTwo);
+ *     MyClass ok = {@link #retyped(Object, Object) EqHc.retyped}(this, o);
+ *     return <b>this == ok ||</b> ok != null &&
+ *         {@link #eq(Object[]) EqHc.eq}(fieldOne, ok.fieldOne, fieldTwo, ok.fieldTwo);
  * }
  * </PRE></P>
  *
  * <P>Design note: All methods in this class are heavily overloaded.  This reflects the desired usage pattern:
- * <strong>Comparison of typed field references</strong>.
+ * <strong>Comparison of (typed) fields</strong>!
  * It makes no sense to pass the <code>null</code> literal to any of these methods, so don't do it.  Don't pass
- * empty varargs list. Pass field references, <em>nothing else</em>, and ambiguities do not vanadis.  Rather,
- * overloading like no tomorrows <em>is</em> the design, since it provokes the compiler into telling you when you're
- * using it wrong.</P>
+ * an empty varargs list. Pass field references, <em>nothing else</em>, and ambiguities don't become an issue.
+ * The massive overloading by design, since it helps the compiler tell you when you're
+ * using it wrong. This class is only ugly so your classes don't have to be.</P>
  *
  * <P>The only exceptions are {@link #eqA(Object[][]) eqA(Object[]...)} and {@link #hcA(Object[][]) hcA(Object[]...)},
  * necessary only because Object[] is a subclass of Object.</P>
@@ -70,11 +71,11 @@ public final class EqHc {
      *
      * <P><PRE>
      * if (this == object) {
-     * return true;
+     *     return true;
      * }
      * if (object != null && object.getClass() == getClass()) {
-     * Foo foo = (Foo)object;
-     * return name.equals(foo.name) && bar.equals(foo.bar) && zot.equals(foo.zot);
+     *     Foo foo = (Foo)object;
+     *     return name.equals(foo.name) && bar.equals(foo.bar) && zot.equals(foo.zot);
      * }
      * return false;
      * </PRE></P>
@@ -89,10 +90,11 @@ public final class EqHc {
      * <P>Note that the former is also null-safe!  Either or all of the name, bar and zot fields may be null,
      * equality is still checked.</P>
      *
-     * @param subject Pass yourself as this argument
-     * @param object  Pass the argument to equals as this argument
-     * @return If the other object is the same as thiz, return thiz.  If the other object is the same class, return it
-     *         cast to the same class.  Otherwise, return null
+     * @param subject Always pass yourself as this argument
+     * @param object  Pass the compared object (the argument to <code>equals</code>) as this argument
+     * @return If the other object is the same as this, return this.
+     *         If the other object is the same class, return it and cast it to the same class.
+     *         Otherwise, return null.
      */
     public static <T> T retyped(T subject, Object object) {
         assert subject != null : "Expected non-null first argument: this";
