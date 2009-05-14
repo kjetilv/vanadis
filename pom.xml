@@ -158,16 +158,6 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>vanadis.examples</groupId>
-        <artifactId>vanadis.examples.rclient</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>vanadis.examples</groupId>
-        <artifactId>vanadis.examples.scalatest</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
         <groupId>vanadis.lang</groupId>
         <artifactId>vanadis.lang.piji</artifactId>
         <version>1.1-SNAPSHOT</version>
@@ -227,16 +217,6 @@
         <classifier>vanadis-felix</classifier>
         <version>1.1-SNAPSHOT</version>
         <type>zip</type>
-      </dependency>
-      <dependency>
-        <groupId>vanadis.modules</groupId>
-        <artifactId>vanadis.modules.felix</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>vanadis.modules.felix</groupId>
-        <artifactId>vanadis.modules.felix.cmds</artifactId>
-        <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>

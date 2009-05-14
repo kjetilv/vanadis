@@ -22,7 +22,7 @@
     <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>vanadis.install</groupId>
+  <groupId>vanadis</groupId>
   <artifactId>vanadis.install</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -37,71 +37,71 @@
   -->
   <dependencies>
     <dependency>
-      <groupId>vanadis.util</groupId>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.util</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.annopro</groupId>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.annopro</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.launcher</groupId>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.launcher</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.osgi</groupId>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.osgi</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.ext</groupId>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.ext</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.extrt</groupId>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.extrt</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.main</groupId>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.main</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.modules.remoting</groupId>
+      <groupId>vanadis.modules</groupId>
       <artifactId>vanadis.modules.remoting</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.modules.jmxsetup</groupId>
+      <groupId>vanadis.modules</groupId>
       <artifactId>vanadis.modules.jmxsetup</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.modules.log</groupId>
+      <groupId>vanadis.modules</groupId>
       <artifactId>vanadis.modules.log</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.log4jsetup</groupId>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.log4jsetup</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.deployer</groupId>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.deployer</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.modules.networker</groupId>
+      <groupId>vanadis.modules</groupId>
       <artifactId>vanadis.modules.networker</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.services</groupId>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.services</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.modules.httpprovider</groupId>
+      <groupId>vanadis.modules</groupId>
       <artifactId>vanadis.modules.httpprovider</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.remoting</groupId>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.remoting</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.modules.commands</groupId>
+      <groupId>vanadis.modules</groupId>
       <artifactId>vanadis.modules.commands</artifactId>
     </dependency>
     <dependency>
@@ -121,19 +121,19 @@
       <artifactId>grizzly-http</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.lang.piji</groupId>
+      <groupId>vanadis.lang</groupId>
       <artifactId>vanadis.lang.piji</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.modules.rmiprovider</groupId>
+      <groupId>vanadis.modules</groupId>
       <artifactId>vanadis.modules.rmiprovider</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.modules.scripting</groupId>
+      <groupId>vanadis.modules</groupId>
       <artifactId>vanadis.modules.scripting</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis.modules.lang.piji</groupId>
+      <groupId>vanadis.modules.lang</groupId>
       <artifactId>vanadis.modules.lang.piji</artifactId>
     </dependency>
     <dependency>
@@ -146,7 +146,7 @@
       <id>vanadis-equinox</id>
       <dependencies>
         <dependency>
-          <groupId>vanadis.equinox</groupId>
+          <groupId>vanadis</groupId>
           <artifactId>vanadis.equinox</artifactId>
         </dependency>
         <dependency>
@@ -204,12 +204,8 @@
       </activation>
       <dependencies>
         <dependency>
-          <groupId>vanadis.felix</groupId>
+          <groupId>vanadis</groupId>
           <artifactId>vanadis.felix</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>vanadis.modules.felix.cmds</groupId>
-          <artifactId>vanadis.modules.felix.cmds</artifactId>
         </dependency>
         <dependency>
           <groupId>org.apache.felix</groupId>

@@ -17,13 +17,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-        <groupId>vanadis.modules.examples.javacalc</groupId>
+        <groupId>vanadis.modules.examples</groupId>
         <artifactId>vanadis.modules.examples.javacalc</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
-    <groupId>vanadis.modules.examples.javacalc.install</groupId>
+    <groupId>vanadis.modules.examples.javacalc</groupId>
     <artifactId>vanadis.modules.examples.javacalc.install</artifactId>
     <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -31,33 +30,33 @@
     <name>${artifactId}</name>
     <dependencies>
         <dependency>
-            <groupId>vanadis.install</groupId>
+            <groupId>vanadis</groupId>
             <artifactId>vanadis.install</artifactId>
             <classifier>vanadis-felix</classifier>
             <type>zip</type>
         </dependency>
         <dependency>
-            <groupId>vanadis.modules.examples.javacalc.add</groupId>
+            <groupId>vanadis.modules.examples.javacalc</groupId>
             <artifactId>vanadis.modules.examples.javacalc.add</artifactId>
         </dependency>
         <dependency>
-            <groupId>vanadis.modules.examples.javacalc.sub</groupId>
+            <groupId>vanadis.modules.examples.javacalc</groupId>
             <artifactId>vanadis.modules.examples.javacalc.sub</artifactId>
         </dependency>
         <dependency>
-            <groupId>vanadis.modules.examples.javacalc.div</groupId>
+            <groupId>vanadis.modules.examples.javacalc</groupId>
             <artifactId>vanadis.modules.examples.javacalc.div</artifactId>
         </dependency>
         <dependency>
-            <groupId>vanadis.modules.examples.javacalc.mul</groupId>
+            <groupId>vanadis.modules.examples.javacalc</groupId>
             <artifactId>vanadis.modules.examples.javacalc.mul</artifactId>
         </dependency>
         <dependency>
-            <groupId>vanadis.modules.examples.javacalc.calculator</groupId>
+            <groupId>vanadis.modules.examples.javacalc</groupId>
             <artifactId>vanadis.modules.examples.javacalc.calculator</artifactId>
         </dependency>
         <dependency>
-            <groupId>vanadis.modules.examples.javacalc.calcservices</groupId>
+            <groupId>vanadis.modules.examples.javacalc</groupId>
             <artifactId>vanadis.modules.examples.javacalc.calcservices</artifactId>
         </dependency>
     </dependencies>
