@@ -17,11 +17,12 @@
 package vanadis.core.collections;
 
 import vanadis.core.lang.EqHc;
+import vanadis.core.lang.ToString;
 
 /**
- * A pair of two objects, called one and two.
+ * A pair of two objects, called one and two. May be inherited.
  */
-public final class Pair<F, S> {
+public class Pair<F, S> {
 
     private final F one;
 
@@ -46,10 +47,15 @@ public final class Pair<F, S> {
 
     @Override
     public String toString() {
-        return super.toString()
-                + "(" + this.one + ", " + this.two + ")";
+        return ToString.of(this, "one", one, "two", two);
     }
 
+    /**
+     * Compares both data items.
+     *
+     * @param o Object
+     * @return Equality on data items
+     */
     @Override
     public boolean equals(Object o) {
         Pair<F, S> pair = EqHc.retyped(this, o);
@@ -57,6 +63,11 @@ public final class Pair<F, S> {
                                        this.two, pair.two);
     }
 
+    /**
+     * Hashes both data items.
+     *
+     * @return Combined hash.
+     */
     @Override
     public int hashCode() {
         return EqHc.hc(this.one, this.two);
