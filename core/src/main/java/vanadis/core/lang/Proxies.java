@@ -31,28 +31,42 @@ public final class Proxies {
         ClassLoader loader = classLoader == null ? ClassLoader.getSystemClassLoader()
                 : classLoader;
         Class<?>[] types = assembleTypes(type, moreClasses);
-        Object object = makeTheCall(handler, loader, types);
+        Object object = newProxyInstance(handler, loader, types);
+        assert type.isInstance(object) : "Expected proxy to be instance of " + type + ": " + object;
         return type.cast(object);
     }
 
-    private static Object makeTheCall(InvocationHandler handler, ClassLoader loader, Class<?>[] types) {
+    private static Object newProxyInstance(InvocationHandler handler, ClassLoader loader, Class<?>[] types) {
         try {
             return Proxy.newProxyInstance(loader, types, handler);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException
-                    ("Failed to create instance of " + Arrays.toString(types) + " from " + loader, e);
+                    ("Failed to create instance of " + Arrays.toString(types) + " from " + loader +
+                            ", handler: " + handler, e);
         }
     }
 
-    private static <T> Class<?>[] assembleTypes(Class<T> type, Class<?>... moreClasses) {
-        if (VarArgs.present(moreClasses)) {
-            Class<?>[] classes = new Class<?>[moreClasses.length + 1];
-            classes[0] = type;
-            System.arraycopy(moreClasses, 0, classes, 1, classes.length);
-            return classes;
-        } else {
-            return new Class<?>[]{type};
+    private static <T> Class<?>[] assembleTypes(Class<T> type, Class<?>... types) {
+        if (!VarArgs.present(types)) {
+            return new Class<?>[]{ type };
         }
+        return alreadyListed(type, types) ? types  : addedTypes(type, types);
+    }
+
+    private static boolean alreadyListed(Class<?> type, Class<?>... types) {
+        for (Class<?> listedType : types) {
+            if (listedType.equals(type)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static Class<?>[] addedTypes(Class<?> type, Class<?>... moreClasses) {
+        Class<?>[] classes = new Class<?>[moreClasses.length + 1];
+        classes[0] = type;
+        System.arraycopy(moreClasses, 0, classes, 1, classes.length);
+        return classes;
     }
 
     public static <T extends InvocationHandler> T handler(Class<T> type, Object object) {

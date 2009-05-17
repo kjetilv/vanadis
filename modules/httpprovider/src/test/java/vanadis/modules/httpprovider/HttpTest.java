@@ -16,21 +16,21 @@
 package vanadis.modules.httpprovider;
 
 import junit.framework.Assert;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
+import vanadis.core.lang.Proxies;
 import vanadis.core.time.Time;
 import vanadis.core.time.TimeSpan;
 import vanadis.remoting.Accessor;
 import vanadis.remoting.MapTargetReference;
 import vanadis.services.remoting.TargetHandle;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Proxy;
 import java.util.List;
 
 public class HttpTest extends Assert {
@@ -56,9 +56,7 @@ public class HttpTest extends Assert {
         Handler<List> handler = new Handler<List>
                 (new TargetHandle<List>(location, new MapTargetReference<List>("foo", List.class)),
                  getClass().getClassLoader());
-        List list = (List) Proxy.newProxyInstance(getClass().getClassLoader(),
-                                                  new Class<?>[]{List.class},
-                                                  handler);
+        List list = Proxies.genericProxy(getClass().getClassLoader(), List.class, handler);
         assertEquals(1, list.size());
         target.add("2");
         assertEquals(2, list.size());

@@ -17,11 +17,10 @@
 package vanadis.util.concurrent;
 
 import vanadis.core.lang.Not;
+import vanadis.core.lang.Proxies;
 import vanadis.core.lang.ToString;
-import vanadis.core.lang.VarArgs;
 import vanadis.core.time.TimeSpan;
 
-import java.lang.reflect.Proxy;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -29,18 +28,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ThreadedDispatch implements OperationQueuer {
-
-    private static Class<?>[] types(Class<?> type, Class<?>... moreClasses) {
-        if (VarArgs.present(moreClasses)) {
-            int length = moreClasses.length;
-            Class<?>[] classes = new Class<?>[length + 1];
-            classes[0] = type;
-            System.arraycopy(moreClasses, 0, classes, 1, length);
-            return classes;
-        } else {
-            return new Class<?>[]{type};
-        }
-    }
 
     private Thread pickUpThread() {
         return timeout.waitForUnchecked(service.submit(new ThreadGetter()));
@@ -94,17 +81,23 @@ public class ThreadedDispatch implements OperationQueuer {
 
     @Override
     public <T> T createAsynch(T instance, Class<T> type, boolean reentrant, Class<?>... moreClasses) {
-        Not.nil(instance, "instance");
-        Not.nil(type, "main type");
-        return type.cast(Proxy.newProxyInstance
-                (type.getClassLoader(), types(type, moreClasses),
-                 new ConcurrentInvocationHandler<T>(this, timeout, type, instance,
-                                                    reentrant ? thread : null, true)));
+        ConcurrentInvocationHandler<T> handler = new ConcurrentInvocationHandler<T>
+                (this, timeout,
+                 Not.nil(type, "main type"),
+                 Not.nil(instance, "instance"),
+                 reentrant ? thread : null, true);
+        return Proxies.genericProxy(type.getClassLoader(), type, handler, moreClasses);
     }
 
     @Override
     public <T> T createSynch(T instance, Class<T> type, Class<?>... moreClasses) {
-        return createSynch(instance, type, true, moreClasses);
+        return Proxies.genericProxy
+                (type.getClassLoader(), type,
+                 new ConcurrentInvocationHandler<T>(this, timeout,
+                                                    Not.nil(type, "main type"),
+                                                    Not.nil(instance, "instance"),
+                                                    thread, false),
+                 moreClasses);
     }
 
     @Override
@@ -139,15 +132,6 @@ public class ThreadedDispatch implements OperationQueuer {
         Future<Object> future = service.submit(new Synch());
         timeout.waitForUnchecked(future);
         return depth.get() == 0;
-    }
-
-    private <T> T createSynch(T instance, Class<T> type, boolean reentrant, Class<?>... moreClasses) {
-        Not.nil(instance, "instance");
-        Not.nil(type, "main type");
-        return type.cast(Proxy.newProxyInstance
-                (type.getClassLoader(), types(type, moreClasses),
-                 new ConcurrentInvocationHandler<T>(this, timeout, type, instance,
-                                                    reentrant ? thread : null, false)));
     }
 
     @Override

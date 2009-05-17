@@ -16,6 +16,7 @@
 
 package vanadis.extrt;
 
+import org.osgi.framework.BundleContext;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.core.collections.Generic;
@@ -28,7 +29,6 @@ import vanadis.ext.GenericCommand;
 import vanadis.osgi.*;
 import vanadis.util.concurrent.OperationQueuer;
 import vanadis.util.concurrent.ThreadedDispatch;
-import org.osgi.framework.BundleContext;
 
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -58,11 +58,11 @@ class FrameworkExtender {
     FrameworkExtender(BundleContext bundleContext, TimeSpan timeout) {
         this.context = Contexts.create(Not.nil(bundleContext, "bundleContext"));
 
-        OperationQueuer dispatch = new ThreadedDispatch
+        OperationQueuer queuer = new ThreadedDispatch
                 (THREAD_NAME + "[" + this.context.getLocation() + "@" + this.context.getHome() + "]", timeout);
-        synchSystemEvents = new SystemEventsImpl(bundleContext, this.context, dispatch);
+        synchSystemEvents = new SystemEventsImpl(bundleContext, this.context, queuer);
 
-        this.asynchSystemEvents = dispatch.createAsynch(synchSystemEvents, SystemEvents.class);
+        this.asynchSystemEvents = queuer.createAsynch(synchSystemEvents, SystemEvents.class);
         synchSystemEvents.setAsynchYou(this.asynchSystemEvents);
 
         this.bundleMediator = this.context.createBundleMediator(this.asynchSystemEvents);

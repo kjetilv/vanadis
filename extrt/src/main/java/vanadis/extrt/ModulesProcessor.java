@@ -16,6 +16,7 @@
 
 package vanadis.extrt;
 
+import org.osgi.framework.Bundle;
 import vanadis.annopro.AnnotationDatum;
 import vanadis.annopro.AnnotationsDigest;
 import vanadis.annopro.AnnotationsDigests;
@@ -27,7 +28,6 @@ import vanadis.core.test.ForTestingPurposes;
 import vanadis.ext.*;
 import vanadis.osgi.Context;
 import vanadis.util.concurrent.OperationQueuer;
-import org.osgi.framework.Bundle;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -147,8 +147,10 @@ final class ModulesProcessor {
     private static String moduleType(Bundle bundle, Class<?> annotatedClass, Module module) {
         String annotatedType = module.moduleType();
         if (Strings.isBlank(annotatedType)) {
-            return bundle != null ? bundle.getSymbolicName()
-                    : annotatedClass.getPackage().getName();
+            if (bundle != null) {
+                return bundle.getSymbolicName();
+            }
+            return annotatedClass.getPackage().getName();
         }
         return annotatedType;
     }
