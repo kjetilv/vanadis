@@ -46,11 +46,11 @@ public final class Proxies {
         }
     }
 
-    private static <T> Class<?>[] assembleTypes(Class<T> type, Class<?>... types) {
-        if (!VarArgs.present(types)) {
-            return new Class<?>[]{ type };
+    private static <T> Class<?>[] assembleTypes(Class<T> genericType, Class<?>... otherTypes) {
+        if (!VarArgs.present(otherTypes)) {
+            return new Class<?>[]{ genericType };
         }
-        return alreadyListed(type, types) ? types  : addedTypes(type, types);
+        return alreadyListed(genericType, otherTypes) ? otherTypes : combinedTypes(genericType, otherTypes);
     }
 
     private static boolean alreadyListed(Class<?> type, Class<?>... types) {
@@ -62,7 +62,7 @@ public final class Proxies {
         return false;
     }
 
-    private static Class<?>[] addedTypes(Class<?> type, Class<?>... moreClasses) {
+    private static Class<?>[] combinedTypes(Class<?> type, Class<?>... moreClasses) {
         Class<?>[] classes = new Class<?>[moreClasses.length + 1];
         classes[0] = type;
         System.arraycopy(moreClasses, 0, classes, 1, classes.length);
