@@ -57,7 +57,7 @@ public final class ModuleSpecification extends AbstractSpecification {
     }
 
     public static ModuleSpecification createFrom(URI uri) {
-        return BlueprintHelper.readModuleSpecification(uri);
+        return BlueprintsReader.readModuleSpecification(uri);
     }
 
     public static ModuleSpecification createDefault(Object managed) {

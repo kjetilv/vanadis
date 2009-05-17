@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Copyright 2009 Kjetil Valstadsve
   ~
@@ -19,10 +20,10 @@
 <!--   http://<location + 80>/scripting -->
 <blueprints default-version="1.1-SNAPSHOT"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns="http://vanadis.sf.net/vanadis-blueprints">
+            xmlns="http://kjetilv.github.com/vanadis/blueprints">
 
   <!-- Vanilla java modules -->
-  <blueprint name="vanadis-javacalc" extends="vanadis-basic">
+  <blueprint name="vanadis-javacalc">
     <bundles group="vanadis.modules.examples.javacalc"
              artifact-prefix="vanadis.modules.examples.javacalc">
       <bundle artifact="calcservices"/>
@@ -60,7 +61,7 @@
   </blueprint>
 
   <!-- Fancy Scala modules -->
-  <blueprint name="vanadis-scalacalc" extends="vanadis-basic">
+  <blueprint name="vanadis-scalacalc">
     <bundle group="org.scala-lang-osgi" artifact="scala-library" version="2.7.4"/>
     <bundle group="org.scala-lang-osgi" artifact="scala-compiler" version="2.7.4"/>
 

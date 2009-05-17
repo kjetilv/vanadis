@@ -16,16 +16,15 @@
 
 package vanadis.main;
 
-import vanadis.blueprints.BlueprintHelper;
 import vanadis.blueprints.Blueprints;
+import vanadis.blueprints.BlueprintsReader;
 import vanadis.blueprints.SystemSpecification;
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Files;
 import vanadis.core.io.Location;
 import vanadis.core.jmx.Jmx;
-import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.core.system.VM;
+import vanadis.core.test.ForTestingPurposes;
 import vanadis.launcher.LaunchResult;
 import vanadis.launcher.OSGiLauncher;
 import vanadis.launcher.StartupException;
@@ -61,54 +60,52 @@ public final class LaunchSite {
 
     private PrintStream out;
 
-    public static LaunchSite repository(List<String> sheets,
+    private final List<String> blueprintPaths;
+
+    private final List<String> blueprintResources;
+
+    @ForTestingPurposes
+    public static LaunchSite repository(List<String> blueprintNames,
                                         List<String> blueprintPaths) {
-        return create(null, null, null, sheets, blueprintPaths, null);
+        return create(null, null, null, blueprintNames, blueprintPaths, null);
     }
 
+    @ForTestingPurposes
     public static LaunchSite repository(SystemSpecification systemSpecification) {
-        return create(null, null, null, systemSpecification);
-    }
-
-    public static LaunchSite repository(URI home, Location location,
-                                        List<String> sheets,
-                                        List<String> blueprintPaths) {
-        return create(Files.create(home), location, null, sheets, blueprintPaths, null);
-    }
-
-    public static LaunchSite repository(File home, Location location,
-                                        List<String> sheets,
-                                        List<String> blueprintPaths) {
-        return create(home, location, null, sheets, blueprintPaths, null);
+        return new LaunchSite(null, null, null, null, null, null, systemSpecification);
     }
 
     public static LaunchSite create(File home, Location location, URI repo,
-                                    List<String> sheets,
+                                    List<String> blueprintNames,
                                     List<String> blueprintPaths,
                                     List<String> blueprintResources) {
-        return new LaunchSite(home, location, repo, sheets, blueprintPaths, blueprintResources, null);
-    }
-
-    public static LaunchSite create(File home, Location location, URI repo, SystemSpecification systemSpecification) {
-        return new LaunchSite(home, location, repo, null, null, null, systemSpecification);
+        return new LaunchSite(home, location, repo, blueprintNames, blueprintPaths, blueprintResources, null);
     }
 
     private LaunchSite(File home, Location location, URI repo,
-                       List<String> blueprintSheets,
+                       List<String> blueprintNames,
                        List<String> blueprintPaths,
                        List<String> blueprintResources,
                        SystemSpecification systemSpecification) {
         this.home = DirHelper.resolveHome(home);
         this.repo = DirHelper.resolveRepo(this.home, repo);
-        this.blueprintNames = systemSpecification == null
-                ? Generic.seal(Not.empty(blueprintSheets, "blueprint names"))
-                : Collections.<String>emptyList();
-        this.systemSpecification = systemSpecification == null
-                ? readSystemSpecification(blueprintPaths, blueprintResources)
-                : systemSpecification;
+        this.blueprintNames = blueprintNames(blueprintNames, systemSpecification);
         this.location = LocationHelper.resolveLocation(location);
         this.launcher = createLauncher();
         this.closeHook = new CloseHook(this);
+        this.blueprintPaths = Generic.seal(blueprintPaths);
+        this.blueprintResources = Generic.seal(blueprintResources);
+        this.systemSpecification = systemSpecification == null
+                ? readSystemSpecification(blueprintPaths, blueprintResources)
+                : systemSpecification;
+    }
+
+    public List<String> getBlueprintPaths() {
+        return blueprintPaths;
+    }
+
+    public List<String> getBlueprintResources() {
+        return blueprintResources;
     }
 
     public boolean launch(PrintStream out) {
@@ -166,7 +163,7 @@ public final class LaunchSite {
 
     private SystemSpecification readSystemSpecification(List<String> blueprintPaths,
                                                         List<String> blueprintResources) {
-        Blueprints blueprints = readBlueprints(blueprintPaths, blueprintResources);
+        Blueprints blueprints = BlueprintsReader.read(classLoader(), blueprintPaths, blueprintResources);
         return blueprints.getSystemSpecification(this.repo, this.blueprintNames);
     }
 
@@ -259,6 +256,16 @@ public final class LaunchSite {
         }
     }
 
+    private static List<String> blueprintNames(List<String> blueprintNames,
+                                               SystemSpecification systemSpecification) {
+        if (systemSpecification == null) {
+            return blueprintNames == null || blueprintNames.isEmpty()
+                    ? Collections.singletonList("base-commands")
+                    : Generic.seal(blueprintNames);
+        }
+        return Collections.emptyList();
+    }
+
     private static ObjectName composeObjectName(Location location) {
         try {
             return new ObjectName(LaunchSite.class.getName() +
@@ -268,11 +275,6 @@ public final class LaunchSite {
         } catch (MalformedObjectNameException e) {
             throw new StartupException("Unexpectedly invalid object name", e);
         }
-    }
-
-    private static Blueprints readBlueprints(List<String> bootConfigUris, List<String> bootConfigResources) {
-        return BlueprintHelper.readBootConfigSet
-                (classLoader(), bootConfigUris, bootConfigResources);
     }
 
     private static String date() {

@@ -16,11 +16,11 @@
 package vanadis.blueprints;
 
 import static junit.framework.Assert.*;
+import org.junit.Test;
+import org.w3c.dom.Element;
 import static vanadis.blueprints.ModuleSpecificationFeatureType.EXPOSE;
 import static vanadis.blueprints.ModuleSpecificationFeatureType.INJECT;
 import vanadis.core.properties.PropertySet;
-import org.junit.Test;
-import org.w3c.dom.Element;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -65,7 +65,7 @@ public class ModuleSpecificationParserTest {
                         "    <property name=\"p1\">2</property>" +
                         "  </properties>" +
                         "</module>");
-        ModuleSpecification specification = BlueprintHelper.readBlueprints(uri, uri.toURL().openStream()).getBlueprint("untitled").iterator().next();
+        ModuleSpecification specification = BlueprintsReader.readBlueprints(uri, uri.toURL().openStream()).getBlueprint("untitled").iterator().next();
         assertEquals("bar", specification.getType());
         assertEquals("bar", specification.getName());
         assertNotNull(specification.getPropertySet());
@@ -132,7 +132,7 @@ public class ModuleSpecificationParserTest {
     }
 
     private static ModuleSpecification readModuleSpec(URI uri) {
-        return BlueprintHelper.readBlueprints(uri).getBlueprint("untitled").iterator().next();
+        return BlueprintsReader.readBlueprints(uri).getBlueprint("untitled").iterator().next();
     }
 
     @Test
@@ -213,7 +213,7 @@ public class ModuleSpecificationParserTest {
             FileOutputStream outputStream = new FileOutputStream(file);
             PrintWriter writer = new PrintWriter(outputStream);
             writer.println("<blueprints xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
-                " xmlns=\"http://vanadis.sf.net/vanadis-blueprints\"><blueprint>");
+                " xmlns=\"http://kjetilv.github.com/vanadis/blueprints\"><blueprint>");
             writer.println(xml);
             writer.println("</blueprint></blueprints>");
             assertFalse(writer.checkError());

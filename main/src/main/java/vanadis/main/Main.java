@@ -15,39 +15,107 @@
  */
 package vanadis.main;
 
+import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
+import vanadis.core.test.ForTestingPurposes;
 import static vanadis.main.CommandLineHelper.*;
 
 import java.io.File;
 import java.io.PrintStream;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 
 public final class Main {
 
     public static void main(String[] args) {
-        LaunchSite launchSite = fromCommandLine(args);
+        LaunchSite launchSite = fromCommandLine(Generic.linkedList(args));
         if (!successful(launchSite)) {
             ERR.println("Startup failed");
         }
-//        launchSite.awaitShutdown();
+    }
+
+    @ForTestingPurposes
+    static LaunchSite fromCommandLine(String args) {
+        return fromCommandLine(Arrays.asList(args.split("\\s")));
     }
 
     private static final PrintStream OUT = System.out;
 
     private static final PrintStream ERR = System.err;
 
+    private static LaunchSite fromCommandLine(List<String> args) {
+        return launch(new Specification(args));
+    }
+
+    private static LaunchSite launch(Specification spc) {
+        return LaunchSite.create(spc.getHome(), spc.getLocation(), spc.getRepoRoot(),
+                                 spc.getBlueprintNames(),
+                                 spc.getBlueprintPaths(),
+                                 spc.getBlueprintResources());
+    }
+
     private static boolean successful(LaunchSite launchSite) {
         return launchSite.launch(OUT);
     }
 
-    public static LaunchSite fromCommandLine(String[] args) {
-        List<String> blueprintPaths = blueprintPathsArg(args);
-        List<String> blueprintResources = blueprintResourcesArg(args);
-        File home = homeArg(args);
-        Location location = locationArg(args);
-        List<String> sheets = CommandLineHelper.sheets(args);
-        URI repoRoot = repoArg(args);
-        return LaunchSite.create(home, location, repoRoot, sheets, blueprintPaths, blueprintResources);
+    static class Specification {
+
+        private final List<String> blueprintPaths;
+
+        private final List<String> blueprintResources;
+
+        private final File home;
+
+        private final Location location;
+
+        private final List<String> blueprintNames;
+
+        private final URI repoRoot;
+
+        @ForTestingPurposes
+        Specification(String args) {
+            this(Generic.linkedList(args.split("\\s")));
+        }
+
+        Specification(List<String> args) {
+            this.blueprintPaths = blueprintPathsArg(args);
+            this.blueprintResources = blueprintResourcesArg(args);
+            this.home = homeArg(args);
+            this.location = locationArg(args);
+            this.repoRoot = repoArg(args);
+            List<String> names = Generic.list(blueprints(args));
+            addRemainingArgumentsAsBlueprintNames(args, names);
+            this.blueprintNames = Generic.seal(names);
+        }
+
+        public List<String> getBlueprintPaths() {
+            return blueprintPaths;
+        }
+
+        public List<String> getBlueprintResources() {
+            return blueprintResources;
+        }
+
+        public File getHome() {
+            return home;
+        }
+
+        public Location getLocation() {
+            return location;
+        }
+
+        public List<String> getBlueprintNames() {
+            return blueprintNames;
+        }
+
+        public URI getRepoRoot() {
+            return repoRoot;
+        }
+
+        private static void addRemainingArgumentsAsBlueprintNames(List<String> remainingArgs,
+                                                                  List<String> blueprintNames) {
+            blueprintNames.addAll(remainingBlueprints(remainingArgs));
+        }
     }
 }

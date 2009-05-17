@@ -145,6 +145,10 @@ public class Generic {
         return linkedList(iterate(iterable));
     }
 
+    public static <E> LinkedList<E> linkedList(E... es) {
+        return es == null ? Generic.<E>linkedList() : new LinkedList<E>(Arrays.asList(es));
+    }
+
     public static <E> LinkedList<E> linkedList(Collection<? extends E> es) {
         return es == null ? Generic.<E>linkedList() : new LinkedList<E>(es);
     }

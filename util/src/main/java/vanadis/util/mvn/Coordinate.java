@@ -25,6 +25,7 @@ import vanadis.core.lang.ToString;
 import vanadis.core.ver.Version;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
@@ -304,6 +305,9 @@ public final class Coordinate implements Serializable {
     }
 
     private File correctlyVersionedFile(File dir, Version version) {
+        if (version.isSnapshot()) {
+            return new File(dir, VersionResolver.resolve(dir.listFiles(new PackagingFilter())));
+        }
         File file = new File(dir, artifactId + "-" + version.toVersionString() + packaging());
         return file.exists() ? file : null;
     }
@@ -318,6 +322,13 @@ public final class Coordinate implements Serializable {
         }
         List<Version> versions = versionsByIncreasingAge(directories);
         return versions.get(0);
+    }
+
+    private class PackagingFilter implements FilenameFilter {
+        @Override
+        public boolean accept(File dir, String name) {
+            return name.endsWith(packaging);
+        }
     }
 
     private static List<Version> versionsByIncreasingAge(File[] directories) {

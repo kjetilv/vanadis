@@ -20,27 +20,38 @@ import vanadis.core.io.Location;
 
 import java.io.File;
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 
+/**
+ * All methods in this class remove the argument and value from the input list, after parsing it.
+ */
 class CommandLineHelper {
 
-    static List<String> blueprintResourcesArg(String[] args) {
-        String string = parseOption(args, "blueprint-resources");
-        return string == null ? Generic.<String>list()
-                : Generic.list(string.split(","));
+    static List<String> blueprintResourcesArg(List<String> args) {
+        return split(parseOption(args, "blueprint-resources"));
     }
 
-    static List<String> blueprintPathsArg(String[] args) {
-        String string = parseOption(args, "blueprint-paths");
-        return string == null ? Generic.<String>list()
-                : Generic.list(string.split(","));
+    static List<String> blueprintPathsArg(List<String> args) {
+        return split(parseOption(args, "blueprint-paths"));
     }
 
-    static List<String> sheets(String[] args) {
-        return Generic.list(parseOption(args, "blueprint-sheets", "base-commands").split(","));
+    static List<String> blueprints(List<String> args) {
+        return split(parseOption(args, "blueprints"));
     }
 
-    static URI repoArg(String[] args) {
+    static List<String> remainingBlueprints(List<String> args) {
+        if (args.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<String> names = Generic.list();
+        for (String arg : args) {
+            names.addAll(split(arg));
+        }
+        return names;
+    }
+
+    static URI repoArg(List<String> args) {
         String repo = parseOption(args, "repo");
         if (repo == null) {
             String defaultRepo = parseOption(args, "defaultRepo");
@@ -49,7 +60,7 @@ class CommandLineHelper {
         return URI.create(repo);
     }
 
-    static File homeArg(String[] args) {
+    static File homeArg(List<String> args) {
         String home = parseOption(args, "home");
         if (home == null) {
             String defaultHome = parseOption(args, "defaultHome");
@@ -59,7 +70,7 @@ class CommandLineHelper {
         return new File(home).getAbsoluteFile();
     }
 
-    static Location locationArg(String[] args) {
+    static Location locationArg(List<String> args) {
         String spec = parseOption(args, "location");
         if (spec == null) {
             String defaultLocation = parseOption(args, "defaultLocation");
@@ -69,20 +80,21 @@ class CommandLineHelper {
         return Location.parse(spec);
     }
 
-    private static String parseOption(String[] args, String option) {
-        return parseOption(args, option, null);
-    }
-
-    private static String parseOption(String[] args, String option, String defaultValue) {
-        for (int i = 0; i < args.length - 1; i++) {
-            if (args[i].startsWith("-")) {
-                String arg = dedash(args[i].toLowerCase());
+    private static String parseOption(List<String> args, String option) {
+        for (int i = 0; i < args.size() - 1; i++) {
+            if (args.get(i).startsWith("-")) {
+                String arg = dedash(args.get(i).toLowerCase());
                 if (option.toLowerCase().startsWith(arg)) {
-                    return args[i + 1];
+                    try {
+                        return args.get(i + 1);
+                    } finally {
+                        args.remove(i + 1);
+                        args.remove(i);
+                    }
                 }
             }
         }
-        return defaultValue;
+        return null;
     }
 
     private static String dedash(String arg) {
@@ -91,5 +103,11 @@ class CommandLineHelper {
             dedashed = dedashed.substring(1);
         }
         return dedashed;
+    }
+
+    private static List<String> split(String string) {
+        return string == null || string.trim().isEmpty()
+                ? Collections.<String>emptyList()
+                : Generic.list(string.split(","));
     }
 }

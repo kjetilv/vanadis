@@ -16,8 +16,8 @@
   -->
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:v="http://vanadis.sf.net/vanadis-blueprints"
-           targetNamespace="http://vanadis.sf.net/vanadis-blueprints">
+           xmlns:v="http://kjetilv.github.com/vanadis/blueprints"
+           targetNamespace="http://kjetilv.github.com/vanadis/blueprints">
   <xs:include schemaLocation="vanadis-properties.xsd"/>
 
   <xs:complexType name="bundlesType">
@@ -31,6 +31,7 @@
     <xs:attribute type="xs:string" name="group" use="optional"/>
     <xs:attribute type="xs:string" name="version" use="optional"/>
     <xs:attribute type="xs:integer" name="start-level" use="optional"/>
+    <xs:attribute type="xs:boolean" name="global-properties" default="false" use="optional"/>
   </xs:complexType>
 
   <xs:complexType name="bundleType">
@@ -41,7 +42,6 @@
     <xs:attribute type="xs:string" name="artifact" use="optional"/>
     <xs:attribute type="xs:string" name="version" use="optional"/>
     <xs:attribute type="xs:integer" name="start-level" use="optional"/>
-    <xs:attribute type="xs:boolean" name="global-properties" use="optional"/>
+    <xs:attribute type="xs:boolean" name="global-properties" default="false" use="optional"/>
   </xs:complexType>
-
 </xs:schema>

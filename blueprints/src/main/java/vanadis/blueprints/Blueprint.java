@@ -168,9 +168,9 @@ public final class Blueprint implements Serializable, Iterable<ModuleSpecificati
 
     @Override
     public boolean equals(Object obj) {
-        Blueprint sheet = EqHc.retyped(this, obj);
-        return sheet != null && EqHc.eq(name, sheet.name,
-                                        parent, sheet.parent);
+        Blueprint blueprint = EqHc.retyped(this, obj);
+        return blueprint != null && EqHc.eq(name, blueprint.name,
+                                            parent, blueprint.parent);
     }
 
     @Override

@@ -16,13 +16,13 @@
 package vanadis.blueprints;
 
 import junit.framework.Assert;
+import org.junit.Test;
 import vanadis.util.mvn.Coordinate;
 import vanadis.util.mvn.Repo;
-import org.junit.Test;
 
 import java.util.Arrays;
 
-public class BlueprintSheetTest {
+public class BlueprintTest {
 
     private static final Coordinate FOO_BAR = Coordinate.at("foo.bar:foo.bar:jar:1.0");
 

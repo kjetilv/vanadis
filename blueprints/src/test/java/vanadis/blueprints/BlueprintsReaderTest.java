@@ -17,21 +17,21 @@ package vanadis.blueprints;
 
 import junit.framework.Assert;
 import static junit.framework.Assert.*;
+import org.junit.Test;
 import vanadis.util.mvn.Coordinate;
 import vanadis.util.mvn.Repo;
-import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 public class BlueprintsReaderTest {
-    private static final String XML_NS = "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"  xmlns=\"http://vanadis.sf.net/vanadis-blueprints\"";
+    private static final String XML_NS = "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"  xmlns=\"http://kjetilv.github.com/vanadis/blueprints\"";
 
     @Test
     public void loadConfiguration() throws URISyntaxException {
         Blueprints vc = loadV1(("<blueprints xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
-                "            xmlns=\"http://vanadis.sf.net/vanadis-blueprints\">" +
+                "            xmlns=\"http://kjetilv.github.com/vanadis/blueprints\">" +
                 " <blueprint name=\"base\">" +
                 " </blueprint>" +
                 " <blueprint name=\"vanadis-basic\" extends=\"base\">" +
@@ -49,7 +49,7 @@ public class BlueprintsReaderTest {
     }
 
     private static Blueprints loadV1(String input) {
-        return BlueprintHelper.readBlueprints(URI.create("file://test"), new ByteArrayInputStream(input.getBytes()));
+        return BlueprintsReader.readBlueprints(URI.create("file://test"), new ByteArrayInputStream(input.getBytes()));
     }
 
     @Test
@@ -102,7 +102,7 @@ public class BlueprintsReaderTest {
         Assert.assertTrue(spec.getPropertySet().has("zip"));
         Assert.assertEquals("zot", spec.getPropertySet().getString("zip"));
     }
-    
+
     @Test
     public void testBundleNesting() {
         Blueprints blueprints = loadV1("<blueprints " + XML_NS + ">" +

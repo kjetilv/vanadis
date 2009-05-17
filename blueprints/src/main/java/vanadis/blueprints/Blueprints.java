@@ -25,7 +25,7 @@ import java.util.*;
 
 public final class Blueprints implements Iterable<String>, Serializable {
 
-    private final Map<String, Blueprint> blueprintSheets;
+    private final Map<String, Blueprint> blueprints;
 
     private final List<URI> sources;
 
@@ -45,7 +45,7 @@ public final class Blueprints implements Iterable<String>, Serializable {
 
     private Blueprints(List<URI> sources, Blueprints blueprints, Collection<Blueprint> blueprintCollection, boolean validate) {
         failOnEmptyArguments(blueprintCollection);
-        this.blueprintSheets = verifiedForNameclashes(blueprints, blueprintCollection);
+        this.blueprints = verifiedForNameclashes(blueprints, blueprintCollection);
         this.sources = appended(blueprints, sources);
         if (validate) {
             connectFamilies();
@@ -55,16 +55,16 @@ public final class Blueprints implements Iterable<String>, Serializable {
 
     public Blueprints combinedWith(Blueprints blueprints) {
         return blueprints == null ? this
-                : new Blueprints(sources, blueprints, blueprintSheets.values(), true);
+                : new Blueprints(sources, blueprints, this.blueprints.values(), true);
     }
 
     public Blueprints validate() {
-        return new Blueprints(sources, null, blueprintSheets.values(), true);
+        return new Blueprints(sources, null, blueprints.values(), true);
     }
 
     @Override
     public Iterator<String> iterator() {
-        return blueprintSheets.keySet().iterator();
+        return blueprints.keySet().iterator();
     }
 
     public List<URI> getSources() {
@@ -91,12 +91,12 @@ public final class Blueprints implements Iterable<String>, Serializable {
 
 
     public Blueprint getBlueprint(String nodeName) {
-        return blueprintSheets.get(nodeName);
+        return blueprints.get(nodeName);
     }
 
-    public boolean hasSheets(String... sheets) {
-        for (String sheet : sheets) {
-            if (!blueprintSheets.containsKey(sheet)) {
+    public boolean hasBlueprints(String... names) {
+        for (String name : names) {
+            if (!blueprints.containsKey(name)) {
                 return false;
             }
         }
@@ -132,7 +132,7 @@ public final class Blueprints implements Iterable<String>, Serializable {
                                                                  Collection<Blueprint> blueprintCollection) {
         Map<String, Blueprint> workingSet = blueprints == null
                 ? Generic.<String, Blueprint>map()
-                : Generic.map(blueprints.blueprintSheets);
+                : Generic.map(blueprints.blueprints);
         for (Blueprint blueprint : blueprintCollection) {
             Blueprint previous = workingSet.put(blueprint.getName(), blueprint);
             if (previous != null) {
@@ -143,10 +143,10 @@ public final class Blueprints implements Iterable<String>, Serializable {
     }
 
     private void connectFamilies() {
-        for (Blueprint blueprint : blueprintSheets.values()) {
+        for (Blueprint blueprint : blueprints.values()) {
             String extendz = blueprint.getExtends();
             if (extendz != null) {
-                Blueprint parent = blueprintSheets.get(extendz);
+                Blueprint parent = blueprints.get(extendz);
                 if (parent == null) {
                     throw new IllegalArgumentException(blueprint + " extends unknown parent '" + extendz + "'");
                 }
@@ -156,7 +156,7 @@ public final class Blueprints implements Iterable<String>, Serializable {
     }
 
     private void failOnAbstractLeaves() {
-        for (Blueprint blueprint : blueprintSheets.values()) {
+        for (Blueprint blueprint : blueprints.values()) {
             if (blueprint.isAbstract() && blueprint.isLeaf()) {
                 throw new IllegalArgumentException(blueprint + " is an abstract leaf!");
             }
@@ -167,6 +167,6 @@ public final class Blueprints implements Iterable<String>, Serializable {
 
     @Override
     public String toString() {
-        return ToString.of(this, blueprintSheets.keySet());
+        return ToString.of(this, blueprints.keySet());
     }
 }

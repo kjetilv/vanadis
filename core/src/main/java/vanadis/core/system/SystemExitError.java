@@ -24,10 +24,16 @@ import java.io.PrintStream;
  * handler to actually deal with the actual exit - or veto it. Also
  * helps the compiler get your control flow, avoiding rubbish like:
  *
- * <PRE>
+ * <pre>
  * System.exit(-1);
  * return; // Make compiler happy
- * </PRE>
+ * </pre>
+ *
+ * Instead:
+ *
+ * <pre>
+ * throw new SystemExitError(-1);
+ * </pre>
  */
 public final class SystemExitError extends Error {
 
@@ -55,6 +61,16 @@ public final class SystemExitError extends Error {
     }
 
     /**
+     * Exit with an exit code.  Exit code 0 denotes {@link #isNormalExit() normal exit}.
+     *
+     * @param message  Message
+     * @param exitCode Exit code
+     */
+    public SystemExitError(int exitCode) {
+        this(null, exitCode, null);
+    }
+
+    /**
      * Exit with a message and a cause, exit code 1.
      *
      * @param message Message
@@ -72,7 +88,7 @@ public final class SystemExitError extends Error {
      * @param cause    Cause
      */
     public SystemExitError(String message, int exitCode, Throwable cause) {
-        super(message, cause);
+        super(message == null? "Execution failed" : message, cause);
         this.exitCode = exitCode;
     }
 

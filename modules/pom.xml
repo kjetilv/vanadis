@@ -40,10 +40,8 @@
         <module>jmxsetup</module>
         <module>networker</module>
         <module>httpwhiteboard</module>
-        <module>httpservice</module>
         <module>felixcmds</module>
         <module>reposerv</module>
-        <module>httpservice</module>
         <module>scripting</module>
         <module>lang</module>
       </modules>

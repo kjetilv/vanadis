@@ -52,7 +52,7 @@
       <dependency>
         <groupId>org.apache.felix</groupId>
         <artifactId>org.apache.felix.main</artifactId>
-        <version>1.6.1</version>
+        <version>1.8.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.felix</groupId>
@@ -231,11 +231,6 @@
       <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.h2db</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>vanadis.modules</groupId>
-        <artifactId>vanadis.modules.httpservice</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -554,7 +549,8 @@
         <configuration>
           <version>${project.version}</version>
           <instructions>
-            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Name>${groupId}:${artifactId}:${version}</Bundle-Name>
+            <Bundle-Description>${project.name} built by ${user.name} on ${os.name}</Bundle-Description>
             <Bundle-Vendor>Kjetil Valstadsve</Bundle-Vendor>
             <Bundle-License>http://www.apache.org/licenses/LICENSE-2.0.txt</Bundle-License>
             <Bundle-SymbolicName>${artifactId}</Bundle-SymbolicName>

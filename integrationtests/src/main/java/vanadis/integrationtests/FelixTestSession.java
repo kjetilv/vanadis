@@ -17,6 +17,8 @@ package vanadis.integrationtests;
 
 import junit.framework.Assert;
 import static junit.framework.Assert.assertTrue;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.blueprints.SystemSpecification;
@@ -41,8 +43,6 @@ import vanadis.services.networking.RemoteNode;
 import vanadis.services.networking.Router;
 import vanadis.util.mvn.Coordinate;
 import vanadis.util.mvn.Repo;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
 
 import java.io.File;
 import java.io.PrintStream;
@@ -86,9 +86,9 @@ public final class FelixTestSession {
 
     FelixTestSession(TimeSpan timeout, boolean full) {
         this.timeout = timeout;
-        SystemSpecification checklist = new SystemSpecification
+        SystemSpecification specification = new SystemSpecification
                 (null, "base", Repo.DEFAULT.toURI(), BASE_TEST_CONFIGURATION, null, null);
-        site = LaunchSite.create(null, null, null, checklist);
+        site = LaunchSite.repository(specification);
         site.launch(System.out);
         assertTrue(site + " failed to launch", site.getLauncher().isLaunched());
         BundleContext bundleContext = site.getLauncher().getLaunchResult().getBundleContext();

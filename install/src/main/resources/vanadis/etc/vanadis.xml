@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Copyright 2009 Kjetil Valstadsve
   ~
@@ -16,7 +17,7 @@
 <!-- Default configurations.  -->
 <blueprints default-version="1.1-SNAPSHOT"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns="http://vanadis.sf.net/vanadis-blueprints">
+            xmlns="http://kjetilv.github.com/vanadis/blueprints">
   <!-- Configuration with all that defines vanadis, all auto-loaded -->
   <blueprint name="base">
     <!-- Additional OSGi services -->

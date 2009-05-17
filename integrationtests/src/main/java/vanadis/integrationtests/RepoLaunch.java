@@ -15,9 +15,9 @@
  */
 package vanadis.integrationtests;
 
-import vanadis.main.LaunchSite;
 import org.junit.Assert;
 import org.junit.Test;
+import vanadis.main.LaunchSite;
 
 import java.util.Collections;
 
@@ -25,6 +25,8 @@ public class RepoLaunch {
 
     @Test
     public void baseRepoLaunch() {
-        Assert.assertTrue(LaunchSite.repository(Collections.singletonList("base"), null).launch(null));
+        LaunchSite launchSite = LaunchSite.repository(Collections.singletonList("base"), null);
+        boolean launched = launchSite.launch(null);
+        Assert.assertTrue(launched);
     }
 }
