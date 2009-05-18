@@ -13,28 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package vanadis.extrt;
 
-package vanadis.modules.commands;
+public interface ObjectManagerFeatureMBean {
 
-import vanadis.core.lang.ToString;
-import vanadis.core.system.VM;
-import vanadis.ext.CommandExecution;
+    boolean isMulti();
 
-public abstract class AbstractCommandExecution implements CommandExecution {
+    long[] getServiceIds();
 
-    protected static StringBuilder ind(int ind, StringBuilder sb) {
-        for (int i = 0; i < ind; i++) {
-            sb.append("  ");
-        }
-        return sb;
-    }
+    String getServiceInterface();
 
-    protected static StringBuilder ln(StringBuilder sb) {
-        return sb.append(VM.LN);
-    }
+    String getName();
 
-    @Override
-    public String toString() {
-        return ToString.of(this, System.identityHashCode(this));
-    }
+    boolean isActive();
 }

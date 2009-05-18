@@ -23,7 +23,6 @@ import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.reflection.Retyper;
 import vanadis.ext.CoreProperty;
-import vanadis.ext.ObjectManagerInjectPointMBean;
 import vanadis.ext.Property;
 import vanadis.ext.RemoteInjectPoint;
 import vanadis.osgi.*;

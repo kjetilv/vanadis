@@ -33,7 +33,6 @@
       <id>vanadis</id>
       <modules>
         <module>log</module>
-        <module>commands</module>
         <module>remoting</module>
         <module>rmiprovider</module>
         <module>httpprovider</module>

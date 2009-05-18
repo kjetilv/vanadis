@@ -16,7 +16,6 @@
 package vanadis.extrt;
 
 import vanadis.core.lang.ToString;
-import vanadis.ext.ObjectManagerInjectPointMBean;
 
 class ObjectManagerInjectPointMBeanImpl implements ObjectManagerInjectPointMBean {
 

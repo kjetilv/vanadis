@@ -19,7 +19,7 @@ import vanadis.core.collections.Generic;
 import vanadis.core.lang.EqHc;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
-import vanadis.core.properties.PropertyName;
+import vanadis.core.properties.CaseString;
 import vanadis.core.properties.PropertySet;
 
 import java.net.URI;
@@ -71,7 +71,7 @@ public final class ModuleSpecification extends AbstractSpecification {
 
     private final String type;
 
-    private final Map<PropertyName, ModuleSpecificationFeature> serviceFeatures;
+    private final Map<CaseString, ModuleSpecificationFeature> serviceFeatures;
 
     private ModuleSpecification(String type, String name, PropertySet propertySet, Boolean globalProperties,
                                 Iterable<ModuleSpecificationFeature> features) {
@@ -82,7 +82,7 @@ public final class ModuleSpecification extends AbstractSpecification {
     }
 
     public ModuleSpecificationFeature getFeature(String name) {
-        return serviceFeatures.get(new PropertyName(name));
+        return serviceFeatures.get(new CaseString(name));
     }
 
     public boolean hasFeature(ModuleSpecificationFeature feature) {
@@ -90,8 +90,8 @@ public final class ModuleSpecification extends AbstractSpecification {
         return existing != null && existing.equals(feature);
     }
 
-    private static PropertyName name(ModuleSpecificationFeature feature) {
-        return new PropertyName(feature.getName());
+    private static CaseString name(ModuleSpecificationFeature feature) {
+        return new CaseString(feature.getName());
     }
 
     public String getType() {
@@ -107,17 +107,17 @@ public final class ModuleSpecification extends AbstractSpecification {
     }
 
     public PropertySet getFeatureProperties(String name) {
-        ModuleSpecificationFeature feature = serviceFeatures.get(new PropertyName(name));
+        ModuleSpecificationFeature feature = serviceFeatures.get(new CaseString(name));
         return feature == null ? null
                 : feature.getPropertySet();
     }
 
     private static final long serialVersionUID = -5076166235323989101L;
 
-    private static final Map<PropertyName, ModuleSpecificationFeature> NO_FEATURES = Collections.emptyMap();
+    private static final Map<CaseString, ModuleSpecificationFeature> NO_FEATURES = Collections.emptyMap();
 
-    private static Map<PropertyName, ModuleSpecificationFeature> indexFeatures(Iterable<ModuleSpecificationFeature> features) {
-        Map<PropertyName, ModuleSpecificationFeature> map = Generic.map();
+    private static Map<CaseString, ModuleSpecificationFeature> indexFeatures(Iterable<ModuleSpecificationFeature> features) {
+        Map<CaseString, ModuleSpecificationFeature> map = Generic.map();
         for (ModuleSpecificationFeature feature : features) {
             ModuleSpecificationFeature duplicate = map.put(name(feature), feature);
             if (duplicate != null) {

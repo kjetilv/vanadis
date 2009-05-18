@@ -21,9 +21,9 @@ import java.lang.annotation.*;
  * <P>Indicates a module class. Objects with this annotation are picked up from bundles at
  * load time and managed as modules.  It defines a unique
  * {@link vanadis.ext.Module#moduleType() module type}
- * and an {@link vanadis.ext.ObjectManagerFactory} is created for it.  If the Module
+ * and a factory is created for it.  If the Module
  * has any {@link #launch() launch specifications}, it will immediately be called upon
- * to {@link ObjectManagerFactory#autoLaunch() auto-launch} them.</P>
+ * to autoLaunch them.</P>
  *
  * <P>The {@link #moduleType module type} is optional.  If unchanged from its default value
  * (empty string), the symbolic-name of the module's host bundle is used.</P>

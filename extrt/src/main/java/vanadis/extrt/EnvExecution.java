@@ -14,31 +14,21 @@
  * limitations under the License.
  */
 
-package vanadis.modules.commands;
+package vanadis.extrt;
 
+import vanadis.core.system.VM;
+import vanadis.ext.AbstractCommandExecution;
 import vanadis.osgi.Context;
-import vanadis.osgi.Filter;
-import vanadis.osgi.Filters;
-import vanadis.osgi.Reference;
 
-import java.io.File;
-
-final class LogFileExecution extends AbstractCommandExecution {
-
-    private static final String VANADIS_LOGFILE = "vanadis.logfile";
-
-    private static final Filter LOGFILE_FILTER = Filters.isTrue(VANADIS_LOGFILE);
+final class EnvExecution extends AbstractCommandExecution {
 
     @Override
     public void exec(String command, String[] args, StringBuilder sb, Context context) {
-        Reference<File> reference = context.getReference(File.class, LOGFILE_FILTER);
-        if (reference != null) {
-            try {
-                File file = reference.getService();
-                sb.append(file.getAbsoluteFile().toURI().toASCIIString());
-            } finally {
-                reference.unget();
-            }
-        }
+        ln(sb.append("Location : ").append(context.getLocation().toLocationString()));
+        ln(sb.append("Home     : ").append(context.getHome()));
+        ln(sb.append("PID      : ").append(VM.pid()));
+        ln(sb.append("VM       : ").append(VM.VERSION));
+        ln(sb.append("cwd      : ").append(VM.CWD));
+        ln(sb.append("tmp      : ").append(VM.TMP));
     }
 }

@@ -17,7 +17,6 @@
 package vanadis.extrt;
 
 import vanadis.ext.ObjectManager;
-import vanadis.ext.ObjectManagerObserver;
 
 class NullObjectManagerObserver implements ObjectManagerObserver {
 

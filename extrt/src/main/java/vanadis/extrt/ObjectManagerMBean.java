@@ -1,5 +1,5 @@
 /*
- * Copyright 2008 Kjetil Valstadsve
+ * Copyright 2009 Kjetil Valstadsve
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.modules.commands;
 
-import vanadis.ext.AbstractCommand;
-import vanadis.osgi.Context;
+package vanadis.extrt;
 
-public class GenericEventCommand extends AbstractCommand {
+public interface ObjectManagerMBean {
 
-    public GenericEventCommand(String name, String description, Context context) {
-        super(name, description, context, true);
-    }
+    String getName();
+
+    String getState();
+
+    String getClassLoader();
+
+    String getObject();
 }

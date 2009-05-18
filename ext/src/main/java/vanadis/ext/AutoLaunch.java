@@ -19,8 +19,7 @@ import java.lang.annotation.*;
 
 /**
  * Auto-launch annotation.  Decorate a {@link vanadis.ext.Module module} to
- * trigger instantiation(s) of the module at load time.  The extender will launch
- * the instances with a call to {@link ObjectManagerFactory#autoLaunch()}.
+ * trigger instantiation(s) of the module at load time.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

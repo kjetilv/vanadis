@@ -16,7 +16,6 @@
 
 package vanadis.extrt;
 
-import vanadis.ext.ObjectManagerObserver;
 import vanadis.osgi.BundleMediatorListener;
 
 interface SystemEvents extends BundleMediatorListener,

@@ -15,8 +15,6 @@
  */
 package vanadis.extrt;
 
-import vanadis.ext.ObjectManagerExposePointMBean;
-
 class ObjectManagerExposePointMBeanImpl implements ObjectManagerExposePointMBean {
 
     private final Exposer<?> exposer;

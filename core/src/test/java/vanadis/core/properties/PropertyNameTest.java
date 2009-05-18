@@ -10,28 +10,28 @@ public class PropertyNameTest {
 
     @Test
     public void sameCase() {
-        assertEquals(new PropertyName("caseName"), new PropertyName("caseName"));
+        assertEquals(new CaseString("caseName"), new CaseString("caseName"));
     }
     @Test
     public void sameHash() {
-        assertEquals(new PropertyName("caseName").hashCode(), new PropertyName("caseName").hashCode());
+        assertEquals(new CaseString("caseName").hashCode(), new CaseString("caseName").hashCode());
     }
 
     @Test
     public void differentCase() {
-        assertEquals(new PropertyName("caseName"), new PropertyName("CaseName"));
+        assertEquals(new CaseString("caseName"), new CaseString("CaseName"));
     }
 
     @Test
     public void snakeAndCamelCase() {
-        assertEquals(new PropertyName("case_name"), new PropertyName("CaseName"));
-        assertEquals(new PropertyName("case_name"), new PropertyName("caseName"));
+        assertEquals(new CaseString("case_name"), new CaseString("CaseName"));
+        assertEquals(new CaseString("case_name"), new CaseString("caseName"));
     }
 
     @Test
     public void mapTest() {
-        Map<PropertyName,String> map = Generic.map();
-        map.put(new PropertyName("someCrazyKey"), "foo");
-        assertEquals("foo", map.get(new PropertyName("some_crazy_key")));
+        Map<CaseString,String> map = Generic.map();
+        map.put(new CaseString("someCrazyKey"), "foo");
+        assertEquals("foo", map.get(new CaseString("some_crazy_key")));
     }
 }

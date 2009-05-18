@@ -13,8 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package vanadis.ext;
 
-public interface ObjectManagerExposePointMBean extends ObjectManagerFeatureMBean {
+import vanadis.core.lang.ToString;
+import vanadis.core.system.VM;
 
+public abstract class AbstractCommandExecution implements CommandExecution {
+
+    protected static StringBuilder ind(int ind, StringBuilder sb) {
+        for (int i = 0; i < ind; i++) {
+            sb.append("  ");
+        }
+        return sb;
+    }
+
+    protected static StringBuilder ln(StringBuilder sb) {
+        return sb.append(VM.LN);
+    }
+
+    @Override
+    public String toString() {
+        return ToString.of(this, System.identityHashCode(this));
+    }
 }

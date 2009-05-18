@@ -15,36 +15,54 @@
  */
 package vanadis.launcher;
 
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.util.Collections;
 import java.util.List;
 
 public final class LaunchResult {
 
+    private final Log log = Logs.get(LaunchResult.class);
+
     private final BundleContext bundleContext;
 
     private final List<Bundle> autoBundles;
 
+    private final long systemId;
+
+    private static final Bundle[] NO_BUNDLES = new Bundle[] {};
+
     public LaunchResult(BundleContext bundleContext, List<Bundle> autoBundles) {
         this.bundleContext = Not.nil(bundleContext, "bundle context");
+        Bundle bundle = Not.nil(this.bundleContext.getBundle(), "bundle of " + bundleContext);
+        this.systemId = bundle.getBundleId();
         this.autoBundles = autoBundles == null ? Collections.<Bundle>emptyList() : autoBundles;
     }
 
     public List<Bundle> getNonCoreBundles() {
         List<Bundle> noncore = Generic.list();
-        long systemId = bundleContext.getBundle().getBundleId();
-        for (Bundle bundle : bundleContext.getBundles()) {
+        for (Bundle bundle : getBundles()) {
             if (bundle.getBundleId() > systemId && !autoBundles.contains(bundle)) {
                 noncore.add(bundle);
             }
         }
         Collections.reverse(noncore);
         return noncore;
+    }
+
+    private Bundle[] getBundles() {
+        try {
+            return bundleContext.getBundles();
+        } catch (IllegalStateException e) {
+            log.warn("System bundle seems invalid", e);
+            return NO_BUNDLES;
+        }
     }
 
     public List<Bundle> getAutoBundles() {
@@ -70,6 +88,6 @@ public final class LaunchResult {
     }
 
     public Bundle[] getAllBundles() {
-        return bundleContext.getBundles();
+        return getBundles();
     }
 }

@@ -18,18 +18,18 @@ import vanadis.core.lang.ToString;
  * and leaving the key class itself to do the resoultion:</p>
  *
  * <pre>
- * Map&lt;PropertyName,String&gt; map = Generic.map();
- * map.put(new PropertyName("someCrazyKey"), "foo");
- * assertEquals("foo", map.get(new PropertyName("some_crazy_key")));
+ * Map&lt;CaseString,String&gt; map = Generic.map();
+ * map.put(new CaseString("someCrazyKey"), "foo");
+ * assertEquals("foo", map.get(new CaseString("some_crazy_key")));
  * </pre>
  */
-public final class PropertyName {
+public final class CaseString {
 
     private final String name;
 
     private final int hash;
 
-    public PropertyName(String name) {
+    public CaseString(String name) {
         this.name = veryLongName(name)
                 ? (isSnakeCase(name) ? desnake(name) : name)
                 : downcaseName(name);
@@ -69,7 +69,7 @@ public final class PropertyName {
 
     @Override
     public boolean equals(Object obj) {
-        PropertyName name = EqHc.retyped(this, obj);
+        CaseString name = EqHc.retyped(this, obj);
         return name != null && EqHc.eq(this.name, name.name);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 Kjetil Valstadsve
+ * Copyright 2008 Kjetil Valstadsve
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package vanadis.extrt;
 
-package vanadis.ext;
+import vanadis.ext.ObjectManager;
 
-public interface ObjectManagerMBean {
+public interface ObjectManagerObserver {
 
-    String getName();
-
-    String getState();
-
-    String getClassLoader();
-
-    String getObject();
+    void updated(ObjectManager objectManager);
 }

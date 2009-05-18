@@ -15,9 +15,9 @@
  */
 package vanadis.extrt;
 
+import org.osgi.framework.Bundle;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.ModuleSpecification;
-import org.osgi.framework.Bundle;
 
 interface ModuleSystemListener {
 
@@ -26,7 +26,7 @@ interface ModuleSystemListener {
      * {@link org.osgi.framework.BundleListener#bundleChanged(org.osgi.framework.BundleEvent)} is invoked.
      * When this happens, it is either because we installed the bundle, or someone else did.  Either way,
      * that will force us to look through the bundle for
-     * {@link vanadis.ext.ObjectManagerFactory object manager factories}.</P>
+     * {@link ObjectManagerFactory object manager factories}.</P>
      *
      * <p>Properties respected:</p>
      *
@@ -47,7 +47,7 @@ interface ModuleSystemListener {
 
     /**
      * <P>Notify that a launch has been added.  This launch will refer to an existing (or future)
-     * {@link vanadis.ext.ObjectManagerFactory object manager factory},
+     * {@link ObjectManagerFactory object manager factory},
      * and specify the creation of an actual, named
      * {@link vanadis.ext.ObjectManager object manager}.
      *

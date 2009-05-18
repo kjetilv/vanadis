@@ -20,7 +20,6 @@ import vanadis.ext.ManagedLifecycle;
 import vanadis.ext.ManagedState;
 import static vanadis.ext.ManagedState.FAILED;
 import vanadis.ext.ObjectManager;
-import vanadis.ext.ObjectManagerObserver;
 import vanadis.util.log.Log;
 import vanadis.util.log.Logs;
 

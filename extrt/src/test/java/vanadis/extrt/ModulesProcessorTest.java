@@ -18,11 +18,10 @@ package vanadis.extrt;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import org.junit.Test;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.ext.ObjectManager;
-import vanadis.ext.ObjectManagerFactory;
 import vanadis.osgi.impl.BareBonesContext;
-import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.Collection;

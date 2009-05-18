@@ -15,15 +15,15 @@
  */
 package vanadis.osgi;
 
-import vanadis.core.collections.Generic;
-import vanadis.core.collections.Member;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.packageadmin.ExportedPackage;
 import org.osgi.service.packageadmin.PackageAdmin;
+import vanadis.core.collections.Generic;
+import vanadis.core.collections.Member;
+import vanadis.util.log.Log;
+import vanadis.util.log.Logs;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -45,7 +45,11 @@ public final class OSGiUtils {
     }
 
     public static boolean bundleNoLongerValid(IllegalStateException e) {
-        return e.getMessage().contains("no longer valid");
+        return e.getMessage().toLowerCase().contains("no longer valid");
+    }
+
+    public static boolean bundleContextNoLongerValid(IllegalStateException e) {
+        return e.getMessage().toLowerCase().contains("invalid bundlecontext");
     }
 
     public static List<Long> closeableBundles(BundleContext bundleContext, Long... ids) {

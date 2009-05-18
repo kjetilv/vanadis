@@ -47,7 +47,7 @@ public final class Proxies {
     }
 
     private static <T> Class<?>[] assembleTypes(Class<T> genericType, Class<?>... otherTypes) {
-        if (!VarArgs.present(otherTypes)) {
+        if (VarArgs.notPresent(otherTypes)) {
             return new Class<?>[]{ genericType };
         }
         return alreadyListed(genericType, otherTypes) ? otherTypes : combinedTypes(genericType, otherTypes);

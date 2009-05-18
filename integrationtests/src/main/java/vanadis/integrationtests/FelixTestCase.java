@@ -15,6 +15,8 @@
  */
 package vanadis.integrationtests;
 
+import org.junit.After;
+import org.osgi.framework.Bundle;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.core.collections.Generic;
@@ -23,12 +25,10 @@ import vanadis.core.time.TimeSpan;
 import vanadis.ext.CoreProperty;
 import vanadis.ext.ManagedState;
 import vanadis.ext.ObjectManager;
-import vanadis.ext.ObjectManagerFactory;
+import vanadis.extrt.ObjectManagerFactory;
 import vanadis.osgi.Filter;
 import vanadis.osgi.Reference;
 import vanadis.osgi.Registration;
-import org.junit.After;
-import org.osgi.framework.Bundle;
 
 import java.util.Map;
 

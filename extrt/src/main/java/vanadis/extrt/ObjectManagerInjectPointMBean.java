@@ -13,17 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.ext;
+package vanadis.extrt;
 
-public interface ObjectManagerFeatureMBean {
-
-    boolean isMulti();
-
-    long[] getServiceIds();
-
-    String getServiceInterface();
-
-    String getName();
-
-    boolean isActive();
+public interface ObjectManagerInjectPointMBean extends ObjectManagerFeatureMBean {
 }

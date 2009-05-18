@@ -78,6 +78,9 @@ class FrameworkExtender {
         command("v-reload", "reload bundles", new ReloadExecution(asynchSystemEvents));
         command("v-launch", "launch bundles", new LaunchExecution(asynchSystemEvents));
         command("v-install", "install bundles from maven repository", new InstallFromRepoExecution());
+        command("v-list", "list managed objects [-v, {type,name}=foo]", new ListExecution());
+        command("v-env", "describe environment", new EnvExecution());
+        command("v-logfile", "list log file(s)", new LogFileExecution());
     }
 
 

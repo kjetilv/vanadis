@@ -25,7 +25,7 @@
   <groupId>vanadis.modules</groupId>
   <artifactId>vanadis.modules.felixcmds</artifactId>
   <packaging>bundle</packaging>
-  <description>Vanadis Module: Felix: Commands</description>
+  <description>Vanadis Module: Felix: Command Registration</description>
   <name>${artifactId}</name>
   <dependencies>
     <dependency>

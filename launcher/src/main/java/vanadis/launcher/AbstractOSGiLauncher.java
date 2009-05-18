@@ -16,6 +16,8 @@
 
 package vanadis.launcher;
 
+import org.osgi.framework.*;
+import org.osgi.service.packageadmin.PackageAdmin;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.SystemSpecification;
 import vanadis.core.collections.Generic;
@@ -27,8 +29,6 @@ import vanadis.core.lang.VarArgs;
 import vanadis.core.time.TimeSpan;
 import vanadis.util.log.Log;
 import vanadis.util.log.Logs;
-import org.osgi.framework.*;
-import org.osgi.service.packageadmin.PackageAdmin;
 
 import java.io.PrintStream;
 import java.net.URI;
@@ -61,6 +61,10 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
 
     private BundleContext bundleContext;
 
+    private long bootstrapId;
+
+    private Dictionary<?, ?> bundleHeaders;
+
     @Override
     public final LaunchResult getLaunchResult() {
         requireLaunched();
@@ -78,8 +82,7 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
     @Override
     public final String getProviderInfo() {
         requireLaunched();
-        Dictionary<?, ?> headers = bundleContext.getBundle().getHeaders();
-        return headers.get(Constants.BUNDLE_SYMBOLICNAME) + " " + headers.get(Constants.BUNDLE_VERSION);
+        return bundleHeaders.get(Constants.BUNDLE_SYMBOLICNAME) + " " + bundleHeaders.get(Constants.BUNDLE_VERSION);
     }
 
     @SuppressWarnings({"ThrowCaughtLocally"})
@@ -96,8 +99,7 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
             }
 
             List<Bundle> bundles = startAutoBundles(bundleContext);
-            this.launchResult = new LaunchResult(bundleContext, bundles);
-            this.bundleContext = launchResult.getBundleContext();
+            setLaunchResultState(bundleContext, bundles);
 
             registerBundles();
             registerModules();
@@ -107,6 +109,14 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
             failedLaunch.set(true);
             throw e;
         }
+    }
+
+    private void setLaunchResultState(BundleContext bundleContext, List<Bundle> bundles) {
+        this.launchResult = new LaunchResult(bundleContext, bundles);
+        this.bundleContext = launchResult.getBundleContext();
+        Bundle bundle = this.bundleContext.getBundle();
+        this.bootstrapId = bundle.getBundleId();
+        this.bundleHeaders = bundle.getHeaders();
     }
 
     @Override
@@ -247,7 +257,6 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
     }
 
     private void uninstallAll(List<Bundle> bundles, PrintStream stream) {
-        long bootstrapId = bundleContext.getBundle().getBundleId();
         for (Bundle bundle : bundles) {
             long bundleId = bundle.getBundleId();
             if (bundleId > 0 && bundleId != bootstrapId) {

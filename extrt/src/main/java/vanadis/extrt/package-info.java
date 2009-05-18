@@ -26,7 +26,7 @@
  * bundle activator} launch a {@link vanadis.ext.FrameworkTracker framework tracker}.
  * It listens for bundles, and then pokes around in them for the
  * {@link vanadis.ext.Module} annotation.  Once
- * found, it will register {@link vanadis.ext.ObjectManagerFactory object manager factories}
+ * found, it will register {@link ObjectManagerFactory object manager factories}
  * for each module {@link vanadis.ext.Module#moduleType() type}.
  */
 package vanadis.extrt;

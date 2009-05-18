@@ -18,12 +18,12 @@ package vanadis.extrt;
 
 import junit.framework.Assert;
 import static junit.framework.Assert.*;
+import org.junit.Test;
 import vanadis.core.collections.Generic;
 import vanadis.core.properties.PropertySet;
 import vanadis.ext.*;
 import vanadis.osgi.*;
 import vanadis.osgi.impl.BonyRegistration;
-import org.junit.Test;
 
 import java.util.Collection;
 import java.util.List;
@@ -206,6 +206,7 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
 
     public static class FieldObjectInjectee implements GetObject<Object> {
 
+        @SuppressWarnings({"UnusedDeclaration"})
         @Inject
         private Object object;
 

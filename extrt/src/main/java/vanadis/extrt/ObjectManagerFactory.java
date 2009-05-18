@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.ext;
+package vanadis.extrt;
 
 import vanadis.blueprints.ModuleSpecification;
+import vanadis.ext.ObjectManager;
 
 import java.util.Collection;
 
@@ -29,7 +30,7 @@ public interface ObjectManagerFactory extends Iterable<ModuleSpecification> {
 
     /**
      * Launch the specified service.  Its {@link ModuleSpecification#getType() type}
-     * must correspond to this factory's {@link #getType() type}.  The returned
+     * must correspond to this factory's type.  The returned
      * object manager will be stored internally.
      *
      * @param moduleSpecification Service specification
@@ -38,7 +39,7 @@ public interface ObjectManagerFactory extends Iterable<ModuleSpecification> {
     ObjectManager launch(ModuleSpecification moduleSpecification);
 
     /**
-     * Auto-launch any services specified as {@link AutoLaunch launch-specified} services.
+     * Auto-launch any services specified as {@link vanadis.ext.AutoLaunch launch-specified} services.
      *
      * @return Auto-launched object managers
      */
@@ -60,7 +61,7 @@ public interface ObjectManagerFactory extends Iterable<ModuleSpecification> {
     int getLaunchCount();
 
     /**
-     * Close the service specification, provided it has {@link #hasLaunched(ModuleSpecification) been launched}.
+     * Close the service specification, provided it has been launched.
      *
      * @param moduleSpecification Service specification
      */

@@ -102,6 +102,10 @@
     <dependency>
       <groupId>vanadis</groupId>
       <artifactId>vanadis.extrt</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.extrt</artifactId>
       <type>test-jar</type>
     </dependency>
     <dependency>

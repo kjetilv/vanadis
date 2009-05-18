@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package vanadis.modules.commands;
+package vanadis.extrt;
 
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.core.collections.Generic;
