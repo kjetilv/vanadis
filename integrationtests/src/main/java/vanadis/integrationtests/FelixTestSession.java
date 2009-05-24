@@ -35,9 +35,9 @@ import vanadis.core.time.Deadline;
 import vanadis.core.time.TimeSpan;
 import vanadis.core.ver.Version;
 import vanadis.ext.CoreProperty;
-import vanadis.ext.ManagedState;
-import vanadis.ext.ObjectManager;
 import vanadis.main.LaunchSite;
+import vanadis.objectmanagers.ManagedState;
+import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.*;
 import vanadis.services.networking.RemoteNode;
 import vanadis.services.networking.Router;
@@ -336,7 +336,7 @@ public final class FelixTestSession {
     }
 
     public Collection<Reference<ObjectManager>> getObjectManagers() {
-        return getContext().getReferences(ObjectManager.class, null);
+        return getContext().getReferences(ObjectManager.class);
     }
 
     public void stop() {
@@ -373,16 +373,14 @@ public final class FelixTestSession {
             (id("org.apache.felix:org.osgi.compendium:1.2.0"),
              id("org.apache.felix:org.apache.felix.shell:1.2.0"),
              id("org.objectweb.asm:com.springsource.org.objectweb.asm:3.1.0"),
-             id("com.sun.grizzly:grizzly-utils:1.9.14"),
-             id("com.sun.grizzly:grizzly-portunif:1.9.14"),
-             id("com.sun.grizzly:grizzly-rcm:1.9.14"),
-             id("com.sun.grizzly:grizzly-framework:1.9.14"),
-             id("com.sun.grizzly:grizzly-http:1.9.14"),
+             id("com.sun.grizzly.osgi:grizzly-httpservice-bundle:1.9.15a"),
              id("org.apache.commons:com.springsource.org.apache.commons.logging:1.1.1"),
              ver("vanadis.modules", "log", "1.1-SNAPSHOT"),
              ver("vanadis", "log4jsetup", "1.1-SNAPSHOT"),
              ver("vanadis", "deployer", "1.1-SNAPSHOT"),
              ver("vanadis", "osgi", "1.1-SNAPSHOT"),
+             ver("vanadis", "objectmanagers", "1.1-SNAPSHOT"),
+             ver("vanadis", "services", "1.1-SNAPSHOT"),
              ver("vanadis", "blueprints", "1.1-SNAPSHOT"),
              ver("vanadis", "services", "1.1-SNAPSHOT"),
              ver("vanadis", "annopro", "1.1-SNAPSHOT"),

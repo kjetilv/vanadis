@@ -19,8 +19,8 @@ package vanadis.extrt;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
 import vanadis.core.lang.VarArgs;
-import vanadis.ext.Failure;
-import vanadis.ext.ObjectManagerFailures;
+import vanadis.objectmanagers.Failure;
+import vanadis.objectmanagers.ObjectManagerFailures;
 
 import java.text.MessageFormat;
 import java.util.Iterator;

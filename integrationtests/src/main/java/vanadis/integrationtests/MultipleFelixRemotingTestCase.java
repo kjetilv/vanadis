@@ -22,8 +22,7 @@ import vanadis.core.properties.PropertySets;
 import vanadis.core.reflection.Invoker;
 import vanadis.core.time.TimeSpan;
 import static vanadis.core.time.TimeSpan.*;
-import static vanadis.ext.ManagedState.ACTIVE;
-import static vanadis.ext.ManagedState.RESOLVING_DEPENDENCIES;
+import vanadis.objectmanagers.ManagedState;
 import vanadis.osgi.Reference;
 
 import java.lang.reflect.Method;
@@ -87,7 +86,7 @@ public class MultipleFelixRemotingTestCase extends FelixTestCase {
 
         master.registerLaunch(CALCULATOR);
         master.waitForObjectManager(CALCULATOR);
-        master.waitForObjectManagerState(CALCULATOR, RESOLVING_DEPENDENCIES);
+        master.waitForObjectManagerState(CALCULATOR, ManagedState.RESOLVING_DEPENDENCIES);
 
         for (int i = 0; i < slaves.length; i++) {
             String type = types[i];
@@ -95,7 +94,7 @@ public class MultipleFelixRemotingTestCase extends FelixTestCase {
             startService(type, slave);
         }
 
-        master.waitForObjectManagerState(CALCULATOR, ACTIVE); // Dependencies resolved
+        master.waitForObjectManagerState(CALCULATOR, ManagedState.ACTIVE); // Dependencies resolved
 
         SECOND.sleep();
 
@@ -112,7 +111,7 @@ public class MultipleFelixRemotingTestCase extends FelixTestCase {
         String serviceType = arithmeticService(type);
         slave.registerLaunch(serviceType);
         slave.waitForObjectManager(serviceType);
-        slave.waitForObjectManagerState(serviceType, ACTIVE);
+        slave.waitForObjectManagerState(serviceType, ManagedState.ACTIVE);
     }
 
     private void restart(TimeSpan timeout,
@@ -127,7 +126,7 @@ public class MultipleFelixRemotingTestCase extends FelixTestCase {
         freshSlave.registerVBundle("vanadis.modules.examples.javacalc", "calcservices");
         freshSlave.registerVBundle("vanadis.modules.examples.javacalc", type);
         startService(type, freshSlave);
-        master.waitForObjectManagerState(CALCULATOR, ACTIVE);
+        master.waitForObjectManagerState(CALCULATOR, ManagedState.ACTIVE);
     }
 
     private static String arithmeticService(String type) {
@@ -176,26 +175,26 @@ public class MultipleFelixRemotingTestCase extends FelixTestCase {
 
         felix2.registerLaunch(CALCULATOR);
         felix2.waitForObjectManager(CALCULATOR);
-        felix2.waitForObjectManagerState(CALCULATOR, RESOLVING_DEPENDENCIES);
+        felix2.waitForObjectManagerState(CALCULATOR, ManagedState.RESOLVING_DEPENDENCIES);
 
         felix1.waitForObjectManager("javacalc-add");
-        felix1.waitForObjectManagerState("javacalc-add", ACTIVE);
-        felix2.waitForObjectManagerState(CALCULATOR, RESOLVING_DEPENDENCIES);
+        felix1.waitForObjectManagerState("javacalc-add", ManagedState.ACTIVE);
+        felix2.waitForObjectManagerState(CALCULATOR, ManagedState.RESOLVING_DEPENDENCIES);
 
         felix1.waitForObjectManager("javacalc-sub");
-        felix1.waitForObjectManagerState("javacalc-sub", ACTIVE);
-        felix2.waitForObjectManagerState(CALCULATOR, RESOLVING_DEPENDENCIES);
+        felix1.waitForObjectManagerState("javacalc-sub", ManagedState.ACTIVE);
+        felix2.waitForObjectManagerState(CALCULATOR, ManagedState.RESOLVING_DEPENDENCIES);
 
         felix1.registerLaunch("javacalc-mul");
         felix1.waitForObjectManager("javacalc-mul");
-        felix1.waitForObjectManagerState("javacalc-mul", ACTIVE);
-        felix2.waitForObjectManagerState(CALCULATOR, RESOLVING_DEPENDENCIES);
+        felix1.waitForObjectManagerState("javacalc-mul", ManagedState.ACTIVE);
+        felix2.waitForObjectManagerState(CALCULATOR, ManagedState.RESOLVING_DEPENDENCIES);
 
         felix1.registerLaunch("javacalc-div");
         felix1.waitForObjectManager("javacalc-div");
-        felix1.waitForObjectManagerState("javacalc-div", ACTIVE);
+        felix1.waitForObjectManagerState("javacalc-div", ManagedState.ACTIVE);
 
-        felix2.waitForObjectManagerState(CALCULATOR, ACTIVE); // Dependencies resolved
+        felix2.waitForObjectManagerState(CALCULATOR, ManagedState.ACTIVE); // Dependencies resolved
 
         SECOND.sleep();
 

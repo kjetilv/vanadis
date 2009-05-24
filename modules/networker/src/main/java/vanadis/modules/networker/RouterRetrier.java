@@ -16,12 +16,12 @@
 package vanadis.modules.networker;
 
 import vanadis.core.time.TimeSpan;
-import vanadis.ext.RemoteExposure;
-import vanadis.ext.RemoteInjectPoint;
 import vanadis.modules.networker.actions.RegisterRemoteExposuresAction;
 import vanadis.modules.networker.actions.RegisterRemoteInjectPointsAction;
 import vanadis.modules.networker.actions.UnregisterRemoteExposuresAction;
 import vanadis.modules.networker.actions.UnregisterRemoteInjectPointsAction;
+import vanadis.services.networking.RemoteExposure;
+import vanadis.services.networking.RemoteInjectPoint;
 import vanadis.services.networking.Router;
 import vanadis.util.concurrent.AbstractRetrier;
 

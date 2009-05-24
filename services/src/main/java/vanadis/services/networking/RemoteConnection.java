@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.ext;
+package vanadis.services.networking;
 
 import vanadis.core.lang.EqHc;
 import vanadis.core.lang.Not;
@@ -23,8 +23,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public final class RemoteConnection
-        implements Serializable, Iterable<RemoteManagedFeature<?>> {
+public final class RemoteConnection implements Serializable, Iterable<RemoteManagedFeature<?>> {
 
     private final RemoteInjectPoint remoteInjectPoint;
 

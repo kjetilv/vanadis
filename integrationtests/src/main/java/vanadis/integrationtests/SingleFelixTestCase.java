@@ -15,16 +15,16 @@
  */
 package vanadis.integrationtests;
 
-import vanadis.blueprints.BundleSpecification;
-import vanadis.blueprints.ModuleSpecification;
-import vanadis.core.time.TimeSpan;
-import vanadis.ext.ManagedState;
-import vanadis.ext.ObjectManager;
-import vanadis.osgi.Reference;
-import vanadis.osgi.Registration;
 import org.junit.After;
 import org.junit.Before;
 import org.osgi.framework.Bundle;
+import vanadis.blueprints.BundleSpecification;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.time.TimeSpan;
+import vanadis.objectmanagers.ManagedState;
+import vanadis.objectmanagers.ObjectManager;
+import vanadis.osgi.Reference;
+import vanadis.osgi.Registration;
 
 public abstract class SingleFelixTestCase extends FelixTestCase {
 

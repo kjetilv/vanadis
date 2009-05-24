@@ -18,9 +18,9 @@ package vanadis.modules.networker;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
 import vanadis.core.lang.ToString;
-import vanadis.ext.RemoteExposure;
-import vanadis.ext.RemoteInjectPoint;
 import vanadis.osgi.ServiceProperties;
+import vanadis.services.networking.RemoteExposure;
+import vanadis.services.networking.RemoteInjectPoint;
 
 import java.util.Arrays;
 import java.util.Map;

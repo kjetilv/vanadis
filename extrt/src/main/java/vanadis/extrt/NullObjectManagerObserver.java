@@ -16,11 +16,10 @@
 
 package vanadis.extrt;
 
-import vanadis.ext.ObjectManager;
+import vanadis.objectmanagers.ObjectManager;
 
 class NullObjectManagerObserver implements ObjectManagerObserver {
 
     @Override
-    public void updated(ObjectManager objectManager) {
-    }
+    public void updated(ObjectManager objectManager) { }
 }

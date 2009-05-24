@@ -20,7 +20,8 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import org.junit.Test;
 import vanadis.blueprints.ModuleSpecification;
-import vanadis.ext.ObjectManager;
+import vanadis.objectmanagers.ObjectManager;
+import vanadis.objectmanagers.ObjectManagerFactory;
 import vanadis.osgi.impl.BareBonesContext;
 
 import java.io.InputStream;

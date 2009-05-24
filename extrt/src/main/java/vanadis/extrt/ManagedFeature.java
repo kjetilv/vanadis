@@ -18,7 +18,7 @@ package vanadis.extrt;
 
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
-import vanadis.ext.ObjectManager;
+import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.Context;
 import vanadis.util.concurrent.OperationQueuer;
 

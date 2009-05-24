@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.ext;
+package vanadis.objectmanagers;
 
 import vanadis.blueprints.ModuleSpecification;
 
@@ -22,7 +22,7 @@ import java.util.Collection;
 /**
  * <P>The ObjectManager handles the lifecycle of exactly one managed object, in
  * terms of exposures, trackings and injections.  It is primarily applied to
- * {@link Module modules}. It is created by a dedicated factory , which is
+ * {@link vanadis.ext.Module modules}. It is created by a dedicated factory , which is
  * created at bundle load time.  The factory can create instances of this
  * interface, using a {@link ModuleSpecification}.</P>
  *

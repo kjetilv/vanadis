@@ -15,6 +15,8 @@
  */
 package vanadis.ext;
 
+import vanadis.objectmanagers.ManagedState;
+
 /**
  * A callback interface for the module.  The module receives an instance
  * of this interface by implementing {@link vanadis.ext.ModuleSystemAware}.

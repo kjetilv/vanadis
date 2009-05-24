@@ -1,8 +1,8 @@
 package vanadis.extrt;
 
 import vanadis.core.collections.Generic;
-import vanadis.ext.InstanceSummary;
-import vanadis.ext.ManagedFeatureSummary;
+import vanadis.objectmanagers.InstanceSummary;
+import vanadis.objectmanagers.ManagedFeatureSummary;
 import vanadis.osgi.Reference;
 import vanadis.osgi.Registration;
 

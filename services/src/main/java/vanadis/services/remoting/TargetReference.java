@@ -33,5 +33,4 @@ public interface TargetReference<T, L> {
     void restoreTargetInterface(ClassLoader classLoader);
 
     void dispose();
-
 }

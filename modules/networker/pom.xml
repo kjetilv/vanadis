@@ -44,6 +44,10 @@
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
+      <artifactId>vanadis.objectmanagers</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.osgi</artifactId>
     </dependency>
     <dependency>

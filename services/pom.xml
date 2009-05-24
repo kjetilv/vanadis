@@ -35,7 +35,7 @@
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.ext</artifactId>
+      <artifactId>vanadis.blueprints</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>

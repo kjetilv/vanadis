@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.ext;
+package vanadis.services.networking;
 
 import vanadis.core.io.Location;
 import vanadis.core.lang.ToString;
 import vanadis.osgi.ServiceProperties;
 
-public final class RemoteExposure extends RemoteManagedFeature<RemoteExposure> {
+public final class RemoteExposure extends AbstractRemoteManagedFeature<RemoteExposure> {
 
     private static final long serialVersionUID = -4641270866083392589L;
 
@@ -44,11 +44,6 @@ public final class RemoteExposure extends RemoteManagedFeature<RemoteExposure> {
     }
 
     @Override
-    public String toString() {
-        return ToString.of(this, coreString(), "properties", serviceProperties, "@", getRemoteLocation());
-    }
-
-    @Override
     protected ServiceProperties<?> identitySource() {
         return serviceProperties;
     }
@@ -58,4 +53,8 @@ public final class RemoteExposure extends RemoteManagedFeature<RemoteExposure> {
         return new RemoteExposure(location, serviceProperties);
     }
 
+    @Override
+    public String toString() {
+        return ToString.of(this, coreString(), "properties", serviceProperties, "@", getRemoteLocation());
+    }
 }

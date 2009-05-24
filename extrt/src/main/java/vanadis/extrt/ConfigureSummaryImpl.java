@@ -1,6 +1,6 @@
 package vanadis.extrt;
 
-import vanadis.ext.ConfigureSummary;
+import vanadis.objectmanagers.ConfigureSummary;
 
 class ConfigureSummaryImpl implements ConfigureSummary {
 

@@ -26,6 +26,8 @@ import java.util.*;
 
 public abstract class AbstractPropertySet implements PropertySet, Serializable {
 
+    private static final Object NOTHING = new byte[]{};
+
     private final PropertySet parent;
 
     private final boolean writable;
@@ -90,7 +92,7 @@ public abstract class AbstractPropertySet implements PropertySet, Serializable {
 
     @Override
     public final boolean has(String variable) {
-        Object object = get(variable);
+        Object object = retrieve(variable);
         return object != null;
     }
 
@@ -224,6 +226,9 @@ public abstract class AbstractPropertySet implements PropertySet, Serializable {
     }
 
     private static <T> T process(Class<T> type, Object object, PropertySet... variables) {
+        if (object == NOTHING) {
+            return null;
+        }
         if (object instanceof String) {
             String sourceString = object.toString();
             String string = plainValue(sourceString) ? sourceString
@@ -247,14 +252,12 @@ public abstract class AbstractPropertySet implements PropertySet, Serializable {
 
     @Override
     public PropertySet set(String key, Object value) {
-        if (writable) {
-            setLocal(key, value);
-            return this;
-        }
-        return copy(true).set(key, value);
+        Object val = value == null ? NOTHING : value;
+        return writable ? setLocal(key, val)
+                : copy(true).set(key, val);
     }
 
-    protected abstract void setLocal(String key, Object value);
+    protected abstract AbstractPropertySet setLocal(String key, Object value);
 
     public AbstractPropertySet writeProperties(OutputStream stream, String encoding) {
         Properties properties = toProperties();

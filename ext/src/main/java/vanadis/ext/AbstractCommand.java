@@ -15,6 +15,8 @@
  */
 package vanadis.ext;
 
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
 import vanadis.core.collections.Pair;
 import vanadis.core.io.Closeables;
 import vanadis.core.lang.ToString;
@@ -22,8 +24,6 @@ import vanadis.core.system.VM;
 import vanadis.osgi.Context;
 import vanadis.util.log.Log;
 import vanadis.util.log.Logs;
-import org.osgi.service.event.Event;
-import org.osgi.service.event.EventAdmin;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -70,10 +70,9 @@ public abstract class AbstractCommand implements Command {
         this.name = name;
         this.usage = usage;
         this.commandIsEvent = commandIsEvent;
-        this.shortDescription =
-                "Vanadis: " +
-                        shortDescription.substring(0, 1).toUpperCase() +
-                        shortDescription.substring(1);
+        this.shortDescription = "vanadis: " +
+                shortDescription.substring(0, 1).toUpperCase() +
+                shortDescription.substring(1);
         this.context = context;
         this.eventAdmin = context.getServiceProxy(EventAdmin.class);
     }

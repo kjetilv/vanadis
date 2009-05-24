@@ -22,6 +22,7 @@ import org.junit.Test;
 import vanadis.core.collections.Generic;
 import vanadis.core.properties.PropertySet;
 import vanadis.ext.*;
+import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.*;
 import vanadis.osgi.impl.BonyRegistration;
 

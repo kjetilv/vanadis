@@ -20,7 +20,7 @@ import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
 import vanadis.core.lang.VarArgs;
 import vanadis.ext.ManagedLifecycle;
-import vanadis.ext.ManagedState;
+import vanadis.objectmanagers.ManagedState;
 
 import java.util.Set;
 

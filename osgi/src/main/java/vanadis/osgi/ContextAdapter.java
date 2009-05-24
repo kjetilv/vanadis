@@ -110,8 +110,18 @@ public class ContextAdapter implements Context {
     }
 
     @Override
+    public <T> Collection<Reference<T>> getReferences(Class<T> serviceInterface) {
+        return getReferences(serviceInterface, null);
+    }
+
+    @Override
     public <T> Collection<Reference<T>> getReferences(Class<T> serviceInterface, Filter filter) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Collection<Reference<?>> getReferences(String serviceInterfaceName) {
+        return getReferences(serviceInterfaceName, null);
     }
 
     @Override

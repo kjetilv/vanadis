@@ -19,7 +19,9 @@ package vanadis.extrt;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.core.collections.Generic;
 import vanadis.core.properties.PropertySet;
-import vanadis.ext.*;
+import vanadis.ext.AbstractCommandExecution;
+import vanadis.ext.CoreProperty;
+import vanadis.objectmanagers.*;
 import vanadis.osgi.Context;
 import vanadis.osgi.Filter;
 import vanadis.osgi.Reference;
@@ -28,6 +30,7 @@ import vanadis.osgi.ServiceProperties;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 final class ListExecution extends AbstractCommandExecution {
 
@@ -36,15 +39,34 @@ final class ListExecution extends AbstractCommandExecution {
         boolean verbose = verbose(args);
         String type = type(args);
         CoreProperty<String> property = property(args);
+        Set<String> moduleNames = moduleNames(context);
         if (property == CoreProperty.OBJECTMANAGER_TYPE) {
             ln(sb.append("Managed object factories:"));
             writeObjectManagerFactoryReferences(sb, context, property, type, verbose);
         }
         ln(sb.append("Managed objects:"));
-        writeObjectManagerReferences(sb, context, property, type, verbose);
+        writeObjectManagerReferences(sb, context, property, type, verbose, moduleNames);
+        if (!moduleNames.isEmpty()) {
+            ln(sb.append("Orphan modules: "));
+            ln(sb.append("  ").append(moduleNames));
+        }
     }
 
-    private CoreProperty<String> property(String[] args) {
+    private static Set<String> moduleNames(Context context) {
+        Collection<Reference<ModuleSpecification>> modRefs = context.getReferences(ModuleSpecification.class);
+        Set<String> moduleNames = Generic.set();
+        for (Reference<ModuleSpecification> modRef : modRefs) {
+            ModuleSpecification service = modRef.getService();
+            try {
+                moduleNames.add(service.getName() + ":" + service.getType());
+            } finally {
+                modRef.unget();
+            }
+        }
+        return moduleNames;
+    }
+
+    private static CoreProperty<String> property(String[] args) {
         for (String arg : args) {
             if (args != null && !arg.equalsIgnoreCase("-v")) {
                 return arg.startsWith("name=") ? CoreProperty.OBJECTMANAGER_NAME : CoreProperty.OBJECTMANAGER_TYPE;
@@ -94,9 +116,9 @@ final class ListExecution extends AbstractCommandExecution {
     }
 
     private static String writeObjectManagerReference(StringBuilder sb, Reference<ObjectManager> ref,
-                                                      boolean verbose) {
+                                                      boolean verbose, Set<String> moduleNames) {
         try {
-            return writeObjectManager(sb, ref.getService(), verbose);
+            return writeObjectManager(sb, ref.getService(), verbose, moduleNames);
         } finally {
             ref.unget();
         }
@@ -124,19 +146,22 @@ final class ListExecution extends AbstractCommandExecution {
         }
     }
 
-    private static <T> List<String> writeObjectManagerReferences(StringBuilder sb, Context context,
-                                                                 CoreProperty<T> property, T value, boolean verbose) {
+    private static List<String> writeObjectManagerReferences(StringBuilder sb, Context context,
+                                                             CoreProperty<String> property, String value,
+                                                             boolean verbose,
+                                                             Set<String> moduleNames) {
         Collection<Reference<ObjectManager>> omRefs =
                 context.getReferences(ObjectManager.class, filter(property, value));
-        return writeObjectManagerReferences(sb, verbose, omRefs);
+        return writeObjectManagerReferences(sb, verbose, omRefs, moduleNames);
     }
 
     private static List<String> writeObjectManagerReferences(StringBuilder sb,
                                                              boolean verbose,
-                                                             Collection<Reference<ObjectManager>> omRefs) {
+                                                             Collection<Reference<ObjectManager>> omRefs,
+                                                             Set<String> moduleNames) {
         List<String> types = Generic.list();
         for (Reference<ObjectManager> ref : omRefs) {
-            String type = writeObjectManagerReference(sb, ref, verbose);
+            String type = writeObjectManagerReference(sb, ref, verbose, moduleNames);
             if (type != null) {
                 types.add(type);
             }
@@ -144,22 +169,26 @@ final class ListExecution extends AbstractCommandExecution {
         return types;
     }
 
-    private static String writeObjectManager(StringBuilder sb, ObjectManager mgr, boolean verbose) {
+    private static String writeObjectManager(StringBuilder sb, ObjectManager mgr, boolean verbose, Set<String> moduleNames) {
         if (mgr != null) {
-            ind(1, sb).append(mgr.getManagedState()).append
-                    (" : ").append(mgr.getName()).append
-                    (":").append(mgr.getType());
-            if (verbose) {
-                sb.append(" (").append(mgr.getManagedObject()).append(")");
+            try {
+                ind(1, sb).append(mgr.getManagedState()).append
+                        (" : ").append(mgr.getName()).append
+                        (":").append(mgr.getType());
+                if (verbose) {
+                    sb.append(" (").append(mgr.getManagedObject()).append(")");
+                }
+                ln(sb);
+                if (verbose) {
+                    ln(ind(2, sb).append("Hash:").append(System.identityHashCode(mgr)));
+                    writeConfiguration(sb, mgr.getConfigureSummaries());
+                    writeFeatures("Exposed:", sb, mgr.getExposedServices());
+                    writeFeatures("Injected:", sb, mgr.getInjectedServices());
+                }
+                return mgr.getType();
+            } finally {
+                moduleNames.remove(mgr.getName() + ":" + mgr.getType());
             }
-            ln(sb);
-            if (verbose) {
-                ln(ind(2, sb).append("Hash:").append(System.identityHashCode(mgr)));
-                writeConfiguration(sb, mgr.getConfigureSummaries());
-                writeFeatures("Exposed:", sb, mgr.getExposedServices());
-                writeFeatures("Injected:", sb, mgr.getInjectedServices());
-            }
-            return mgr.getType();
         }
         return null;
     }

@@ -17,7 +17,7 @@
 package vanadis.extrt;
 
 import vanadis.core.lang.ToString;
-import vanadis.ext.ObjectManager;
+import vanadis.objectmanagers.ObjectManager;
 
 class ObjectManagerMBeanImpl implements ObjectManagerMBean {
 

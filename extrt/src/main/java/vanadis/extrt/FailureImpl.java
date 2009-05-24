@@ -18,7 +18,7 @@ package vanadis.extrt;
 
 import vanadis.core.lang.ToString;
 import vanadis.core.time.Time;
-import vanadis.ext.Failure;
+import vanadis.objectmanagers.Failure;
 
 final class FailureImpl implements Failure {
 

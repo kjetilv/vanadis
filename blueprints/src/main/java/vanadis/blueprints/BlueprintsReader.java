@@ -325,7 +325,10 @@ public class BlueprintsReader {
             }
             List<Object> children = properties.getPropertyOrMultiPropertyOrXml();
             for (PropertyType property : scanChildren(PropertyType.class, children)) {
-                propertySet.set(property.getName(), Retyper.coerce(property.getType(), Strings.trim(property.getValue())));
+                String valueString = property.getValue();
+                Object value = Strings.isEmpty(valueString) ? null
+                        : Retyper.coerce(property.getType(), Strings.trim(valueString));
+                propertySet.set(property.getName(), value);
             }
             for (MultiPropertyType property : scanChildren(MultiPropertyType.class, children)) {
                 List<PropertyValue> values = property.getValue();

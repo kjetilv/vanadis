@@ -15,11 +15,11 @@
  */
 package vanadis.integrationtests;
 
-import vanadis.ext.CoreProperty;
-import vanadis.ext.ObjectManager;
-import vanadis.osgi.Filter;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
+import vanadis.ext.CoreProperty;
+import vanadis.objectmanagers.ObjectManager;
+import vanadis.osgi.Filter;
 
 public class DeployLaunchesTest extends SingleFelixTestCase {
 

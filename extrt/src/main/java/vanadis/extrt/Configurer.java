@@ -16,6 +16,9 @@
 
 package vanadis.extrt;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import vanadis.annopro.AnnotationDatum;
 import vanadis.core.io.Location;
 import vanadis.core.lang.Strings;
@@ -29,11 +32,11 @@ import vanadis.ext.Configure;
 import vanadis.ext.ModuleSystemException;
 import vanadis.util.log.Log;
 import vanadis.util.log.Logs;
-import vanadis.util.xml.Xml;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+import vanadis.util.xml.XmlException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -215,8 +218,21 @@ class Configurer {
         }
     }
 
+    private static DocumentBuilder documentBuilder() {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        try {
+            return documentBuilderFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            throw new XmlException("Failed to create document builder", e);
+        }
+    }
+
     private static Document toDocument(Element original) {
-        return Xml.toDocument(original);
+        Document document = documentBuilder().newDocument();
+        Node clone = original.cloneNode(true);
+        document.adoptNode(clone);
+        document.appendChild(clone);
+        return document;
     }
 
     private static Element documentElement(Node node) {

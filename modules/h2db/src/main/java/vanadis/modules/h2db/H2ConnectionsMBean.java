@@ -16,8 +16,8 @@
 
 package vanadis.modules.h2db;
 
+import vanadis.core.lang.Not;
 import vanadis.services.db.ConnectionsMBean;
-import vanadis.util.lang.Verify;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;
@@ -27,7 +27,7 @@ public class H2ConnectionsMBean implements ConnectionsMBean {
     private final H2Connections h2Connections;
 
     public H2ConnectionsMBean(H2Connections h2Connections) {
-        this.h2Connections = Verify.notNull(h2Connections);
+        this.h2Connections = Not.nil(h2Connections, "h2 connections");
     }
 
     @Override

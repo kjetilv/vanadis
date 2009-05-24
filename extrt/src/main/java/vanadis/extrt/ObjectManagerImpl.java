@@ -26,7 +26,8 @@ import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.ext.*;
-import static vanadis.ext.ManagedState.*;
+import vanadis.objectmanagers.*;
+import static vanadis.objectmanagers.ManagedState.*;
 import vanadis.osgi.Context;
 import vanadis.osgi.Reference;
 import vanadis.osgi.Registration;
@@ -187,7 +188,7 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
 
     @Override
     public boolean isLaunchable() {
-        return !hasFailed() && state.is(ManagedState.SERVICES_EXPOSED);
+        return !hasFailed() && state.is(SERVICES_EXPOSED);
     }
 
     @Override

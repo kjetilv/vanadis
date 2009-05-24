@@ -16,16 +16,15 @@
 package vanadis.integrationtests;
 
 import static junit.framework.Assert.assertNotNull;
+import org.junit.Ignore;
+import org.junit.Test;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.core.time.TimeSpan;
-import static vanadis.ext.ManagedState.ACTIVE;
-import static vanadis.ext.ManagedState.RESOLVING_DEPENDENCIES;
-import vanadis.ext.ObjectManager;
+import vanadis.objectmanagers.ManagedState;
+import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.Reference;
 import vanadis.osgi.Registration;
-import org.junit.Ignore;
-import org.junit.Test;
 
 public class CalculatorTest extends SingleFelixTestCase {
 
@@ -84,26 +83,26 @@ public class CalculatorTest extends SingleFelixTestCase {
         waitForObjectManagerFactory("javacalc-div");
 
         waitForObjectManager("javacalc-mul");
-        assertObjectManagerState("javacalc-mul", ACTIVE);
+        assertObjectManagerState("javacalc-mul", ManagedState.ACTIVE);
 
         waitForObjectManager("javacalc-div");
-        assertObjectManagerState("javacalc-div", ACTIVE);
+        assertObjectManagerState("javacalc-div", ManagedState.ACTIVE);
 
         registerLaunch("javacalc-calculator");
         waitForObjectManager("javacalc-calculator");
-        assertObjectManagerState("javacalc-calculator", RESOLVING_DEPENDENCIES);
+        assertObjectManagerState("javacalc-calculator", ManagedState.RESOLVING_DEPENDENCIES);
 
         Registration<ModuleSpecification> addService = registerLaunch("javacalc-add");
         waitForObjectManager("javacalc-add");
-        assertObjectManagerState("javacalc-add", ACTIVE);
+        assertObjectManagerState("javacalc-add", ManagedState.ACTIVE);
 
         Registration<ModuleSpecification> subService = registerLaunch("javacalc-sub");
         waitForObjectManager("javacalc-sub");
-        assertObjectManagerState("javacalc-sub", ACTIVE);
+        assertObjectManagerState("javacalc-sub", ManagedState.ACTIVE);
 
         Registration<?>[] services = new Registration<?>[]{addService, subService, mulService, divService};
 
-        assertObjectManagerState("javacalc-calculator", ACTIVE);
+        assertObjectManagerState("javacalc-calculator", ManagedState.ACTIVE);
 
         Reference<ObjectManager> reference = waitForObjectManager("javacalc-calculator");
         Object service = reference.getRawService();
@@ -115,7 +114,7 @@ public class CalculatorTest extends SingleFelixTestCase {
             for (int i = 0; i < types.length; i++) {
                 services[i].unregister();
                 waitForLostObjectManager(session(), "javacalc-" + types[i]);
-                assertObjectManagerState("javacalc-calculator", RESOLVING_DEPENDENCIES);
+                assertObjectManagerState("javacalc-calculator", ManagedState.RESOLVING_DEPENDENCIES);
                 bundles[i].unregister();
                 waitForLostObjectManager(session(), "javacalc-" + types[i]);
                 waitForLostBundle(session(), "vanadis.modules.examples.javacalc." + types[i], timeout);
@@ -125,7 +124,7 @@ public class CalculatorTest extends SingleFelixTestCase {
                 waitForActiveBundle("vanadis.modules.examples.javacalc." + types[i]);
                 waitForObjectManagerFactory("javacalc-" + types[i]);
                 waitForObjectManager("javacalc-" + types[i]);
-                assertObjectManagerState("javacalc-calculator", ACTIVE);
+                assertObjectManagerState("javacalc-calculator", ManagedState.ACTIVE);
             }
         }
         session().close();

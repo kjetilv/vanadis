@@ -28,6 +28,7 @@ public class NewSessionExecution implements CommandExecution {
         this.sessions = sessions;
     }
 
+    @SuppressWarnings({"UnusedDeclaration"})
     @Override
     public void exec(String command, String[] args, StringBuilder sb, Context context) {
         String arg = args[2];

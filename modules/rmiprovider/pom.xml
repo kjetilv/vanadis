@@ -35,6 +35,10 @@
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
+      <artifactId>vanadis.ext</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.remoting</artifactId>
     </dependency>
     <dependency>

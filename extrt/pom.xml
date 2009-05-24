@@ -60,7 +60,15 @@
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
+      <artifactId>vanadis.services</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.blueprints</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.objectmanagers</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.log4j</groupId>

@@ -31,13 +31,18 @@
     <dependencies>
       <dependency>
         <groupId>com.sun.grizzly.osgi</groupId>
-        <artifactId>grizzly-httpservice</artifactId>
-        <version>1.9.14</version>
+        <artifactId>grizzly-httpservice-bundle</artifactId>
+        <version>1.9.15a</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.osgi</groupId>
         <artifactId>org.eclipse.osgi</artifactId>
         <version>3.4.3.R34x_v20081215-1030</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>org.apache.felix.webconsole</artifactId>
+        <version>1.2.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.felix</groupId>
@@ -78,26 +83,6 @@
         <groupId>org.apache.log4j</groupId>
         <artifactId>com.springsource.org.apache.log4j</artifactId>
         <version>1.2.15</version>
-      </dependency>
-      <dependency>
-        <groupId>com.sun.grizzly</groupId>
-        <artifactId>grizzly-http</artifactId>
-        <version>1.9.14</version>
-      </dependency>
-      <dependency>
-        <groupId>com.sun.grizzly</groupId>
-        <artifactId>grizzly-http-servlet</artifactId>
-        <version>1.9.14</version>
-      </dependency>
-      <dependency>
-        <groupId>com.sun.grizzly</groupId>
-        <artifactId>grizzly-http-webserver</artifactId>
-        <version>1.9.14</version>
-      </dependency>
-      <dependency>
-        <groupId>com.sun.grizzly</groupId>
-        <artifactId>grizzly-framework</artifactId>
-        <version>1.9.14</version>
       </dependency>
       <dependency>
         <groupId>org.jgroups</groupId>
@@ -224,11 +209,6 @@
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>vanadis.modules</groupId>
-        <artifactId>vanadis.modules.h2db</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.install</artifactId>
         <version>1.1-SNAPSHOT</version>
@@ -241,6 +221,11 @@
       <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.log</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.reposerv</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -289,6 +274,11 @@
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.felixcmds</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.remoting</artifactId>
         <version>1.1-SNAPSHOT</version>
@@ -327,6 +317,11 @@
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
+        <groupId>vanadis.modules</groupId>
+        <artifactId>vanadis.modules.httpwhiteboard</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.blueprints</artifactId>
         <version>1.1-SNAPSHOT</version>
@@ -341,6 +336,11 @@
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.osgi</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.objectmanagers</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -379,6 +379,15 @@
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <artifactId>maven-idea-plugin</artifactId>
+          <configuration>
+            <jdkLevel>1.6</jdkLevel>
+            <jdkName>1.6</jdkName>
+            <downloadJavadocs>true</downloadJavadocs>
+            <downloadSources>true</downloadSources>
+          </configuration>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
@@ -565,6 +574,7 @@
       <id>vanadis</id>
       <modules>
         <module>osgi</module>
+        <module>objectmanagers</module>
         <module>blueprints</module>
         <module>annopro</module>
         <module>log4jsetup</module>

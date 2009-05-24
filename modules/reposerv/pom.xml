@@ -31,11 +31,15 @@
   <dependencies>
     <dependency>
       <groupId>com.sun.grizzly.osgi</groupId>
-      <artifactId>grizzly-httpservice</artifactId>
+      <artifactId>grizzly-httpservice-bundle</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
       <artifactId>vanadis.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.ext</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>

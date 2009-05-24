@@ -45,7 +45,7 @@ final class OSGiContextPropertySet extends AbstractPropertySet {
     }
 
     @Override
-    protected void setLocal(String key, Object value) {
+    protected OSGiContextPropertySet setLocal(String key, Object value) {
         throw new IllegalArgumentException(this + " cannot set " + key + " to " + value);
     }
 

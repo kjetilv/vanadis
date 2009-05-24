@@ -64,5 +64,4 @@ public final class TargetHandle<T> implements Serializable {
     public String toString() {
         return ToString.of(this, new StringBuilder(reference.toString()).append("@").append(location));
     }
-
 }

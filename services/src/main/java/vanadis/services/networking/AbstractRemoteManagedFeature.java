@@ -13,16 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.ext;
+package vanadis.services.networking;
 
 import vanadis.core.io.Location;
 import vanadis.core.lang.EqHc;
 import vanadis.core.system.VM;
 
-import java.io.Serializable;
-
-public abstract class RemoteManagedFeature<T extends RemoteManagedFeature<T>>
-    implements Serializable {
+abstract class AbstractRemoteManagedFeature<T extends AbstractRemoteManagedFeature<T>>
+        implements RemoteManagedFeature<T> {
 
     private static final long serialVersionUID = 8111986093483748156L;
 
@@ -32,43 +30,44 @@ public abstract class RemoteManagedFeature<T extends RemoteManagedFeature<T>>
 
     private final String serviceInterfaceName;
 
-    protected RemoteManagedFeature(Location remoteLocation, String serviceInterfaceName) {
+    AbstractRemoteManagedFeature(Location remoteLocation, String serviceInterfaceName) {
         this.serviceInterfaceName = serviceInterfaceName;
         this.remoteLocation = remoteLocation;
         this.pid = VM.pid();
     }
 
+    @Override
     public Location getRemoteLocation() {
         return remoteLocation;
     }
 
+    @Override
     public int getPid() {
         return pid;
     }
 
+    @Override
     public String getServiceInterfaceName() {
         return serviceInterfaceName;
+    }
+
+    protected String coreString() {
+        return serviceInterfaceName + "@" + remoteLocation;
+    }
+
+    protected abstract Object identitySource();
+
+    @Override
+    public final boolean equals(Object obj) {
+        AbstractRemoteManagedFeature<T> feature = EqHc.retyped(this, obj);
+        return feature != null && EqHc.eq
+                (remoteLocation, feature.remoteLocation,
+                 pid, feature.pid,
+                 identitySource(), feature.identitySource());
     }
 
     @Override
     public int hashCode() {
         return EqHc.hc(getClass().getName(), remoteLocation, pid, identitySource());
-    }
-
-    protected abstract Object identitySource();
-
-    public abstract T copyRelocatedAt(Location location);
-
-    @Override
-    public final boolean equals(Object obj) {
-        RemoteManagedFeature<T> feature = EqHc.retyped(this, obj);
-        return feature != null && EqHc.eq
-            (remoteLocation, feature.remoteLocation,
-             pid, feature.pid,
-             identitySource(), feature.identitySource());
-    }
-
-    protected String coreString() {
-        return serviceInterfaceName + "@" + remoteLocation;
     }
 }

@@ -1,8 +1,8 @@
 package vanadis.extrt;
 
 import vanadis.core.lang.ToString;
-import vanadis.ext.InjectedServiceSummary;
-import vanadis.ext.InjectionType;
+import vanadis.objectmanagers.InjectedServiceSummary;
+import vanadis.objectmanagers.InjectionType;
 import vanadis.osgi.Filter;
 
 class InjectedServiceSummaryImpl extends AbstractManagedFeatureSummary implements InjectedServiceSummary {

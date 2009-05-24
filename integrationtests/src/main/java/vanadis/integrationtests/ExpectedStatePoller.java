@@ -16,7 +16,7 @@
 package vanadis.integrationtests;
 
 import vanadis.core.reflection.Invoker;
-import vanadis.ext.ManagedState;
+import vanadis.objectmanagers.ManagedState;
 
 import java.util.concurrent.Callable;
 

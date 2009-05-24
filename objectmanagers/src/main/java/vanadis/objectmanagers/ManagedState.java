@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.ext;
+package vanadis.objectmanagers;
 
 /**
  * The states that a managed object can be in.

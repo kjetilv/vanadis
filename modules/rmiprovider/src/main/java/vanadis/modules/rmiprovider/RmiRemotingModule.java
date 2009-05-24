@@ -34,6 +34,14 @@ public class RmiRemotingModule extends AbstractModule {
     @Configure(required = true)
     private Location location;
 
+    public RmiRemotingModule() {
+        this(null);
+    }
+
+    public RmiRemotingModule(Location location) {
+        this.location = location;
+    }
+
     @Expose
     public RemotingInfrastructure getInfrastructure() {
         if (infrastructure == null) {

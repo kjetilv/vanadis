@@ -19,6 +19,7 @@ package vanadis.extrt;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
+import vanadis.objectmanagers.ObjectManagerFactory;
 
 import java.util.List;
 

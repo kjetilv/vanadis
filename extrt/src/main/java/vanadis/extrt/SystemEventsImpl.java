@@ -16,6 +16,8 @@
 
 package vanadis.extrt;
 
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.core.collections.Generic;
@@ -23,13 +25,11 @@ import vanadis.core.io.IORuntimeException;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.ext.ModuleSystemException;
-import vanadis.ext.ObjectManager;
+import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.Context;
 import vanadis.util.concurrent.OperationQueuer;
 import vanadis.util.log.Log;
 import vanadis.util.log.Logs;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
 
 import java.io.IOException;
 import java.util.*;

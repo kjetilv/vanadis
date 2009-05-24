@@ -47,7 +47,7 @@
     </dependency>
     <dependency>
       <groupId>com.sun.grizzly.osgi</groupId>
-      <artifactId>grizzly-httpservice</artifactId>
+      <artifactId>grizzly-httpservice-bundle</artifactId>
     </dependency>
   </dependencies>
   <build>

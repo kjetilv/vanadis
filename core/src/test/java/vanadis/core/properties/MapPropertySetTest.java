@@ -16,8 +16,8 @@
 package vanadis.core.properties;
 
 import junit.framework.Assert;
-import vanadis.core.collections.Generic;
 import org.junit.Test;
+import vanadis.core.collections.Generic;
 
 import java.util.Map;
 
@@ -32,6 +32,14 @@ public class MapPropertySetTest extends Assert {
     private static final String VARIABLE1 = "v1";
 
     private static final String VARIABLE2 = "v2";
+
+    @Test
+    public void nullvalue() {
+        PropertySet propertySet = PropertySets.create();
+        propertySet.set("foo", null);
+        assertTrue(propertySet.has("foo"));
+        assertNull(propertySet.get("foo"));
+    }
 
     @Test
     public void empty() {

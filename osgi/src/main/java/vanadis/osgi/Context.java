@@ -197,12 +197,29 @@ public interface Context {
     <T> Collection<Reference<T>> getReferences(Class<T> serviceInterface, Filter filter);
 
     /**
+     * Get all references matching the service interface.  Returns
+     * the empty set if there are no matches.
+     *
+     * @param serviceInterface Service interface.  May be null or {@link Object}.class to
+     *                         denote any interface
+     * @return Non-null collection of matching references
+     */
+    <T> Collection<Reference<T>> getReferences(Class<T> serviceInterface);
+
+    /**
      * @param serviceInterfaceName Service interface name.  May be null or {@link Object}.class to
      *                             denote any interface
      * @param filter               Filter
      * @return Non-null collection of matching references
      */
     Collection<Reference<?>> getReferences(String serviceInterfaceName, Filter filter);
+
+    /**
+     * @param serviceInterfaceName Service interface name.  May be null or {@link Object}.class to
+     *                             denote any interface
+     * @return Non-null collection of matching references
+     */
+    Collection<Reference<?>> getReferences(String serviceInterfaceName);
 
     /**
      * Create a mediator.  A mediator wraps an OSGi ServiceTracker.

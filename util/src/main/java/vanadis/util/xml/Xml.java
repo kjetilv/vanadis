@@ -16,10 +16,6 @@
 
 package vanadis.util.xml;
 
-import vanadis.core.collections.Generic;
-import vanadis.core.lang.Not;
-import vanadis.core.lang.Strings;
-import vanadis.core.reflection.Enums;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,6 +23,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.Not;
+import vanadis.core.lang.Strings;
+import vanadis.core.reflection.Enums;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -56,6 +56,15 @@ public class Xml {
             throws UnsupportedEncodingException {
         Not.nil(string, "xml string");
         return readDocument(new ByteArrayInputStream(string.getBytes(encoding)));
+    }
+
+    private static DocumentBuilder documentBuilder() {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        try {
+            return documentBuilderFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            throw new XmlException("Failed to create document builder", e);
+        }
     }
 
     public static Document toDocument(Element root) {
@@ -285,15 +294,6 @@ public class Xml {
         Element child = document.createElement(rootName);
         document.appendChild(child);
         return document;
-    }
-
-    private static DocumentBuilder documentBuilder() {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        try {
-            return documentBuilderFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            throw new XmlException("Failed to create document builder", e);
-        }
     }
 
     private static String getAttribute(Element element, String name, boolean req, String defaultValue) {

@@ -48,14 +48,12 @@ public interface PropertySet extends Iterable<String> {
     PropertySet setIf(boolean condition, String key, Object value);
 
     /**
-     * Set value. Mutates the instance, or returns
-     * a new instance if this instance is not
+     * Set value. Mutates the instance, or returns a new instance if this instance is not
      * {@link #isWritable()} writable}.
      *
      * @param key   Key
      * @param value Value
-     * @return this instance
-     * @throws IllegalStateException If immutable
+     * @return This instance, or a writable copy with the new key/value pair
      */
     PropertySet set(String key, Object value);
 
@@ -107,8 +105,21 @@ public interface PropertySet extends Iterable<String> {
 
     boolean has(Class<?> type, String variable);
 
+    /**
+     * Returns a copy of this property set.  If the writable
+     * argument is false, and this property set isn't writable
+     * either, it is permitted to return itself.
+     *
+     * @param writable True iff copy is to be writable
+     * @return Copy (or itself iff non-writable)
+     */
     PropertySet copy(boolean writable);
 
+    /**
+     * True iff this property set is writable.
+     *
+     * @return Writable flag
+     */
     boolean isWritable();
 
     /**
@@ -127,6 +138,7 @@ public interface PropertySet extends Iterable<String> {
 
     /**
      * Create a copy of this property set, without its parent.
+     * If this property set has no parent, returns a {@link #copy(boolean)}.
      *
      * @return A new orphan
      */

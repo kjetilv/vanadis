@@ -21,10 +21,7 @@ import vanadis.core.lang.ToString;
 import vanadis.core.time.TimeSpan;
 import vanadis.ext.*;
 import vanadis.osgi.ServiceProperties;
-import vanadis.services.networking.LocalNode;
-import vanadis.services.networking.Node;
-import vanadis.services.networking.RemoteNode;
-import vanadis.services.networking.Router;
+import vanadis.services.networking.*;
 import vanadis.services.remoting.Remoting;
 import vanadis.util.concurrent.ExecutorUtils;
 import vanadis.util.log.Log;
@@ -69,6 +66,18 @@ public class NetworkerModule extends AbstractContextAware {
     private ScheduledExecutorService service;
 
     private final NodeState nodeState = new NodeState();
+
+    public NetworkerModule() {
+        this(false, TimeSpan.HALF_MINUTE, TimeSpan.HALF_MINUTE, 1, null);
+    }
+
+    public NetworkerModule(boolean routing, TimeSpan retry, TimeSpan shutdown, int threads, Remoting remoting) {
+        this.routing = routing;
+        this.retry = retry;
+        this.shutdown = shutdown;
+        this.threads = threads;
+        this.remoting = remoting;
+    }
 
     @Override
     public void configured() {

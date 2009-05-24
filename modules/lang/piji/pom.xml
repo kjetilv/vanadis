@@ -34,6 +34,10 @@
       <artifactId>vanadis.osgi</artifactId>
     </dependency>
     <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.ext</artifactId>
+    </dependency>
+    <dependency>
       <groupId>vanadis.lang</groupId>
       <artifactId>vanadis.lang.piji</artifactId>
     </dependency>

@@ -15,24 +15,28 @@
  */
 package vanadis.modules.networker;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Pair;
 import vanadis.core.io.Location;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.time.TimeSpan;
-import vanadis.ext.*;
+import vanadis.ext.AutoLaunch;
+import vanadis.ext.Inject;
+import vanadis.ext.Module;
 import vanadis.osgi.Context;
 import vanadis.osgi.Filters;
 import vanadis.osgi.ServiceProperties;
 import vanadis.osgi.impl.BareBonesContext;
 import vanadis.remoting.RemotingImpl;
 import vanadis.services.networking.Node;
+import vanadis.services.networking.RemoteExposure;
+import vanadis.services.networking.RemoteInjectPoint;
 import vanadis.services.networking.Router;
 import vanadis.services.remoting.Remoting;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
 
 import java.util.Collections;
 import java.util.Map;

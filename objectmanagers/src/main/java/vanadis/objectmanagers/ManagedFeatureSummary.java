@@ -1,4 +1,4 @@
-package vanadis.ext;
+package vanadis.objectmanagers;
 
 /**
  * Common interface for simple status reports, providing some reflection into

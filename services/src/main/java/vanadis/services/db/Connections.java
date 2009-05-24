@@ -25,5 +25,4 @@ public interface Connections {
     Connection get(String user, String passwd);
 
     void drop(Connection connection);
-
 }

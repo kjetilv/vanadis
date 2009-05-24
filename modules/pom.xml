@@ -33,6 +33,7 @@
       <id>vanadis</id>
       <modules>
         <module>log</module>
+        <module>jdbcdb</module>
         <module>remoting</module>
         <module>rmiprovider</module>
         <module>httpprovider</module>
@@ -42,6 +43,7 @@
         <module>felixcmds</module>
         <module>reposerv</module>
         <module>scripting</module>
+        <module>h2db</module>
         <module>lang</module>
       </modules>
     </profile>

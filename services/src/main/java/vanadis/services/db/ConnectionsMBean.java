@@ -23,5 +23,4 @@ public interface ConnectionsMBean {
     String update(String sql);
 
     String command(String sql);
-
 }

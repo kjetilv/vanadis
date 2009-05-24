@@ -1,4 +1,4 @@
-package vanadis.ext;
+package vanadis.objectmanagers;
 
 /**
  * Information about an expose point.

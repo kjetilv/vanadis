@@ -16,7 +16,7 @@
 package vanadis.modules.networker.actions;
 
 import vanadis.core.time.TimeSpan;
-import vanadis.ext.RemoteExposure;
+import vanadis.services.networking.RemoteExposure;
 import vanadis.services.networking.Router;
 
 import java.util.List;

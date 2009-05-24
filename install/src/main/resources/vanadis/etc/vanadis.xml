@@ -36,6 +36,10 @@
       <auto-bundle artifact="annopro"/>
       <!-- Humane OSGi API's -->
       <auto-bundle artifact="osgi"/>
+      <!-- Object Manager interfaces -->
+      <auto-bundle artifact="objectmanagers"/>
+      <!-- Vanadis services -->
+      <auto-bundle artifact="services"/>
       <!-- API for users of extender module -->
       <auto-bundle artifact="ext"/>
       <!-- The extender module picks up managed modules using a quick ASM scan. -->
@@ -67,13 +71,12 @@
     <bundles group="vanadis" artifact-prefix="vanadis">
       <bundle artifact="deployer"/>
       <bundle artifact="remoting"/>
-      <bundle artifact="services"/>
     </bundles>
     <bundle group="vanadis.lang" artifact="vanadis.lang.piji"/>
 
     <!-- Grizzly -->
     <bundle group="javax.servlet" artifact="com.springsource.javax.servlet" version="2.5.0"/>
-    <bundle group="com.sun.grizzly.osgi" artifact="grizzly-httpservice-bundle" global-properties="true" version="1.9.14">
+    <bundle group="com.sun.grizzly.osgi" artifact="grizzly-httpservice-bundle" global-properties="true" version="1.9.15a">
       <properties>
         <property name="org.osgi.service.http.port">baseport+80</property>
         <property name="org.osgi.service.http.port.secure">baseport+81</property>

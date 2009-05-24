@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.ext;
+package vanadis.services.networking;
 
 import vanadis.core.io.Location;
 import vanadis.core.lang.ToString;
 import vanadis.osgi.Filter;
 
-public final class RemoteInjectPoint extends RemoteManagedFeature<RemoteInjectPoint> {
+public final class RemoteInjectPoint extends AbstractRemoteManagedFeature<RemoteInjectPoint> {
 
     private static final long serialVersionUID = -5642290437074852883L;
 
@@ -68,5 +68,4 @@ public final class RemoteInjectPoint extends RemoteManagedFeature<RemoteInjectPo
                            "filter", filter,
                            "@", getRemoteLocation());
     }
-
 }

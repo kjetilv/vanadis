@@ -15,13 +15,13 @@
  */
 package vanadis.modules.h2db;
 
+import vanadis.core.lang.ToString;
 import vanadis.ext.AbstractModule;
 import vanadis.ext.Configure;
 import vanadis.ext.Expose;
 import vanadis.ext.Module;
 import vanadis.services.db.Connections;
 import vanadis.services.db.ConnectionsMBean;
-import vanadis.util.lang.ToString;
 
 import java.io.File;
 
@@ -43,6 +43,17 @@ public class H2Module extends AbstractModule {
     private H2Connections h2Connections;
 
     private H2ConnectionsMBean h2ConnectionsMBean;
+
+    public H2Module() {
+        this(null, null, null, null);
+    }
+
+    public H2Module(String user, String passwd, File file, String memoryDatabase) {
+        this.user = user;
+        this.passwd = passwd;
+        this.file = file;
+        this.memoryDatabase = memoryDatabase;
+    }
 
     public String getUser() {
         return user;

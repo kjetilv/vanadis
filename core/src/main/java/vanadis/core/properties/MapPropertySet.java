@@ -38,8 +38,9 @@ final class MapPropertySet extends AbstractPropertySet {
     }
 
     @Override
-    protected void setLocal(String key, Object value) {
+    protected MapPropertySet setLocal(String key, Object value) {
         map.put(key, value);
+        return this;
     }
 
     @Override
@@ -79,7 +80,8 @@ final class MapPropertySet extends AbstractPropertySet {
         Properties properties = new Properties();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             if (entry.getValue() != null) {
-                properties.setProperty(entry.getKey(), String.valueOf(entry.getValue()));
+                Object value = entry.getValue();
+                properties.setProperty(entry.getKey(), value == null ? "" : String.valueOf(value));
             }
         }
         return properties;

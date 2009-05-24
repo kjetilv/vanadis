@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.extrt;
+package vanadis.objectmanagers;
 
 import vanadis.blueprints.ModuleSpecification;
-import vanadis.ext.ObjectManager;
 
 import java.util.Collection;
 
@@ -39,7 +38,7 @@ public interface ObjectManagerFactory extends Iterable<ModuleSpecification> {
     ObjectManager launch(ModuleSpecification moduleSpecification);
 
     /**
-     * Auto-launch any services specified as {@link vanadis.ext.AutoLaunch launch-specified} services.
+     * Auto-launch any services specified in the annotation.
      *
      * @return Auto-launched object managers
      */

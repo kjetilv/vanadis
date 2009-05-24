@@ -16,7 +16,7 @@
 package vanadis.modules.networker.actions;
 
 import vanadis.core.time.TimeSpan;
-import vanadis.ext.RemoteInjectPoint;
+import vanadis.services.networking.RemoteInjectPoint;
 import vanadis.services.networking.Router;
 
 import java.util.List;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package vanadis.ext;
+package vanadis.objectmanagers;
 
 /**
  * Describes all known module failures registered in a module.

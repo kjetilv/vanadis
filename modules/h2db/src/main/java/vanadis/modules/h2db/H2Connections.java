@@ -16,12 +16,12 @@
 
 package vanadis.modules.h2db;
 
+import org.h2.Driver;
+import vanadis.core.lang.ToString;
 import vanadis.services.db.Connections;
 import vanadis.services.db.DbException;
-import vanadis.util.lang.ToString;
 import vanadis.util.log.Log;
 import vanadis.util.log.Logs;
-import org.h2.Driver;
 
 import java.io.File;
 import java.sql.Connection;

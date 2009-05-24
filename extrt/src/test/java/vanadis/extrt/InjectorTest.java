@@ -17,20 +17,20 @@
 package vanadis.extrt;
 
 import junit.framework.Assert;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import vanadis.core.time.TimeSpan;
 import vanadis.ext.Inject;
 import vanadis.ext.ModuleSystemException;
-import vanadis.ext.ObjectManager;
 import vanadis.ext.Retract;
+import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.Context;
 import vanadis.osgi.Registration;
 import vanadis.osgi.ServiceProperties;
 import vanadis.osgi.impl.BareBonesContext;
 import vanadis.util.concurrent.OperationQueuer;
 import vanadis.util.concurrent.ThreadedDispatch;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;

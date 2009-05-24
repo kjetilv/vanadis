@@ -17,9 +17,8 @@ package vanadis.extrt;
 
 import vanadis.core.lang.ToString;
 import vanadis.ext.ManagedLifecycle;
-import vanadis.ext.ManagedState;
-import static vanadis.ext.ManagedState.FAILED;
-import vanadis.ext.ObjectManager;
+import vanadis.objectmanagers.ManagedState;
+import vanadis.objectmanagers.ObjectManager;
 import vanadis.util.log.Log;
 import vanadis.util.log.Logs;
 
@@ -96,14 +95,14 @@ class ObjectManagerState {
     }
 
     void updateState(Throwable cause, Object... msg) {
-        updateState(FAILED, cause, msg);
+        updateState(ManagedState.FAILED, cause, msg);
     }
 
     private void updateState(ManagedState targetState, Throwable cause, Object... msg) {
         managedState = targetState;
         try {
             String message = failureTracker.fail(cause, msg);
-            if (targetState == FAILED) {
+            if (targetState == ManagedState.FAILED) {
                 log.error(message == null ? this + " failed" : message, cause);
             } else if (message != null) {
                 log.info(message);

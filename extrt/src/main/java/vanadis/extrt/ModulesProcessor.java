@@ -25,7 +25,10 @@ import vanadis.core.collections.Generic;
 import vanadis.core.io.Closeables;
 import vanadis.core.lang.Strings;
 import vanadis.core.test.ForTestingPurposes;
-import vanadis.ext.*;
+import vanadis.ext.AutoLaunch;
+import vanadis.ext.Module;
+import vanadis.ext.ModuleSystemException;
+import vanadis.objectmanagers.ObjectManagerFactory;
 import vanadis.osgi.Context;
 import vanadis.util.concurrent.OperationQueuer;
 

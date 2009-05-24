@@ -16,9 +16,9 @@
 package vanadis.modules.networker;
 
 import vanadis.core.time.TimeSpan;
-import vanadis.ext.RemoteConnection;
 import vanadis.modules.networker.actions.ConnectAction;
 import vanadis.modules.networker.actions.DisconnectAction;
+import vanadis.services.networking.RemoteConnection;
 import vanadis.services.networking.RemoteNode;
 import vanadis.util.concurrent.AbstractRetrier;
 

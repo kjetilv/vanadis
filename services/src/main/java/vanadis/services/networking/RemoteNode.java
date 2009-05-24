@@ -15,8 +15,6 @@
  */
 package vanadis.services.networking;
 
-import vanadis.ext.RemoteConnection;
-
 public interface RemoteNode {
 
     void connect(RemoteConnection remoteConnection);

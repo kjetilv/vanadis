@@ -15,9 +15,6 @@
  */
 package vanadis.services.networking;
 
-import vanadis.ext.RemoteExposure;
-import vanadis.ext.RemoteInjectPoint;
-
 import java.util.List;
 
 public interface Router {

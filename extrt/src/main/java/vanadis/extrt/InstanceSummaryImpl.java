@@ -1,6 +1,6 @@
 package vanadis.extrt;
 
-import vanadis.ext.InstanceSummary;
+import vanadis.objectmanagers.InstanceSummary;
 import vanadis.osgi.Reference;
 import vanadis.osgi.Registration;
 import vanadis.osgi.ServiceProperties;

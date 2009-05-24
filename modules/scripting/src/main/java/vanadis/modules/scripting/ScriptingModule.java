@@ -31,6 +31,14 @@ public class ScriptingModule extends AbstractContextAware {
     @Configure(required = false, def = DEFAULT_VALUE)
     private String defaultLanguage;
 
+    public ScriptingModule() {
+        this(null);
+    }
+
+    public ScriptingModule(String defaultLanguage) {
+        this.defaultLanguage = defaultLanguage;
+    }
+
     @Override
     public void dependenciesResolved() {
         scriptingSessions = new ScriptingSessionsImpl(defaultLanguage, managerFactory);

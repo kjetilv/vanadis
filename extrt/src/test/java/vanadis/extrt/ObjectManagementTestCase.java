@@ -15,12 +15,12 @@
  */
 package vanadis.extrt;
 
-import vanadis.blueprints.ModuleSpecification;
-import vanadis.core.io.Location;
-import vanadis.ext.ObjectManager;
-import vanadis.osgi.impl.BareBonesContext;
 import org.junit.After;
 import org.junit.Before;
+import vanadis.blueprints.ModuleSpecification;
+import vanadis.core.io.Location;
+import vanadis.objectmanagers.ObjectManager;
+import vanadis.osgi.impl.BareBonesContext;
 
 public abstract class ObjectManagementTestCase {
 

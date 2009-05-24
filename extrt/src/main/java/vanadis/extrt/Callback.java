@@ -15,8 +15,8 @@
  */
 package vanadis.extrt;
 
-import vanadis.ext.ManagedState;
 import vanadis.ext.ModuleSystemCallback;
+import vanadis.objectmanagers.ManagedState;
 
 class Callback implements ModuleSystemCallback {
 
