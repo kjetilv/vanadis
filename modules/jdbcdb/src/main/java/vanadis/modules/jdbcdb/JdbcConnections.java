@@ -54,9 +54,6 @@ public class JdbcConnections implements Connections {
 
     @Override
     public Connection get() {
-        if (user == null || passwd == null) {
-            throw new IllegalArgumentException("No user or password set, use other get method");
-        }
         return get(user, passwd);
     }
 

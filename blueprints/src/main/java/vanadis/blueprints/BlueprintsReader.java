@@ -44,6 +44,8 @@ public class BlueprintsReader {
 
     private static final Set<String> BASE_RESOURCES = Collections.singleton(BASE_RESOURCE);
 
+    private static final String EMPTY_STRING = "";
+
     public static Blueprints readBlueprints(URI source) {
         return readBlueprints(source, null, openURLStream(uriToURL(source)));
     }
@@ -314,19 +316,20 @@ public class BlueprintsReader {
         return properties(Collections.singletonList(propertiesType));
     }
 
-    private static PropertySet properties(Iterable<PropertiesType> propertiesTypeIterable) {
-        if (propertiesTypeIterable == null) {
+    private static PropertySet properties(Iterable<PropertiesType> iterable) {
+        if (iterable == null) {
             return PropertySets.EMPTY;
         }
         PropertySet propertySet = PropertySets.create();
-        for (PropertiesType properties : propertiesTypeIterable) {
+        for (PropertiesType properties : iterable) {
             if (properties == null) {
                 continue;
             }
             List<Object> children = properties.getPropertyOrMultiPropertyOrXml();
             for (PropertyType property : scanChildren(PropertyType.class, children)) {
                 String valueString = property.getValue();
-                Object value = Strings.isEmpty(valueString) ? null
+                Object value = Strings.isEmpty(valueString)
+                        ? EMPTY_STRING
                         : Retyper.coerce(property.getType(), Strings.trim(valueString));
                 propertySet.set(property.getName(), value);
             }

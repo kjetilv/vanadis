@@ -161,13 +161,13 @@ public interface PropertySet extends Iterable<String> {
 
     Properties toProperties();
 
-    Dictionary<String, Object> toDictionary();
+    Dictionary<String, Object> toDictionary(Object nullValue);
 
-    Dictionary<String, Object> toDictionary(boolean collapse);
+    Dictionary<String, Object> toDictionary(Object nullValue, boolean collapse);
 
-    Hashtable<String, Object> toHashtable();
+    Hashtable<String, Object> toHashtable(Object nullValue);
 
-    Hashtable<String, Object> toHashtable(boolean collapse);
+    Hashtable<String, Object> toHashtable(Object nullValue, boolean collapse);
 
     Map<String, Object> toMap();
 

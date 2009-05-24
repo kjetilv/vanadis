@@ -177,10 +177,10 @@ class Configurer {
             return set.toProperties();
         }
         if (type == Dictionary.class) {
-            return set.toDictionary();
+            return set.toDictionary("");
         }
         if (type == Hashtable.class) {
-            return set.toHashtable();
+            return set.toHashtable("");
         }
         throw new IllegalStateException(this + " could not convert properties to " + type + ": " + set);
     }

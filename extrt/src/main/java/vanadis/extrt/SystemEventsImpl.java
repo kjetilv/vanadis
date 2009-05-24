@@ -86,8 +86,8 @@ class SystemEventsImpl implements SystemEvents {
     @Override
     public void bundleSpecificationAdded(BundleSpecification bundleSpecification) {
         if (isShuttingDown()) {
-            log.info(
-                    "Ignoring bundle add:" + bundleSpecification + ", shutdown initiated in " + shutdownThread() + "!");
+            log.info("Ignoring bundle add:" + bundleSpecification +
+                    ", shutdown initiated in " + shutdownThread() + "!");
         } else {
             log.info("Installing " + bundleSpecification);
             try {

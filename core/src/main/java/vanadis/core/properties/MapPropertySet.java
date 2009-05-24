@@ -18,6 +18,7 @@ package vanadis.core.properties;
 
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.EqHc;
+import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 
 import java.io.IOException;
@@ -56,7 +57,15 @@ final class MapPropertySet extends AbstractPropertySet {
 
     @Override
     public Collection<String> getPropertyNames() {
-        return map.keySet();
+        Set<String> names = Generic.set();
+        for (MapPropertySet set : lineage()) {
+            names.addAll(set.map.keySet());
+        }
+        return Collections.unmodifiableSet(names);
+    }
+
+    private ParentIterable<MapPropertySet> lineage() {
+        return ParentIterable.create(MapPropertySet.class, this);
     }
 
     @Override
@@ -100,27 +109,16 @@ final class MapPropertySet extends AbstractPropertySet {
 
     @Override
     public Map<String, Object> toMap(boolean collapse) {
-        if (collapse) {
-            Map<String, Object> map = Generic.linkedHashMap();
-            for (String key : this.map.keySet()) {
-                map.put(key, get(key));
-            }
-            if (getParent() == null) {
-                return map;
-            }
-            map.putAll(getParent().toMap(true));
-            return map;
-        }
-        return Collections.unmodifiableMap(Generic.linkedHashMap(map));
+        return toMap(null, collapse);
     }
 
     @Override
-    public Dictionary<String, Object> toDictionary(boolean collapse) {
-        return Generic.dictionary(toMap(collapse));
+    public Dictionary<String, Object> toDictionary(Object nullValue, boolean collapse) {
+        return Generic.dictionary(toMap(Not.nil(nullValue, "placeholder for null"), collapse));
     }
 
     @Override
-    public Hashtable<String, Object> toHashtable(boolean collapse) {
+    public Hashtable<String, Object> toHashtable(Object nullValue, boolean collapse) {
         return Generic.hashtable(toMap(collapse));
     }
 
@@ -137,6 +135,16 @@ final class MapPropertySet extends AbstractPropertySet {
     @Override
     protected AbstractPropertySet doOrphan() {
         return new MapPropertySet(map, null, isWritable(), isWritable(), true);
+    }
+
+    private Map<String, Object> toMap(Object nullValue, boolean collapse) {
+        Map<String, Object> map = Generic.linkedHashMap();
+        for (String key : collapse ? getPropertyNames() : this.map.keySet()) {
+            Object storedValue = collapse ? get(key) : getLocal(key);
+            Object putValue = storedValue == null && nullValue != null ? nullValue : storedValue;
+            map.put(key, putValue);
+        }
+        return Collections.unmodifiableMap(map);
     }
 
     private String printMap() {

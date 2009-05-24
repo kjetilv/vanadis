@@ -18,14 +18,21 @@ package vanadis.core.properties;
 
 import vanadis.core.lang.TraverseIterable;
 
-final class ParentIterable extends TraverseIterable<PropertySet> {
+final class ParentIterable<T extends PropertySet> extends TraverseIterable<T> {
 
-    ParentIterable(PropertySet start) {
+    private final Class<T> clazz;
+
+    static <T extends PropertySet> ParentIterable<T> create(Class<T> clazz, T t) {
+        return new ParentIterable<T>(clazz, t);
+    }
+
+    private ParentIterable(Class<T> clazz, T start) {
         super(start);
+        this.clazz = clazz;
     }
 
     @Override
-    protected PropertySet getNext(PropertySet current) {
-        return current.getParent();
+    protected T getNext(T current) {
+        return clazz.cast(current.getParent());
     }
 }

@@ -15,6 +15,10 @@
  */
 package vanadis.osgi.impl;
 
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.ServiceReference;
+import org.osgi.framework.ServiceRegistration;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
 import vanadis.core.lang.EqHc;
@@ -24,10 +28,6 @@ import vanadis.core.properties.PropertySet;
 import vanadis.osgi.*;
 import vanadis.util.log.Log;
 import vanadis.util.log.Logs;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.InvalidSyntaxException;
-import org.osgi.framework.ServiceReference;
-import org.osgi.framework.ServiceRegistration;
 
 import java.net.URI;
 import java.net.URL;
@@ -90,7 +90,7 @@ public final class OSGiContext extends ContextAdapter {
     public <T> Registration<T> register(T service, ServiceProperties<T> serviceProperties) {
         String[] classes = serviceProperties.getObjectClasses();
         PropertySet propertySet = serviceProperties.getPropertySet();
-        Dictionary<String, Object> objectDictionary = propertySet.toDictionary();
+        Dictionary<String, Object> objectDictionary = propertySet.toDictionary("");
         ServiceRegistration serviceRegistration =
                 bundleContext.registerService(classes, service, objectDictionary);
         OSGiRegistration<T> registration =

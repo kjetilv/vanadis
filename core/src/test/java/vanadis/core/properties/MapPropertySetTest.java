@@ -35,10 +35,20 @@ public class MapPropertySetTest extends Assert {
 
     @Test
     public void nullvalue() {
-        PropertySet propertySet = PropertySets.create();
-        propertySet.set("foo", null);
-        assertTrue(propertySet.has("foo"));
-        assertNull(propertySet.get("foo"));
+        assertTrue(nullFooSet().has("foo"));
+        assertNull(nullFooSet().get("foo"));
+    }
+
+    @Test
+    public void nullValueToDictionray() {
+        assertNotNull(nullFooSet().toDictionary("", true));
+        assertNotNull(nullFooSet().toDictionary("", false));
+    }
+
+    @Test
+    public void nullValueToMap() {
+        assertNotNull(nullFooSet().toMap(true));
+        assertNotNull(nullFooSet().toMap(false));
     }
 
     @Test
@@ -208,5 +218,11 @@ public class MapPropertySetTest extends Assert {
 
         assertEquals("1", exp.get("foo"));
         assertEquals("2", exp.get("zip"));
+    }
+
+    private static PropertySet nullFooSet() {
+        PropertySet propertySet = PropertySets.create();
+        propertySet.set("foo", null);
+        return propertySet;
     }
 }

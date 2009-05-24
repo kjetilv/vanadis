@@ -26,16 +26,16 @@ import vanadis.services.db.ConnectionsMBean;
 @Module(moduleType = "jdbcdb")
 public class JdbcModule extends AbstractModule {
 
-    @Configure(def = "sa")
+    @Configure
     private String user;
 
-    @Configure(def = "sa")
+    @Configure
     private String passwd;
 
-    @Configure
+    @Configure(required = true)
     private String driverClassName;
 
-    @Configure
+    @Configure(required = true)
     private String connectionUrl;
 
     private JdbcConnections jdbcConnections;
@@ -80,8 +80,7 @@ public class JdbcModule extends AbstractModule {
     @Override
     public String toString() {
         return ToString.of(this, connectionUrl,
-                           "user", user,
-                           "passwd", passwd,
+                           "user", user, "passwd", passwd,
                            "driver", driverClassName);
     }
 }

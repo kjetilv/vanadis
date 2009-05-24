@@ -26,13 +26,21 @@ import java.util.*;
 
 public abstract class AbstractPropertySet implements PropertySet, Serializable {
 
-    private static final Object NOTHING = new byte[]{};
+    private static final String NULL_STRING = "NULL";
+
+    private static final Object NULL = new Serializable() {
+        private static final long serialVersionUID = 0L;
+        @Override
+        public String toString() {
+            return NULL_STRING;
+        }
+    };
 
     private final PropertySet parent;
 
     private final boolean writable;
 
-    private static final long serialVersionUID = -5378693285564449288L;
+    private static final long serialVersionUID = 1L;
 
     protected AbstractPropertySet(PropertySet parent, boolean writable) {
         this.parent = parent;
@@ -128,22 +136,26 @@ public abstract class AbstractPropertySet implements PropertySet, Serializable {
     }
 
     @Override
-    public Hashtable<String, Object> toHashtable() {
-        return toHashtable(true);
+    public Hashtable<String, Object> toHashtable(Object nullValue) {
+        return toHashtable(nullValue, true);
     }
 
     @Override
-    public Hashtable<String, Object> toHashtable(boolean collapse) {
+    public Hashtable<String, Object> toHashtable(Object nullValue, boolean collapse) {
         return Generic.emptyHashtable();
     }
 
     @Override
-    public Dictionary<String, Object> toDictionary() {
-        return toDictionary(true);
+    public Dictionary<String, Object> toDictionary(Object nullValue) {
+        try {
+            return toDictionary(nullValue, true);
+        } catch (Exception e) {
+            throw new IllegalStateException(this + " failed to turn into dictionary!", e);
+        }
     }
 
     @Override
-    public Dictionary<String, Object> toDictionary(boolean collapse) {
+    public Dictionary<String, Object> toDictionary(Object nullValue, boolean collapse) {
         return Generic.emptyDictionary();
     }
 
@@ -171,7 +183,7 @@ public abstract class AbstractPropertySet implements PropertySet, Serializable {
             return keySet().iterator();
         }
         Set<String> keys = Generic.set();
-        for (PropertySet set : new ParentIterable(this)) {
+        for (AbstractPropertySet set : lineage()) {
             keys.addAll(set.getPropertyNames());
         }
         return keys.iterator();
@@ -216,7 +228,7 @@ public abstract class AbstractPropertySet implements PropertySet, Serializable {
     }
 
     private Object retrieve(String key) {
-        for (PropertySet set : new ParentIterable(this)) {
+        for (PropertySet set : lineage()) {
             Object local = ((AbstractPropertySet) set).getLocal(key);
             if (local != null) {
                 return local;
@@ -225,8 +237,12 @@ public abstract class AbstractPropertySet implements PropertySet, Serializable {
         return null;
     }
 
+    private ParentIterable<AbstractPropertySet> lineage() {
+        return ParentIterable.create(AbstractPropertySet.class, this);
+    }
+
     private static <T> T process(Class<T> type, Object object, PropertySet... variables) {
-        if (object == NOTHING) {
+        if (object == NULL) {
             return null;
         }
         if (object instanceof String) {
@@ -252,7 +268,7 @@ public abstract class AbstractPropertySet implements PropertySet, Serializable {
 
     @Override
     public PropertySet set(String key, Object value) {
-        Object val = value == null ? NOTHING : value;
+        Object val = value == null ? NULL : value;
         return writable ? setLocal(key, val)
                 : copy(true).set(key, val);
     }

@@ -650,7 +650,8 @@ public class Generic {
 
     @SuppressWarnings({"UseOfObsoleteCollectionType"})
     public static Dictionary<String, Object> dictionary(Map<String, ?> map) {
-        return map == null || map.isEmpty() ? emptyDictionary()
+        return map == null || map.isEmpty() 
+                ? emptyDictionary()
                 : new Hashtable<String, Object>(map);
     }
 
