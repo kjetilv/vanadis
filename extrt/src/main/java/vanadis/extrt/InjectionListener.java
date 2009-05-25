@@ -16,6 +16,9 @@
 
 package vanadis.extrt;
 
+/**
+ * An {@link Injector} will notify about its state changes via this interface. 
+ */
 interface InjectionListener {
 
     void wasInjected(Injector<?> injector);
