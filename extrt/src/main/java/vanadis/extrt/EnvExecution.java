@@ -17,18 +17,19 @@
 package vanadis.extrt;
 
 import vanadis.core.system.VM;
-import vanadis.ext.AbstractCommandExecution;
+import vanadis.ext.CommandExecution;
+import vanadis.ext.Printer;
 import vanadis.osgi.Context;
 
-final class EnvExecution extends AbstractCommandExecution {
+final class EnvExecution implements CommandExecution {
 
     @Override
-    public void exec(String command, String[] args, StringBuilder sb, Context context) {
-        ln(sb.append("Location : ").append(context.getLocation().toLocationString()));
-        ln(sb.append("Home     : ").append(context.getHome()));
-        ln(sb.append("PID      : ").append(VM.pid()));
-        ln(sb.append("VM       : ").append(VM.VERSION));
-        ln(sb.append("cwd      : ").append(VM.CWD));
-        ln(sb.append("tmp      : ").append(VM.TMP));
+    public void exec(String command, String[] args, Printer p, Context context) {
+        p.p("Location : ").p(context.getLocation().toLocationString()).cr();
+        p.p("Home     : ").p(context.getHome()).cr();
+        p.p("PID      : ").p(VM.pid()).cr();
+        p.p("VM       : ").p(VM.VERSION).cr();
+        p.p("cwd      : ").p(VM.CWD).cr();
+        p.p("tmp      : ").p(VM.TMP).cr();
     }
 }

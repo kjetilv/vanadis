@@ -76,7 +76,7 @@ public final class DeployerModule extends AbstractModule implements ContextAware
 
     private class TriggerCycle implements CommandExecution {
         @Override
-        public void exec(String command, String[] args, StringBuilder sb, Context context) {
+        public void exec(String command, String[] args, Printer ps, Context context) {
             activeDeployer.triggerCycle();
         }
     }

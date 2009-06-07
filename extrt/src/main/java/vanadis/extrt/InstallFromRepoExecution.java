@@ -16,8 +16,8 @@
 package vanadis.extrt;
 
 import vanadis.blueprints.BundleSpecification;
-import vanadis.core.system.VM;
 import vanadis.ext.CommandExecution;
+import vanadis.ext.Printer;
 import vanadis.osgi.Context;
 import vanadis.util.mvn.Coordinate;
 
@@ -26,14 +26,14 @@ import java.net.URI;
 class InstallFromRepoExecution implements CommandExecution {
 
     @Override
-    public void exec(String command, String[] args, StringBuilder sb, Context context) {
+    public void exec(String command, String[] args, Printer p, Context context) {
         for (String arg : args) {
             try {
                 Coordinate coordinate = Coordinate.at(arg);
                 URI uri = coordinate.uriIn(context.getRepo());
                 context.register(BundleSpecification.create(uri, 1, null), BundleSpecification.class);
             } catch (Exception e) {
-                sb.append("Failed to install ").append(arg).append(": ").append(e).append(VM.LN);
+                p.p("Failed to install ").p(arg).p(": ").p(e).cr();
             }
         }
     }

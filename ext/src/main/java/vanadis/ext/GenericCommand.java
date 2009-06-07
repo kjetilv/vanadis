@@ -27,13 +27,21 @@ public final class GenericCommand extends AbstractCommand {
 
     private final CommandExecution commandExecution;
 
+    public GenericCommand(String name, CommandExecution commandExecution) {
+        this(name, name, commandExecution);
+    }
+
+    public GenericCommand(String name, String description, CommandExecution commandExecution) {
+        this(name, description, null, commandExecution);
+    }
+
     public GenericCommand(String name, String description, Context context, CommandExecution commandExecution) {
         super(name, description, context);
         this.commandExecution = commandExecution;
     }
 
     @Override
-    protected void execute(String command, String[] args, StringBuilder sb, Context context) {
+    protected void execute(String command, String[] args, Printer sb, Context context) {
         commandExecution.exec(command, args, sb, context);
     }
 

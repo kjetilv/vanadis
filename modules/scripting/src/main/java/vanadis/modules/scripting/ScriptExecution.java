@@ -16,6 +16,7 @@
 package vanadis.modules.scripting;
 
 import vanadis.ext.CommandExecution;
+import vanadis.ext.Printer;
 import vanadis.osgi.Context;
 import vanadis.services.scripting.ScriptingSession;
 import vanadis.util.log.Log;
@@ -32,9 +33,9 @@ class ScriptExecution implements CommandExecution {
     }
 
     @Override
-    public void exec(String command, String[] args, StringBuilder sb, Context context) {
+    public void exec(String command, String[] args, Printer p, Context context) {
         Object object = performEvaluation(arg(args, 0, "session name"), concat(args, 1), args);
-        sb.append(object);
+        p.p(object);
     }
 
     private Object performEvaluation(String name, String script, String[] args) {

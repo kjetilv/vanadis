@@ -18,9 +18,8 @@ package vanadis.ext;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 import vanadis.core.collections.Pair;
-import vanadis.core.io.Closeables;
+import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
-import vanadis.core.system.VM;
 import vanadis.osgi.Context;
 import vanadis.util.log.Log;
 import vanadis.util.log.Logs;
@@ -64,17 +63,22 @@ public abstract class AbstractCommand implements Command {
         this(name, name, shortDescription, context, commandIsEvent);
     }
 
-    private AbstractCommand(String name, String usage, String shortDescription,
+    private AbstractCommand(String name, String usage, String desc,
                             Context context,
                             boolean commandIsEvent) {
-        this.name = name;
+        this.name = Not.nil(name, "name");
         this.usage = usage;
         this.commandIsEvent = commandIsEvent;
-        this.shortDescription = "vanadis: " +
-                shortDescription.substring(0, 1).toUpperCase() +
-                shortDescription.substring(1);
-        this.context = context;
-        this.eventAdmin = context.getServiceProxy(EventAdmin.class);
+        this.shortDescription = "vanadis: " + (desc == null
+                ? name
+                : desc.substring(0, 1).toUpperCase() + desc.substring(1));
+        if (commandIsEvent) {
+            this.context = Not.nil(context, "context");
+            this.eventAdmin = context == null? null : context.getServiceProxy(EventAdmin.class);
+        } else {
+            this.context = context;
+            this.eventAdmin = null;
+        }
     }
 
     @Override
@@ -97,15 +101,18 @@ public abstract class AbstractCommand implements Command {
         Pair<String, String[]> pair = Parse.args(fullCommand);
         String command = pair.getOne();
         String[] args = pair.getTwo();
-        StringBuilder sb = new StringBuilder();
-        if (commandIsEvent) {
-            Event event = createEvent(command, args);
-            eventAdmin.postEvent(event);
-            sb.append("Sent event: ").append(event);
-        } else {
-            runCommand(command, args, sb);
+        Printer printer = new Printer(out).terminateWithNewLine(true).printStackTrace(true).singleBlankLine(true);
+        try {
+            if (commandIsEvent) {
+                Event event = createEvent(command, args);
+                eventAdmin.postEvent(event);
+                printer.p("Sent event: ").p(event);
+            } else {
+                runCommand(command, args, printer);
+            }
+        } finally {
+            printer.close();
         }
-        out.println(sb.toString().trim());
     }
 
     /**
@@ -119,29 +126,24 @@ public abstract class AbstractCommand implements Command {
         return CommandEvents.newEvent(command, args);
     }
 
-    private void runCommand(String command, String[] args, StringBuilder string) {
+    private void runCommand(String command, String[] args, Printer printer) {
         try {
-            execute(command, args, string, context);
+            execute(command, args, printer, context);
         } catch (Exception e) {
-            handleError(command, args, string, e);
+            handleError(command, args, printer, e);
         }
     }
 
-    private void handleError(String command, String[] args, StringBuilder string, Exception e) {
+    private void handleError(String command, String[] args, Printer printer, Exception e) {
         log.warn(getName() + ": Command " + command + Arrays.toString(args) + " failed: " + e, e);
-        string.append(getName()).append(" failed").append(VM.LN);
+        printer.p(getName()).p(" failed").cr();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(baos);
-        try {
-            e.printStackTrace(ps);
-            string.append(new String(baos.toByteArray())).append(VM.LN);
-        } finally {
-            Closeables.close(ps);
-        }
+        printer.printStackTrace(e);
+        printer.p(new String(baos.toByteArray())).cr();
     }
 
-    void execute(String command, String[] args, StringBuilder sb, Context context) {
-        sb.append("WARNING: ").append(getClass()).append
+    void execute(String command, String[] args, Printer printer, Context context) {
+        printer.p("WARNING: ").p(getClass()).p
                 (" is not an event command, and has no implementation of the execute method");
     }
 

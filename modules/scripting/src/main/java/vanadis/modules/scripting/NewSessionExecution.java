@@ -16,6 +16,7 @@
 package vanadis.modules.scripting;
 
 import vanadis.ext.CommandExecution;
+import vanadis.ext.Printer;
 import vanadis.osgi.Context;
 import vanadis.osgi.Reference;
 import vanadis.services.scripting.ScriptingSessions;
@@ -30,7 +31,7 @@ public class NewSessionExecution implements CommandExecution {
 
     @SuppressWarnings({"UnusedDeclaration"})
     @Override
-    public void exec(String command, String[] args, StringBuilder sb, Context context) {
+    public void exec(String command, String[] args, Printer ps, Context context) {
         String arg = args[2];
         sessions.newSession(args[0],
                             args.length > 1 ? args[1] : null,

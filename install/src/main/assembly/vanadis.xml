@@ -24,6 +24,15 @@
   <fileSets>
     <fileSet>
       <lineEnding>unix</lineEnding>
+      <directory>target/unpacked</directory>
+      <outputDirectory>vanadis/etc</outputDirectory>
+      <directoryMode>0755</directoryMode>
+      <includes>
+        <include>vanadis.xml</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <lineEnding>unix</lineEnding>
       <directory>src/main/resources/vanadis</directory>
       <outputDirectory>vanadis</outputDirectory>
       <directoryMode>0755</directoryMode>
@@ -47,10 +56,12 @@
       <repository>
         <outputDirectory>vanadis/repo</outputDirectory>
         <excludes>
-          <exclude>*vanadis.felix*</exclude>
-          <exclude>*vanadis.util*</exclude>
-          <exclude>*vanadis.main*</exclude>
-          <exclude>*vanadis.launcher*</exclude>
+          <exclude>*vanadis:vanadis.felix*</exclude>
+          <exclude>*vanadis:vanadis.util*</exclude>
+          <exclude>*vanadis:vanadis.core*</exclude>
+          <exclude>*vanadis:vanadis.blueprints*</exclude>
+          <exclude>*vanadis:vanadis.main*</exclude>
+          <exclude>*vanadis:vanadis.launcher*</exclude>
           <exclude>*org.apache.felix.main*</exclude>
           <exclude>*com.springsource.org.apache.log4j*</exclude>
         </excludes>
@@ -61,10 +72,12 @@
         <useTransitiveDependencies>false</useTransitiveDependencies>
         <outputDirectory>vanadis/lib</outputDirectory>
         <includes>
-          <include>*vanadis.felix*</include>
-          <include>*vanadis.util*</include>
-          <include>*vanadis.main*</include>
-          <include>*vanadis.launcher*</include>
+          <include>*vanadis:vanadis.felix*</include>
+          <include>*vanadis:vanadis.util*</include>
+          <include>*vanadis:vanadis.core*</include>
+          <include>*vanadis:vanadis.blueprints*</include>
+          <include>*vanadis:vanadis.main*</include>
+          <include>*vanadis:vanadis.launcher*</include>
           <include>*org.apache.felix.main*</include>
           <include>*com.springsource.org.apache.log4j*</include>
         </includes>

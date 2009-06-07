@@ -16,6 +16,7 @@
 package vanadis.extrt;
 
 import vanadis.ext.CommandExecution;
+import vanadis.ext.Printer;
 import vanadis.osgi.Context;
 
 class ReloadExecution implements CommandExecution {
@@ -27,7 +28,7 @@ class ReloadExecution implements CommandExecution {
     }
 
     @Override
-    public void exec(String command, String[] args, StringBuilder sb, Context context) {
+    public void exec(String command, String[] args, Printer ps, Context context) {
         systemEvents.reloadBundles(args);
     }
 }

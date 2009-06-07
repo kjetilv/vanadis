@@ -23,5 +23,5 @@ import vanadis.osgi.Context;
  */
 public interface CommandExecution {
 
-    void exec(String command, String[] args, StringBuilder sb, Context context);
+    void exec(String command, String[] args, Printer ps, Context context);
 }
