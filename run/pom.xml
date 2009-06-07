@@ -23,23 +23,17 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>vanadis</groupId>
-  <artifactId>vanadis.annopro</artifactId>
+  <artifactId>vanadis.run</artifactId>
   <version>1.1-SNAPSHOT</version>
-  <packaging>bundle</packaging>
-  <description>Vanadis Annotation Processor</description>
+  <packaging>pom</packaging>
+  <description>Vanadis Runner</description>
   <name>${artifactId}</name>
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.log4j</groupId>
-      <artifactId>com.springsource.org.apache.log4j</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.objectweb.asm</groupId>
-      <artifactId>com.springsource.org.objectweb.asm</artifactId>
-    </dependency>
-  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>
