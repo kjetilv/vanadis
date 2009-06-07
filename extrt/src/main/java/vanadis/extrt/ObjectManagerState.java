@@ -119,6 +119,6 @@ class ObjectManagerState {
 
     @Override
     public String toString() {
-        return ToString.of(this, managedState);
+        return ToString.of(this, objectManager.getName(), "state", managedState);
     }
 }
