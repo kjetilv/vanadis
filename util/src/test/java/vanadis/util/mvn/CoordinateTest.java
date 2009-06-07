@@ -66,7 +66,8 @@ public class CoordinateTest {
     public void findUnversionedArtifact() {
         File file = Coordinate.at("junit:junit").fileIn(Repo.DEFAULT);
         Assert.assertNotNull(file);
-        Assert.assertTrue(file.getName().equals("junit-4.5.jar"));
+        Assert.assertEquals("Expected the latest junit here",
+                            "junit-4.6.jar", file.getName());
     }
 
     @Test
