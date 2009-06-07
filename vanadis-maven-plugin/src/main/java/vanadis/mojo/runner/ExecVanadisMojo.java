@@ -1,6 +1,7 @@
 package vanadis.mojo.runner;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.mojo.exec.ExecJavaMojo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,6 +46,8 @@ public class ExecVanadisMojo extends ExecJavaMojo {
         add("location", location, args);
         add("home", home, args);
         add("blueprint-sheets", blueprintSheets, args);
+
+        getLog().info("Args: " + args);
         return (String[])args.toArray(new String[args.size()]);
     }
 

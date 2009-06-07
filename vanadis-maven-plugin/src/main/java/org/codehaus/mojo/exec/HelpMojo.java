@@ -1,11 +1,11 @@
 package org.codehaus.mojo.exec;
 
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * Display help information on exec-maven-plugin. Call <pre>  mvn exec:help -Ddetail=true -Dgoal=&lt;goal-name&gt;</pre> to display parameter details.
