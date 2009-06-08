@@ -16,10 +16,11 @@
 package vanadis.util.mvn;
 
 import junit.framework.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 import vanadis.core.io.Files;
 import vanadis.core.test.VAsserts;
 import vanadis.core.ver.Version;
-import org.junit.Test;
 
 import java.io.File;
 import java.net.URI;
@@ -62,7 +63,7 @@ public class CoordinateTest {
                                  Coordinate.versioned("junit", "junit", new Version("4.4")));
     }
 
-    @Test
+    @Test @Ignore
     public void findUnversionedArtifact() {
         File file = Coordinate.at("junit:junit").fileIn(Repo.DEFAULT);
         Assert.assertNotNull(file);
