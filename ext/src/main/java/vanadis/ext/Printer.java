@@ -74,24 +74,13 @@ public class Printer {
 
     private Printer print(Object object, boolean pst) {
         failOnClosed();
-        if (onNewLine) {
-            spaceOut(currentIndent);
-        }
         try {
-            if (object instanceof Throwable && pst) {
-                ((Throwable)object).printStackTrace(ps);
-            } else {
-                ps.print(String.valueOf(object));
-            }
+            makeIndents();
+            printOut(object, pst);
         } finally {
             noLongerOnNewLine();
         }
         return this;
-    }
-
-    private void noLongerOnNewLine() {
-        onNewLine = false;
-        blankLines = 0;
     }
 
     public Printer cr() {
@@ -132,6 +121,12 @@ public class Printer {
         }
     }
 
+    private void makeIndents() {
+        if (onNewLine) {
+            spaceOut(currentIndent);
+        }
+    }
+
     private void failOnClosed() {
         if (closed) {
             throw new IllegalStateException(this + " closed");
@@ -148,6 +143,22 @@ public class Printer {
                 noLongerOnNewLine();
             }
         }
+    }
+
+    private String printOut(Object object, boolean pst) {
+        if (object instanceof Throwable && pst) {
+            ((Throwable)object).printStackTrace(ps);
+            return object.toString();
+        } else {
+            String string = String.valueOf(object);
+            ps.print(string);
+            return string;
+        }
+    }
+
+    private void noLongerOnNewLine() {
+        onNewLine = false;
+        blankLines = 0;
     }
 
     private void newLine() {
@@ -169,6 +180,7 @@ public class Printer {
 
     @Override
     public String toString() {
-        return ToString.of(this, "lines", lines, "closed", closed);
+        return ToString.of(this, "lines", lines,
+                           "closed", closed);
     }
 }
