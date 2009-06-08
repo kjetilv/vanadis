@@ -38,19 +38,23 @@ public class JdbcModule extends AbstractModule {
     @Configure(required = true)
     private String connectionUrl;
 
+    @Configure(def = "false")
+    private boolean readOnly;
+
     private JdbcConnections jdbcConnections;
 
     private JdbcConnectionsMBean jdbcConnectionsMBean;
 
     public JdbcModule() {
-        this(null, null, null, null);
+        this(null, null, null, null, false);
     }
 
-    public JdbcModule(String user, String passwd, String driverClassName, String connectionUrl) {
+    public JdbcModule(String user, String passwd, String driverClassName, String connectionUrl, boolean readOnly) {
         this.user = user;
         this.passwd = passwd;
         this.driverClassName = driverClassName;
         this.connectionUrl = connectionUrl;
+        this.readOnly = readOnly;
     }
 
     public String getUser() {
@@ -73,7 +77,7 @@ public class JdbcModule extends AbstractModule {
 
     @Override
     public void dependenciesResolved() {
-        jdbcConnections = new JdbcConnections(connectionUrl, driverClassName, user, passwd);
+        jdbcConnections = new JdbcConnections(connectionUrl, driverClassName, user, passwd, readOnly);
         jdbcConnectionsMBean = new JdbcConnectionsMBean(jdbcConnections);
     }
 

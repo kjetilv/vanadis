@@ -26,6 +26,7 @@ import vanadis.util.log.Logs;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class JdbcConnections implements Connections {
 
@@ -39,9 +40,12 @@ public class JdbcConnections implements Connections {
 
     private final String passwd;
 
-    public JdbcConnections(String connectionUrl, String driverClassName, String user, String passwd) {
+    private final boolean readOnly;
+
+    public JdbcConnections(String connectionUrl, String driverClassName, String user, String passwd, boolean readOnly) {
         this.user = user;
         this.passwd = passwd;
+        this.readOnly = readOnly;
         this.connectionUrl = Not.nil(connectionUrl, "connection url");
         this.driverClassName = Not.nil(driverClassName, "driver class name");
         try {
@@ -59,12 +63,31 @@ public class JdbcConnections implements Connections {
 
     @Override
     public Connection get(String user, String passwd) {
+        Connection connection = newConnection(user, passwd);
+        setReadOnly(connection);
+        return connection;
+    }
+
+    @SuppressWarnings({"IfMayBeConditional"}) // ButItWouldn'tBeSoEasyToReadTheStacktrace...
+    private Connection newConnection(String user, String passwd) {
         try {
-            return Strings.isEmpty(user)
-                    ? DriverManager.getConnection(connectionUrl)
-                    : DriverManager.getConnection(connectionUrl, user, passwd);
+            if (Strings.isEmpty(user)) {
+                return DriverManager.getConnection(connectionUrl);
+            } else {
+                return DriverManager.getConnection(connectionUrl, user, passwd);
+            }
         } catch (Exception e) {
             throw new DbException(this + " failed to open url", e);
+        }
+    }
+
+    private void setReadOnly(Connection connection) {
+        if (readOnly) {
+            try {
+                connection.setReadOnly(readOnly);
+            } catch (SQLException e) {
+                throw new DbException(this + " failed to set readOnly on connection " + connection, e);
+            }
         }
     }
 
