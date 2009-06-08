@@ -18,6 +18,21 @@ public class PrinterTest {
     private Printer printer;
 
     @Test
+    public void sanityCheck() {
+        printer = new Printer(ps, -5);
+        printer.p("foo").ind().cr().p("bar").close();
+        assertOutput("foo" + VM.LN + " bar" + VM.LN);
+    }
+
+    @Test
+    public void sanityCheck2() {
+        printer = new Printer(ps, 234325);
+        printer.p("foo").ind().cr().p("bar").close();
+        assertOutput("foo" + VM.LN + "                bar" + VM.LN);
+
+    }
+
+    @Test
     public void twoLines() {
         printer.p("foo").cr().
                 p("bar").close();

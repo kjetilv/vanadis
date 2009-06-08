@@ -6,8 +6,6 @@ import java.io.PrintStream;
 
 public class Printer {
 
-    private static final String SPC = "                ";
-
     private final PrintStream ps;
 
     private final String indentString;
@@ -34,7 +32,7 @@ public class Printer {
 
     Printer(PrintStream ps, int indentSize) {
         this.ps = ps;
-        this.indentString = SPC.substring(0, Math.min(SPC.length(), indentSize));
+        this.indentString = SPC[Math.min(16, Math.max(1, indentSize))];
     }
 
     public Printer printStackTrace(boolean pst) {
@@ -177,6 +175,25 @@ public class Printer {
             onNewLine = true;
         }
     }
+
+    private static final String[] SPC = { null,
+                                          " ",
+                                          "  ",
+                                          "   ",
+                                          "    ",
+                                          "     ",
+                                          "      ",
+                                          "       ",
+                                          "        ",
+                                          "         ",
+                                          "          ",
+                                          "           ",
+                                          "            ",
+                                          "             ",
+                                          "              ",
+                                          "               ",
+                                          "                " }; // This is not a wtf - indent strings actually
+                                                               // thrive in the constant pool.
 
     @Override
     public String toString() {
