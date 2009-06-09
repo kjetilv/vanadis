@@ -18,7 +18,7 @@ package vanadis.extrt;
 
 import vanadis.core.system.VM;
 import vanadis.ext.CommandExecution;
-import vanadis.ext.Printer;
+import vanadis.core.text.Printer;
 import vanadis.osgi.Context;
 
 final class EnvExecution implements CommandExecution {

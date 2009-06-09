@@ -17,6 +17,7 @@
 package vanadis.ext;
 
 import vanadis.osgi.Context;
+import vanadis.core.text.Printer;
 
 /**
  * Simplified input to the {@link vanadis.ext.GenericCommand generic command} implementation.

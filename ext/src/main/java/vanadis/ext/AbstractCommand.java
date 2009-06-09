@@ -20,6 +20,7 @@ import org.osgi.service.event.EventAdmin;
 import vanadis.core.collections.Pair;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
+import vanadis.core.text.Printer;
 import vanadis.osgi.Context;
 import vanadis.util.log.Log;
 import vanadis.util.log.Logs;
@@ -101,7 +102,11 @@ public abstract class AbstractCommand implements Command {
         Pair<String, String[]> pair = Parse.args(fullCommand);
         String command = pair.getOne();
         String[] args = pair.getTwo();
-        Printer printer = new Printer(out).terminateWithNewLine(true).printStackTrace(true).singleBlankLine(true);
+        Printer printer = new Printer(out)
+                .terminateWithNewLine()
+                .printStackTrace()
+                .singleBlankLine()
+                .autoFlush();
         try {
             if (commandIsEvent) {
                 Event event = createEvent(command, args);

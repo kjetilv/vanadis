@@ -17,6 +17,7 @@
 package vanadis.ext;
 
 import vanadis.core.lang.ToString;
+import vanadis.core.text.Printer;
 import vanadis.osgi.Context;
 
 /**

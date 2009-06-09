@@ -1,4 +1,4 @@
-package vanadis.ext;
+package vanadis.core.text;
 
 import junit.framework.Assert;
 import static junit.framework.Assert.assertFalse;

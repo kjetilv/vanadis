@@ -1,4 +1,4 @@
-package vanadis.ext;
+package vanadis.core.text;
 
 import vanadis.core.lang.ToString;
 
@@ -26,13 +26,28 @@ public class Printer {
 
     private boolean printStackTrace;
 
-    Printer(PrintStream ps) {
+    private boolean autoFlush;
+
+    public Printer(PrintStream ps) {
         this(ps, 2);
     }
 
-    Printer(PrintStream ps, int indentSize) {
+    public Printer(PrintStream ps, int indentSize) {
         this.ps = ps;
         this.indentString = SPC[Math.min(16, Math.max(1, indentSize))];
+    }
+
+    public Printer autoFlush() {
+        return autoFlush(true);
+    }
+
+    public Printer autoFlush(boolean af) {
+        this.autoFlush = af;
+        return this;
+    }
+
+    public Printer printStackTrace() {
+        return printStackTrace(true);
     }
 
     public Printer printStackTrace(boolean pst) {
@@ -40,14 +55,26 @@ public class Printer {
         return this;
     }
 
+    public Printer terminateWithNewLine() {
+        return terminateWithNewLine(true);
+    }
+
     public Printer terminateWithNewLine(boolean twnl) {
         this.terminateWithNewLine = twnl;
         return this;
     }
 
+    public Printer singleBlankLine() {
+        return singleBlankLine(true);
+    }
+
     public Printer singleBlankLine(boolean sbl) {
         this.singleBlankLine = sbl;
         return this;
+    }
+
+    public boolean isAutoFlush() {
+        return autoFlush;
     }
 
     public boolean isTerminateWithNewLine() {
@@ -144,13 +171,17 @@ public class Printer {
     }
 
     private String printOut(Object object, boolean pst) {
-        if (object instanceof Throwable && pst) {
-            ((Throwable)object).printStackTrace(ps);
-            return object.toString();
-        } else {
-            String string = String.valueOf(object);
-            ps.print(string);
-            return string;
+        try {
+            if (object instanceof Throwable && pst) {
+                ((Throwable)object).printStackTrace(ps);
+                return object.toString();
+            } else {
+                String string = String.valueOf(object);
+                ps.print(string);
+                return string;
+            }
+        } finally {
+            considerFlush();
         }
     }
 
@@ -161,9 +192,19 @@ public class Printer {
 
     private void newLine() {
         try {
-            ps.println();
+            try {
+                ps.println();
+            } finally {
+                onNewLine();
+            }
         } finally {
-            onNewLine();
+            considerFlush();
+        }
+    }
+
+    private void considerFlush() {
+        if (autoFlush) {
+            ps.flush();
         }
     }
 
@@ -193,11 +234,12 @@ public class Printer {
                                           "              ",
                                           "               ",
                                           "                " }; // This is not a wtf - indent strings actually
-                                                               // thrive in the constant pool.
+    // thrive in the constant pool.
 
     @Override
     public String toString() {
         return ToString.of(this, "lines", lines,
                            "closed", closed);
     }
+
 }

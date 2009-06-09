@@ -16,7 +16,7 @@
 package vanadis.extrt;
 
 import vanadis.ext.CommandExecution;
-import vanadis.ext.Printer;
+import vanadis.core.text.Printer;
 import vanadis.osgi.Context;
 
 class SystemExitExecution implements CommandExecution {

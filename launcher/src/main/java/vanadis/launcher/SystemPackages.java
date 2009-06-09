@@ -31,6 +31,7 @@ public class SystemPackages {
                     "vanadis.core.system," +
                     "vanadis.core.io," +
                     "vanadis.core.reflection," +
+                    "vanadis.core.text," +
                     "vanadis.core.time," +
                     "vanadis.core.jmx," +
                     "vanadis.core.ver," +
