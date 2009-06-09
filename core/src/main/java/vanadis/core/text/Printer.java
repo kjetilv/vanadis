@@ -37,6 +37,18 @@ public class Printer {
         this.indentString = SPC[Math.min(16, Math.max(1, indentSize))];
     }
 
+    public DotProgress dotProgress() {
+        return dotProgress(1);
+    }
+
+    public DotProgress dotProgress(int interval) {
+        return dotProgress(interval, 20);
+    }
+
+    public DotProgress dotProgress(int interval, int maxDotColumns) {
+        return new DotProgress(this, interval, maxDotColumns);
+    }
+
     public Printer autoFlush() {
         return autoFlush(true);
     }

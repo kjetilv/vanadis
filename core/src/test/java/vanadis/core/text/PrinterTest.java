@@ -17,6 +17,12 @@ public class PrinterTest {
 
     private Printer printer;
 
+    @Test public void dotProgress() {
+        DotProgress dp = printer.dotProgress();
+        dp.tick();
+
+    }
+
     @Test
     public void sanityCheck() {
         printer = new Printer(ps, -5);
