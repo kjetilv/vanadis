@@ -28,6 +28,14 @@
   <packaging>pom</packaging>
   <description>Vanadis Runner</description>
   <name>${artifactId}</name>
+  <dependencies>
+    <dependency>
+      <groupId>com.sun.grizzly.osgi</groupId>
+      <artifactId>grizzly-servlet-webserver</artifactId>
+      <version>1.9.15a</version>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
   <build>
     <plugins>
       <plugin>

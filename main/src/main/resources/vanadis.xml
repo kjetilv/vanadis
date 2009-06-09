@@ -65,10 +65,15 @@
     </bundles>
   </blueprint>
 
+  <blueprint name="grizzly-networking">
+    <bundle group="com.sun.grizzly.osgi" artifact="grizzly-servlet-webserver" version="1.9.15a"/>    
+  </blueprint>
+
   <blueprint name="grizzly-http">
     <bundle group="javax.servlet" artifact="com.springsource.javax.servlet" version="2.5.0"/>
     <!-- Grizzly -->
-    <bundle group="com.sun.grizzly.osgi" artifact="grizzly-httpservice-bundle" global-properties="true" version="1.9.15a">
+    <bundle group="com.sun.grizzly.osgi" artifact="grizzly-httpservice-bundle"
+            global-properties="true" version="1.9.15a">
       <properties>
         <property name="org.osgi.service.http.port">baseport+80</property>
         <property name="org.osgi.service.http.port.secure">baseport+81</property>
