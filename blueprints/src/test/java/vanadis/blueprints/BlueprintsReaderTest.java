@@ -26,6 +26,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class BlueprintsReaderTest {
+
     private static final String XML_NS = "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"  xmlns=\"http://kjetilv.github.com/vanadis/blueprints\"";
 
     @Test
@@ -45,7 +46,9 @@ public class BlueprintsReaderTest {
         assertNotNull(vc.getBlueprint("base"));
         Blueprint template = vc.getBlueprint("vanadis-routed");
         assertNotNull(template);
-        assertSame(template.getParent(), vc.getBlueprint("vanadis-basic"));
+        assertTrue(template.getParents().contains(vc.getBlueprint("vanadis-basic")));
+        assertEquals("Unexpected # of parents: " + template.getParents(),
+                     1, template.getParents().size());
     }
 
     private static Blueprints loadV1(String input) {
@@ -56,7 +59,7 @@ public class BlueprintsReaderTest {
     public void captureMalformedInputNoParent() {
         try {
             Assert.fail("Illegal: " + new Blueprints
-                    (null, new Blueprint(null, "leaf1", "parent1", true)).validate());
+                    (null, new Blueprint(null, "leaf1", "parent1", true, null, null, null)).validate());
         } catch (IllegalArgumentException ignore) {
         }
     }
@@ -65,8 +68,8 @@ public class BlueprintsReaderTest {
     public void captureMalformedInputAbstractLeaf() {
         try {
             Assert.fail("Illegal: " + new Blueprints
-                    (null, new Blueprint(null, "leaf1", "parent1", true),
-                     new Blueprint(null, "parent1", null, true)).validate());
+                    (null, new Blueprint(null, "leaf1", "parent1", true, null, null, null),
+                     new Blueprint(null, "parent1", (String)null, true, null, null, null)).validate());
         } catch (IllegalArgumentException ignore) {
         }
     }
@@ -75,8 +78,8 @@ public class BlueprintsReaderTest {
     public void captureCycleNodes() {
         try {
             Assert.fail("Illegal: " + new Blueprints
-                    (null, new Blueprint(null, "leaf1", "parent1", false),
-                     new Blueprint(null, "parent1", "leaf1", false)).validate());
+                    (null, new Blueprint(null, "leaf1", "parent1", false, null, null, null),
+                     new Blueprint(null, "parent1", "leaf1", false, null, null, null)).validate());
         } catch (IllegalArgumentException ignore) {
         }
     }

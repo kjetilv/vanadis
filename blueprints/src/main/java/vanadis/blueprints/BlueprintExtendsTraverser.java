@@ -15,16 +15,16 @@
  */
 package vanadis.blueprints;
 
-import vanadis.core.lang.TraverseIterable;
+import vanadis.core.lang.GraphIterable;
 
-final class BlueprintExtendsTraverser extends TraverseIterable<Blueprint> {
+final class BlueprintExtendsTraverser extends GraphIterable<Blueprint> {
 
     BlueprintExtendsTraverser(Blueprint blueprint) {
         super(blueprint);
     }
 
     @Override
-    protected Blueprint getNext(Blueprint current) {
-        return current.getParent();
+    protected Iterable<Blueprint> iterable(Blueprint node) {
+        return node.getParents();
     }
 }

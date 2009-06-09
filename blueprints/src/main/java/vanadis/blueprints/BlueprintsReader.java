@@ -46,6 +46,8 @@ public class BlueprintsReader {
 
     private static final String EMPTY_STRING = "";
 
+    private static final String[] NO_PARENTS = new String[] {};
+
     public static Blueprints readBlueprints(URI source) {
         return readBlueprints(source, null, openURLStream(uriToURL(source)));
     }
@@ -77,7 +79,9 @@ public class BlueprintsReader {
         return unmarshal(loader, bootResources, bootPaths, unmarshaller());
     }
 
-    private static Blueprints unmarshal(ClassLoader loader, Iterable<String> bootResources, Iterable<String> bootPaths, Unmarshaller unmarshaller) {
+    private static Blueprints unmarshal(ClassLoader loader,
+                                        Iterable<String> bootResources, Iterable<String> bootPaths,
+                                        Unmarshaller unmarshaller) {
         Blueprints blueprints = null;
         for (String resource : bootResources) {
             URL url = resourceToNonNullURL(loader, resource);
@@ -254,10 +258,18 @@ public class BlueprintsReader {
         }
         addBundles(builder, children, autoBundles, dynaBundles);
         addModules(children, modules);
-        return new Blueprint(source, blueprint.getName(), blueprint.getExtends(), blueprint.isAbstract(),
-                             autoBundles,
-                             dynaBundles,
-                             modules);
+        return new Blueprint
+                (source, blueprint.getName(), split(blueprint.getExtends()), blueprint.isAbstract(),
+                 autoBundles,
+                 dynaBundles,
+                 modules);
+    }
+
+    private static String[] split(String ext) {
+        if (ext == null) {
+            return NO_PARENTS;
+        }
+        return ext.split(",");
     }
 
     private static void addModules(List<JAXBElement<?>> children, List<ModuleSpecification> modules) {

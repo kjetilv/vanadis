@@ -35,13 +35,11 @@ public final class Blueprint implements Serializable, Iterable<ModuleSpecificati
 
     private final String name;
 
-    private final String extendz;
+    private final String[] extendz;
 
     private final boolean abstrackt;
 
-    private boolean leaf = true;
-
-    private Blueprint parent;
+    private final List<Blueprint> parents = Generic.list();
 
     private final URI source;
 
@@ -51,31 +49,28 @@ public final class Blueprint implements Serializable, Iterable<ModuleSpecificati
 
     private final Collection<ModuleSpecification> moduleSpecifications;
 
-    public Blueprint(URI source, String name, String extendz, Boolean abstrackt) {
-        this(source, name, extendz, null, abstrackt, null, null, null);
-    }
+    private boolean leaf = true;
 
-    public Blueprint(URI source, String name, String extendz, Boolean abstrackt,
+    public Blueprint(URI source, String name, String extend, Boolean abstrackt,
                      List<BundleSpecification> autoCoordinates,
                      List<BundleSpecification> dynaCoordinates,
                      List<ModuleSpecification> moduleSpecifications) {
-        this(source, name, extendz, null, abstrackt,
+        this(source, name, new String[] { extend }, abstrackt,
              autoCoordinates,
              dynaCoordinates,
              moduleSpecifications);
     }
 
-    public Blueprint(URI source, String name, String extendz, Blueprint parent, Boolean abstrackt,
-                     Collection<BundleSpecification> autoCoordinates,
-                     Collection<BundleSpecification> dynaCoordinates,
-                     Collection<ModuleSpecification> moduleSpecifications) {
+    public Blueprint(URI source, String name, String[] extendz, Boolean abstrackt,
+                     List<BundleSpecification> autoCoordinates,
+                     List<BundleSpecification> dynaCoordinates,
+                     List<ModuleSpecification> moduleSpecifications) {
         this.source = source;
         this.autoCoordinates = Generic.seal(autoCoordinates);
         this.dynaCoordinates = Generic.seal(dynaCoordinates);
         this.moduleSpecifications = Generic.seal(moduleSpecifications);
         this.name = Not.nil(name, "name");
         this.extendz = extendz;
-        this.parent = parent;
         this.abstrackt = abstrackt != null && abstrackt;
     }
 
@@ -96,7 +91,7 @@ public final class Blueprint implements Serializable, Iterable<ModuleSpecificati
         return name;
     }
 
-    public String getExtends() {
+    public String[] getExtends() {
         return extendz;
     }
 
@@ -109,17 +104,16 @@ public final class Blueprint implements Serializable, Iterable<ModuleSpecificati
     }
 
     public SystemSpecification createSpecification(URI root) {
-        return SystemSpecification.createSystemSpecifiction(root, extendedBlueprints());
+        return SystemSpecification.createSystemSpecifiction(root, new BlueprintExtendsTraverser(this));
     }
 
-    public Blueprint getParent() {
-        return parent;
+    public List<Blueprint> getParents() {
+        return Generic.seal(parents);
     }
 
-    boolean contains(BundleSpecification bundleSpecification) {
-        for (Blueprint blueprint : extendedBlueprints()) {
-            if (blueprint.dynaCoordinates.contains(bundleSpecification) ||
-                    blueprint.autoCoordinates.contains(bundleSpecification)) {
+    boolean contains(BundleSpecification spec) {
+        for (Blueprint blueprint : new BlueprintExtendsTraverser(this)) {
+            if (blueprint.dynaCoordinates.contains(spec) || blueprint.autoCoordinates.contains(spec)) {
                 return true;
             }
         }
@@ -127,28 +121,17 @@ public final class Blueprint implements Serializable, Iterable<ModuleSpecificati
     }
 
     SystemSpecification createSystemSpecification(URI root) {
-        return new SystemSpecification(source, name, root,
-                                       autoCoordinates,
-                                       dynaCoordinates,
-                                       moduleSpecifications);
+        return new SystemSpecification(source, name, root, autoCoordinates, dynaCoordinates, moduleSpecifications);
     }
 
-    void setParentRuntime(Blueprint parentBlueprint) {
+    void addParent(Blueprint parentBlueprint) {
         Not.nil(parentBlueprint, "parent blueprint");
-        if (parentBlueprint.equals(parent)) {
+        if (parents.contains(parentBlueprint)) {
             return;
         }
-        if (this.parent == null) {
-            failOnCycle(parentBlueprint);
-            this.parent = parentBlueprint;
-            parentBlueprint.leaf = false;
-        } else {
-            throw new IllegalStateException(this + " already has parent " + parentBlueprint);
-        }
-    }
-
-    private BlueprintExtendsTraverser extendedBlueprints() {
-        return new BlueprintExtendsTraverser(this);
+        failOnCycle(parentBlueprint);
+        this.parents.add(parentBlueprint);
+        parentBlueprint.leaf = false;
     }
 
     private void failOnCycle(Blueprint parent) {
@@ -163,14 +146,13 @@ public final class Blueprint implements Serializable, Iterable<ModuleSpecificati
 
     @Override
     public int hashCode() {
-        return EqHc.hc(name, parent);
+        return EqHc.hc(name);
     }
 
     @Override
     public boolean equals(Object obj) {
         Blueprint blueprint = EqHc.retyped(this, obj);
-        return blueprint != null && EqHc.eq(name, blueprint.name,
-                                            parent, blueprint.parent);
+        return blueprint != null && EqHc.eq(name, blueprint.name);
     }
 
     @Override

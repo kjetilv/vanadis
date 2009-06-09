@@ -144,13 +144,15 @@ public final class Blueprints implements Iterable<String>, Serializable {
 
     private void connectFamilies() {
         for (Blueprint blueprint : blueprints.values()) {
-            String extendz = blueprint.getExtends();
-            if (extendz != null) {
-                Blueprint parent = blueprints.get(extendz);
-                if (parent == null) {
-                    throw new IllegalArgumentException(blueprint + " extends unknown parent '" + extendz + "'");
+            String[] extendz = blueprint.getExtends();
+            if (extendz != null && extendz.length > 0) {
+                for (String extend : extendz) {
+                    Blueprint parent = blueprints.get(extend);
+                    if (parent == null) {
+                        throw new IllegalArgumentException(blueprint + " extends unknown parent '" + extend + "'");
+                    }
+                    blueprint.addParent(parent);
                 }
-                blueprint.setParentRuntime(parent);
             }
         }
     }

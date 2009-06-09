@@ -65,6 +65,29 @@
     </bundles>
   </blueprint>
 
+  <blueprint name="grizzly-http">
+    <bundle group="javax.servlet" artifact="com.springsource.javax.servlet" version="2.5.0"/>
+    <!-- Grizzly -->
+    <bundle group="com.sun.grizzly.osgi" artifact="grizzly-httpservice-bundle" global-properties="true" version="1.9.15a">
+      <properties>
+        <property name="org.osgi.service.http.port">baseport+80</property>
+        <property name="org.osgi.service.http.port.secure">baseport+81</property>
+      </properties>
+    </bundle>
+    <bundle group="vanadis.modules" artifact="httpwhiteboard"/>
+  </blueprint>
+
+  <blueprint name="jetty-http">
+    <bundle group="javax.servlet" artifact="com.springsource.javax.servlet" version="2.5.0"/>
+    <bundle group="org.apache.felix" artifact="org.apache.felix.http.jetty" version="1.0.0">
+      <properties>
+        <property name="org.osgi.service.http.port">baseport+80</property>
+        <property name="org.osgi.service.http.port.secure">baseport+80</property>
+      </properties>
+    </bundle>
+    <bundle group="vanadis.modules" artifact="httpwhiteboard"/>
+  </blueprint>
+
   <!-- Template for full stand-alone vanadis -->
   <blueprint name="vanadis-basic" extends="base-commands">
     <bundle group="org.apache.felix" artifact="org.apache.felix.eventadmin" version="1.0.0"/>
@@ -73,15 +96,6 @@
       <bundle artifact="remoting"/>
     </bundles>
     <bundle group="vanadis.lang" artifact="vanadis.lang.piji"/>
-
-    <!-- Grizzly -->
-    <bundle group="javax.servlet" artifact="com.springsource.javax.servlet" version="2.5.0"/>
-    <bundle group="com.sun.grizzly.osgi" artifact="grizzly-httpservice-bundle" global-properties="true" version="1.9.15a">
-      <properties>
-        <property name="org.osgi.service.http.port">baseport+80</property>
-        <property name="org.osgi.service.http.port.secure">baseport+81</property>
-      </properties>
-    </bundle>
 
     <bundles group="vanadis.modules" artifact-prefix="vanadis.modules">
       <bundle artifact="httpwhiteboard"/>
