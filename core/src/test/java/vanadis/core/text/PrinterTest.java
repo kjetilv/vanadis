@@ -17,10 +17,33 @@ public class PrinterTest {
 
     private Printer printer;
 
-    @Test public void dotProgress() {
+    @Test
+    public void dotProgress() {
         DotProgress dp = printer.dotProgress();
         dp.tick();
+        dp.tick();
+        dp.done();
+        printer.close();
+        assertOutput(".. 2" + VM.LN);
+    }
 
+    @Test
+    public void dotProgressMore() {
+        DotProgress dp = printer.ind().dotProgress(3, 2);
+        for (int i = 0; i < 13; i++) {
+            dp.tick();
+        }
+        dp.done();
+        printer.close();
+        assertOutput("  .. 6" + VM.LN +
+                     "  .. 12" + VM.LN +
+                     "  . 13" + VM.LN);
+    }
+
+    @Test
+    public void testImmediateIndent() {
+        printer.ind().ind().p("foo").close();
+        assertOutput("    foo" + VM.LN);
     }
 
     @Test

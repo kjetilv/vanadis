@@ -12,7 +12,7 @@ public class Printer {
 
     private int currentIndent;
 
-    private boolean onNewLine;
+    private boolean onNewLine = true;
 
     private boolean closed;
 
