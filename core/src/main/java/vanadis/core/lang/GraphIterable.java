@@ -16,51 +16,43 @@
 
 package vanadis.core.lang;
 
+import vanadis.core.collections.Generic;
+
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.List;
 
-public abstract class TraverseIterable<E> implements Iterable<E> {
+public abstract class GraphIterable<E> implements Iterable<E> {
 
-    private final E start;
+    private final List<E> nodes;
 
-    protected TraverseIterable(E start) {
-        this.start = start;
+    protected GraphIterable(E node) {
+        this.nodes = node == null ? Collections.<E>emptyList() : enumerate(node);
     }
 
     @Override
     public Iterator<E> iterator() {
-        return start == null ? Collections.<E>emptyList().iterator() : new It(start);
+        return nodes.iterator();
     }
 
-    private class It implements Iterator<E> {
+    private List<E> enumerate(E node) {
+        List<E> es = Generic.list();
+        enumerate(es, node);
+        return es;
+    }
 
-        private E point;
-
-        It(E point) {
-            this.point = point;
+    private void enumerate(List<E> es, E node) {
+        if (!es.contains(node)) {
+            es.add(node);
         }
-
-        @Override
-        public boolean hasNext() {
-            return point != null;
+        Iterable<E> nextList = iterable(node);
+        if (nextList == null || !nextList.iterator().hasNext())  {
+            return;
         }
-
-        @Override
-        public E next() {
-            if (point != null) {
-                E returned = point;
-                point = getNext(point);
-                return returned;
-            }
-            throw new NoSuchElementException();
-        }
-
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException();
+        for (E next : nextList) {
+            enumerate(es, next);
         }
     }
 
-    protected abstract E getNext(E current);
+    protected abstract Iterable<E> iterable(E node);
 }
