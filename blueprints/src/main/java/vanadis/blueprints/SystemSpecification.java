@@ -80,8 +80,8 @@ public class SystemSpecification implements Iterable<BundleSpecification> {
                 ? Collections.<BundleSpecification>emptySet()
                 : Generic.seal(Generic.linkedHashSet(autoCoordinates));
 
-        this.dynaBundles = ancoredBundleParts(this.root, dynaCoordinates);
-        this.autoBundles = ancoredBundleParts(this.root, autoCoordinates);
+        this.dynaBundles = anchoredBundleParts(this.root, dynaCoordinates);
+        this.autoBundles = anchoredBundleParts(this.root, autoCoordinates);
     }
 
     public List<URI> getSources() {
@@ -192,7 +192,7 @@ public class SystemSpecification implements Iterable<BundleSpecification> {
         }
     }
 
-    private static List<BundleSpecification> ancoredBundleParts(URI reference, Collection<BundleSpecification> coordinates) {
+    private static List<BundleSpecification> anchoredBundleParts(URI reference, Collection<BundleSpecification> coordinates) {
         if (coordinates == null) {
             return Collections.emptyList();
         }

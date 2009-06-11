@@ -35,7 +35,7 @@ final class DeployImpl implements Deploy {
 
     @Override
     public Registration<BundleSpecification> deployBundle(URI uri) {
-        return register(BundleSpecification.create(uri, null, null));
+        return register(BundleSpecification.createFixed(uri, null, null));
     }
 
     @Override

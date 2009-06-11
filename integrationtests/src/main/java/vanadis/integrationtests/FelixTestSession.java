@@ -159,7 +159,7 @@ public final class FelixTestSession {
 
     public final Registration<BundleSpecification> registerBundle(String groupId, String artifactId, String version) {
         URI uri = Coordinate.versioned(groupId, artifactId, new Version(version)).uriIn(Repo.DEFAULT);
-        BundleSpecification bundleSpecification = BundleSpecification.create(uri, 1, null);
+        BundleSpecification bundleSpecification = BundleSpecification.createFixed(uri, 1, null);
         Registration<BundleSpecification> registration = context.register(bundleSpecification);
         regs.add(registration);
         return registration;

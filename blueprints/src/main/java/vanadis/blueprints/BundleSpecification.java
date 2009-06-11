@@ -26,19 +26,19 @@ import java.net.URI;
 
 public final class BundleSpecification extends AbstractSpecification {
 
-    public static BundleSpecification create(URI uri) {
+    public static BundleSpecification createFixed(URI uri) {
         return new BundleSpecification(uri, null, null, null);
     }
 
-    public static BundleSpecification create(URI uri, Integer startLevel) {
+    public static BundleSpecification createFixed(URI uri, Integer startLevel) {
         return new BundleSpecification(uri, startLevel, null, null);
     }
 
-    public static BundleSpecification create(URI uri, Integer startLevel, PropertySet propertySet) {
+    public static BundleSpecification createFixed(URI uri, Integer startLevel, PropertySet propertySet) {
         return new BundleSpecification(uri, startLevel, propertySet, null);
     }
 
-    public static BundleSpecification create(URI uri, Integer startLevel,
+    public static BundleSpecification createFixed(URI uri, Integer startLevel,
                                              PropertySet propertySet, Boolean globalProperties) {
         return new BundleSpecification(uri, startLevel, propertySet, globalProperties);
     }
