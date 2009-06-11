@@ -44,8 +44,10 @@ public class Generic {
 
     private static <E> List<E> iterate(Iterable<? extends E> iterable) {
         List<E> es = list();
-        for (E e : iterable) {
-            es.add(e);
+        if (iterable != null) {
+            for (E e : iterable) {
+                es.add(e);
+            }
         }
         return es;
     }
@@ -650,7 +652,7 @@ public class Generic {
 
     @SuppressWarnings({"UseOfObsoleteCollectionType"})
     public static Dictionary<String, Object> dictionary(Map<String, ?> map) {
-        return map == null || map.isEmpty() 
+        return map == null || map.isEmpty()
                 ? emptyDictionary()
                 : new Hashtable<String, Object>(map);
     }

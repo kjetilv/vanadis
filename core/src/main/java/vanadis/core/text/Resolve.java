@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-package vanadis.core.properties;
+package vanadis.core.text;
 
 import vanadis.core.lang.VarArgs;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
 
-final class Resolve {
+import java.util.Map;
+
+public final class Resolve {
+
+    public static String resolve(String str, Map<String,?> vars) {
+        return resolve(str, PropertySets.create(vars));    
+    }
 
     public static String resolve(String str, PropertySet... vars) {
         if (!VarArgs.present(vars)) {
@@ -69,8 +77,8 @@ final class Resolve {
     }
 
     private static void appendByProperties(StringBuilder sb,
-                                   String variable,
-                                   PropertySet[] propertySets) {
+                                           String variable,
+                                           PropertySet[] propertySets) {
         for (PropertySet propertySet : propertySets) {
             if (propertySet.has(String.class, variable)) {
                 sb.append(propertySet.getString(variable));
