@@ -1,12 +1,14 @@
 package vanadis.core.text;
 
-import vanadis.core.lang.ToString;
-
 import java.io.PrintStream;
 
 public class Printer {
 
+    public static final int MAX_INDENT = 16;
+
     private final PrintStream ps;
+
+    private final int indentSize;
 
     private final String indentString;
 
@@ -34,55 +36,24 @@ public class Printer {
 
     public Printer(PrintStream ps, int indentSize) {
         this.ps = ps;
-        this.indentString = SPC[Math.min(16, Math.max(1, indentSize))];
-    }
-
-    public DotProgress dotProgress() {
-        return dotProgress(1);
-    }
-
-    public DotProgress dotProgress(int interval) {
-        return dotProgress(interval, 20);
-    }
-
-    public DotProgress dotProgress(int interval, int maxDotColumns) {
-        return new DotProgress(this, interval, maxDotColumns);
+        this.indentSize = Math.max(1, indentSize);
+        this.indentString = SPC[Math.min(MAX_INDENT, this.indentSize)];
     }
 
     public Printer autoFlush() {
         return autoFlush(true);
     }
 
-    public Printer autoFlush(boolean af) {
-        this.autoFlush = af;
-        return this;
-    }
-
     public Printer printStackTrace() {
         return printStackTrace(true);
-    }
-
-    public Printer printStackTrace(boolean pst) {
-        this.printStackTrace = pst;
-        return this;
     }
 
     public Printer terminateWithNewLine() {
         return terminateWithNewLine(true);
     }
 
-    public Printer terminateWithNewLine(boolean twnl) {
-        this.terminateWithNewLine = twnl;
-        return this;
-    }
-
     public Printer singleBlankLine() {
         return singleBlankLine(true);
-    }
-
-    public Printer singleBlankLine(boolean sbl) {
-        this.singleBlankLine = sbl;
-        return this;
     }
 
     public boolean isAutoFlush() {
@@ -99,6 +70,26 @@ public class Printer {
 
     public boolean isPrintStackTrace() {
         return printStackTrace;
+    }
+
+    public Printer singleBlankLine(boolean sbl) {
+        this.singleBlankLine = sbl;
+        return this;
+    }
+
+    public Printer autoFlush(boolean af) {
+        this.autoFlush = af;
+        return this;
+    }
+
+    public Printer printStackTrace(boolean pst) {
+        this.printStackTrace = pst;
+        return this;
+    }
+
+    public Printer terminateWithNewLine(boolean twnl) {
+        this.terminateWithNewLine = twnl;
+        return this;
     }
 
     public Printer printStackTrace(Throwable throwable) {
@@ -158,9 +149,21 @@ public class Printer {
         }
     }
 
+    public DotProgress dotProgress() {
+        return dotProgress(1);
+    }
+
+    public DotProgress dotProgress(int interval) {
+        return dotProgress(interval, 20);
+    }
+
+    public DotProgress dotProgress(int interval, int maxDotColumns) {
+        return new DotProgress(this, interval, maxDotColumns);
+    }
+
     private void makeIndents() {
         if (onNewLine) {
-            spaceOut(currentIndent);
+            spaceOut();
         }
     }
 
@@ -170,11 +173,15 @@ public class Printer {
         }
     }
 
-    private void spaceOut(int ind) {
-        if (ind > 0) {
+    private void spaceOut() {
+        if (currentIndent > 0) {
             try {
-                for (int i = 0; i < ind; i++) {
-                    ps.print(indentString);
+                if (currentIndent * indentSize < SPC.length) { // Can we shortcut it?
+                    ps.print(SPC[currentIndent * indentSize]);
+                } else {
+                    for (int i = 0; i < currentIndent; i++) {
+                        ps.print(indentString);
+                    }
                 }
             } finally {
                 noLongerOnNewLine();
@@ -229,6 +236,13 @@ public class Printer {
         }
     }
 
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "[lines:" + lines + (closed ? ", closed" : "") + "]";
+    }
+
+    // This is not a wtf, just a premature optimization: indent strings stored in the constant pool! Class'y.
+    // You gotta admit it's an optimization with class.
     private static final String[] SPC = { null,
                                           " ",
                                           "  ",
@@ -245,13 +259,14 @@ public class Printer {
                                           "             ",
                                           "              ",
                                           "               ",
-                                          "                " }; // This is not a wtf - indent strings actually
-    // thrive in the constant pool.
-
-    @Override
-    public String toString() {
-        return ToString.of(this, "lines", lines,
-                           "closed", closed);
-    }
-
+                                          "                ",
+                                          "                 ",
+                                          "                  ",
+                                          "                   ",
+                                          "                    ",
+                                          "                     ",
+                                          "                      ",
+                                          "                       ",
+                                          "                        ",
+                                          "                         " };
 }
