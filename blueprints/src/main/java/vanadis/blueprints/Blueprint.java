@@ -22,6 +22,7 @@ import vanadis.core.lang.ToString;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -70,7 +71,7 @@ public final class Blueprint implements Serializable, Iterable<ModuleSpecificati
         this.dynaCoordinates = Generic.seal(dynaCoordinates);
         this.moduleSpecifications = Generic.seal(moduleSpecifications);
         this.name = Not.nil(name, "name");
-        this.extendz = extendz;
+        this.extendz = extendz != null && extendz.length > 0 ? extendz : NO_PARENTS;
         this.abstrackt = abstrackt != null && abstrackt;
     }
 
@@ -144,6 +145,8 @@ public final class Blueprint implements Serializable, Iterable<ModuleSpecificati
 
     private static final long serialVersionUID = -6951559860905287939L;
 
+    private static final String[] NO_PARENTS = new String[] {};
+
     @Override
     public int hashCode() {
         return EqHc.hc(name);
@@ -157,6 +160,6 @@ public final class Blueprint implements Serializable, Iterable<ModuleSpecificati
 
     @Override
     public String toString() {
-        return ToString.of(this, name, "parent", extendz);
+        return ToString.of(this, name, "parents", Arrays.toString(extendz));
     }
 }
