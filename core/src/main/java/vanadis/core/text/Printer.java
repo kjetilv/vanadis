@@ -36,8 +36,8 @@ public class Printer {
 
     public Printer(PrintStream ps, int indentSize) {
         this.ps = ps;
-        this.indentSize = Math.max(1, indentSize);
-        this.indentString = SPC[Math.min(MAX_INDENT, this.indentSize)];
+        this.indentSize = Math.max(1, Math.min(MAX_INDENT, indentSize));
+        this.indentString = SPC[this.indentSize];
     }
 
     public Printer autoFlush() {
@@ -92,8 +92,17 @@ public class Printer {
         return this;
     }
 
+    public Printer resetIndent() {
+        currentIndent = 0;
+        return this;
+    }
+
     public Printer printStackTrace(Throwable throwable) {
         return print(throwable, true);
+    }
+
+    public Printer spc(int spaces) {
+        return printSpaces(spaces);
     }
 
     public Printer p(Object object) {
@@ -176,17 +185,27 @@ public class Printer {
     private void spaceOut() {
         if (currentIndent > 0) {
             try {
-                if (currentIndent * indentSize < SPC.length) { // Can we shortcut it?
-                    ps.print(SPC[currentIndent * indentSize]);
-                } else {
-                    for (int i = 0; i < currentIndent; i++) {
-                        ps.print(indentString);
-                    }
-                }
+                printSpaces(currentIndent * indentSize);
             } finally {
                 noLongerOnNewLine();
             }
         }
+    }
+
+    private Printer printSpaces(int spaces) {
+        if (spaces < SPC.length) { // Can we shortcut it?
+            ps.print(SPC[spaces]);
+        } else {
+            int indents = spaces / currentIndent;
+            for (int i = 0; i < indents; i++) {
+                ps.print(indentString);
+            }
+            int singleSpaces = spaces % currentIndent;
+            for (int i = 0; i < singleSpaces; i++) {
+                ps.print(SPC[1]);
+            }
+        }
+        return this;
     }
 
     private String printOut(Object object, boolean pst) {

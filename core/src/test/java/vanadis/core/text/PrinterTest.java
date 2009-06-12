@@ -29,15 +29,15 @@ public class PrinterTest {
 
     @Test
     public void dotProgressMore() {
-        DotProgress dp = printer.ind().dotProgress(3, 2);
-        for (int i = 0; i < 13; i++) {
+        DotProgress dp = printer.ind().dotProgress(4, 3);
+        for (int i = 0; i < 27; i++) {
             dp.tick();
         }
         dp.done();
         printer.close();
-        assertOutput("  .. 6" + VM.LN +
-                     "  .. 12" + VM.LN +
-                     "  . 13" + VM.LN);
+        assertOutput("  ... 12" + VM.LN +
+                     "  ... 24" + VM.LN +
+                     "  . 27" + VM.LN);
     }
 
     @Test
@@ -145,6 +145,12 @@ public class PrinterTest {
         try {
             Assert.fail("Should be closed: " + printer.close().cr());
         } catch (IllegalStateException ignore) { }
+    }
+
+    @Test
+    public void printSpaces() {
+        printer.p("foo").spc(3).p("bar").close();
+        assertOutput("foo   bar" + VM.LN);
     }
 
     private String string() {

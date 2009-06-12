@@ -66,7 +66,7 @@ public class BlueprintsReader {
         List<Blueprint> list = unmarshal(source, stream, unmarshaller);
         return new Blueprints(source, base, list).validate();
     }
-
+              
     public static Blueprints read(ClassLoader loader,
                                   List<String> bootConfigPaths,
                                   List<String> bootConfigResources) {

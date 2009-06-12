@@ -46,6 +46,6 @@ public class DotProgress {
     }
 
     private void status() {
-        printer.p(" ").p(i).cr();
+        printer.spc(1).p(i).cr();
     }
 }

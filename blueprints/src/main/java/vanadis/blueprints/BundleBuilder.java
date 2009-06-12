@@ -6,6 +6,7 @@ import vanadis.core.ver.Version;
 import vanadis.util.mvn.Coordinate;
 
 import java.math.BigInteger;
+import java.net.URI;
 
 final class BundleBuilder {
 
@@ -27,8 +28,14 @@ final class BundleBuilder {
 
     private PropertySet propertySet;
 
+    private String repo;
+
+    private String uri;
+
     BundleBuilder copy() {
         return new BundleBuilder().
+                setRepo(repo).
+                setUri(uri).
                 setArtifact(artifact).
                 setArtifactPrefix(artifactPrefix).
                 setGroup(group).
@@ -41,6 +48,20 @@ final class BundleBuilder {
     BundleBuilder setVersion(String version) {
         if (version != null) {
             this.version = version;
+        }
+        return this;
+    }
+
+    BundleBuilder setRepo(String repo) {
+        if (repo != null) {
+            this.repo = repo;
+        }
+        return this;
+    }
+
+    BundleBuilder setUri(String uri) {
+        if (uri != null) {
+            this.uri = uri;
         }
         return this;
     }
@@ -91,6 +112,9 @@ final class BundleBuilder {
     }
 
     BundleSpecification build() {
+        if (uri != null) {
+            return BundleSpecification.createFixed(URI.create(uri), startLevel, propertySet, globalProperties);
+        }
         String group = groupPrefix == null
                 ? notNil(this.group, "group")
                 : append(groupPrefix, this.group);

@@ -27,38 +27,76 @@ import java.net.URI;
 public final class BundleSpecification extends AbstractSpecification {
 
     public static BundleSpecification createFixed(URI uri) {
-        return new BundleSpecification(uri, null, null, null);
+        return new BundleSpecification(null, null, Not.nil(uri, "uri"), null,
+                                       null, null);
     }
 
-    public static BundleSpecification createFixed(URI uri, Integer startLevel) {
-        return new BundleSpecification(uri, startLevel, null, null);
+    public static BundleSpecification createFixed(URI uri,
+                                                  Integer startLevel) {
+        return new BundleSpecification(null, null, Not.nil(uri, "uri"), startLevel,
+                                       null, null);
     }
 
-    public static BundleSpecification createFixed(URI uri, Integer startLevel, PropertySet propertySet) {
-        return new BundleSpecification(uri, startLevel, propertySet, null);
+    public static BundleSpecification createFixed(URI uri,
+                                                  Integer startLevel, PropertySet propertySet) {
+        return new BundleSpecification(null, null, Not.nil(uri, "uri"), startLevel,
+                                       propertySet, null);
     }
 
-    public static BundleSpecification createFixed(URI uri, Integer startLevel,
-                                             PropertySet propertySet, Boolean globalProperties) {
-        return new BundleSpecification(uri, startLevel, propertySet, globalProperties);
+    public static BundleSpecification createFixed(URI uri,
+                                                  Integer startLevel,
+                                                  PropertySet propertySet, Boolean globalProperties) {
+        return new BundleSpecification(null, null, Not.nil(uri, "uri"), startLevel,
+                                       propertySet, globalProperties);
     }
 
     public static BundleSpecification create(Coordinate coordinate) {
-        return new BundleSpecification(coordinate, null, null, null);
+        return new BundleSpecification(null, Not.nil(coordinate, "coordinate"), null, null,
+                                       null, null);
     }
 
-    public static BundleSpecification create(Coordinate coordinate, Integer startLevel) {
-        return new BundleSpecification(coordinate, startLevel, null, null);
+    public static BundleSpecification create(URI repo, Coordinate coordinate) {
+        return new BundleSpecification(repo, Not.nil(coordinate, "coordinate"), null, null,
+                                       null, null);
     }
 
-    public static BundleSpecification create(Coordinate coordinate, Integer startLevel, PropertySet propertySet) {
-        return new BundleSpecification(coordinate, startLevel, propertySet, null);
+    public static BundleSpecification create(Coordinate coordinate,
+                                             Integer startLevel) {
+        return new BundleSpecification(null, Not.nil(coordinate, "coordinate"), null, startLevel,
+                                       null, null);
     }
 
-    public static BundleSpecification create(Coordinate coordinate, Integer startLevel,
-                                             PropertySet propertySet, Boolean globalProperties) {
-        return new BundleSpecification(coordinate, startLevel, propertySet, globalProperties);
+    public static BundleSpecification create(URI repo, Coordinate coordinate,
+                                             Integer startLevel) {
+        return new BundleSpecification(repo, Not.nil(coordinate, "coordinate"), null, startLevel,
+                                       null, null);
     }
+
+    public static BundleSpecification create(Coordinate coordinate,
+                                             Integer startLevel, PropertySet propertySet) {
+        return new BundleSpecification(null, Not.nil(coordinate, "coordinate"), null, startLevel,
+                                       propertySet, null);
+    }
+
+    public static BundleSpecification create(URI repo, Coordinate coordinate,
+                                             Integer startLevel, PropertySet propertySet) {
+        return new BundleSpecification(repo, Not.nil(coordinate, "coordinate"), null, startLevel,
+                                       propertySet, null);
+    }
+
+    public static BundleSpecification create(Coordinate coordinate,
+                                             Integer startLevel, PropertySet propertySet, Boolean globalProperties) {
+        return new BundleSpecification(null, Not.nil(coordinate, "coordinate"), null, startLevel,
+                                       propertySet, globalProperties);
+    }
+
+    public static BundleSpecification create(URI repo, Coordinate coordinate,
+                                             Integer startLevel, PropertySet propertySet, Boolean globalProperties) {
+        return new BundleSpecification(repo, Not.nil(coordinate, "coordinate"), null, startLevel,
+                                       propertySet, globalProperties);
+    }
+
+    private final URI repo;
 
     private final Coordinate coordinate;
 
@@ -70,21 +108,10 @@ public final class BundleSpecification extends AbstractSpecification {
 
     private String uriString;
 
-    private BundleSpecification(URI uri, Integer startLevel,
-                                PropertySet properties, Boolean globalProperties) {
-        this(null, Not.nil(uri, "uri"), startLevel,
-             properties, globalProperties);
-    }
-
-    private BundleSpecification(Coordinate coordinate, Integer startLevel,
-                                PropertySet properties, Boolean globalProperties) {
-        this(Not.nil(coordinate, "coordinate"), null, startLevel,
-             properties, globalProperties);
-    }
-
-    private BundleSpecification(Coordinate coordinate, URI uri, Integer startLevel,
+    private BundleSpecification(URI repo, Coordinate coordinate, URI uri, Integer startLevel,
                                 PropertySet propertySet, Boolean globalProperties) {
         super(propertySet, globalProperties);
+        this.repo = repo;
         this.coordinate = coordinate;
         this.uri = uri;
         this.startLevel = startLevel;
@@ -96,13 +123,17 @@ public final class BundleSpecification extends AbstractSpecification {
         Not.nil(resolver, "bundle resolver");
         URI uri = resolver.resolve(coordinate);
         return uri == null ? null : new BundleSpecification
-                (coordinate, uri, startLevel, getPropertySet(),
+                (null, coordinate, uri, startLevel, getPropertySet(),
                  isGlobalProperties());
     }
 
     public boolean sameVersion(BundleSpecification bundleSpecification) {
         return coordinate != null && bundleSpecification.coordinate != null && coordinate.sameVersion(
                 bundleSpecification.coordinate);
+    }
+
+    public URI getRepo() {
+        return repo;
     }
 
     public String getUrlString() {
