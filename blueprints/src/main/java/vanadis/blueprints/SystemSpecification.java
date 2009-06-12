@@ -134,7 +134,13 @@ public class SystemSpecification {
         return getAutoBundles(null);
     }
 
-    private RelativeURIResolver resolver() {
+    private BundleResolver resolvers(Iterable<BundleResolver> resolvers) {
+        boolean defaultRepository = this.root.equals(Repo.DEFAULT_URI);
+        return defaultRepository ? new ManyBundleResolvers(resolvers, rootResolver())
+                : new ManyBundleResolvers(resolvers);
+    }
+
+    private RelativeURIResolver rootResolver() {
         return new RelativeURIResolver(this.root);
     }
 
@@ -198,9 +204,8 @@ public class SystemSpecification {
 
     private List<BundleSpecification> resolved(Iterable<BundleResolver> resolvers,
                                                Collection<BundleSpecification> bundleSpecifications) {
-        return bundleSpecifications == null
-                ? Collections.<BundleSpecification>emptyList()
-                : resolved(bundleSpecifications, new ManyBundleResolvers(resolvers, resolver()));
+        return bundleSpecifications == null ? Collections.<BundleSpecification>emptyList()
+                : resolved(bundleSpecifications, resolvers(resolvers));
     }
 
     private static List<BundleSpecification> resolved(Collection<BundleSpecification> bundleSpecifications,
