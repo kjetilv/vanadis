@@ -45,11 +45,11 @@ public final class Main {
     private static final PrintStream ERR = System.err;
 
     private static LaunchSite fromCommandLine(List<String> args) {
-        return launch(new Specification(args));
+        return launch(new CommandLineDigest(args));
     }
 
-    private static LaunchSite launch(Specification spc) {
-        return LaunchSite.create(spc.getHome(), spc.getLocation(), spc.getRepoRoot(),
+    private static LaunchSite launch(CommandLineDigest spc) {
+        return LaunchSite.create(spc.getHome(), spc.getLocation(), spc.getRepoRoot(), spc.getUriPatterns(),
                                  spc.getBlueprintNames(),
                                  spc.getBlueprintPaths(),
                                  spc.getBlueprintResources());
@@ -59,7 +59,7 @@ public final class Main {
         return launchSite.launch(OUT);
     }
 
-    static class Specification {
+    static class CommandLineDigest {
 
         private final List<String> blueprintPaths;
 
@@ -73,14 +73,17 @@ public final class Main {
 
         private final URI repoRoot;
 
+        private List<String> uriPatterns;
+
         @ForTestingPurposes
-        Specification(String args) {
+        CommandLineDigest(String args) {
             this(Generic.linkedList(args.split("\\s")));
         }
 
-        Specification(List<String> args) {
+        CommandLineDigest(List<String> args) {
             this.blueprintPaths = blueprintPathsArg(args);
             this.blueprintResources = blueprintResourcesArg(args);
+            this.uriPatterns = uriPatterns(args);
             this.home = homeArg(args);
             this.location = locationArg(args);
             this.repoRoot = repoArg(args);
@@ -91,6 +94,10 @@ public final class Main {
 
         public List<String> getBlueprintPaths() {
             return blueprintPaths;
+        }
+
+        public List<String> getUriPatterns() {
+            return uriPatterns;
         }
 
         public List<String> getBlueprintResources() {

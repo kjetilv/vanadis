@@ -16,9 +16,7 @@
 
 package vanadis.main;
 
-import vanadis.blueprints.Blueprints;
-import vanadis.blueprints.BlueprintsReader;
-import vanadis.blueprints.SystemSpecification;
+import vanadis.blueprints.*;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
 import vanadis.core.jmx.Jmx;
@@ -64,31 +62,35 @@ public final class LaunchSite {
 
     private final List<String> blueprintResources;
 
+    private final List<BundleResolver> bundleResolvers;
+
     @ForTestingPurposes
     public static LaunchSite repository(List<String> blueprintNames,
                                         List<String> blueprintPaths) {
-        return create(null, null, null, blueprintNames, blueprintPaths, null);
+        return create(null, null, null, null, blueprintNames, blueprintPaths, null);
     }
 
     @ForTestingPurposes
     public static LaunchSite repository(SystemSpecification systemSpecification) {
-        return new LaunchSite(null, null, null, null, null, null, systemSpecification);
+        return new LaunchSite(null, null, null, null, null, null, null, systemSpecification);
     }
 
     public static LaunchSite create(File home, Location location, URI repo,
+                                    List<String> uriPatterns,
                                     List<String> blueprintNames,
                                     List<String> blueprintPaths,
                                     List<String> blueprintResources) {
-        return new LaunchSite(home, location, repo, blueprintNames, blueprintPaths, blueprintResources, null);
+        return new LaunchSite(home, location, repo, uriPatterns, blueprintNames, blueprintPaths, blueprintResources, null);
     }
 
-    private LaunchSite(File home, Location location, URI repo,
+    private LaunchSite(File home, Location location, URI repo, List<String> uriPatterns,
                        List<String> blueprintNames,
                        List<String> blueprintPaths,
                        List<String> blueprintResources,
                        SystemSpecification systemSpecification) {
         this.home = DirHelper.resolveHome(home);
         this.repo = DirHelper.resolveRepo(this.home, repo);
+        this.bundleResolvers = compileBundleResolvers(uriPatterns);
         this.blueprintNames = blueprintNames(blueprintNames, systemSpecification);
         this.location = LocationHelper.resolveLocation(location);
         this.launcher = createLauncher();
@@ -219,7 +221,7 @@ public final class LaunchSite {
 
     private boolean successfullyLaunched() {
         try {
-            launcher.launch(home, location, systemSpecification);
+            launcher.launch(home, location, bundleResolvers, systemSpecification);
             return true;
         } catch (StartupException e) {
             startupFailed(e, true);
@@ -254,6 +256,17 @@ public final class LaunchSite {
             }
             sb.append(object);
         }
+    }
+
+    private static List<BundleResolver> compileBundleResolvers(List<String> uriPatterns) {
+        if (uriPatterns == null || uriPatterns.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<BundleResolver> resolvers = Generic.list(uriPatterns.size());
+        for (String pattern : uriPatterns) {
+            resolvers.add(new URIPatternResolver(pattern));
+        }
+        return null;
     }
 
     private static List<String> blueprintNames(List<String> blueprintNames,

@@ -16,15 +16,19 @@
 
 package vanadis.launcher;
 
+import vanadis.blueprints.BundleResolver;
 import vanadis.blueprints.SystemSpecification;
 import vanadis.core.io.Location;
 
 import java.io.PrintStream;
 import java.net.URI;
+import java.util.List;
 
 public interface OSGiLauncher {
 
-    LaunchResult launch(URI home, Location location, SystemSpecification systemSpecification);
+    LaunchResult launch(URI home, Location location, 
+                        List<BundleResolver> bundleResolvers,
+                        SystemSpecification systemSpecification);
 
     boolean isLaunched();
 

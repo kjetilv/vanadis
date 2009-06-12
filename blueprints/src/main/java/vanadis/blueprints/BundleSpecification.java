@@ -92,9 +92,11 @@ public final class BundleSpecification extends AbstractSpecification {
         this.uriString = uriString(this.uri);
     }
 
-    public BundleSpecification uriIn(URI root) {
-        return new BundleSpecification
-                (coordinate, coordinate.uriIn(Not.nil(root, "root")), startLevel, getPropertySet(),
+    public BundleSpecification resolve(BundleResolver resolver) {
+        Not.nil(resolver, "bundle resolver");
+        URI uri = resolver.resolve(coordinate);
+        return uri == null ? null : new BundleSpecification
+                (coordinate, uri, startLevel, getPropertySet(),
                  isGlobalProperties());
     }
 

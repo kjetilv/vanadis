@@ -19,11 +19,12 @@ import vanadis.core.collections.Generic;
 import vanadis.core.collections.Iterables;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
+import vanadis.util.mvn.Repo;
 
 import java.net.URI;
 import java.util.*;
 
-public class SystemSpecification implements Iterable<BundleSpecification> {
+public class SystemSpecification {
 
     public static SystemSpecification createSystemSpecifiction(URI root, Iterable<Blueprint> blueprints) {
         SystemSpecification specification = null;
@@ -45,10 +46,6 @@ public class SystemSpecification implements Iterable<BundleSpecification> {
 
     private final URI root;
 
-    private final List<BundleSpecification> dynaBundles;
-
-    private final List<BundleSpecification> autoBundles;
-
     private final List<URI> sources;
 
     public SystemSpecification(URI source, String name, URI root,
@@ -68,8 +65,7 @@ public class SystemSpecification implements Iterable<BundleSpecification> {
                                Collection<ModuleSpecification> moduleSpecifications) {
         this.sources = Generic.seal(Generic.list(Generic.linkedHashSet(sources)));
         this.names = Generic.seal(names);
-        this.root = root;
-
+        this.root = root == null ? Repo.DEFAULT_URI : root;
         this.moduleSpecifications = moduleSpecifications == null
                 ? Collections.<ModuleSpecification>emptySet()
                 : Generic.seal(Generic.linkedHashSet(moduleSpecifications));
@@ -79,9 +75,6 @@ public class SystemSpecification implements Iterable<BundleSpecification> {
         this.autoCoordinates = autoCoordinates == null
                 ? Collections.<BundleSpecification>emptySet()
                 : Generic.seal(Generic.linkedHashSet(autoCoordinates));
-
-        this.dynaBundles = anchoredBundleParts(this.root, dynaCoordinates);
-        this.autoBundles = anchoredBundleParts(this.root, autoCoordinates);
     }
 
     public List<URI> getSources() {
@@ -129,13 +122,24 @@ public class SystemSpecification implements Iterable<BundleSpecification> {
                                        combineModuleSpecifications(systemSpecification));
     }
 
-    @Override
-    public Iterator<BundleSpecification> iterator() {
-        return autoBundles.iterator();
+    public List<BundleSpecification> getDynaBundles() {
+        return getDynaBundles(null);
     }
 
-    public List<BundleSpecification> dynaBundleUris() {
-        return dynaBundles;
+    public List<BundleSpecification> getDynaBundles(Iterable<BundleResolver> resolvers) {
+        return resolved(resolvers, dynaCoordinates);
+    }
+
+    public List<BundleSpecification> getAutoBundles() {
+        return getAutoBundles(null);
+    }
+
+    private RelativeURIResolver resolver() {
+        return new RelativeURIResolver(this.root);
+    }
+
+    public List<BundleSpecification> getAutoBundles(Iterable<BundleResolver> resolvers) {
+        return resolved(resolvers, autoCoordinates);
     }
 
     public Set<ModuleSpecification> moduleSpecifications() {
@@ -192,15 +196,25 @@ public class SystemSpecification implements Iterable<BundleSpecification> {
         }
     }
 
-    private static List<BundleSpecification> anchoredBundleParts(URI reference, Collection<BundleSpecification> coordinates) {
-        if (coordinates == null) {
-            return Collections.emptyList();
+    private List<BundleSpecification> resolved(Iterable<BundleResolver> resolvers,
+                                               Collection<BundleSpecification> bundleSpecifications) {
+        return bundleSpecifications == null
+                ? Collections.<BundleSpecification>emptyList()
+                : resolved(bundleSpecifications, new ManyBundleResolvers(resolvers, resolver()));
+    }
+
+    private static List<BundleSpecification> resolved(Collection<BundleSpecification> bundleSpecifications,
+                                                      BundleResolver resolver) {
+        List<BundleSpecification> resolvedSpecifications = Generic.list();
+        for (BundleSpecification bundleSpecification : bundleSpecifications) {
+            BundleSpecification resolvedSpecification = bundleSpecification.resolve(resolver);
+            if (bundleSpecification == null) {
+                throw new IllegalArgumentException
+                        ("Unable to resolve specification " + bundleSpecification + " using " + resolver);
+            }
+            resolvedSpecifications.add(resolvedSpecification);
         }
-        List<BundleSpecification> bundleSpecifications = Generic.list();
-        for (BundleSpecification coordinate : coordinates) {
-            bundleSpecifications.add(coordinate.uriIn(reference));
-        }
-        return bundleSpecifications;
+        return resolvedSpecifications;
     }
 
     private static Set<String> otherModuleSpecifications(SystemSpecification systemSpecification) {

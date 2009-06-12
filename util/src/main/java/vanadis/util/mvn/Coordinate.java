@@ -178,7 +178,7 @@ public final class Coordinate implements Serializable {
      * @return Versioned
      */
     public boolean isVersioned() {
-        return this.version == null;
+        return this.version != null;
     }
 
     /**

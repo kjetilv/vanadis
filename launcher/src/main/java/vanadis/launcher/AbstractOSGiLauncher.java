@@ -20,6 +20,7 @@ import org.osgi.framework.*;
 import org.osgi.service.packageadmin.PackageAdmin;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.SystemSpecification;
+import vanadis.blueprints.BundleResolver;
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Member;
 import vanadis.core.io.Location;
@@ -50,6 +51,8 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
     private URI home;
 
     private Location location;
+
+    private List<BundleResolver> bundleResolvers;
 
     private SystemSpecification systemSpecification;
 
@@ -87,8 +90,10 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
 
     @SuppressWarnings({"ThrowCaughtLocally"})
     @Override
-    public final LaunchResult launch(URI home, Location location, SystemSpecification systemSpecification) {
-        setLaunchedState(home, location, systemSpecification);
+    public final LaunchResult launch(URI home, Location location,
+                                     List<BundleResolver> bundleResolvers,
+                                     SystemSpecification systemSpecification) {
+        setLaunchState(home, location, bundleResolvers, systemSpecification);
 
         try {
             assertPrelaunchState(this.bundleContext == null);
@@ -156,7 +161,7 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
 
     private List<Bundle> startAutoBundles(BundleContext bundleContext) {
         List<Bundle> bundles = Generic.list();
-        for (BundleSpecification specification : getSystemSpecification()) {
+        for (BundleSpecification specification : getSystemSpecification().getAutoBundles(bundleResolvers)) {
             bundles.add(install(bundleContext, specification));
         }
         for (Bundle bundle : bundles) {
@@ -196,17 +201,16 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
         return systemSpecification;
     }
 
-    protected final void setLaunchedState(URI home, Location location, SystemSpecification checklist) {
+    protected final void setLaunchState(URI home, Location location,
+                                        List<BundleResolver> bundleResolvers,
+                                        SystemSpecification systemSpecification) {
         if (launched.getAndSet(true)) {
             throw new IllegalArgumentException(this + " already launched");
         }
-        assertPrelaunchState(this.home == null);
-        assertPrelaunchState(this.location == null);
-        assertPrelaunchState(this.systemSpecification == null);
-
-        this.home = Not.nil(home, "home");
-        this.location = Not.nil(location, "location");
-        this.systemSpecification = Not.nil(checklist, "system specification");
+        this.home = setOnceTo(this.home, home, "home");
+        this.location = setOnceTo(this.location, location, "location");
+        this.bundleResolvers = setOnceTo(this.bundleResolvers, bundleResolvers, "bundle resolvers");
+        this.systemSpecification = setOnceTo(this.systemSpecification, systemSpecification, "system specification");
     }
 
     protected String bootDelegationPackages() {
@@ -222,8 +226,13 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
         return null;
     }
 
+    private <T> T setOnceTo(T current, T value, String desc) {
+        assert current == null : this + " was launched twice, " + desc + " was set to " + current;
+        return Not.nil(value, desc);
+    }
+
     private void registerBundles() {
-        registerAll(bundleRegistrations, systemSpecification.dynaBundleUris());
+        registerAll(bundleRegistrations, systemSpecification.getDynaBundles());
     }
 
     private void registerModules() {

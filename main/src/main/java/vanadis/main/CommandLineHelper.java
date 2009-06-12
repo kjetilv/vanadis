@@ -20,6 +20,7 @@ import vanadis.core.io.Location;
 
 import java.io.File;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,6 +39,10 @@ class CommandLineHelper {
 
     static List<String> blueprints(List<String> args) {
         return split(parseOption(args, "blueprints"));
+    }
+
+    static List<String> uriPatterns(List<String> args) {
+        return split(parseOption(args, "uri-pattern"));
     }
 
     static List<String> remainingBlueprints(List<String> args) {
@@ -108,6 +113,6 @@ class CommandLineHelper {
     private static List<String> split(String string) {
         return string == null || string.trim().isEmpty()
                 ? Collections.<String>emptyList()
-                : Generic.list(string.split(","));
+                : Arrays.asList(string.split(","));
     }
 }
