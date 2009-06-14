@@ -24,24 +24,17 @@ import java.util.Map;
 
 public final class Resolve {
 
+    public static String resolve(String str) {
+        return resolve(str, PropertySets.systemProperties());
+    }
+
     public static String resolve(String str, Map<String,?> vars) {
-        return resolve(str, PropertySets.create(vars));    
+        return resolve(str, PropertySets.create(vars));
     }
 
     public static String resolve(String str, PropertySet... vars) {
-        if (!VarArgs.present(vars)) {
-            return str;
-        }
-        if (!str.contains(L_DEREF)) {
-            return str;
-        }
-        String processed;
-        if (str.contains(L_DEREF)) {
-            processed = process(str, vars);
-        } else {
-            processed = str;
-        }
-        return processed;
+        return str == null || !VarArgs.present(vars) || !str.contains(L_DEREF) || !str.contains(R_DEREF) ? str 
+                : process(str, vars);
     }
 
     private static final String L_DEREF = "${";

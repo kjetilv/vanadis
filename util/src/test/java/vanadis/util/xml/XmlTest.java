@@ -15,7 +15,8 @@
  */
 package vanadis.util.xml;
 
-import junit.framework.Assert;
+import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -61,17 +62,29 @@ public class XmlTest {
     }
 
     @Test
+    public void getContent() {
+        Document document = parse
+                ("<foo>" +
+                 "  <bar>" +
+                 "    <zot>aha</zot>" +
+                 "  </bar>" +
+                 "</foo>");
+        assertNotNull(Xml.content(document, "foo", "bar", "zot"));
+        assertEquals("aha", Xml.content(document, "foo", "bar", "zot"));
+    }
+
+    @Test
     public void parseEnum() {
         Element element = fooRoot("<foo bar=\"two\"/>");
-        Assert.assertEquals(OneOfTwo.TWO, Xml.enumAttribute(element, OneOfTwo.class, "bar"));
+        assertEquals(OneOfTwo.TWO, Xml.enumAttribute(element, OneOfTwo.class, "bar"));
     }
 
     private static void assertNestZot(Element zot) {
-        Assert.assertEquals("bar", Xml.attribute(zot, "zip"));
+        assertEquals("bar", Xml.attribute(zot, "zip"));
     }
 
     private static void assertParseInteger(Element element) {
-        Assert.assertEquals(new Integer(2), Xml.integerAttribute(element, "bar"));
+        assertEquals(new Integer(2), Xml.integerAttribute(element, "bar"));
     }
 
     private static Element fooRoot(String xml) {

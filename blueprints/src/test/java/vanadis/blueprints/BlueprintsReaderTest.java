@@ -20,6 +20,7 @@ import static junit.framework.Assert.*;
 import org.junit.Test;
 import vanadis.util.mvn.Coordinate;
 import vanadis.util.mvn.Repo;
+import vanadis.core.ver.Version;
 
 import java.io.ByteArrayInputStream;
 import java.net.URI;
@@ -136,5 +137,56 @@ public class BlueprintsReaderTest {
 
         assertTrue(systemSpecification.containsModuleSpecification("remoting"));
         assertTrue(systemSpecification.containsModuleSpecification("networker"));
+    }
+
+    @Test
+    public void testBlueprintsVersionAndRepo() {
+        Blueprints blueprints = loadV1
+                ("<blueprints " + XML_NS + " default-version=\"1.2.3\" repo=\"file:///foo/bar\">" +
+                        " <blueprint name=\"vanadis-routed\">" +
+                        "  <bundle group=\"vanadis\" artifact=\"vanadis.foo\"/>" +
+                        " </blueprint>" +
+                        " <blueprint name=\"base-shell\">" +
+                        "  <bundle group=\"vanadis\" artifact=\"vanadis.bar\"/>" +
+                        " </blueprint>" +
+                        "</blueprints>");
+        assertNodeAndBundle(blueprints, "vanadis-routed", "1.2.3", "file:///foo/bar");
+        assertNodeAndBundle(blueprints, "base-shell", "1.2.3", "file:///foo/bar");
+    }
+
+    @Test
+    public void testBlueprintsAndBlueprintVersionAndRepo() {
+        Blueprints blueprints = loadV1
+                ("<blueprints " + XML_NS + " default-version=\"1.2.3\">" +
+                        " <blueprint name=\"vanadis-routed\">" +
+                        "  <bundle group=\"vanadis\" artifact=\"vanadis.foo\" repo=\"file:///foo/bar\"/>" +
+                        " </blueprint>" +
+                        " <blueprint name=\"base-shell\" default-version=\"2.4.6\" repo=\"file:///foo/zot\">" +
+                        "  <bundle group=\"vanadis\" artifact=\"vanadis.bar\"/>" +
+                        " </blueprint>" +
+                        "</blueprints>");
+        assertNodeAndBundle(blueprints, "vanadis-routed", "1.2.3", "file:///foo/bar");
+        assertNodeAndBundle(blueprints, "base-shell", "2.4.6", "file:///foo/zot");
+    }
+
+    @Test
+    public void testBlueprintVersionAndRepo() {
+        Blueprints blueprints = loadV1
+                ("<blueprints " + XML_NS + ">" +
+                        " <blueprint name=\"vanadis-routed\" default-version=\"1.2.3\" repo=\"file:///foo/bar\">" +
+                        "  <bundle group=\"vanadis\" artifact=\"vanadis.foo\"/>" +
+                        " </blueprint>" +
+                        " <blueprint name=\"base-shell\" default-version=\"2.4.6\" repo=\"file:///foo/zot\">" +
+                        "  <bundle group=\"vanadis\" artifact=\"vanadis.bar\"/>" +
+                        " </blueprint>" +
+                        "</blueprints>");
+        assertNodeAndBundle(blueprints, "vanadis-routed", "1.2.3", "file:///foo/bar");
+        assertNodeAndBundle(blueprints, "base-shell", "2.4.6", "file:///foo/zot");
+    }
+
+    private static void assertNodeAndBundle(Blueprints blueprints, String bpName, String ver, String repo) {
+        BundleSpecification bs = blueprints.getBlueprint(bpName).getDynaBundles().iterator().next();
+        assertEquals(new Version(ver), bs.getCoordinate().getVersion());
+        assertEquals(URI.create(repo), bs.getRepo());
     }
 }

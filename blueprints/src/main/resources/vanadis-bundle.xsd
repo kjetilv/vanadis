@@ -26,14 +26,13 @@
       <xs:element type="v:bundleType" name="auto-bundle" maxOccurs="unbounded" minOccurs="0"/>
       <xs:element type="v:bundleType" name="bundle" maxOccurs="unbounded" minOccurs="0"/>
     </xs:choice>
-    <xs:attribute type="xs:string" name="uri" use="optional"/>
     <xs:attribute type="xs:string" name="repo" use="optional"/>
     <xs:attribute type="xs:string" name="group-prefix" use="optional"/>
     <xs:attribute type="xs:string" name="artifact-prefix" use="optional"/>
     <xs:attribute type="xs:string" name="group" use="optional"/>
     <xs:attribute type="xs:string" name="version" use="optional"/>
-    <xs:attribute type="xs:integer" name="start-level" use="optional"/>
-    <xs:attribute type="xs:boolean" name="global-properties" default="false" use="optional"/>
+    <xs:attribute type="xs:string" name="start-level" use="optional"/>
+    <xs:attribute type="xs:string" name="global-properties" default="false" use="optional"/>
   </xs:complexType>
 
   <xs:complexType name="bundleType">
@@ -45,7 +44,7 @@
     <xs:attribute type="xs:string" name="group" use="optional"/>
     <xs:attribute type="xs:string" name="artifact" use="optional"/>
     <xs:attribute type="xs:string" name="version" use="optional"/>
-    <xs:attribute type="xs:integer" name="start-level" use="optional"/>
-    <xs:attribute type="xs:boolean" name="global-properties" default="false" use="optional"/>
+    <xs:attribute type="xs:string" name="start-level" use="optional"/>
+    <xs:attribute type="xs:string" name="global-properties" default="false" use="optional"/>
   </xs:complexType>
 </xs:schema>

@@ -42,7 +42,7 @@ class CommandLineHelper {
     }
 
     static List<String> uriPatterns(List<String> args) {
-        return split(parseOption(args, "uri-pattern"));
+        return split(parseOption(args, "uri-patterns"));
     }
 
     static List<String> remainingBlueprints(List<String> args) {

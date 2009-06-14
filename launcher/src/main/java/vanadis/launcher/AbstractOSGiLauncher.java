@@ -247,6 +247,9 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
     }
 
     private void unregisterAll(PrintStream stream) {
+        if (launchResult == null) {
+            return;
+        }
         print(stream, "[");
         unregister(moduleRegistrations);
         defaultWait(new ReferenceVanishWaiter("vanadis.ext.ObjectManager", null, 5, stream, launchResult),

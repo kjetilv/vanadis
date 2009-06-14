@@ -16,7 +16,17 @@
 package vanadis.blueprints;
 
 import org.w3c.dom.Element;
-import vanadis.blueprints.gen.*;
+import vanadis.blueprints.gen.BlueprintType;
+import vanadis.blueprints.gen.BlueprintsType;
+import vanadis.blueprints.gen.BundleType;
+import vanadis.blueprints.gen.BundlesType;
+import vanadis.blueprints.gen.FeatureType;
+import vanadis.blueprints.gen.ModuleType;
+import vanadis.blueprints.gen.MultiPropertyType;
+import vanadis.blueprints.gen.PropertiesType;
+import vanadis.blueprints.gen.PropertyType;
+import vanadis.blueprints.gen.PropertyValue;
+import vanadis.blueprints.gen.XmlPropertyType;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Closeables;
 import vanadis.core.lang.Not;
@@ -24,6 +34,7 @@ import vanadis.core.lang.Strings;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.reflection.Retyper;
+import vanadis.core.text.Resolve;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -48,6 +59,8 @@ public class BlueprintsReader {
 
     private static final String[] NO_PARENTS = new String[] {};
 
+    private static final PropertySet SYSTEM = PropertySets.systemProperties();
+
     public static Blueprints readBlueprints(URI source) {
         return readBlueprints(source, null, openURLStream(uriToURL(source)));
     }
@@ -66,7 +79,7 @@ public class BlueprintsReader {
         List<Blueprint> list = unmarshal(source, stream, unmarshaller);
         return new Blueprints(source, base, list).validate();
     }
-              
+
     public static Blueprints read(ClassLoader loader,
                                   List<String> bootConfigPaths,
                                   List<String> bootConfigResources) {
@@ -175,7 +188,7 @@ public class BlueprintsReader {
 
     private static List<Blueprint> unmarshal(URI source, InputStream input, Unmarshaller unmarshaller) {
         JAXBElement<?> element = parse(source, input, unmarshaller);
-        BlueprintsType type = (BlueprintsType) element.getValue();
+        BlueprintsType type = (BlueprintsType)element.getValue();
         return read(source, type);
     }
 
@@ -239,12 +252,20 @@ public class BlueprintsReader {
 
     static List<Blueprint> read(URI source, BlueprintsType blueprintsType) {
         List<Blueprint> blueprints = Generic.list();
-        BundleBuilder builder = new BundleBuilder();
-        builder.setVersion(blueprintsType.getDefaultVersion());
+        BundleBuilder builder = basicBuilder(blueprintsType);
         for (BlueprintType blueprintType : blueprintsType.getBlueprint()) {
-            blueprints.add(processBlueprint(source, builder.copy(), blueprintType));
+            blueprints.add(processBlueprint(source, copyFor(blueprintType, builder), blueprintType));
         }
         return blueprints;
+    }
+
+    private static BundleBuilder basicBuilder(BlueprintsType blueprintsType) {
+        return new BundleBuilder(r(blueprintsType.getDefaultVersion()),
+                                 r(blueprintsType.getRepo()));
+    }
+
+    private static String r(String value) {
+        return Resolve.resolve(value, SYSTEM);
     }
 
     private static Blueprint processBlueprint(URI source, BundleBuilder builder, BlueprintType blueprint) {
@@ -253,16 +274,16 @@ public class BlueprintsReader {
         List<BundleSpecification> autoBundles = Generic.list();
         List<ModuleSpecification> modules = Generic.list();
         for (BundlesType bundlesType : scan(BundlesType.class, children)) {
-            addBundles(copyFor(bundlesType, builder.copy()), bundlesType.getBundlesOrAutoBundleOrBundle(),
-                       autoBundles, dynaBundles);
+            processBundles(copyFor(bundlesType, builder),
+                           bundlesType.getBundlesOrAutoBundleOrBundle(),
+                           autoBundles, dynaBundles);
         }
-        addBundles(builder, children, autoBundles, dynaBundles);
+        processBundles(builder, children, autoBundles, dynaBundles);
         addModules(children, modules);
-        return new Blueprint
-                (source, blueprint.getName(), split(blueprint.getExtends()), blueprint.isAbstract(),
-                 autoBundles,
-                 dynaBundles,
-                 modules);
+
+        return new Blueprint(source, r(blueprint.getName()), split(r(blueprint.getExtends())),
+                             toBool(blueprint.getAbstract()),
+                             autoBundles, dynaBundles, modules);
     }
 
     private static String[] split(String ext) {
@@ -293,15 +314,17 @@ public class BlueprintsReader {
     }
 
     private static ModuleSpecification toModuleSpecification(BlueprintType blueprintType) {
-        return toModuleSpecification(scan(ModuleType.class, blueprintType.getBundlesOrAutoBundleOrBundle()).iterator().next());
+        return toModuleSpecification
+                (scan(ModuleType.class, blueprintType.getBundlesOrAutoBundleOrBundle()).iterator().next());
     }
 
     private static ModuleSpecification toModuleSpecification(ModuleType moduleType) {
-        String name = moduleType.getName();
-        String type = moduleType.getType();
+        String name = r(moduleType.getName());
+        String type = r(moduleType.getType());
         return ModuleSpecification.create(type, name == null ? type : name,
-                                          properties(scan(PropertiesType.class, moduleType.getPropertiesOrInjectOrExpose())),
-                                          moduleType.isGlobalProperties(),
+                                          properties(scan(PropertiesType.class,
+                                                          moduleType.getPropertiesOrInjectOrExpose())),
+                                          toBool(moduleType.getGlobalProperties()),
                                           features(moduleType));
     }
 
@@ -320,7 +343,7 @@ public class BlueprintsReader {
                                               moduleType.getPropertiesOrInjectOrExpose());
         for (FeatureType featureType : iterable) {
             PropertySet propertySet = properties(featureType.getProperties());
-            features.add(new ModuleSpecificationFeature(featureType.getName(), type, propertySet));
+            features.add(new ModuleSpecificationFeature(r(featureType.getName()), type, propertySet));
         }
     }
 
@@ -339,27 +362,27 @@ public class BlueprintsReader {
             }
             List<Object> children = properties.getPropertyOrMultiPropertyOrXml();
             for (PropertyType property : scanChildren(PropertyType.class, children)) {
-                String valueString = property.getValue();
-                Object value = Strings.isEmpty(valueString)
-                        ? EMPTY_STRING
-                        : Retyper.coerce(property.getType(), Strings.trim(valueString));
-                propertySet.set(property.getName(), value);
+                String valueString = r(property.getValue());
+                Object value = Strings.isEmpty(valueString) ? EMPTY_STRING
+                        : Retyper.coerce(r(property.getType()), Strings.trim(valueString));
+                propertySet.set(r(property.getName()), value);
             }
             for (MultiPropertyType property : scanChildren(MultiPropertyType.class, children)) {
                 List<PropertyValue> values = property.getValue();
                 String[] array = new String[values.size()];
                 for (int i = 0; i < values.size(); i++) {
-                    array[i] = values.get(i).getValue();
+                    array[i] = r(values.get(i).getValue());
                 }
-                propertySet.set(property.getName(), Retyper.coerceArray(property.getType(), array));
+                propertySet.set(r(property.getName()), Retyper.coerceArray(r(property.getType()), array));
             }
             for (XmlPropertyType property : scanChildren(XmlPropertyType.class, children)) {
                 List<Element> elementList = property.getAny();
                 if (!elementList.isEmpty()) {
+                    String name = r(property.getName());
                     if (elementList.size() > 1) {
-                        propertySet.set(property.getName(), Generic.seal(elementList));
+                        propertySet.set(name, Generic.seal(elementList));
                     } else {
-                        propertySet.set(property.getName(), elementList.get(0));
+                        propertySet.set(name, elementList.get(0));
                     }
                 }
             }
@@ -367,42 +390,61 @@ public class BlueprintsReader {
         return propertySet.isEmpty() ? PropertySets.EMPTY : propertySet.copy(false);
     }
 
-    private static void addBundles(BundleBuilder builder,
-                                   List<JAXBElement<?>> children,
-                                   List<BundleSpecification> autoBundles, List<BundleSpecification> dynaBundles) {
+    private static void processBundles(BundleBuilder builder,
+                                       List<JAXBElement<?>> children,
+                                       List<BundleSpecification> autoBundles,
+                                       List<BundleSpecification> dynaBundles) {
         for (BundleType bundle : scan(BundleType.class, "bundle", children)) {
-            dynaBundles.add(copyFor(bundle, builder.copy()).build());
+            dynaBundles.add(copyFor(bundle, builder).build());
         }
         for (BundleType bundle : scan(BundleType.class, "auto-bundle", children)) {
-            autoBundles.add(copyFor(bundle, builder.copy()).build());
+            autoBundles.add(copyFor(bundle, builder).build());
         }
         List<BundlesType> bundlesNested = scan(BundlesType.class, children);
         if (!bundlesNested.isEmpty()) {
             for (BundlesType bundles : bundlesNested) {
                 List<JAXBElement<?>> elements = bundles.getBundlesOrAutoBundleOrBundle();
-                addBundles(copyFor(bundles, builder.copy()), elements, autoBundles, dynaBundles);
+                processBundles(copyFor(bundles, builder.copy()), elements, autoBundles, dynaBundles);
             }
         }
     }
 
     private static BundleBuilder copyFor(BundleType bundle, BundleBuilder original) {
         return original.copy()
-                .setArtifact(bundle.getArtifact())
-                .setGroup(bundle.getGroup())
-                .setVersion(bundle.getVersion())
-                .setStartLevel(bundle.getStartLevel())
-                .setGlobalProperties(bundle.isGlobalProperties())
-                .addPropertySet(properties(bundle.getProperties()));
-
+                .setArtifact(r(bundle.getArtifact()))
+                .setGroup(r(bundle.getGroup()))
+                .setVersion(r(bundle.getVersion()))
+                .setGlobalProperties(toBool(bundle.getGlobalProperties()))
+                .setStartLevel(toInt(bundle.getStartLevel()))
+                .addPropertySet(properties(bundle.getProperties()))
+                .setRepo(r(bundle.getRepo()));
     }
 
     private static BundleBuilder copyFor(BundlesType bundles, BundleBuilder original) {
+        String value = bundles.getGlobalProperties();
         return original.copy()
-                .setVersion(bundles.getVersion())
-                .setGroup(bundles.getGroup())
-                .addArtifactPrefix(bundles.getArtifactPrefix())
-                .addGroupPrefix(bundles.getGroupPrefix())
-                .setGlobalProperties(bundles.isGlobalProperties())
-                .setStartLevel(bundles.getStartLevel());
+                .setVersion(r(bundles.getVersion()))
+                .setGroup(r(bundles.getGroup()))
+                .addArtifactPrefix(r(bundles.getArtifactPrefix()))
+                .addGroupPrefix(r(bundles.getGroupPrefix()))
+                .setGlobalProperties(toBool(value))
+                .setStartLevel(toInt(bundles.getStartLevel()))
+                .setRepo(r(bundles.getRepo()));
+    }
+
+    private static BundleBuilder copyFor(BlueprintType blueprint, BundleBuilder original) {
+        String level = blueprint.getStartLevel();
+        return original.copy()
+                .setVersion(r(blueprint.getDefaultVersion()))
+                .setStartLevel(toInt(level))
+                .setRepo(r(blueprint.getRepo()));
+    }
+
+    private static Boolean toBool(String value) {
+        return value == null ? null : Boolean.parseBoolean(r(value));
+    }
+
+    private static Integer toInt(String str) {
+        return str == null ? null : Integer.parseInt(r(str));
     }
 }

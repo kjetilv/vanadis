@@ -40,8 +40,12 @@ class DirHelper {
             if (repo.toASCIIString().startsWith("http")) {
                 return repo;
             }
-            File installRepo = home == null ? canonicalize(Files.create(repo))
-                    : canonicalize(new File(Files.create(home), repo.toASCIIString()));
+            File repoDirectory = Files.create(repo);
+            if (repoDirectory.isAbsolute() && repoDirectory.isDirectory() && repoDirectory.canRead()) {
+                return repo;
+            }
+            File installRepo = home == null ? canonicalize(repoDirectory) : canonicalize(
+                    new File(Files.create(home), repo.toASCIIString()));
             if (installRepo.canRead() && installRepo.isDirectory()) {
                 return installRepo.toURI();
             }

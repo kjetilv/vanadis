@@ -31,20 +31,18 @@ public final class BundleSpecification extends AbstractSpecification {
                                        null, null);
     }
 
-    public static BundleSpecification createFixed(URI uri,
-                                                  Integer startLevel) {
+    public static BundleSpecification createFixed(URI uri, Integer startLevel) {
         return new BundleSpecification(null, null, Not.nil(uri, "uri"), startLevel,
                                        null, null);
     }
 
-    public static BundleSpecification createFixed(URI uri,
-                                                  Integer startLevel, PropertySet propertySet) {
+    public static BundleSpecification createFixed(URI uri, Integer startLevel,
+                                                  PropertySet propertySet) {
         return new BundleSpecification(null, null, Not.nil(uri, "uri"), startLevel,
                                        propertySet, null);
     }
 
-    public static BundleSpecification createFixed(URI uri,
-                                                  Integer startLevel,
+    public static BundleSpecification createFixed(URI uri, Integer startLevel,
                                                   PropertySet propertySet, Boolean globalProperties) {
         return new BundleSpecification(null, null, Not.nil(uri, "uri"), startLevel,
                                        propertySet, globalProperties);
@@ -121,15 +119,19 @@ public final class BundleSpecification extends AbstractSpecification {
 
     public BundleSpecification resolve(BundleResolver resolver) {
         Not.nil(resolver, "bundle resolver");
-        URI uri = resolver.resolve(coordinate);
-        return uri == null ? null : new BundleSpecification
-                (null, coordinate, uri, startLevel, getPropertySet(),
-                 isGlobalProperties());
+        URI uri = resolver.resolve(this);
+        return uri == null ? null
+                : new BundleSpecification(null, coordinate, uri, startLevel, getPropertySet(),
+                                          isGlobalProperties());
     }
 
     public boolean sameVersion(BundleSpecification bundleSpecification) {
         return coordinate != null && bundleSpecification.coordinate != null && coordinate.sameVersion(
                 bundleSpecification.coordinate);
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
     }
 
     public URI getRepo() {

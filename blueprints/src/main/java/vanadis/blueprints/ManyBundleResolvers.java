@@ -3,7 +3,6 @@ package vanadis.blueprints;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
 import vanadis.core.lang.VarArgs;
-import vanadis.util.mvn.Coordinate;
 
 import java.io.File;
 import java.net.URI;
@@ -55,10 +54,10 @@ public class ManyBundleResolvers implements BundleResolver {
     }
 
     @Override
-    public URI resolve(Coordinate coordinate) {
+    public URI resolve(BundleSpecification bundleSpecification) {
         URI uri = null;
         for (BundleResolver bundleResolver : bundleResolvers) {
-            uri = bundleResolver.resolve(coordinate);
+            uri = bundleResolver.resolve(bundleSpecification);
             if (uri != null) {
                 if (uri.getScheme().equalsIgnoreCase("http")) {
                     return uri;

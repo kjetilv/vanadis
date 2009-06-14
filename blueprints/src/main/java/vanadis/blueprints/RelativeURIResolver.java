@@ -1,7 +1,6 @@
 package vanadis.blueprints;
 
 import vanadis.core.lang.ToString;
-import vanadis.util.mvn.Coordinate;
 
 import java.net.URI;
 
@@ -14,8 +13,10 @@ public class RelativeURIResolver implements BundleResolver {
     }
 
     @Override
-    public URI resolve(Coordinate coordinate) {
-        return coordinate.uriIn(root);
+    public URI resolve(BundleSpecification bundleSpecification) {
+        URI repo = bundleSpecification.getRepo();
+        URI uri = repo == null ? root : repo;
+        return bundleSpecification.getCoordinate().uriIn(uri, true);
     }
 
     @Override

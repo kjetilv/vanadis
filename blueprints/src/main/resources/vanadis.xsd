@@ -28,6 +28,7 @@
       <xs:element type="v:blueprintType" name="blueprint" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute type="xs:string" name="default-version"/>
+    <xs:attribute type="xs:string" name="repo" use="optional"/>
   </xs:complexType>
 
   <xs:complexType name="blueprintType">
@@ -37,9 +38,11 @@
       <xs:element type="v:bundleType" name="bundle" maxOccurs="unbounded" minOccurs="0"/>
       <xs:element type="v:moduleType" name="module" maxOccurs="unbounded" minOccurs="0"/>
     </xs:choice>
+    <xs:attribute type="xs:string" name="repo" use="optional"/>
+    <xs:attribute type="xs:string" name="start-level" use="optional"/>
     <xs:attribute type="xs:string" name="name" use="optional" default="untitled"/>
     <xs:attribute type="xs:string" name="extends" use="optional"/>
-    <xs:attribute type="xs:boolean" name="abstract" use="optional" default="false"/>
+    <xs:attribute type="xs:string" name="abstract" use="optional" default="false"/>
     <xs:attribute type="xs:string" name="default-version"/>
   </xs:complexType>
 </xs:schema>

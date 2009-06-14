@@ -14,8 +14,6 @@ final class BundleBuilder {
 
     private String artifact;
 
-    private String version;
-
     private String artifactPrefix;
 
     private String groupPrefix;
@@ -32,17 +30,26 @@ final class BundleBuilder {
 
     private String uri;
 
+    private String version;
+
+    BundleBuilder() {
+        this(null, null);
+    }
+
+    BundleBuilder(String defaultVersion, String defaultRepo) {
+        this.version = defaultVersion;
+        this.repo = defaultRepo;
+    }
+
     BundleBuilder copy() {
-        return new BundleBuilder().
-                setRepo(repo).
+        return new BundleBuilder(version, repo).
                 setUri(uri).
                 setArtifact(artifact).
                 setArtifactPrefix(artifactPrefix).
                 setGroup(group).
                 setGroupPrefix(groupPrefix).
                 setStartLevel(startLevel).
-                setArtifact(artifact).
-                setVersion(version);
+                setArtifact(artifact);
     }
 
     BundleBuilder setVersion(String version) {
@@ -124,7 +131,8 @@ final class BundleBuilder {
         Coordinate coordinate = this.version == null
                 ? Coordinate.unversioned(group, artifact)
                 : Coordinate.versioned(group, artifact, new Version(this.version));
-        return BundleSpecification.create(coordinate, startLevel, propertySet, globalProperties);
+        return BundleSpecification.create
+                (repo == null ? null : URI.create(repo), coordinate, startLevel, propertySet, globalProperties);
     }
 
     BundleBuilder addPropertySet(PropertySet propertySet) {

@@ -266,7 +266,7 @@ public final class LaunchSite {
         for (String pattern : uriPatterns) {
             resolvers.add(new URIPatternResolver(pattern));
         }
-        return null;
+        return resolvers;
     }
 
     private static List<String> blueprintNames(List<String> blueprintNames,

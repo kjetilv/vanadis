@@ -26,6 +26,7 @@ import org.xml.sax.SAXParseException;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.Strings;
+import vanadis.core.lang.VarArgs;
 import vanadis.core.reflection.Enums;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -123,8 +124,8 @@ public class Xml {
             return null;
         }
         Node node = list.get(0);
-        return node instanceof Element ? (Element) node
-                : Xml.<Element>failNonElement(node);
+        return node instanceof Element ? (Element)node
+                : Xml.failNonElement(node);
     }
 
     public static List<Element> list(NodeList childNodes) {
@@ -317,7 +318,7 @@ public class Xml {
         return !Strings.isEmpty(attribute);
     }
 
-    private static <T> T failNonElement(Node node) {
+    private static Element failNonElement(Node node) {
         throw new IllegalArgumentException
                 ("Found non-Element " + node + (node == null ? "" : " of " + node.getClass()));
     }
@@ -336,5 +337,19 @@ public class Xml {
                     ("No content found in element " + element.getNodeName());
         }
         return null;
+    }
+
+    public static String content(Document document, String... path) {
+        if (!VarArgs.present(path)) {
+            return null;
+        }
+        Element element = document.getDocumentElement();
+        for (int i = 1; i < path.length; i++) {
+            element = Xml.child(element, path[i]);
+            if (element == null || !path[i].equals(element.getNodeName())) {
+                return null;
+            }
+        }
+        return element.getTextContent();
     }
 }

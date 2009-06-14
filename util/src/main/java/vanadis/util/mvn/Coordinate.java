@@ -16,20 +16,19 @@
 
 package vanadis.util.mvn;
 
+import org.w3c.dom.Document;
 import vanadis.core.collections.Generic;
+import vanadis.core.io.Closeables;
 import vanadis.core.io.Files;
 import vanadis.core.io.IORuntimeException;
 import vanadis.core.lang.EqHc;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.core.ver.Version;
+import vanadis.util.xml.Xml;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.io.*;
+import java.net.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -39,6 +38,11 @@ import java.util.List;
  * type repository.
  */
 public final class Coordinate implements Serializable {
+
+    private static final String[] ARCHIVE_TYPES = new String[] { "application/java-archive",
+                                                                 "application/x-gzip",
+                                                                 "application/zip",
+                                                                 "multipart/x-gzip" };
 
     /**
      * <P>This factory method takes string specifications.  The coordinate is not
@@ -216,7 +220,11 @@ public final class Coordinate implements Serializable {
     }
 
     public URI uriIn(URI repo) {
-        return in(repo);
+        return uriIn(repo, false);
+    }
+
+    public URI uriIn(URI repo, boolean validate) {
+        return in(repo, validate);
     }
 
     public URI uriIn(File repo) {
@@ -260,21 +268,168 @@ public final class Coordinate implements Serializable {
         return new StringBuilder(groupId).append(":").append(artifactId);
     }
 
-    private URI in(URI repo) {
+    private URI in(URI repo, boolean validate) {
         if (version == null) {
             throw new IllegalStateException(this + " has no version, cannot resolve to URI in repo @ " + repo);
         }
         String ver = version.toVersionString();
-        String subpath = slash(slash(slash(groupIdPath) + artifactId) + ver);
-        String file = slash(repo.getRawPath()) + subpath + artifactId + "-" + ver + packaging();
-        try {
-            return new URI(repo.getScheme(),
-                           repo.getUserInfo(),
-                           repo.getHost(), repo.getPort(),
-                           file, repo.getQuery(), repo.getFragment());
-        } catch (URISyntaxException e) {
-            throw new IllegalArgumentException("Invalid URI base: " + repo, e);
+        String directory = slash(repo.getRawPath()) + slash(slash(slash(groupIdPath) + artifactId) + ver);
+        URI directReference = toPath(repo, directory, ver);
+        if (validate) {
+            URI liveDirectReference = live(directReference);
+            if (liveDirectReference != null) {
+                return liveDirectReference;
+            } else if (version.isSnapshot()) {
+                return metadataDrivenReference(repo, directory, directReference);
+            }
+            throw new IllegalStateException(this + " could not be found in " + repo);
         }
+        return directReference;
+    }
+
+    private URI metadataDrivenReference(URI repo, String directory, URI directReference) {
+        URI metadataUri = toURI(repo, directory + "maven-metadata.xml");
+        Document metadata = readMetadata(metadataUri);
+        if (metadata == null) {
+            throw new IllegalStateException(this + " could not find metadata for " + directReference);
+        }
+        String buildNo = buildNo(metadata);
+        String buildTime = buildTime(metadata);
+        URI snapshotReference = toPath(repo, directory, buildTime + "-" + buildNo);
+        return live(snapshotReference);
+    }
+
+    private URI toPath(URI repo, String directory, String ver) {
+        String file =  directory + artifactId + "-" + ver + packaging();
+        return toURI(repo, file);
+    }
+
+    private static String buildTime(Document metadata) {
+        return Xml.content(metadata, "metadata", "versioning", "snapshot", "timestamp");
+    }
+
+    private static String buildNo(Document metadata) {
+        return Xml.content(metadata, "metadata", "versioning", "snapshot", "buildNumber");
+    }
+
+    private static Document readMetadata(URI metadataUri) {
+        return isFile(metadataUri)
+                ? readFileMetadata(metadataUri)
+                : readURLMetadata(metadataUri);
+    }
+
+    private static Document readURLMetadata(URI metadataUri) {
+        URL url;
+        try {
+            url = metadataUri.toURL();
+        } catch (MalformedURLException e) {
+            throw new IllegalStateException("Invalid URI: " + metadataUri, e);
+        }
+        InputStream inputStream = null;
+        URLConnection connection = null;
+        try {
+            connection = authenticated(url).openConnection();
+            inputStream = connection.getInputStream();
+            return Xml.readDocument(inputStream);
+        } catch (IOException ignore) {
+            return null;
+        } finally {
+            try {
+                Closeables.close(inputStream);
+            } finally {
+                disconnectHttp(connection);
+            }
+        }
+    }
+
+    private static Document readFileMetadata(URI metadataUri) {
+        File metadataFile = new File(metadataUri);
+        if (metadataFile.isFile() && metadataFile.canRead()) {
+            FileInputStream inputStream;
+            try {
+                inputStream = new FileInputStream(metadataFile);
+            } catch (Exception ignore) {
+                return null;
+            }
+            try {
+                return Xml.readDocument(inputStream);
+            } finally {
+                Closeables.close(inputStream);
+            }
+        } else {
+            return null;
+        }
+    }
+
+    private static void disconnectHttp(URLConnection connection) {
+        if (connection instanceof HttpURLConnection) {
+            ((HttpURLConnection)connection).disconnect();
+        }
+    }
+
+    private static URL authenticated(URL url) {
+        if (url.getProtocol().toLowerCase().startsWith("http") && url.getUserInfo() != null) {
+            final String[] userInfo = url.getUserInfo().split(":", 2);
+            Authenticator.setDefault(new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    char[] password = password(userInfo);
+                    return new PasswordAuthentication(userInfo[0], password);
+                }
+            });
+        }
+        return url;
+    }
+
+    private static char[] password(String[] userInfo) {
+        char[] password;
+        if (userInfo.length > 1) {
+            password = new char[userInfo[1].length()];
+            userInfo[1].getChars(0, userInfo[1].length(), password, 0);
+        } else {
+            password = null;
+        }
+        return password;
+    }
+
+    private static URI live(URI uri) {
+        return isHttp(uri) ? httpLive(uri)
+                : isFile(uri) ? fileLive(uri)
+                        : uri; // Oh, well ...
+    }
+
+    private static boolean isFile(URI uri) {
+        return isScheme(uri, "file");
+    }
+
+    private static boolean isHttp(URI uri) {
+        return isScheme(uri, "http");
+    }
+
+    private static boolean isScheme(URI uri, String scheme) {
+        return uri.getScheme().toLowerCase().equals(scheme);
+    }
+
+    private static URI fileLive(URI uri) {
+        File file = new File(uri);
+        return file.isFile() && file.canRead() ? uri : null;
+    }
+
+    private static URI httpLive(URI uri) {
+        HttpURLConnection conn = null;
+        try {
+            try {
+                conn = (HttpURLConnection) uri.toURL().openConnection();
+            } catch (IOException ignore) {
+                return null;
+            }
+            if (isArchive(conn.getContentType().toLowerCase())) {
+                return uri;
+            }
+        } finally {
+            disconnectHttp(conn);
+        }
+        return null;
     }
 
     private File collapsedInDirectory(File dir) {
@@ -328,6 +483,25 @@ public final class Coordinate implements Serializable {
         @Override
         public boolean accept(File dir, String name) {
             return name.endsWith(packaging);
+        }
+    }
+
+    private static boolean isArchive(String type) {
+        for (String archiveType : ARCHIVE_TYPES) {
+            if (type.contains(archiveType)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static URI toURI(URI repo, String file) {
+        try {
+            return new URI(repo.getScheme(), repo.getUserInfo(), repo.getHost(), repo.getPort(),
+                           file, repo.getQuery(), repo.getFragment());
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException
+                    ("Invalid URI base: " + repo + " + " + file, e);
         }
     }
 

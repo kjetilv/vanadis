@@ -33,14 +33,24 @@ public class IO {
 
     static final Charset UTF_8 = Charset.forName(ENC);
 
+    public static final int BUFFER_SIZE = 8192;
+
     public static int copy(InputStream source, OutputStream sink) {
-        return copy(source, sink, false);
+        return copy(source, sink, -1, false);
+    }
+
+    public static int copy(InputStream source, OutputStream sink, int bytes) {
+        return copy(source, sink, bytes, false);
     }
 
     public static int copy(InputStream source, OutputStream sink, boolean close) {
+        return copy(source, sink, -1, close);
+    }
+
+    public static int copy(InputStream source, OutputStream sink, int bytes, boolean close) {
         Not.nil(source, "source");
         Not.nil(sink, "sink");
-        byte[] buffer = new byte[8192];
+        byte[] buffer = new byte[BUFFER_SIZE];
         int total = 0;
         try {
             int read;
@@ -50,6 +60,9 @@ public class IO {
                     total += read;
                     sink.write(buffer, 0, read);
                 } else if (read < 0) {
+                    return total;
+                }
+                if (bytes > 0 && total >= bytes) {
                     return total;
                 }
             }

@@ -30,7 +30,7 @@ class InstallFromRepoExecution implements CommandExecution {
         for (String arg : args) {
             try {
                 Coordinate coordinate = Coordinate.at(arg);
-                URI uri = coordinate.uriIn(context.getRepo());
+                URI uri = coordinate.uriIn(context.getRepo(), true);
                 context.register(BundleSpecification.createFixed(uri, 1, null), BundleSpecification.class);
             } catch (Exception e) {
                 p.p("Failed to install ").p(arg).p(": ").p(e).cr();

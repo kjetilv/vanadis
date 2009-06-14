@@ -137,7 +137,7 @@ public class SystemSpecification {
     private BundleResolver resolvers(Iterable<BundleResolver> resolvers) {
         boolean defaultRepository = this.root.equals(Repo.DEFAULT_URI);
         return defaultRepository ? new ManyBundleResolvers(resolvers, rootResolver())
-                : new ManyBundleResolvers(resolvers);
+                : new ManyBundleResolvers(resolvers).prepend(rootResolver());
     }
 
     private RelativeURIResolver rootResolver() {
@@ -204,7 +204,8 @@ public class SystemSpecification {
 
     private List<BundleSpecification> resolved(Iterable<BundleResolver> resolvers,
                                                Collection<BundleSpecification> bundleSpecifications) {
-        return bundleSpecifications == null ? Collections.<BundleSpecification>emptyList()
+        return bundleSpecifications == null
+                ? Collections.<BundleSpecification>emptyList()
                 : resolved(bundleSpecifications, resolvers(resolvers));
     }
 
@@ -213,11 +214,12 @@ public class SystemSpecification {
         List<BundleSpecification> resolvedSpecifications = Generic.list();
         for (BundleSpecification bundleSpecification : bundleSpecifications) {
             BundleSpecification resolvedSpecification = bundleSpecification.resolve(resolver);
-            if (bundleSpecification == null) {
+            if (resolvedSpecification == null) {
                 throw new IllegalArgumentException
                         ("Unable to resolve specification " + bundleSpecification + " using " + resolver);
+            } else {
+                resolvedSpecifications.add(resolvedSpecification);
             }
-            resolvedSpecifications.add(resolvedSpecification);
         }
         return resolvedSpecifications;
     }

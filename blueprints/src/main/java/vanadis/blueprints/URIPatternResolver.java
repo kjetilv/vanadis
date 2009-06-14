@@ -18,20 +18,20 @@ public class URIPatternResolver implements BundleResolver {
     }
 
     /**
-     * @param coordinate Must be {@link vanadis.util.mvn.Coordinate#isVersioned()}
+     * @param bundleSpecification Bundle specification
      * @return URI
      */
     @Override
-    public URI resolve(Coordinate coordinate) {
-        if (coordinate.isVersioned()) {
+    public URI resolve(BundleSpecification bundleSpecification) {
+        if (bundleSpecification.getCoordinate().isVersioned()) {
             try {
-                return URI.create(Resolve.resolve(pattern, props(coordinate)));
+                return URI.create(Resolve.resolve(pattern, props(bundleSpecification.getCoordinate())));
             } catch (IllegalArgumentException e) {
                 throw new IllegalStateException
-                        (this + " could not transform " + coordinate + " to URI, invalid pattern!", e);
+                        (this + " could not transform " + bundleSpecification + " to URI, invalid pattern!", e);
             }
         }
-        throw new IllegalArgumentException(coordinate + " must be versioned");
+        throw new IllegalArgumentException(bundleSpecification + " must be versioned");
     }
 
     private static PropertySet props(Coordinate coordinate) {

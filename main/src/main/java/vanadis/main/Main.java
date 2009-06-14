@@ -49,7 +49,8 @@ public final class Main {
     }
 
     private static LaunchSite launch(CommandLineDigest spc) {
-        return LaunchSite.create(spc.getHome(), spc.getLocation(), spc.getRepoRoot(), spc.getUriPatterns(),
+        return LaunchSite.create(spc.getHome(), spc.getLocation(), spc.getRepoRoot(), 
+                                 spc.getUriPatterns(),
                                  spc.getBlueprintNames(),
                                  spc.getBlueprintPaths(),
                                  spc.getBlueprintResources());

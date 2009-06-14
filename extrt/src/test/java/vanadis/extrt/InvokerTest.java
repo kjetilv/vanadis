@@ -244,16 +244,6 @@ public class InvokerTest {
     }
 
     @Test
-    public void invokeBogusReplaced() {
-        try {
-            fail(invokeReplacedCoerced(this, new Setter(), setter(String.class),
-                                       PropertySets.create("foo", "bar"),
-                                       "let's crash a ${foo") + " should not work");
-        } catch (IllegalArgumentException ignore) {
-        }
-    }
-
-    @Test
     public void invokeBogusPropertiesReplaced() {
         invokeReplacedCoerced(this, new Setter(), setter(String.class),
                               PropertySets.create(),
