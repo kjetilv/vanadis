@@ -110,7 +110,7 @@ public class Xml {
     }
 
     public static Document readDocument(InputStream stream) {
-        Not.nil(stream, "input stream");
+        Not.nil(stream, "input stream");    
         try {
             return documentBuilder().parse(stream);
         } catch (SAXException e) {
