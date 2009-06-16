@@ -16,6 +16,7 @@
 
 package vanadis.ext;
 
+import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.core.text.Printer;
 import vanadis.osgi.Context;
@@ -37,8 +38,21 @@ public final class GenericCommand extends AbstractCommand {
     }
 
     public GenericCommand(String name, String description, Context context, CommandExecution commandExecution) {
-        super(name, description, context);
+        super(resolveName(name, commandExecution),
+              pad(name, description, commandExecution),
+              context);
         this.commandExecution = commandExecution;
+    }
+
+    private static String resolveName(String name, CommandExecution commandExecution) {
+        return name != null ? name
+                : Not.nil(commandExecution, "command execution").getClass().getName();
+    }
+
+    private static String pad(String name, String description, CommandExecution execution) {
+        return execution.getClass().getPackage() + ": " +
+                (description != null ? description 
+                        : resolveName(name, execution));
     }
 
     @Override

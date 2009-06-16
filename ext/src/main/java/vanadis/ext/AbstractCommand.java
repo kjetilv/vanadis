@@ -48,31 +48,19 @@ public abstract class AbstractCommand implements Command {
 
     private final EventAdmin eventAdmin;
 
-    AbstractCommand(String name, String shortDescription,
-                    Context context) {
-        this(name, name, shortDescription, context);
-    }
-
-    private AbstractCommand(String name, String usage, String shortDescription,
-                            Context context) {
-        this(name, usage, shortDescription, context, false);
-    }
-
     protected AbstractCommand(String name, String shortDescription,
+                              Context context) {
+        this(name, name, shortDescription, context, false);
+    }
+
+    protected AbstractCommand(String name, String usage, String desc,
                               Context context,
                               boolean commandIsEvent) {
-        this(name, name, shortDescription, context, commandIsEvent);
-    }
-
-    private AbstractCommand(String name, String usage, String desc,
-                            Context context,
-                            boolean commandIsEvent) {
         this.name = Not.nil(name, "name");
         this.usage = usage;
         this.commandIsEvent = commandIsEvent;
-        this.shortDescription = "vanadis: " + (desc == null
-                ? name
-                : desc.substring(0, 1).toUpperCase() + desc.substring(1));
+        this.shortDescription = desc == null ? name
+                : desc.substring(0, 1).toUpperCase() + desc.substring(1);
         if (commandIsEvent) {
             this.context = Not.nil(context, "context");
             this.eventAdmin = context == null? null : context.getServiceProxy(EventAdmin.class);
