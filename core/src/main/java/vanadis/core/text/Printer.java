@@ -209,18 +209,17 @@ public class Printer {
     }
 
     private String printOut(Object object, boolean pst) {
+        String string = toString(object);
         try {
             if (object instanceof Throwable && pst) {
                 ((Throwable)object).printStackTrace(ps);
-                return object.toString();
             } else {
-                String string = String.valueOf(object);
                 ps.print(string);
-                return string;
             }
         } finally {
             considerFlush();
         }
+        return string;
     }
 
     private void noLongerOnNewLine() {
@@ -253,6 +252,18 @@ public class Printer {
         } else {
             onNewLine = true;
         }
+    }
+
+    private static String toString(Object object) {
+        try {
+            return String.valueOf(object);
+        } catch (Exception e) {
+            return error(object, e);
+        }
+    }
+
+    private static String error(Object object, Exception e) {
+        return "[ERROR: String.valueOf(" + object.getClass() + "@" + System.identityHashCode(object) + ") => " + e + "]";
     }
 
     @Override
