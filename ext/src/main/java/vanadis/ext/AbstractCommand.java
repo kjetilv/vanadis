@@ -59,8 +59,7 @@ public abstract class AbstractCommand implements Command {
         this.name = Not.nil(name, "name");
         this.usage = usage;
         this.commandIsEvent = commandIsEvent;
-        this.shortDescription = desc == null ? name
-                : desc.substring(0, 1).toUpperCase() + desc.substring(1);
+        this.shortDescription = desc == null ? name : desc;
         if (commandIsEvent) {
             this.context = Not.nil(context, "context");
             this.eventAdmin = context == null? null : context.getServiceProxy(EventAdmin.class);
