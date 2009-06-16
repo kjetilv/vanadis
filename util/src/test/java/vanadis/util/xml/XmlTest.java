@@ -15,12 +15,14 @@
  */
 package vanadis.util.xml;
 
-import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import vanadis.core.io.Closeables;
+import vanadis.core.system.VM;
 
+import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
 
 public class XmlTest {
@@ -94,5 +96,16 @@ public class XmlTest {
 
     private static Document parse(String xml) {
         return Xml.readDocument(xml, Charset.defaultCharset());
+    }
+
+    @Test
+    public void writeDoc() {
+        Document doc = Xml.create("foo");
+        Xml.newElement(doc, doc.getDocumentElement(), "bar", "zot", null);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Xml.writeDocument(doc, baos);
+        Closeables.close(baos);
+        String str = new String(baos.toByteArray());
+        assertTrue("Wrong doc: " + str, str.contains("<foo>" + VM.LN + "<bar>zot</bar>" + VM.LN + "</foo>"));
     }
 }

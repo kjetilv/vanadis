@@ -32,15 +32,14 @@ import vanadis.core.reflection.Enums;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
@@ -88,6 +87,26 @@ public class Xml {
             documentElement.appendChild(element);
         }
         return document;
+    }
+
+    public static void writeDocument(Document doc, OutputStream stream) {
+        Source source = new DOMSource(doc);
+        Result result = new StreamResult(stream);
+        Transformer transformer;
+        try {
+            transformer = TransformerFactory.newInstance().newTransformer();
+        } catch (TransformerConfigurationException e) {
+            throw new IllegalStateException("Failed to setup transformer", e);
+        }
+        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+        transformer.setOutputProperty(OutputKeys.ENCODING, "utf-8");
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.MEDIA_TYPE, "text/xml");
+        try {
+            transformer.transform(source, result);
+        } catch (TransformerException e) {
+            throw new IllegalArgumentException("Failed to write " + doc + " to " + stream, e);
+        }
     }
 
     public static Document readDocument(InputStream stream) {
