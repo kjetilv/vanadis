@@ -50,8 +50,8 @@ public final class GenericCommand extends AbstractCommand {
     }
 
     private static String pad(String name, String description, CommandExecution execution) {
-        return execution.getClass().getPackage() + ": " +
-                (description != null ? description 
+        return execution.getClass().getPackage().getName() + ": " +
+                (description != null ? description
                         : resolveName(name, execution));
     }
 
