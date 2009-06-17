@@ -41,8 +41,9 @@ public class DotProgress {
         printer.p(error);
     }
 
-    public void done() {
+    public Printer done() {
         status();
+        return printer;
     }
 
     private void status() {

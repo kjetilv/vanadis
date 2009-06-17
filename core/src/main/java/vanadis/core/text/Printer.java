@@ -2,7 +2,9 @@ package vanadis.core.text;
 
 import java.io.PrintStream;
 
-public class Printer {
+public final class Printer {
+
+    public static final Printer NULL = new Printer(null, -1); // The NULL printer.
 
     public static final int MAX_INDENT = 16;
 
@@ -35,9 +37,10 @@ public class Printer {
     }
 
     public Printer(PrintStream ps, int indentSize) {
-        this.ps = ps;
-        this.indentSize = Math.max(1, Math.min(MAX_INDENT, indentSize));
-        this.indentString = SPC[this.indentSize];
+        boolean isNull = SPC == null; // This the NULL field - really
+        this.ps = isNull ? null : ps;
+        this.indentSize = isNull ? -1 : Math.max(1, Math.min(MAX_INDENT, indentSize));
+        this.indentString = isNull ? null : SPC[this.indentSize];
     }
 
     public Printer autoFlush() {
@@ -73,26 +76,41 @@ public class Printer {
     }
 
     public Printer singleBlankLine(boolean sbl) {
+        if (ps == null) {
+            return this;
+        }
         this.singleBlankLine = sbl;
         return this;
     }
 
     public Printer autoFlush(boolean af) {
+        if (ps == null) {
+            return this;
+        }
         this.autoFlush = af;
         return this;
     }
 
     public Printer printStackTrace(boolean pst) {
+        if (ps == null) {
+            return this;
+        }
         this.printStackTrace = pst;
         return this;
     }
 
     public Printer terminateWithNewLine(boolean twnl) {
+        if (ps == null) {
+            return this;
+        }
         this.terminateWithNewLine = twnl;
         return this;
     }
 
     public Printer resetIndent() {
+        if (ps == null) {
+            return this;
+        }
         currentIndent = 0;
         return this;
     }
@@ -109,18 +127,10 @@ public class Printer {
         return print(object, printStackTrace);
     }
 
-    private Printer print(Object object, boolean pst) {
-        failOnClosed();
-        try {
-            makeIndents();
-            printOut(object, pst);
-        } finally {
-            noLongerOnNewLine();
-        }
-        return this;
-    }
-
     public Printer cr() {
+        if (ps == null) {
+            return this;
+        }
         failOnClosed();
         if (!(onNewLine && singleBlankLine && blankLines > 0)) {
             newLine();
@@ -133,6 +143,9 @@ public class Printer {
     }
 
     public Printer ind(int ind) {
+        if (ps == null) {
+            return this;
+        }
         currentIndent += ind;
         return this;
     }
@@ -142,11 +155,20 @@ public class Printer {
     }
 
     public Printer indOut(int out) {
+        if (ps == null) {
+            return this;
+        }
         currentIndent = Math.max(0, currentIndent - out);
         return this;
     }
 
     public Printer close() {
+        if (ps == null) {
+            return this;
+        }
+        if (closed) {
+            return this;
+        }
         try {
             ps.flush();
             if (terminateWithNewLine && !onNewLine) {
@@ -168,6 +190,20 @@ public class Printer {
 
     public DotProgress dotProgress(int interval, int maxDotColumns) {
         return new DotProgress(this, interval, maxDotColumns);
+    }
+
+    private Printer print(Object object, boolean pst) {
+        if (ps == null) {
+            return this;
+        }
+        failOnClosed();
+        try {
+            makeIndents();
+            printOut(object, pst);
+        } finally {
+            noLongerOnNewLine();
+        }
+        return this;
     }
 
     private void makeIndents() {
@@ -193,6 +229,9 @@ public class Printer {
     }
 
     private Printer printSpaces(int spaces) {
+        if (ps == null) {
+            return this;
+        }
         if (spaces < SPC.length) { // Can we shortcut it?
             ps.print(SPC[spaces]);
         } else {
@@ -271,8 +310,8 @@ public class Printer {
         return getClass().getSimpleName() + "[lines:" + lines + (closed ? ", closed" : "") + "]";
     }
 
-    // This is not a wtf, just a premature optimization: indent strings stored in the constant pool! Class'y.
-    // You gotta admit it's an optimization with class.
+    // This is not a wtf, just a premature optimization; indent strings stored in the constant pool!
+    // Admit it, it's an optimization with class.
     private static final String[] SPC = { null,
                                           " ",
                                           "  ",
@@ -298,5 +337,9 @@ public class Printer {
                                           "                      ",
                                           "                       ",
                                           "                        ",
-                                          "                         " };
+                                          "                         ",
+                                          "                          ",
+                                          "                           ",
+                                          "                            ",
+                                          "                             " };
 }
