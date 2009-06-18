@@ -401,7 +401,8 @@ public class SystemPackages {
             "org.apache.log4j.config;version=1.2.15," +
             "org.apache.log4j.nt;version=1.2.15";
 
-    public static final String OSGI = "org.osgi.framework; version=1.6.1," +
+    public static final String OSGI =
+            "org.osgi.framework; version=1.4.0," +
             "org.osgi.service.packageadmin; version=1.2.0," +
             "org.osgi.service.startlevel; version=1.1.0," +
             "org.osgi.service.url; version=1.0.0";
