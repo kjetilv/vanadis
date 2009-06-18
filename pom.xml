@@ -31,8 +31,13 @@
       <dependency>
         <groupId>com.sun.grizzly.osgi</groupId>
         <artifactId>grizzly-httpservice-bundle</artifactId>
-        <version>1.9.15a</version>
+          <version>1.9.15a</version>
       </dependency>
+        <dependency>
+          <groupId>com.sun.grizzly</groupId>
+          <artifactId>grizzly-servlet-webserver</artifactId>
+          <version>1.9.15a</version>
+        </dependency>
       <dependency>
         <groupId>org.eclipse.osgi</groupId>
         <artifactId>org.eclipse.osgi</artifactId>

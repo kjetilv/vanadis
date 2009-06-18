@@ -149,6 +149,10 @@
       <artifactId>grizzly-httpservice-bundle</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.sun.grizzly</groupId>
+      <artifactId>grizzly-servlet-webserver</artifactId>
+    </dependency>
+    <dependency>
       <groupId>vanadis.lang</groupId>
       <artifactId>vanadis.lang.piji</artifactId>
     </dependency>

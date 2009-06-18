@@ -66,7 +66,7 @@
   </blueprint>
 
   <blueprint name="grizzly-networking">
-    <bundle group="com.sun.grizzly.osgi" artifact="grizzly-servlet-webserver" version="1.9.15a"/>    
+    <bundle group="com.sun.grizzly" artifact="grizzly-servlet-webserver" version="1.9.15a"/>
   </blueprint>
 
   <blueprint name="grizzly-http">
@@ -79,18 +79,19 @@
         <property name="org.osgi.service.http.port.secure">baseport+81</property>
       </properties>
     </bundle>
-    <bundle group="vanadis.modules" artifact="httpwhiteboard"/>
+      <bundle group="vanadis.modules" artifact="vanadis.modules.httpwhiteboard"/>
   </blueprint>
 
   <blueprint name="jetty-http">
     <bundle group="javax.servlet" artifact="com.springsource.javax.servlet" version="2.5.0"/>
-    <bundle group="org.apache.felix" artifact="org.apache.felix.http.jetty" version="1.0.0">
+    <bundle group="org.apache.felix" artifact="org.apache.felix.http.jetty" 
+            global-properties="true" version="1.0.0">
       <properties>
         <property name="org.osgi.service.http.port">baseport+80</property>
         <property name="org.osgi.service.http.port.secure">baseport+80</property>
       </properties>
     </bundle>
-    <bundle group="vanadis.modules" artifact="httpwhiteboard"/>
+      <bundle group="vanadis.modules" artifact="vanadis.modules.httpwhiteboard"/>
   </blueprint>
 
   <!-- Template for full stand-alone vanadis -->
@@ -103,7 +104,6 @@
     <bundle group="vanadis.lang" artifact="vanadis.lang.piji"/>
 
     <bundles group="vanadis.modules" artifact-prefix="vanadis.modules">
-      <bundle artifact="httpwhiteboard"/>
       <bundle artifact="jmxsetup"/>
       <bundle artifact="networker"/>
       <bundle artifact="remoting"/>
