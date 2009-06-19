@@ -79,10 +79,10 @@ class FrameworkExtender {
         command("v-launch", "launch bundles", new LaunchExecution(asynchSystemEvents));
         command("v-install", "install bundles from maven repository", new InstallFromRepoExecution());
         command("v-list", "list managed objects [-v, {type,name}=foo]", new ListExecution());
+        command("v-unresolved", "list unresolved bundles, and why", new UnresolvedExecution(synchSystemEvents.getBundles()));
         command("v-env", "describe environment", new EnvExecution());
         command("v-logfile", "list log file(s)", new LogFileExecution());
     }
-
 
     Context getContext() {
         return context;

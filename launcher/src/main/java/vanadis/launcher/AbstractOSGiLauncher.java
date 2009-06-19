@@ -18,9 +18,9 @@ package vanadis.launcher;
 
 import org.osgi.framework.*;
 import org.osgi.service.packageadmin.PackageAdmin;
+import vanadis.blueprints.BundleResolver;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.SystemSpecification;
-import vanadis.blueprints.BundleResolver;
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Member;
 import vanadis.core.io.Location;
@@ -33,10 +33,7 @@ import vanadis.util.log.Logs;
 
 import java.io.PrintStream;
 import java.net.URI;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Dictionary;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @EntryPoint("Subclasses discovered at runtime")
@@ -197,8 +194,38 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
 
     protected abstract void stopFramework();
 
+    protected abstract String osgiExports();
+
     protected final SystemSpecification getSystemSpecification() {
         return systemSpecification;
+    }
+
+    protected Map<String, Object> getStandardPackagesConfiguration() {
+        Map<String, Object> configuration = Generic.map();
+        configuration.put(Constants.FRAMEWORK_SYSTEMPACKAGES, systemPackages());
+        configuration.put(Constants.FRAMEWORK_BOOTDELEGATION, bootDelegationPackages());
+        return configuration;
+    }
+
+    private String systemPackages() {
+        return new StringBuilder
+                (SystemPackages.JDK).append(",").append
+                (osgiExports()).append(",").append
+                (SystemPackages.UTIL).append(",").append
+                (SystemPackages.LOG4J).toString();
+    }
+
+    private static String bootDelegationPackages() {
+        String[] bootDelegationPackages =
+                new String[]{SystemPackages.PROFILING, SystemPackages.COVERAGE};
+        if (VarArgs.present(bootDelegationPackages)) {
+            StringBuilder sb = new StringBuilder(bootDelegationPackages[0]);
+            for (int i = 1; i < bootDelegationPackages.length; i++) {
+                sb.append(",").append(bootDelegationPackages[i]);
+            }
+            return sb.toString();
+        }
+        return null;
     }
 
     protected final void setLaunchState(URI home, Location location,
@@ -211,19 +238,6 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
         this.location = setOnceTo(this.location, location, "location");
         this.bundleResolvers = setOnceTo(this.bundleResolvers, bundleResolvers, "bundle resolvers");
         this.systemSpecification = setOnceTo(this.systemSpecification, systemSpecification, "system specification");
-    }
-
-    protected String bootDelegationPackages() {
-        String[] bootDelegationPackages =
-                new String[]{SystemPackages.PROFILING, SystemPackages.COVERAGE};
-        if (VarArgs.present(bootDelegationPackages)) {
-            StringBuilder sb = new StringBuilder(bootDelegationPackages[0]);
-            for (int i = 1; i < bootDelegationPackages.length; i++) {
-                sb.append(",").append(bootDelegationPackages[i]);
-            }
-            return sb.toString();
-        }
-        return null;
     }
 
     private <T> T setOnceTo(T current, T value, String desc) {
@@ -285,16 +299,6 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
         }
     }
 
-    protected static final String FELIX_CACHE = "felix-cache";
-
-    protected static String systemPackages() {
-        return new StringBuilder
-                (SystemPackages.JDK).append(",").append
-                (SystemPackages.OSGI).append(",").append
-                (SystemPackages.UTIL).append(",").append
-                (SystemPackages.LOG4J).toString();
-    }
-
     private static final Log log = Logs.get(AbstractOSGiLauncher.class);
 
     private static void shutdown(Bundle bundle) throws BundleException {
@@ -353,4 +357,5 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
     private static Boolean wait(Waiter waiter, TimeSpan timeout, TimeSpan retry) {
         return timeout.newDeadline().tryEvery(retry, waiter);
     }
+
 }

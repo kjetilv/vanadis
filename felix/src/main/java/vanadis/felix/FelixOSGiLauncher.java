@@ -16,6 +16,10 @@
 
 package vanadis.felix;
 
+import org.apache.felix.framework.Felix;
+import org.apache.felix.framework.cache.BundleCache;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Files;
 import vanadis.core.io.Location;
@@ -23,11 +27,6 @@ import vanadis.core.lang.ToString;
 import vanadis.launcher.AbstractOSGiLauncher;
 import vanadis.launcher.ShutdownException;
 import vanadis.launcher.StartupException;
-import org.apache.felix.framework.Felix;
-import org.apache.felix.framework.cache.BundleCache;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
-import org.osgi.framework.Constants;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +36,13 @@ import java.util.Map;
 public class FelixOSGiLauncher extends AbstractOSGiLauncher {
 
     private Felix felix;
+
+    public static final String FELIX_EXPORTS =
+            "org.osgi.service.packageadmin;uses:=\"org.osgi.framework\";version=\"1.2\"," +
+            "org.osgi.framework.hooks.service;uses:=\"org.osgi.framework\",org.osgi.service.url;version=\"1.0\"," +
+            "org.osgi.service.startlevel;uses:=\"org.osgi.framework\";version=\"1.1\"," +
+            "org.osgi.framework;version=\"1.4\"," +
+            "org.osgi.framework.launch;uses:=\"org.osgi.framework\",org.osgi.util.tracker;uses:=\"org.osgi.framework\";version=\"1.3.3\"";
 
     @Override
     protected BundleContext launchedBundleContext() {
@@ -61,16 +67,21 @@ public class FelixOSGiLauncher extends AbstractOSGiLauncher {
         }
     }
 
+    @Override
+    protected String osgiExports() {
+        return FELIX_EXPORTS;
+    }
+
     private Map<String, Object> createNewConfiguration() {
-        Map<String, Object> configuration = Generic.map();
-        configuration.put(Constants.FRAMEWORK_SYSTEMPACKAGES, systemPackages());
-        configuration.put(Constants.FRAMEWORK_BOOTDELEGATION, bootDelegationPackages());
+        Map<String, Object> configuration = getStandardPackagesConfiguration();
         configuration.put(BundleCache.CACHE_ROOTDIR_PROP, cacheDirectory(homeDirectory(getHome())).getAbsolutePath());
         setHome(configuration, getHome());
         setRepo(configuration, getSystemSpecification().getRepo());
         setLocation(configuration, getLocation());
         return Generic.seal(configuration);
     }
+
+    private static final String FELIX_CACHE = "felix-cache";
 
     private static void clearCache(URI home) {
         if (home != null) {

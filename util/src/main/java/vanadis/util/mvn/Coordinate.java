@@ -273,7 +273,8 @@ public final class Coordinate implements Serializable {
             throw new IllegalStateException(this + " has no version, cannot resolve to URI in repo @ " + repo);
         }
         String ver = version.toVersionString();
-        String directory = slash(repo.getRawPath()) + slash(slash(slash(groupIdPath) + artifactId) + ver);
+        String artifactIdDir = slash(repo.getRawPath()) + slash(slash(slash(groupIdPath) + artifactId));
+        String directory = slash(artifactIdDir + ver);
         URI directReference = toPath(repo, directory, ver);
         if (validate) {
             URI liveDirectReference = live(directReference);
@@ -282,9 +283,19 @@ public final class Coordinate implements Serializable {
             } else if (version.isSnapshot()) {
                 return metadataDrivenReference(repo, directory, directReference);
             }
-            throw new IllegalStateException(this + " could not be found in " + repo);
+            throw new IllegalStateException
+                    (this + " could not be found in " + repo + listVersionsForExceptionMessage(artifactIdDir));
         }
         return directReference;
+    }
+
+    private static String listVersionsForExceptionMessage(String directory) {
+        try {
+            List<Version> versions = versionsByIncreasingAge(new File(directory));
+            return versions == null || versions.isEmpty() ? "" : ", found: " + versions;
+        } catch (Exception ignore) {
+            return "";
+        }
     }
 
     private URI metadataDrivenReference(URI repo, String directory, URI directReference) {
@@ -471,12 +482,14 @@ public final class Coordinate implements Serializable {
         if (version != null) {
             return version;
         }
+        List<Version> versions = versionsByIncreasingAge(artifactIdDir);
+        return versions == null ? null : versions.get(0);
+    }
+
+    private static List<Version> versionsByIncreasingAge(File artifactIdDir) {
         File[] directories = artifactIdDir.listFiles(new VersionDirectories());
-        if (directories == null || directories.length == 0) {
-            return null;
-        }
-        List<Version> versions = versionsByIncreasingAge(directories);
-        return versions.get(0);
+        return directories == null || directories.length == 0 ? null
+                : versionsByIncreasingAge(directories);
     }
 
     private class PackagingFilter implements FilenameFilter {

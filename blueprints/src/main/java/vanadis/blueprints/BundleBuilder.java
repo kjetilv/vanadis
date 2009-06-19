@@ -122,6 +122,9 @@ final class BundleBuilder {
         if (uri != null) {
             return BundleSpecification.createFixed(URI.create(uri), startLevel, propertySet, globalProperties);
         }
+        if (artifact == null) {
+            throw new IllegalStateException(this + " has no uri or artifact");
+        }
         String group = groupPrefix == null
                 ? notNil(this.group, "group")
                 : append(groupPrefix, this.group);

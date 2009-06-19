@@ -56,6 +56,10 @@ class SystemEventsImpl implements SystemEvents {
         this.bundles = new Bundles(bundleContext, context);
     }
 
+    Bundles getBundles() {
+        return bundles;
+    }
+
     public void setAsynchYou(SystemEvents asynch) {
         Not.nil(asynch, "asynch reference");
         if (this.asynch != null) {

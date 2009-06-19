@@ -47,9 +47,13 @@ final class ListExecution implements CommandExecution {
         }
         p.p("Managed objects:").cr();
         writeObjectManagerReferences(p, context, property, type, verbose, moduleNames);
+        writeOrphanModules(p, moduleNames);
+    }
+
+   private static void writeOrphanModules(Printer p, Set<String> moduleNames) {
         if (!moduleNames.isEmpty()) {
-            p.p("Orphan modules: ").cr();
-            p.p("  ").p(moduleNames).cr();
+            p.p("Orphan modules: ").cr().
+                    ind().p(moduleNames).outd().cr();
         }
     }
 
@@ -241,6 +245,7 @@ final class ListExecution implements CommandExecution {
                 }
                 p.outd();
             }
+            p.outd();
         }
     }
 
@@ -262,14 +267,15 @@ final class ListExecution implements CommandExecution {
         PropertySet ps = properties.getPropertySet();
         int size = ps.size();
         String[] objectClasses = CoreProperty.OBJECTCLASSES.lookupIn(ps);
+        p.ind();
         if (objectClasses == null || objectClasses.length == 0) {
             p.p(properties.getMainClassName()).cr();
         } else if (objectClasses.length == 1) {
             size--;
-            p.ind().p("objectClass=").p(objectClasses[0]).outd().cr();
+            p.p("objectClass=").p(objectClasses[0]).cr();
         } else {
             size--;
-            p.ind().p("objectClasses=").p(Arrays.toString(objectClasses)).outd().cr();
+            p.p("objectClasses=").p(Arrays.toString(objectClasses)).cr();
         }
         if (CoreProperty.SERVICE_ID.isSetIn(ps)) {
             size--;
@@ -278,14 +284,16 @@ final class ListExecution implements CommandExecution {
             size--;
         }
         if (size > 0) {
+            p.ind();
             for (String property : ps) {
                 if (!(property.equals(CoreProperty.OBJECTCLASSES_NAME) ||
                         property.equals(CoreProperty.SERVICE_ID_NAME) ||
                         property.equals(CoreProperty.SERVICE_PID_NAME))) {
-                    p.ind().p(property).p("=").p(ps.get(property)).outd().cr();
+                    p.p(property).p("=").p(ps.get(property)).cr();
                 }
             }
         }
+        p.outd();
         return p;
     }
 }

@@ -84,7 +84,7 @@
 
   <blueprint name="jetty-http">
     <bundle group="javax.servlet" artifact="com.springsource.javax.servlet" version="2.5.0"/>
-    <bundle group="org.apache.felix" artifact="org.apache.felix.http.jetty" 
+    <bundle group="org.apache.felix" artifact="org.apache.felix.http.jetty"
             global-properties="true" version="1.0.0">
       <properties>
         <property name="org.osgi.service.http.port">baseport+80</property>

@@ -15,6 +15,11 @@
  */
 package vanadis.extrt;
 
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.service.packageadmin.PackageAdmin;
+import org.osgi.service.startlevel.StartLevel;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Member;
@@ -26,11 +31,6 @@ import vanadis.osgi.OSGiException;
 import vanadis.osgi.OSGiUtils;
 import vanadis.util.log.Log;
 import vanadis.util.log.Logs;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
-import org.osgi.service.packageadmin.PackageAdmin;
-import org.osgi.service.startlevel.StartLevel;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -53,6 +53,10 @@ class Bundles implements Iterable<Bundle>, Closeable {
     private final PackageAdmin packageAdmin;
 
     private final StartLevel startLevel;
+
+    private final Map<Long,Bundle> unresolvedBundles = Generic.map();
+
+    private final Map<String,BundleException> lastNamedResolveErrors = Generic.map();
 
     Bundles(BundleContext bundleContext, Context context) {
         this(bundleContext, context, 100);
@@ -132,6 +136,26 @@ class Bundles implements Iterable<Bundle>, Closeable {
     public Long getBundleId(BundleSpecification specification) {
         Bundle bundle = getBundle(specification, false);
         return bundle == null ? null : bundle.getBundleId();
+    }
+
+    boolean hasUnresolved() {
+        return !(unresolvedBundles.isEmpty() && lastNamedResolveErrors.isEmpty());
+    }
+
+    Iterable<Long> uresolvedIds() {
+        return unresolvedBundles.keySet();
+    }
+
+    Bundle unresolvedBundle(long id) {
+        return unresolvedBundles.get(id);
+    }
+
+    Iterable<String> uresolvedNames() {
+        return lastNamedResolveErrors.keySet();
+    }
+
+    BundleException resolveError(String id) {
+        return lastNamedResolveErrors.get(id);
     }
 
     public Bundle getBundle(long bundleId) {
@@ -256,6 +280,60 @@ class Bundles implements Iterable<Bundle>, Closeable {
         return inactive;
     }
 
+    private boolean wasStarted(Bundle bundle, Collection<Throwable> exceptions) {
+        int initialState = bundle.getState();
+        long id = bundle.getBundleId();
+        if (isStarted(initialState)) {
+            return true;
+        }
+        if (Member.of(initialState, Bundle.INSTALLED, Bundle.RESOLVED)) {
+            try {
+                bundle.start();
+                markStarted(bundle);
+            } catch (BundleException e) {
+                handle(bundle, exceptions, e);
+            }
+        }
+        int finalBundleState;
+        try {
+            finalBundleState = bundle.getState();
+        } catch (Exception e) {
+            log.error("Bundle " + id + " failed to reveal its state after start attempt", e);
+            return false;
+        }
+        return Member.of(finalBundleState, Bundle.ACTIVE, Bundle.STARTING);
+    }
+
+    private void markStarted(Bundle bundle) {
+        long bundleId = bundle.getBundleId();
+        String string = bundleId + ", symbolic name: " + bundle.getSymbolicName() + " @ " + bundle.getLocation();
+        if (clearedErrors(bundle)) {
+            log.info("Started bundle " + string);
+        } else {
+            log.info("Finally!... resolved bundle " + string);
+        }
+    }
+
+    private void handle(Bundle bundle, Collection<Throwable> exceptions, BundleException e) {
+        storeErrors(bundle, e);
+        exceptions.add(e);
+        if (bundle.getState() == Bundle.INSTALLED || justAnotherUnresolvedBundle(e)) {
+            log.info("Not yet resolved: " + bundle.getSymbolicName() + ": " + e);
+        } else {
+            log.error("Failed to start " + bundle.getSymbolicName(), e);
+        }
+    }
+
+    private boolean clearedErrors(Bundle bundle) {
+        return unresolvedBundles.remove(bundle.getBundleId()) == null
+                & lastNamedResolveErrors.remove(bundle.getSymbolicName()) == null;
+    }
+
+    private void storeErrors(Bundle bundle, BundleException e) {
+        unresolvedBundles.put(bundle.getBundleId(), bundle);
+        lastNamedResolveErrors.put(bundle.getSymbolicName(), e);
+    }
+
     private static final Log log = Logs.get(vanadis.extrt.Bundles.class);
 
     private static final String EQUINOX_UNRESOLVED = "bundle could not be resolved";
@@ -295,43 +373,6 @@ class Bundles implements Iterable<Bundle>, Closeable {
         }
     }
 
-    private static boolean wasStarted(Bundle bundle, Collection<Throwable> exceptions) {
-        int initialState = bundle.getState();
-        long id = bundle.getBundleId();
-        if (isStarted(initialState)) {
-            return true;
-        }
-        if (Member.of(initialState, Bundle.INSTALLED, Bundle.RESOLVED)) {
-            String name = bundle.getSymbolicName();
-            try {
-                bundle.start();
-                log.info("Started bundle " + id + ", symbolic name: " + name + " @ " + bundle.getLocation());
-                return true;
-            } catch (BundleException e) {
-                handle(name, exceptions, e);
-            }
-        }
-        int finalBundleState;
-        try {
-            finalBundleState = bundle.getState();
-        } catch (Exception e) {
-            log.error("Bundle " + id + " failed to reveal its state after start attempt", e);
-            return false;
-        }
-        return Member.of(finalBundleState, Bundle.ACTIVE, Bundle.STARTING);
-    }
-
-    private static void handle(String name, Collection<Throwable> exceptions,
-                               BundleException bundleException) {
-        String message = bundleException.getMessage().toLowerCase();
-        if (justAnotherUnresolvedBundle(message)) {
-            log.info("Not yet resolved: " + name + ": " + message);
-        } else {
-            log.error("Failed to start " + name, bundleException);
-            exceptions.add(bundleException);
-        }
-    }
-
     private static void stop(Bundle bundle) {
         if (Member.of(bundle.getState(), Bundle.ACTIVE, Bundle.STARTING)) {
             try {
@@ -350,7 +391,8 @@ class Bundles implements Iterable<Bundle>, Closeable {
         return Member.of(state, Bundle.ACTIVE, Bundle.STARTING, Bundle.STOPPING);
     }
 
-    private static boolean justAnotherUnresolvedBundle(String message) {
+    private static boolean justAnotherUnresolvedBundle(Exception e) {
+        String message = e.getMessage().toLowerCase();
         return message.contains(EQUINOX_UNRESOLVED) ||
                 message.contains(FELIX_UNRESOLVED) ||
                 message.contains(FELIX_UNRESOLVED_2);
