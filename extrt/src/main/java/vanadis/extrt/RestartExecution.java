@@ -15,15 +15,15 @@
  */
 package vanadis.extrt;
 
-import vanadis.ext.CommandExecution;
 import vanadis.core.text.Printer;
+import vanadis.ext.CommandExecution;
 import vanadis.osgi.Context;
 
-public class RestartExecution implements CommandExecution {
+class RestartExecution implements CommandExecution {
 
     private final FrameworkExtenderBundleActivator bundleActivator;
 
-    public RestartExecution(FrameworkExtenderBundleActivator bundleActivator) {
+    RestartExecution(FrameworkExtenderBundleActivator bundleActivator) {
         this.bundleActivator = bundleActivator;
     }
 

@@ -5,11 +5,11 @@ import vanadis.core.text.Printer;
 import vanadis.ext.CommandExecution;
 import vanadis.osgi.Context;
 
-public class UnresolvedExecution implements CommandExecution {
+class UnresolvedExecution implements CommandExecution {
 
     private final Bundles bundles;
 
-    public UnresolvedExecution(Bundles bundles) {
+    UnresolvedExecution(Bundles bundles) {
         this.bundles = bundles;
     }
 
