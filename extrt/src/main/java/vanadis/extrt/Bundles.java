@@ -217,17 +217,21 @@ class Bundles implements Iterable<Bundle>, Closeable {
 
     private void tryStartingBundles(BundleSpecification uri) {
         Collection<Throwable> exceptions = Generic.list();
-        startBundles(exceptions);
+        Collection<Long> started = Generic.linkedHashSet();
+        startBundles(exceptions, started);
+        if (!started.isEmpty()) {
+            log.info(this + " got " + started + " bundles started after installing " + uri + ": " + started);
+        }
         if (!exceptions.isEmpty()) {
-            log.error(this + " got " + exceptions.size() + " exceptions when installing " + uri);
+            log.warn(this + " got " + exceptions.size() + " exceptions when installing " + uri);
         }
     }
 
-    private void startBundles(Collection<Throwable> exceptions) {
+    private void startBundles(Collection<Throwable> exceptions, Collection<Long> started) {
         int currentInactive = Integer.MAX_VALUE;
         while (true) {
             int previousInactive = currentInactive;
-            currentInactive = startResolvedBundles(exceptions);
+            currentInactive = startResolvedBundles(exceptions, started);
             if (currentInactive == 0 || currentInactive == previousInactive) {
                 return;
             }
@@ -270,11 +274,13 @@ class Bundles implements Iterable<Bundle>, Closeable {
         }
     }
 
-    private int startResolvedBundles(Collection<Throwable> exceptions) {
+    private int startResolvedBundles(Collection<Throwable> exceptions, Collection<Long> nowResolved) {
         int inactive = 0;
         for (Bundle bundle : bundleContext.getBundles()) {
             if (!(isStarted(bundle) || wasStarted(bundle, exceptions))) {
                 inactive++;
+            } else {
+                nowResolved.add(bundle.getBundleId());
             }
         }
         return inactive;
