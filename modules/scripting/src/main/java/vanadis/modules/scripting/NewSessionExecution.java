@@ -15,21 +15,20 @@
  */
 package vanadis.modules.scripting;
 
-import vanadis.ext.CommandExecution;
 import vanadis.core.text.Printer;
+import vanadis.ext.CommandExecution;
 import vanadis.osgi.Context;
 import vanadis.osgi.Reference;
 import vanadis.services.scripting.ScriptingSessions;
 
-public class NewSessionExecution implements CommandExecution {
+class NewSessionExecution implements CommandExecution {
 
     private final ScriptingSessions sessions;
 
-    public NewSessionExecution(ScriptingSessions sessions) {
+    NewSessionExecution(ScriptingSessions sessions) {
         this.sessions = sessions;
     }
 
-    @SuppressWarnings({"UnusedDeclaration"})
     @Override
     public void exec(String command, String[] args, Printer ps, Context context) {
         String arg = args[2];

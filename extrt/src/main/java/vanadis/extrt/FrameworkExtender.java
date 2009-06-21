@@ -74,14 +74,14 @@ class FrameworkExtender {
                 (BundleSpecification.class, null,
                  new BundleSpecMediatorListener(this.asynchSystemEvents));
 
-        command("v-exit-ext", "clean exit vanadis", new QuitExecution(this));
-        command("v-reload", "reload bundles", new ReloadExecution(asynchSystemEvents));
-        command("v-launch", "launch bundles", new LaunchExecution(asynchSystemEvents));
-        command("v-install", "install bundles from maven repository", new InstallFromRepoExecution());
-        command("v-list", "list managed objects [-v, {type,name}=foo]", new ListExecution());
-        command("v-unresolved", "list unresolved bundles, and why", new UnresolvedExecution(synchSystemEvents.getBundles()));
-        command("v-env", "describe environment", new EnvExecution());
-        command("v-logfile", "list log file(s)", new LogFileExecution());
+        cmd("exit-ext", "clean exit vanadis", new QuitExecution(this));
+        cmd("reload", "reload bundles", new ReloadExecution(asynchSystemEvents));
+        cmd("launch", "launch bundles", new LaunchExecution(asynchSystemEvents));
+        cmd("install", "install bundles from maven repository", new InstallFromRepoExecution());
+        cmd("list", "list managed objects [-v, {type,name}=foo]", new ListExecution());
+        cmd("env", "describe environment", new EnvExecution());
+        cmd("logfile", "list log file(s)", new LogFileExecution());
+        cmd("unresolved", "list unresolved bundles", new UnresolvedExecution(synchSystemEvents.getBundles()));
     }
 
     Context getContext() {
@@ -102,9 +102,9 @@ class FrameworkExtender {
         synchSystemEvents.close();
     }
 
-    private void command(String name, String desc, CommandExecution exec) {
+    private void cmd(String name, String desc, CommandExecution exec) {
         commandRegistrations.add
-                (context.register(new GenericCommand(name, desc, this.context, exec), Command.class));
+                (context.register(new GenericCommand("v-" + name, desc, this.context, exec), Command.class));
     }
 
     private void unregisterCommands() {

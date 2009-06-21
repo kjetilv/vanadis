@@ -16,34 +16,34 @@
 
 package vanadis.equinox;
 
+import org.eclipse.core.runtime.adaptor.EclipseStarter;
+import org.osgi.framework.BundleContext;
 import vanadis.launcher.AbstractOSGiLauncher;
 import vanadis.launcher.ShutdownException;
 import vanadis.launcher.StartupException;
-import org.eclipse.core.runtime.adaptor.EclipseStarter;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.Constants;
+
+import java.util.Map;
 
 public class EquinoxOSGiLauncher extends AbstractOSGiLauncher {
 
     @Override
     protected BundleContext launchedBundleContext() {
-        set("vanadis.home", getHome().toASCIIString());
-        set("vanadis.location", getLocation().toLocationString());
-        set("eclipse.ignoreApp", "true");
-        set("eclipse.startTime", Long.toString(System.currentTimeMillis()));
-        set("osgi.clean", "true");
-        set("osgi.compatibility.bootdelegation", "true");
-        set(Constants.FRAMEWORK_SYSTEMPACKAGES, systemPackages());
-        set(Constants.FRAMEWORK_BOOTDELEGATION, bootDelegationPackages());
-        set(EclipseStarter.PROP_CONSOLE, "");
-        set(EclipseStarter.PROP_NOSHUTDOWN, "true");
+        Map<String,Object> map = getStandardPackagesConfiguration();
+        set(map, "vanadis.home", getHome().toASCIIString());
+        set(map, "vanadis.location", getLocation().toLocationString());
+        set(map, "eclipse.ignoreApp", "true");
+        set(map, "eclipse.startTime", Long.toString(System.currentTimeMillis()));
+        set(map, "osgi.clean", "true");
+        set(map, "osgi.compatibility.bootdelegation", "true");
+        set(map, EclipseStarter.PROP_CONSOLE, "");
+        set(map, EclipseStarter.PROP_NOSHUTDOWN, "true");
         BundleContext bundleContext = newBundleContext();
         runIt();
         return bundleContext;
     }
 
-    private void set(String key, String value) {
-        System.setProperty(key, value);
+    private void set(Map<String,Object> map, String key, String value) {
+        map.put(key, value);
     }
 
     private static void runIt() {
