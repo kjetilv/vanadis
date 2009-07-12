@@ -653,6 +653,7 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="vanadis.util" exported="" />
     <orderEntry type="library" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.codehaus.mojo:exec-maven-plugin:sources:1.1.1" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.maven:maven-toolchain:1.0" level="project" />
@@ -698,15 +699,20 @@
     <orderEntry type="library" exported="" name="Maven: org.codehaus.mojo:exec-maven-plugin:1.1.1" level="project" />
     <orderEntry type="module" module-name="vanadis.main" exported="" />
     <orderEntry type="module" module-name="vanadis.launcher" exported="" />
-    <orderEntry type="module" module-name="vanadis.util" exported="" />
-    <orderEntry type="module" module-name="vanadis.core" exported="" />
-    <orderEntry type="module" module-name="vanadis.core" exported="" />
-    <orderEntry type="library" exported="" name="Maven: org.apache.log4j:com.springsource.org.apache.log4j:1.2.15" level="project" />
-    <orderEntry type="module" module-name="vanadis.blueprints" exported="" />
+    <orderEntry type="library" exported="" name="Maven: org.slf4j:slf4j-api:1.5.8" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.ops4j.pax.url:pax-url-wrap:1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.ops4j.pax.url:pax-url-mvn:1.0.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.felix:org.osgi.core:1.2.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.felix:org.osgi.compendium:1.2.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.felix:javax.servlet:1.0.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.felix:org.osgi.foundation:1.2.0" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.apache.felix:org.apache.felix.configadmin:1.0.10" level="project" />
+    <orderEntry type="library" exported="" name="Maven: vanadis:vanadis.util:1.1-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="vanadis.core" exported="" />
+    <orderEntry type="module" module-name="vanadis.core" exported="" />
+    <orderEntry type="library" exported="" name="Maven: org.slf4j:slf4j-simple:1.5.8" level="project" />
+    <orderEntry type="module" module-name="vanadis.mvn" exported="" />
+    <orderEntry type="module" module-name="vanadis.blueprints" exported="" />
     <orderEntry type="module" module-name="vanadis.felix" exported="" />
     <orderEntry type="library" exported="" name="Maven: org.apache.felix:org.apache.felix.main:1.8.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.felix:org.apache.felix.framework:1.8.0" level="project" />

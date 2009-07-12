@@ -18,18 +18,17 @@ package vanadis.launcher;
 
 import org.osgi.framework.*;
 import org.osgi.service.packageadmin.PackageAdmin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.blueprints.BundleResolver;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.SystemSpecification;
 import vanadis.core.collections.Generic;
-import vanadis.core.collections.Member;
 import vanadis.core.io.Location;
 import vanadis.core.lang.EntryPoint;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.VarArgs;
 import vanadis.core.time.TimeSpan;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.io.PrintStream;
 import java.net.URI;
@@ -181,12 +180,14 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
     }
 
     private static void startBundle(BundleContext bundleContext, Bundle bundle, List<Bundle> bundles) {
-        try {
-            bundle.start();
-        } catch (BundleException e) {
-            throw new StartupException
-                    (bundleContext + " failed to start bundle " + bundle + ", " +
-                            bundles.size() + " was started: " + bundles, e);
+        if (isNonFragment(bundle)) {
+            try {
+                bundle.start();
+            } catch (BundleException e) {
+                throw new StartupException
+                        (bundleContext + " failed to start bundle " + bundle + ", " +
+                                bundles.size() + " was started: " + bundles, e);
+            }
         }
     }
 
@@ -211,8 +212,7 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
         return new StringBuilder
                 (SystemPackages.JDK).append(",").append
                 (osgiExports()).append(",").append
-                (SystemPackages.UTIL).append(",").append
-                (SystemPackages.LOG4J).toString();
+                (SystemPackages.UTIL).toString();
     }
 
     private static String bootDelegationPackages() {
@@ -290,7 +290,7 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
                     shutdown(bundle);
                     print(stream, ".");
                 } catch (Throwable e) {
-                    if (log.isDebug()) {
+                    if (log.isDebugEnabled()) {
                         log.debug("Bundle " + bundleId + " failed to stop: " + bundle, e);
                     }
                     print(stream, "x");
@@ -299,7 +299,7 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
         }
     }
 
-    private static final Log log = Logs.get(AbstractOSGiLauncher.class);
+    private static final Logger log = LoggerFactory.getLogger(AbstractOSGiLauncher.class);
 
     private static void shutdown(Bundle bundle) throws BundleException {
         String bundleString = null;
@@ -309,7 +309,8 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
             log.warn("Failed to get bundle data", e);
         }
         try {
-            if (Member.of(bundle.getState(), Bundle.ACTIVE, Bundle.STARTING, Bundle.STOPPING)) {
+            int state = bundle.getState();
+            if (state == Bundle.ACTIVE || state == Bundle.STARTING || state == Bundle.STOPPING) {
                 bundle.stop();
             }
         } finally {
@@ -320,6 +321,10 @@ public abstract class AbstractOSGiLauncher implements OSGiLauncher {
             }
         }
         log.info("Shutdown: " + bundleString);
+    }
+
+    private static boolean isNonFragment(Bundle bundle) {
+        return bundle.getHeaders().get(Constants.FRAGMENT_HOST) == null;
     }
 
     private static Bundle install(BundleContext bundleContext, BundleSpecification specification) {

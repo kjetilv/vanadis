@@ -17,12 +17,12 @@ package vanadis.modules.dist;
 
 import vanadis.ext.*;
 import vanadis.services.remoting.Remoting;
-import vanadis.util.collect.Generic;
-import vanadis.util.io.Location;
-import vanadis.util.lang.ToString;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
-import vanadis.util.time.TimeSpan;
+import vanadis.core.collect.Generic;
+import vanadis.core.io.Location;
+import vanadis.core.lang.ToString;
+import vanadis.core.log.Log;
+import vanadis.core.log.Logs;
+import vanadis.core.time.TimeSpan;
 import org.jgroups.JChannel;
 import org.w3c.dom.Element;
 

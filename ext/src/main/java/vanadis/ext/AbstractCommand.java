@@ -17,13 +17,13 @@ package vanadis.ext;
 
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Pair;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.core.text.Printer;
 import vanadis.osgi.Context;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -34,7 +34,7 @@ import java.util.Arrays;
  */
 public abstract class AbstractCommand implements Command {
 
-    private static final Log log = Logs.get(AbstractCommand.class);
+    private static final Logger log = LoggerFactory.getLogger(AbstractCommand.class);
 
     private final String name;
 

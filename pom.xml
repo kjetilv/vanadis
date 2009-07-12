@@ -84,9 +84,19 @@
         <version>1.1.1</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.log4j</groupId>
-        <artifactId>com.springsource.org.apache.log4j</artifactId>
-        <version>1.2.15</version>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.5.8</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>1.5.8</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-jdk14</artifactId>
+        <version>1.5.8</version>
       </dependency>
       <dependency>
         <groupId>org.jgroups</groupId>
@@ -238,11 +248,6 @@
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>vanadis</groupId>
-        <artifactId>vanadis.log4jsetup</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.networker</artifactId>
         <version>1.1-SNAPSHOT</version>
@@ -296,6 +301,16 @@
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
+        <artifactId>vanadis.mvn</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.concurrent</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
         <artifactId>vanadis.util</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
@@ -329,13 +344,6 @@
         <groupId>vanadis</groupId>
         <artifactId>vanadis.blueprints</artifactId>
         <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>vanadis</groupId>
-        <artifactId>vanadis.util</artifactId>
-        <version>1.1-SNAPSHOT</version>
-        <type>test-jar</type>
-        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
@@ -576,18 +584,19 @@
   </build>
   <modules>
     <module>core</module>
-    <module>util</module>
     <module>vanadis-maven-plugin</module>
   </modules>
   <profiles>
     <profile>
       <id>vanadis</id>
       <modules>
+        <module>concurrent</module>
+        <module>mvn</module>
+        <!--<module>util</module>-->
         <module>osgi</module>
         <module>objectmanagers</module>
         <module>blueprints</module>
         <module>annopro</module>
-        <module>log4jsetup</module>
         <module>deployer</module>
         <module>lang</module>
         <module>ext</module>

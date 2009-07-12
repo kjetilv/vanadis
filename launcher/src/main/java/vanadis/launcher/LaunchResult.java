@@ -17,18 +17,18 @@ package vanadis.launcher;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.util.Collections;
 import java.util.List;
 
 public final class LaunchResult {
 
-    private final Log log = Logs.get(LaunchResult.class);
+    private final Logger log = LoggerFactory.getLogger(LaunchResult.class);
 
     private final BundleContext bundleContext;
 

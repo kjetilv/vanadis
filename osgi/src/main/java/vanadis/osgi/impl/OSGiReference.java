@@ -15,6 +15,10 @@
  */
 package vanadis.osgi.impl;
 
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.lang.EqHc;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
@@ -22,14 +26,10 @@ import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.osgi.AbstractReference;
 import vanadis.osgi.ServiceProperties;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 
 final class OSGiReference<T> extends AbstractReference<T> {
 
-    private static final Log log = Logs.get(OSGiReference.class);
+    private static final Logger log = LoggerFactory.getLogger(OSGiReference.class);
 
     private final BundleContext bundleContext;
 
@@ -78,7 +78,7 @@ final class OSGiReference<T> extends AbstractReference<T> {
             bundleContext.ungetService(serviceReference);
             return true;
         } catch (IllegalStateException e) {
-            if (log.isDebug()) {
+            if (log.isDebugEnabled()) {
                 log.debug(this + " got stale bundle", e);
             }
             return false;
@@ -105,7 +105,7 @@ final class OSGiReference<T> extends AbstractReference<T> {
         try {
             return bundleContext.getService(serviceReference);
         } catch (IllegalStateException e) {
-            if (log.isDebug()) {
+            if (log.isDebugEnabled()) {
                 log.debug(this + " got stale bundle, returning null", e);
             }
         }

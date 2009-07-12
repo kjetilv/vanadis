@@ -16,6 +16,8 @@
 
 package vanadis.extrt;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.annopro.AnnotationDatum;
 import vanadis.annopro.AnnotationsDigest;
 import vanadis.annopro.AnnotationsDigests;
@@ -23,8 +25,6 @@ import vanadis.core.lang.AccessibleHelper;
 import vanadis.core.properties.PropertySet;
 import vanadis.ext.*;
 import vanadis.osgi.ServiceProperties;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
@@ -47,7 +47,7 @@ class ValidAnnotations {
         return digest;
     }
 
-    private static final Log log = Logs.get(ValidAnnotations.class);
+    private static final Logger log = LoggerFactory.getLogger(ValidAnnotations.class);
 
     private static final Class<PropertySet> PROPERTIES_CLASS = PropertySet.class;
 
@@ -151,7 +151,7 @@ class ValidAnnotations {
                 throw new ModuleSystemException
                         (type + " point is not accessible under current security manager", e);
             }
-            if (log.isDebug()) {
+            if (log.isDebugEnabled()) {
                 log.debug(type + " point set to accessible: " + object);
             }
         }

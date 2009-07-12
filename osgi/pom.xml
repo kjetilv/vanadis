@@ -30,12 +30,17 @@
   <name>${artifactId}</name>
   <dependencies>
     <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
+      <artifactId>vanadis.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.core</artifactId>
+      <scope>test</scope>
       <type>test-jar</type>
     </dependency>
     <dependency>

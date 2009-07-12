@@ -15,6 +15,9 @@
  */
 package vanadis.modules.networker;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import vanadis.concurrent.ExecutorUtils;
 import vanadis.core.io.Location;
 import vanadis.core.lang.EntryPoint;
 import vanadis.core.lang.ToString;
@@ -23,9 +26,6 @@ import vanadis.ext.*;
 import vanadis.osgi.ServiceProperties;
 import vanadis.services.networking.*;
 import vanadis.services.remoting.Remoting;
-import vanadis.util.concurrent.ExecutorUtils;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @EntryPoint
 public class NetworkerModule extends AbstractContextAware {
 
-    private static final Log log = Logs.get(NetworkerModule.class);
+    private static final Logger log = LoggerFactory.getLogger(NetworkerModule.class);
 
     @Configure(def = "false")
     @Attribute(desc = "If true, routes registrations to remote nodes")

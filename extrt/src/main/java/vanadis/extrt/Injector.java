@@ -16,6 +16,8 @@
 
 package vanadis.extrt;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.Strings;
@@ -26,8 +28,6 @@ import vanadis.ext.CoreProperty;
 import vanadis.ext.Property;
 import vanadis.osgi.*;
 import vanadis.services.networking.RemoteInjectPoint;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.util.Map;
 import java.util.Set;
@@ -209,7 +209,7 @@ abstract class Injector<T> extends ManagedFeature<T, ObjectManagerInjectPointMBe
 
     private void processInvocationError(RuntimeException e) {
         if (shutdownRaceIssues(e)) {
-            if (log.isDebug()) {
+            if (log.isDebugEnabled()) {
                 log.debug(this + " failed to uninject, assuming shutdown races", e);
             }
         } else {
@@ -280,7 +280,7 @@ abstract class Injector<T> extends ManagedFeature<T, ObjectManagerInjectPointMBe
         remoteInjectPointRegistration = context.register(service, serviceProperties);
     }
 
-    private static final Log log = Logs.get(Injector.class);
+    private static final Logger log = LoggerFactory.getLogger(Injector.class);
 
     private static final String[] NO_STRINGS = new String[]{};
 

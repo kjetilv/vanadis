@@ -27,6 +27,7 @@ import vanadis.core.collections.Pair;
 import vanadis.core.io.Files;
 import vanadis.core.io.Location;
 import vanadis.core.lang.EqHc;
+import vanadis.core.lang.Not;
 import vanadis.core.lang.VarArgs;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
@@ -36,13 +37,13 @@ import vanadis.core.time.TimeSpan;
 import vanadis.core.ver.Version;
 import vanadis.ext.CoreProperty;
 import vanadis.main.LaunchSite;
+import vanadis.mvn.Coordinate;
+import vanadis.mvn.Repo;
 import vanadis.objectmanagers.ManagedState;
 import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.*;
 import vanadis.services.networking.RemoteNode;
 import vanadis.services.networking.Router;
-import vanadis.util.mvn.Coordinate;
-import vanadis.util.mvn.Repo;
 
 import java.io.File;
 import java.io.PrintStream;
@@ -198,8 +199,7 @@ public final class FelixTestSession {
             Deadline deadline = timeout.newDeadline();
             ExpectedStatePoller expectedStatePoller =
                     new ExpectedStatePoller(this, objectManager, expectedState);
-            TimeSpan nterval = TimeSpan.SECOND;
-            Object polledState = runDeadline(deadline, nterval, expectedStatePoller);
+            Object polledState = runDeadline(deadline, TimeSpan.SECOND, expectedStatePoller);
             if (polledState == null) {
                 O.println(" nope!");
             }
@@ -371,13 +371,16 @@ public final class FelixTestSession {
 
     private static final Collection<BundleSpecification> AUTO_CONFIGURATION = Arrays.asList
             (id("org.apache.felix:org.osgi.compendium:1.2.0"),
+             id("org.slf4j:slf4j-api:1.5.8"),
+             id("org.slf4j:slf4j-simple:1.5.8"),
              id("org.apache.commons:com.springsource.org.apache.commons.logging:1.1.1"),
              id("org.objectweb.asm:com.springsource.org.objectweb.asm:3.1.0"),
-             vana("log4jsetup", "1.1-SNAPSHOT"),
              vana("annopro", "1.1-SNAPSHOT"),
              vana("osgi", "1.1-SNAPSHOT"),
              vana("objectmanagers", "1.1-SNAPSHOT"),
              vana("services", "1.1-SNAPSHOT"),
+             vana("concurrent", "1.1-SNAPSHOT"),
+             vana("mvn", "1.1-SNAPSHOT"),
              vana("ext", "1.1-SNAPSHOT"),
              vana("extrt", "1.1-SNAPSHOT"));
 
@@ -392,7 +395,9 @@ public final class FelixTestSession {
     }
 
     private static BundleSpecification id(String id, PropertySet set) {
-        return BundleSpecification.create(Coordinate.at(id), 1, set, set != null);
+        return BundleSpecification.create(null, Not.nil(Coordinate.at(id), "coordinate"),
+                                          1, set,
+                                          set != null, null);
     }
 
     private static BundleSpecification vana(String artifact, String ver) {
@@ -404,9 +409,16 @@ public final class FelixTestSession {
     }
 
     private static BundleSpecification vana(String groupAndArtifactPrefix, String artifact, String ver) {
-        return BundleSpecification.create
-                (Coordinate.versioned
-                        (groupAndArtifactPrefix, groupAndArtifactPrefix + "." + artifact, new Version(ver)), 1, null);
+        return BundleSpecification.create(null, Not.nil(Coordinate.versioned
+                (groupAndArtifactPrefix, groupAndArtifactPrefix + "." + artifact, new Version(ver)), "coordinate"),
+                                          1,
+                                          null, null, null);
+    }
+
+    public static BundleSpecification bs(Coordinate coordinate,
+                                         Integer startLevel, PropertySet propertySet) {
+        return BundleSpecification.create(null, Not.nil(coordinate, "coordinate"), startLevel,
+                                          propertySet, null, null);
     }
 
     private static void startWaiting(String... preambles) {
@@ -457,7 +469,10 @@ public final class FelixTestSession {
         public Integer call() throws Exception {
             Bundle[] bundles = site.getLauncher().getLaunchResult().getAllBundles();
             for (Bundle bundle : bundles) {
-                if (bundle.getState() != Bundle.ACTIVE) {
+                int state = bundle.getState();
+                boolean active = state == Bundle.ACTIVE ||
+                        state == Bundle.RESOLVED && OSGiUtils.isFragment(bundle);
+                if (!active) {
                     System.err.println("Not active: " + bundle);
                     return null;
                 }

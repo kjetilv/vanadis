@@ -379,25 +379,4 @@ public class SystemPackages {
             "com.sun.xml.internal.xsom.visitor," +
             "sun.reflect," +
             "sun.misc";
-
-    public static final String LOG4J = "org.apache.log4j;version=1.2.15," +
-            "org.apache.log4j.lf5;version=1.2.15," +
-            "org.apache.log4j.lf5.viewer;version=1.2.15," +
-            "org.apache.log4j.lf5.viewer.images;version=1.2.15," +
-            "org.apache.log4j.lf5.viewer.categoryexplorer;version=1.2.15," +
-            "org.apache.log4j.lf5.viewer.configure;version=1.2.15," +
-            "org.apache.log4j.lf5.config;version=1.2.15," +
-            "org.apache.log4j.lf5.util;version=1.2.15," +
-            "org.apache.log4j.xml;version=1.2.15," +
-            "org.apache.log4j.spi;version=1.2.15," +
-            "org.apache.log4j.helpers;version=1.2.15," +
-            "org.apache.log4j.chainsaw;version=1.2.15," +
-            "org.apache.log4j.varia;version=1.2.15," +
-            "org.apache.log4j.net;version=1.2.15," +
-            "org.apache.log4j.jmx;version=1.2.15," +
-            "org.apache.log4j.or;version=1.2.15," +
-            "org.apache.log4j.or.sax;version=1.2.15," +
-            "org.apache.log4j.or.jms;version=1.2.15," +
-            "org.apache.log4j.config;version=1.2.15," +
-            "org.apache.log4j.nt;version=1.2.15";
 }

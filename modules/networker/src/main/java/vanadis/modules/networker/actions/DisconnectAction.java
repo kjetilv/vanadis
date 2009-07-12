@@ -15,10 +15,10 @@
  */
 package vanadis.modules.networker.actions;
 
+import vanadis.concurrent.AbstractRetriableAction;
 import vanadis.core.time.TimeSpan;
 import vanadis.services.networking.RemoteConnection;
 import vanadis.services.networking.RemoteNode;
-import vanadis.util.concurrent.AbstractRetriableAction;
 
 import java.util.concurrent.ScheduledExecutorService;
 

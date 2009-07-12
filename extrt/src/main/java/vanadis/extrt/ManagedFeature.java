@@ -16,11 +16,11 @@
 
 package vanadis.extrt;
 
+import vanadis.concurrent.OperationQueuer;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.Context;
-import vanadis.util.concurrent.OperationQueuer;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

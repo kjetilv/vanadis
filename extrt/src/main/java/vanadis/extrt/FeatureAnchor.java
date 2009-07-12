@@ -16,13 +16,13 @@
 package vanadis.extrt;
 
 import vanadis.blueprints.ModuleSpecificationFeature;
+import vanadis.concurrent.OperationQueuer;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.Context;
-import vanadis.util.concurrent.OperationQueuer;
 
 class FeatureAnchor<T> {
 

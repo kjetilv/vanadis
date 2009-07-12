@@ -68,6 +68,10 @@
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
+      <artifactId>vanadis.mvn</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.launcher</artifactId>
     </dependency>
     <dependency>
@@ -98,10 +102,6 @@
       <groupId>vanadis</groupId>
       <artifactId>vanadis.felix</artifactId>
       <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.log4j</groupId>
-      <artifactId>com.springsource.org.apache.log4j</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>

@@ -18,9 +18,10 @@ package vanadis.blueprints;
 import junit.framework.Assert;
 import static junit.framework.Assert.*;
 import org.junit.Test;
-import vanadis.util.mvn.Coordinate;
-import vanadis.util.mvn.Repo;
+import vanadis.core.lang.Not;
 import vanadis.core.ver.Version;
+import vanadis.mvn.Coordinate;
+import vanadis.mvn.Repo;
 
 import java.io.ByteArrayInputStream;
 import java.net.URI;
@@ -117,7 +118,7 @@ public class BlueprintsReaderTest {
                 "    </bundles>" +
                 "  </bundles>" +
                 "</blueprint></blueprints>");
-        Assert.assertTrue(blueprints.getBlueprint("foo").contains(BundleSpecification.create
+        Assert.assertTrue(blueprints.getBlueprint("foo").contains(bs
                 (Coordinate.unversioned("aaa", "foo.bar.zot"))));
     }
 
@@ -188,5 +189,9 @@ public class BlueprintsReaderTest {
         BundleSpecification bs = blueprints.getBlueprint(bpName).getDynaBundles().iterator().next();
         assertEquals(new Version(ver), bs.getCoordinate().getVersion());
         assertEquals(URI.create(repo), bs.getRepo());
+    }
+
+    public static BundleSpecification bs(Coordinate coordinate) {
+        return BundleSpecification.create(null, Not.nil(coordinate, "coordinate"), null, null, null, null);
     }
 }

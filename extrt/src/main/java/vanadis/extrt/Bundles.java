@@ -18,19 +18,22 @@ package vanadis.extrt;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
+import org.osgi.service.cm.Configuration;
+import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.startlevel.StartLevel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.blueprints.BundleSpecification;
+import vanadis.core.collections.EnumerationIterable;
 import vanadis.core.collections.Generic;
-import vanadis.core.collections.Member;
 import vanadis.core.io.Closeables;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
+import vanadis.ext.ModuleSystemException;
 import vanadis.osgi.Context;
 import vanadis.osgi.OSGiException;
 import vanadis.osgi.OSGiUtils;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -58,6 +61,8 @@ class Bundles implements Iterable<Bundle>, Closeable {
 
     private final Map<String,BundleException> lastNamedResolveErrors = Generic.map();
 
+    private ConfigurationAdmin configurationAdmin;
+
     Bundles(BundleContext bundleContext, Context context) {
         this(bundleContext, context, 100);
     }
@@ -67,6 +72,7 @@ class Bundles implements Iterable<Bundle>, Closeable {
         this.context = Not.nil(context, "context");
         this.specHistory = Generic.sizeLimitedHashMap(historySize);
         this.packageAdmin = context.getServiceProxy(PackageAdmin.class);
+        this.configurationAdmin = context.getServiceProxy(ConfigurationAdmin.class);
         this.startLevel = context.getServiceProxy(StartLevel.class);
     }
 
@@ -109,10 +115,25 @@ class Bundles implements Iterable<Bundle>, Closeable {
         if (specification.isGlobalProperties()) {
             PortUtils.writeToSystemProperties(specification.getPropertySet(), context.getLocation());
         }
+        String pid = specification.getConfigPropertiesPid();
+        if (pid != null) {
+            Configuration configuration = getConfiguration(pid);
+            if (configuration != null) {
+                updateConfiguration(specification, pid, configuration);
+            }
+        }
         Bundle bundle = installed(specification);
         adjustStartLevel(bundle, specification);
         storeBundle(specification, bundle);
         tryStartingBundles(specification);
+    }
+
+    private Configuration getConfiguration(String pid) {
+        try {
+            return configurationAdmin.getConfiguration(pid);
+        } catch (Exception e) {
+            throw new ModuleSystemException("Failed to get configuration for " + pid, e);
+        }
     }
 
     @Override
@@ -240,44 +261,46 @@ class Bundles implements Iterable<Bundle>, Closeable {
 
     private Bundle installed(BundleSpecification specification) {
         String uriString = specification.getUriString();
-        if (specification.isFile()) {
-            return installBundle(uriString);
-        } else {
-            InputStream stream = openStream(specification.getUri());
-            try {
-                return validateInstall(uriString, stream);
-            } finally {
-                Closeables.close(stream);
-            }
-        }
-    }
-
-    private Bundle validateInstall(String uriString, InputStream stream) {
-        Bundle bundle = installBundle(uriString, stream);
+        Bundle bundle = specification.isFile()
+                ? installBundle(uriString)
+                : installFromStream(specification, uriString);
         log.info("Installed bundle @ " + uriString + " : " + bundle);
         return bundle;
     }
 
+    private Bundle installFromStream(BundleSpecification specification, String uriString) {
+            InputStream stream = openStream(specification.getUri());
+            try {
+                return installBundle(uriString, stream);
+            } finally {
+                Closeables.close(stream);
+            }
+    }
+
     private Bundle installBundle(String uriString) {
+        Bundle bundle;
         try {
-            return nonNull(bundleContext.installBundle(uriString), uriString);
+            bundle = bundleContext.installBundle(uriString);
         } catch (Exception e) {
             throw new OSGiException("Failed to install bundle @ " + uriString, e);
         }
+        return nonNull(bundle, uriString);
     }
 
     private Bundle installBundle(String uriString, InputStream stream) {
+        Bundle bundle;
         try {
-            return nonNull(bundleContext.installBundle(uriString, stream), uriString);
+            bundle = bundleContext.installBundle(uriString, stream);
         } catch (Exception e) {
             throw new OSGiException("Failed to install bundle @ " + uriString + " from stream " + stream, e);
         }
+        return nonNull(bundle, uriString);
     }
 
     private int startResolvedBundles(Collection<Throwable> exceptions, Collection<Long> nowResolved) {
         int inactive = 0;
         for (Bundle bundle : bundleContext.getBundles()) {
-            if (!(isStarted(bundle) || wasStarted(bundle, exceptions))) {
+            if (!(isUp(bundle) || wasStarted(bundle, exceptions))) {
                 inactive++;
             } else {
                 nowResolved.add(bundle.getBundleId());
@@ -287,12 +310,12 @@ class Bundles implements Iterable<Bundle>, Closeable {
     }
 
     private boolean wasStarted(Bundle bundle, Collection<Throwable> exceptions) {
-        int initialState = bundle.getState();
         long id = bundle.getBundleId();
-        if (isStarted(initialState)) {
+        if (isStarted(bundle)) {
             return true;
         }
-        if (Member.of(initialState, Bundle.INSTALLED, Bundle.RESOLVED)) {
+        int initialState = bundle.getState();
+        if (initialState == Bundle.INSTALLED || initialState == Bundle.RESOLVED) {
             try {
                 bundle.start();
                 markStarted(bundle);
@@ -307,7 +330,7 @@ class Bundles implements Iterable<Bundle>, Closeable {
             log.error("Bundle " + id + " failed to reveal its state after start attempt", e);
             return false;
         }
-        return Member.of(finalBundleState, Bundle.ACTIVE, Bundle.STARTING);
+        return finalBundleState == Bundle.ACTIVE || finalBundleState == Bundle.STARTING;
     }
 
     private void markStarted(Bundle bundle) {
@@ -340,7 +363,7 @@ class Bundles implements Iterable<Bundle>, Closeable {
         lastNamedResolveErrors.put(bundle.getSymbolicName(), e);
     }
 
-    private static final Log log = Logs.get(vanadis.extrt.Bundles.class);
+    private static final Logger log = LoggerFactory.getLogger(Bundles.class);
 
     private static final String EQUINOX_UNRESOLVED = "bundle could not be resolved";
 
@@ -353,6 +376,21 @@ class Bundles implements Iterable<Bundle>, Closeable {
             return bundle;
         }
         throw new IllegalStateException("Unexpected null bundle installed @ " + source);
+    }
+
+    private static void updateConfiguration(BundleSpecification specification, String pid,
+                                            Configuration configuration) {
+        Dictionary<Object, Object> properties = configuration.getProperties();
+        Dictionary<String, Object> updateProperties = specification.getPropertySet().toDictionary("", true);
+        for (String updateProperty : EnumerationIterable.create(updateProperties.keys())) {
+            properties.put(updateProperty, updateProperties.get(updateProperty));
+        }
+        try {
+            configuration.update(updateProperties);
+        } catch (IOException e) {
+            throw new ModuleSystemException
+                    ("Failed to update configuration for " + pid + " to " + properties, e);
+        }
     }
 
     private static InputStream openStream(URI uri) {
@@ -380,7 +418,8 @@ class Bundles implements Iterable<Bundle>, Closeable {
     }
 
     private static void stop(Bundle bundle) {
-        if (Member.of(bundle.getState(), Bundle.ACTIVE, Bundle.STARTING)) {
+        int state = bundle.getState();
+        if (state == Bundle.ACTIVE || state == Bundle.STARTING) {
             try {
                 bundle.stop();
             } catch (BundleException e) {
@@ -389,12 +428,16 @@ class Bundles implements Iterable<Bundle>, Closeable {
         }
     }
 
-    private static boolean isStarted(Bundle bundle) {
-        return isStarted(bundle.getState());
+    private static boolean isUp(Bundle bundle) {
+        if (OSGiUtils.isFragment(bundle)) {
+            return bundle.getState() == Bundle.RESOLVED;
+        }
+        return isStarted(bundle);
     }
 
-    private static boolean isStarted(int state) {
-        return Member.of(state, Bundle.ACTIVE, Bundle.STARTING, Bundle.STOPPING);
+    private static boolean isStarted(Bundle bundle) {
+        int state = bundle.getState();
+        return state == Bundle.ACTIVE || state == Bundle.STARTING || state == Bundle.STOPPING;
     }
 
     private static boolean justAnotherUnresolvedBundle(Exception e) {

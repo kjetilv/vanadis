@@ -15,6 +15,8 @@
  */
 package vanadis.modules.networker;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
 import vanadis.core.lang.ToString;
@@ -24,8 +26,6 @@ import vanadis.remoting.ServiceFilterTargetReference;
 import vanadis.services.networking.*;
 import vanadis.services.remoting.Remoting;
 import vanadis.services.remoting.TargetHandle;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.util.List;
 import java.util.Map;
@@ -34,7 +34,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 class RouterImpl extends AbstractNetworker implements Router {
 
-    private static final Log log = Logs.get(RouterImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(RouterImpl.class);
 
     private final Map<Location, RemoteNodeRetrier> nodes = Generic.map();
 

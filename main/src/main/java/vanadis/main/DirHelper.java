@@ -19,7 +19,7 @@ import vanadis.core.io.Files;
 import vanadis.core.system.VM;
 import vanadis.core.time.Time;
 import vanadis.launcher.StartupException;
-import vanadis.util.mvn.Repo;
+import vanadis.mvn.Repo;
 
 import java.io.File;
 import java.io.IOException;

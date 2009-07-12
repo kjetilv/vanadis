@@ -16,6 +16,10 @@
 
 package vanadis.extrt;
 
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
 import vanadis.core.time.TimeSpan;
@@ -23,10 +27,6 @@ import vanadis.ext.Command;
 import vanadis.ext.GenericCommand;
 import vanadis.osgi.Context;
 import vanadis.osgi.Registration;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
 
 import java.util.List;
 
@@ -97,7 +97,7 @@ public final class FrameworkExtenderBundleActivator implements BundleActivator {
         commands.add(context.register(genericCommand, Command.class));
     }
 
-    private static final Log log = Logs.get(FrameworkExtenderBundleActivator.class);
+    private static final Logger log = LoggerFactory.getLogger(FrameworkExtenderBundleActivator.class);
 
     private static final String TIMEOUT_SYSTEM_PROPERTY = "vanadis.timeout";
 

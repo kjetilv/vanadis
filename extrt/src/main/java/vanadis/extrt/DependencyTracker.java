@@ -16,10 +16,10 @@
 
 package vanadis.extrt;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -28,7 +28,7 @@ import java.util.Set;
 
 final class DependencyTracker<T extends ManagedFeature<?,?>> implements Iterable<T> {
 
-    private static final Log log = Logs.get(DependencyTracker.class);
+    private static final Logger log = LoggerFactory.getLogger(DependencyTracker.class);
 
     private final Set<String> complete = Generic.set();
 
@@ -67,11 +67,11 @@ final class DependencyTracker<T extends ManagedFeature<?,?>> implements Iterable
             incomplete.remove(name);
             requiredIncomplete.remove(name);
             complete.add(name);
-            if (log.isDebug()) {
+            if (log.isDebugEnabled()) {
                 log.debug(this + " completed " + name);
             }
         } else {
-            if (log.isDebug()) {
+            if (log.isDebugEnabled()) {
                 log.debug(this + " progressing: " + name);
             }
         }

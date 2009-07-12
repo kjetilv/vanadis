@@ -17,13 +17,13 @@ package vanadis.osgi;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.packageadmin.ExportedPackage;
 import org.osgi.service.packageadmin.PackageAdmin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
-import vanadis.core.collections.Member;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -32,7 +32,11 @@ import java.util.Set;
 
 public final class OSGiUtils {
 
-    private static final Log log = Logs.get(OSGiUtils.class);
+    private static final Logger log = LoggerFactory.getLogger(OSGiUtils.class);
+
+    public static boolean isFragment(Bundle bundle) {
+        return bundle.getHeaders() != null && bundle.getHeaders().get(Constants.FRAGMENT_HOST) != null;
+    }
 
     public static boolean isStale(Bundle bundle) {
         return state(bundle) == null;
@@ -40,8 +44,7 @@ public final class OSGiUtils {
 
     public static boolean isActive(Bundle bundle) {
         Integer state = state(bundle);
-        return state != null && Member.of
-                (state, Bundle.ACTIVE, Bundle.STARTING, Bundle.STOPPING);
+        return state != null && state == Bundle.ACTIVE || state == Bundle.STARTING || state == Bundle.STOPPING;
     }
 
     public static boolean bundleNoLongerValid(IllegalStateException e) {
@@ -96,7 +99,7 @@ public final class OSGiUtils {
         try {
             return bundle.getState();
         } catch (IllegalStateException e) {
-            if (log.isDebug()) {
+            if (log.isDebugEnabled()) {
                 log.debug("Got exception when checking bundle " + bundle + " state, assuming non-active", e);
             }
             return null;

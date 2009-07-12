@@ -15,18 +15,18 @@
  */
 package vanadis.osgi.impl;
 
+import org.osgi.framework.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.lang.EqHc;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.osgi.*;
 import vanadis.osgi.Filter;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
-import org.osgi.framework.*;
 
 final class ServiceListenerAdapter<T> implements ServiceListener {
 
-    private static final Log log = Logs.get(ServiceListenerAdapter.class);
+    private static final Logger log = LoggerFactory.getLogger(ServiceListenerAdapter.class);
 
     private static final ServiceReference[] NO_SERVICE_REFERENCES = new ServiceReference[]{};
 
@@ -117,7 +117,7 @@ final class ServiceListenerAdapter<T> implements ServiceListener {
     }
 
     private void logStaleBundle(IllegalStateException e) {
-        if (log.isDebug()) {
+        if (log.isDebugEnabled()) {
             log.debug(this + " experienced stale bundle, returning null", e);
         }
     }

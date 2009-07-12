@@ -16,13 +16,13 @@
 
 package vanadis.modules.jdbcdb;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.Strings;
 import vanadis.core.lang.ToString;
 import vanadis.services.db.Connections;
 import vanadis.services.db.DbException;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,7 +30,7 @@ import java.sql.SQLException;
 
 public class JdbcConnections implements Connections {
 
-    private static final Log log = Logs.get(JdbcConnections.class);
+    private static final Logger log = LoggerFactory.getLogger(JdbcConnections.class);
 
     private final String connectionUrl;
 

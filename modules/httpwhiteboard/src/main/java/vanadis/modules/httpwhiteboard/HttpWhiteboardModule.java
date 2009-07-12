@@ -15,6 +15,9 @@
  */
 package vanadis.modules.httpwhiteboard;
 
+import org.osgi.service.http.HttpService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
 import vanadis.ext.AutoLaunch;
@@ -22,9 +25,6 @@ import vanadis.ext.Inject;
 import vanadis.ext.Module;
 import vanadis.ext.Retract;
 import vanadis.osgi.ServiceProperties;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
-import org.osgi.service.http.HttpService;
 
 import javax.servlet.Servlet;
 import java.util.Collection;
@@ -131,7 +131,7 @@ public class HttpWhiteboardModule {
         }
     }
 
-    private static final Log log = Logs.get(HttpWhiteboardModule.class);
+    private static final Logger log = LoggerFactory.getLogger(HttpWhiteboardModule.class);
 
     @Override
     public String toString() {

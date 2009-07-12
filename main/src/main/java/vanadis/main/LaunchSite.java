@@ -246,8 +246,7 @@ public final class LaunchSite {
     private static final String LAUNCHER_PROPERTY = "vanadis.launcher";
 
     private static final String DEFAULT_LAUNCHERS =
-            "vanadis.felix.FelixOSGiLauncher," +
-                    "vanadis.equinox.EquinoxOSGiLauncher";
+            "vanadis.felix.FelixOSGiLauncher,vanadis.equinox.EquinoxOSGiLauncher";
 
     private static void write(StringBuilder sb, String sep, Iterable<?> list) {
         for (Object object : list) {

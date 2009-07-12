@@ -15,11 +15,11 @@
  */
 package vanadis.modules.felixcmds;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.ext.*;
 import vanadis.osgi.Registration;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.io.PrintStream;
 import java.util.Map;
@@ -27,7 +27,7 @@ import java.util.Map;
 @Module(moduleType = "felix-commands", autolaunch = true)
 public class FelixCommandsModule extends AbstractContextAware {
 
-    private static final Log log = Logs.get(FelixCommandsModule.class);
+    private static final Logger log = LoggerFactory.getLogger(FelixCommandsModule.class);
 
     private final Map<Command, Registration<?>> registrations = Generic.map();
 

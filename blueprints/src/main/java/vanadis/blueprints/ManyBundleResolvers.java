@@ -59,17 +59,21 @@ public class ManyBundleResolvers implements BundleResolver {
         for (BundleResolver bundleResolver : bundleResolvers) {
             uri = bundleResolver.resolve(bundleSpecification);
             if (uri != null) {
-                if (uri.getScheme().equalsIgnoreCase("http")) {
+                String scheme = uri.getScheme().toLowerCase();
+                if (scheme.equals("http")) {
                     return uri;
                 }
-                if (uri.getScheme().equalsIgnoreCase("file")) {
+                if (scheme.equals("file")) {
                     if (new File(uri).exists()) {
                         return uri;
                     }
                 }
+                if (scheme.equals("mvn")) {
+                    return uri;
+                }
             }
         }
-        return uri;
+        return null;
     }
 
     @Override

@@ -15,12 +15,12 @@
  */
 package vanadis.extrt;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.lang.ToString;
 import vanadis.ext.ManagedLifecycle;
 import vanadis.objectmanagers.ManagedState;
 import vanadis.objectmanagers.ObjectManager;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 class ObjectManagerState {
 
@@ -115,7 +115,7 @@ class ObjectManagerState {
         }
     }
 
-    private static final Log log = Logs.get(ObjectManagerState.class);
+    private static final Logger log = LoggerFactory.getLogger(ObjectManagerState.class);
 
     @Override
     public String toString() {

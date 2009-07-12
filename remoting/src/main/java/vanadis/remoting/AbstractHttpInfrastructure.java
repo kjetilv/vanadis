@@ -17,14 +17,14 @@ package vanadis.remoting;
 
 import com.sun.grizzly.http.SelectorThread;
 import com.sun.grizzly.tcp.http11.GrizzlyAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.io.Location;
 import vanadis.core.lang.ToString;
 import vanadis.core.system.VM;
 import vanadis.core.time.Time;
 import vanadis.core.time.TimeSpan;
 import vanadis.services.remoting.RemotingException;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +32,7 @@ import java.net.InetAddress;
 
 public abstract class AbstractHttpInfrastructure extends AbstractRemotingInfrastructure {
 
-    private static final Log log = Logs.get(AbstractHttpInfrastructure.class);
+    private static final Logger log = LoggerFactory.getLogger(AbstractHttpInfrastructure.class);
 
     private static final String LOCALHOST = "localhost";
 

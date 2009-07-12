@@ -15,12 +15,12 @@
  */
 package vanadis.modules.scripting;
 
-import vanadis.ext.CommandExecution;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.text.Printer;
+import vanadis.ext.CommandExecution;
 import vanadis.osgi.Context;
 import vanadis.services.scripting.ScriptingSession;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.util.Arrays;
 
@@ -51,7 +51,7 @@ class ScriptExecution implements CommandExecution {
         return "No such session: " + name;
     }
 
-    private static final Log log = Logs.get(ScriptExecution.class);
+    private static final Logger log = LoggerFactory.getLogger(ScriptExecution.class);
 
     private static String concat(String[] args, int index) {
         StringBuilder sb = new StringBuilder();

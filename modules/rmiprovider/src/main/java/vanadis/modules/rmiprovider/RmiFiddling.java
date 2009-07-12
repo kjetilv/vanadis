@@ -15,10 +15,10 @@
  */
 package vanadis.modules.rmiprovider;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.io.Location;
 import vanadis.services.remoting.RemotingException;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.net.MalformedURLException;
 import java.rmi.*;
@@ -29,7 +29,7 @@ import java.util.Arrays;
 
 class RmiFiddling {
 
-    private static final Log log = Logs.get(RmiFiddling.class);
+    private static final Logger log = LoggerFactory.getLogger(RmiFiddling.class);
 
     private static Registry REGISTRY;
 
@@ -94,7 +94,7 @@ class RmiFiddling {
         } catch (RemoteException e) {
             throw new RemotingException("Failed to unbind " + url, e);
         } catch (NotBoundException e) {
-            if (log.isDebug()) {
+            if (log.isDebugEnabled()) {
                 log.debug(url + " was not bound, probably already closed: " + e, e);
             }
         } catch (MalformedURLException e) {

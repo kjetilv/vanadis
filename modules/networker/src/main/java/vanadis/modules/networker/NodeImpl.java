@@ -15,6 +15,8 @@
  */
 package vanadis.modules.networker;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
 import vanadis.core.lang.ToString;
@@ -30,8 +32,6 @@ import vanadis.remoting.ServiceFilterTargetReference;
 import vanadis.services.networking.*;
 import vanadis.services.remoting.Remoting;
 import vanadis.services.remoting.TargetHandle;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.util.Collection;
 import java.util.List;
@@ -43,7 +43,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 final class NodeImpl extends AbstractNetworker implements Node {
 
-    private static final Log log = Logs.get(NodeImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(NodeImpl.class);
 
     private final Map<Location, RouterRetrier> routers = Generic.map();
 
