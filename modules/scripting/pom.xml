@@ -48,7 +48,7 @@
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
+      <artifactId>vanadis.core</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>

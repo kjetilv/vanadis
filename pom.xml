@@ -188,13 +188,6 @@
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
-        <artifactId>vanadis.ext</artifactId>
-        <version>1.1-SNAPSHOT</version>
-        <type>test-jar</type>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>vanadis</groupId>
         <artifactId>vanadis.extrt</artifactId>
         <version>1.1-SNAPSHOT</version>
         <type>test-jar</type>
@@ -307,11 +300,6 @@
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.concurrent</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>vanadis</groupId>
-        <artifactId>vanadis.util</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>

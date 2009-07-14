@@ -64,7 +64,7 @@
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
+      <artifactId>vanadis.core</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
@@ -115,11 +115,6 @@
     <dependency>
       <groupId>vanadis</groupId>
       <artifactId>vanadis.osgi</artifactId>
-      <type>test-jar</type>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.extrt</artifactId>
       <type>test-jar</type>
     </dependency>
   </dependencies>

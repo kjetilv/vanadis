@@ -42,10 +42,6 @@
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
       <artifactId>vanadis.objectmanagers</artifactId>
     </dependency>
     <dependency>

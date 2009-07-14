@@ -27,9 +27,10 @@
       <auto-bundle artifact="slf4j-api"/>
     </bundles>
 
-    <!-- PAX Stuff.  Everyone does it.  -->
+    <!-- PAX Stuff.  -->
     <bundles group="org.ops4j.pax.url">
       <auto-bundle artifact="pax-url-mvn" version="1.0.0"/>
+      <auto-bundle artifact="pax-url-wrap" version="1.0.0"/>
     </bundles>
 
     <!-- Additional OSGi services -->
@@ -50,7 +51,9 @@
       <auto-bundle artifact="objectmanagers"/>
       <!-- Vanadis services -->
       <auto-bundle artifact="services"/>
+      <!-- Maven support -->
       <auto-bundle artifact="mvn"/>
+      <!-- Concurrency support -->
       <auto-bundle artifact="concurrent"/>
       <!-- API for users of extender module -->
       <auto-bundle artifact="ext"/>
