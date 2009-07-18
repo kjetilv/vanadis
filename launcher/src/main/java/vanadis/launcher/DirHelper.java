@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.main;
+package vanadis.launcher;
 
 import vanadis.core.io.Files;
 import vanadis.core.system.VM;
 import vanadis.core.time.Time;
-import vanadis.launcher.StartupException;
 import vanadis.mvn.Repo;
 
 import java.io.File;

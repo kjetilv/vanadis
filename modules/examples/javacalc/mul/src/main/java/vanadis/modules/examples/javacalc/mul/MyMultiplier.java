@@ -20,8 +20,7 @@ import vanadis.modules.examples.javacalc.calcservices.Multiplier;
 
 import java.util.Arrays;
 
-public class MyMultiplier extends AbstractArithmetics
-        implements Multiplier {
+public class MyMultiplier extends AbstractArithmetics implements Multiplier {
 
     @Override
     public int mul(int... args) {

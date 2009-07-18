@@ -14,13 +14,25 @@
  * limitations under the License.
  */
 
-package vanadis.main;
+package vanadis.launcher;
 
-public interface LaunchSiteMBean {
+import vanadis.core.lang.ToString;
 
-    String getHome();
+class CloseHook implements Runnable {
 
-    String getLocation();
+    private final LaunchSite launchSite;
 
-    String getProviderInfo();
+    CloseHook(LaunchSite launchSite) {
+        this.launchSite = launchSite;
+    }
+
+    @Override
+    public void run() {
+        launchSite.close();
+    }
+
+    @Override
+    public String toString() {
+        return ToString.of(this, launchSite);
+    }
 }

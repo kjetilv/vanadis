@@ -36,7 +36,7 @@ import vanadis.core.time.Deadline;
 import vanadis.core.time.TimeSpan;
 import vanadis.core.ver.Version;
 import vanadis.ext.CoreProperty;
-import vanadis.main.LaunchSite;
+import vanadis.launcher.LaunchSite;
 import vanadis.mvn.Coordinate;
 import vanadis.mvn.Repo;
 import vanadis.objectmanagers.ManagedState;

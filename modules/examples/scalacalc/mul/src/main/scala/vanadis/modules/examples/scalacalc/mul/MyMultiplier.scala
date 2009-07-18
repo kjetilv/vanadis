@@ -4,9 +4,9 @@ import calcservices.Multiplier
 
 class MyMultiplier extends Multiplier {
 
-  def mul(args: Array[Int]) = {
+  override def mul(args: Array[Int]) = {
     var product = 1;
-    args.foreach(i => product *= i)
+    args.foreach(product *= _)
     product
   }
 }

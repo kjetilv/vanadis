@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package vanadis.launcher;
-
-import vanadis.core.io.Location;
+package vanadis.core.io;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -35,7 +33,7 @@ public final class Probe {
         } catch (ConnectException ignore) {
             return false; // OK, we expected no connection here.
         } catch (IOException e) {
-            throw new StartupException("Illegal location: " + location, e);
+            throw new IllegalArgumentException("Illegal location: " + location, e);
         } finally {
             if (socket != null) {
                 try {
@@ -50,7 +48,7 @@ public final class Probe {
         try {
             return InetAddress.getByName(location.getHost());
         } catch (UnknownHostException e) {
-            throw new StartupException("Illegal location host: " + location, e);
+            throw new IllegalArgumentException("Illegal location host: " + location, e);
         }
     }
 

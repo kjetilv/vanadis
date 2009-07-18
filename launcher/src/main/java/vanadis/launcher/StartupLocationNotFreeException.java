@@ -16,7 +16,7 @@
 
 package vanadis.launcher;
 
-class StartupLocationNotFreeException extends StartupException {
+public class StartupLocationNotFreeException extends StartupException {
 
     private static final long serialVersionUID = 7191707498576290153L;
 

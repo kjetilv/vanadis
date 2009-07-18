@@ -4,9 +4,9 @@ import calcservices.Adder
 
 class MyAdder extends Adder {
 
-  def add(args: Array[Int]) : Int = {
+  override def add(args: Array[Int]) = {
     var sum = 0;
-    args.foreach(i => sum += i)
+    args.foreach(sum += _)
     sum
   }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package vanadis.main;
+package vanadis.launcher;
 
 import vanadis.blueprints.*;
 import vanadis.core.collections.Generic;
@@ -23,19 +23,13 @@ import vanadis.core.jmx.Jmx;
 import vanadis.core.lang.ToString;
 import vanadis.core.system.VM;
 import vanadis.core.test.ForTestingPurposes;
-import vanadis.launcher.LaunchResult;
-import vanadis.launcher.OSGiLauncher;
-import vanadis.launcher.StartupException;
 
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import java.io.File;
 import java.io.PrintStream;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class LaunchSite {
@@ -50,7 +44,7 @@ public final class LaunchSite {
 
     private final OSGiLauncher launcher;
 
-    private final List<String> blueprintNames;
+    private final Collection<String> blueprintNames;
 
     private final AtomicBoolean closed = new AtomicBoolean(false);
 
@@ -58,7 +52,7 @@ public final class LaunchSite {
 
     private PrintStream out;
 
-    private final List<String> blueprintPaths;
+    private final Collection<String> blueprintPaths;
 
     private final List<String> blueprintResources;
 
@@ -67,7 +61,7 @@ public final class LaunchSite {
     @ForTestingPurposes
     public static LaunchSite repository(List<String> blueprintNames,
                                         List<String> blueprintPaths) {
-        return create(null, null, null, null, blueprintNames, blueprintPaths, null);
+        return new LaunchSite(null, null, null, null, blueprintNames, blueprintPaths, null, null);
     }
 
     @ForTestingPurposes
@@ -75,23 +69,20 @@ public final class LaunchSite {
         return new LaunchSite(null, null, null, null, null, null, null, systemSpecification);
     }
 
-    public static LaunchSite create(File home, Location location, URI repo,
-                                    List<String> uriPatterns,
-                                    List<String> blueprintNames,
-                                    List<String> blueprintPaths,
-                                    List<String> blueprintResources) {
-        return new LaunchSite(home, location, repo, uriPatterns, blueprintNames, blueprintPaths, blueprintResources, null);
+    public static LaunchSite create(SiteSpecs ss) {
+        return new LaunchSite(ss.getHome(), ss.getLocation(), ss.getRepoRoot(), ss.getUriPatterns(),
+                              ss.getBlueprintNames(), ss.getBlueprintPaths(), ss.getBlueprintResources(), null);
     }
 
     private LaunchSite(File home, Location location, URI repo, List<String> uriPatterns,
-                       List<String> blueprintNames,
-                       List<String> blueprintPaths,
-                       List<String> blueprintResources,
+                       List<String> blueprintNames, List<String> blueprintPaths, List<String> blueprintResources,
                        SystemSpecification systemSpecification) {
         this.home = DirHelper.resolveHome(home);
         this.repo = DirHelper.resolveRepo(this.home, repo);
         this.bundleResolvers = compileBundleResolvers(uriPatterns);
-        this.blueprintNames = blueprintNames(blueprintNames, systemSpecification);
+        this.blueprintNames = systemSpecification == null
+                ? Generic.seal(Generic.list((Iterable<String>) blueprintNames))
+                : Collections.<String>emptyList();
         this.location = LocationHelper.resolveLocation(location);
         this.launcher = createLauncher();
         this.closeHook = new CloseHook(this);
@@ -102,12 +93,16 @@ public final class LaunchSite {
                 : systemSpecification;
     }
 
-    public List<String> getBlueprintPaths() {
+    public Collection<String> getBlueprintPaths() {
         return blueprintPaths;
     }
 
     public List<String> getBlueprintResources() {
         return blueprintResources;
+    }
+
+    public Collection<String> getBlueprintNames() {
+        return blueprintNames;
     }
 
     public boolean launch(PrintStream out) {
@@ -119,10 +114,6 @@ public final class LaunchSite {
             return true;
         }
         return false;
-    }
-
-    public List<String> getBlueprintNames() {
-        return Collections.unmodifiableList(blueprintNames);
     }
 
     public OSGiLauncher getLauncher() {
@@ -266,16 +257,6 @@ public final class LaunchSite {
             resolvers.add(new URIPatternResolver(pattern));
         }
         return resolvers;
-    }
-
-    private static List<String> blueprintNames(List<String> blueprintNames,
-                                               SystemSpecification systemSpecification) {
-        if (systemSpecification == null) {
-            return blueprintNames == null || blueprintNames.isEmpty()
-                    ? Collections.singletonList("base-commands")
-                    : Generic.seal(blueprintNames);
-        }
-        return Collections.emptyList();
     }
 
     private static ObjectName composeObjectName(Location location) {

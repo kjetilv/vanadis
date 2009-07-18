@@ -39,20 +39,16 @@ public class NetworkerModule extends AbstractContextAware {
 
     private static final Logger log = LoggerFactory.getLogger(NetworkerModule.class);
 
-    @Configure(def = "false")
-    @Attribute(desc = "If true, routes registrations to remote nodes")
+    @Configure(def = "false") @Attribute(desc = "If true, routes registrations to remote nodes")
     private boolean routing;
 
-    @Configure(def = "30s")
-    @Attribute(desc = "Time between retries")
+    @Configure(def = "30s") @Attribute(desc = "Time between retries")
     private TimeSpan retry;
 
-    @Configure(def = "30s")
-    @Attribute(desc = "At shutdown: Grace period before forcing shutdown")
+    @Configure(def = "30s") @Attribute(desc = "At shutdown: Grace period before forcing shutdown")
     private TimeSpan shutdown;
 
-    @Configure(def = "1")
-    @Attribute(desc = "Number of threads routing")
+    @Configure(def = "1") @Attribute(desc = "Number of threads routing")
     private int threads;
 
     @Inject

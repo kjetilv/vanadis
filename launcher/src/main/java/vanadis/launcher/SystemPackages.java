@@ -16,33 +16,32 @@
 
 package vanadis.launcher;
 
-public class SystemPackages {
+class SystemPackages {
 
-    public static final String COVERAGE =
+    static final String COVERAGE =
             "com.vladium.emma.rt,com.intellij.rt.coverage.data,com.intellij.rt.coverage,com.intellij.rt";
 
-    public static final String PROFILING =
+    static final String PROFILING =
             "com.jprofiler.agent,org.netbeans.lib.profiler.server";
 
-    public static final String UTIL =
-            "vanadis.core.collections," +
-                    "vanadis.core.lang," +
-                    "vanadis.core.properties," +
-                    "vanadis.core.system," +
-                    "vanadis.core.io," +
-                    "vanadis.core.reflection," +
-                    "vanadis.core.text," +
-                    "vanadis.core.time," +
-                    "vanadis.core.jmx," +
-                    "vanadis.core.ver," +
-                    "vanadis.util.concurrent," +
-                    "vanadis.util.exceptions," +
-                    "vanadis.util.log," +
-                    "vanadis.util.mvn," +
-                    "vanadis.util.xml," +
-                    "vanadis.blueprints";
+    static final String UTIL = "vanadis.core.collections," +
+            "vanadis.core.lang," +
+            "vanadis.core.properties," +
+            "vanadis.core.system," +
+            "vanadis.core.io," +
+            "vanadis.core.reflection," +
+            "vanadis.core.text," +
+            "vanadis.core.time," +
+            "vanadis.core.jmx," +
+            "vanadis.core.ver," +
+            "vanadis.util.concurrent," +
+            "vanadis.util.exceptions," +
+            "vanadis.util.log," +
+            "vanadis.util.mvn," +
+            "vanadis.util.xml," +
+            "vanadis.blueprints";
 
-    public static final String JDK = "javax.accessibility," +
+    static final String JDK = "javax.accessibility," +
             "javax.activation," +
             "javax.activity," +
             "javax.annotation," +

@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.main;
+package vanadis.launcher;
 
 import vanadis.core.io.Location;
+import vanadis.core.io.Probe;
 import vanadis.core.system.VM;
-import vanadis.launcher.Probe;
-import vanadis.launcher.StartupException;
 
 class LocationHelper {
 

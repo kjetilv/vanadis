@@ -386,8 +386,21 @@ public class Generic {
      * @return Unmodifiable copy
      */
     public static <T> List<T> seal(List<T> list) {
-        return list == null || list.isEmpty() ? Collections.<T>emptyList()
+        return list == null || list.isEmpty()
+                ? Collections.<T>emptyList()
                 : Collections.unmodifiableList(list(list));
+    }
+
+    /**
+     * Return safely unmodifiable copy of the input list.
+     *
+     * @param iterable List
+     * @return Unmodifiable copy
+     */
+    public static <T> Collection<T> seal(Iterable<T> iterable) {
+        return iterable == null || !iterable.iterator().hasNext()
+                ? Collections.<T>emptyList()
+                : Collections.unmodifiableList(list(iterable));
     }
 
     /**

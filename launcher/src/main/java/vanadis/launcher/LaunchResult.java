@@ -38,7 +38,7 @@ public final class LaunchResult {
 
     private static final Bundle[] NO_BUNDLES = new Bundle[] {};
 
-    public LaunchResult(BundleContext bundleContext, List<Bundle> autoBundles) {
+    LaunchResult(BundleContext bundleContext, List<Bundle> autoBundles) {
         this.bundleContext = Not.nil(bundleContext, "bundle context");
         Bundle bundle = Not.nil(this.bundleContext.getBundle(), "bundle of " + bundleContext);
         this.systemId = bundle.getBundleId();

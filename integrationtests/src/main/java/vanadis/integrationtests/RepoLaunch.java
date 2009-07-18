@@ -17,7 +17,7 @@ package vanadis.integrationtests;
 
 import org.junit.Assert;
 import org.junit.Test;
-import vanadis.main.LaunchSite;
+import vanadis.launcher.LaunchSite;
 
 import java.util.Collections;
 

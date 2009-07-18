@@ -1,22 +1,9 @@
-/*
- * Copyright 2009 Kjetil Valstadsve
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package vanadis.main;
 
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
+import vanadis.core.test.ForTestingPurposes;
+import vanadis.launcher.SiteSpecs;
 
 import java.io.File;
 import java.net.URI;
@@ -24,28 +11,89 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * All methods in this class remove the argument and value from the input list, after parsing it.
- */
-class CommandLineHelper {
+class ArgumentsSpecs implements SiteSpecs {
 
-    static List<String> blueprintResourcesArg(List<String> args) {
+    private final List<String> blueprintPaths;
+
+    private final List<String> blueprintResources;
+
+    private final File home;
+
+    private final Location location;
+
+    private final List<String> blueprintNames;
+
+    private final URI repoRoot;
+
+    private List<String> uriPatterns;
+
+    @ForTestingPurposes
+    ArgumentsSpecs(String args) {
+        this(Generic.linkedList(args.split("\\s")));
+    }
+
+    ArgumentsSpecs(List<String> args) {
+        this.blueprintPaths = blueprintPathsArg(args);
+        this.blueprintResources = blueprintResourcesArg(args);
+        this.uriPatterns = uriPatterns(args);
+        this.home = homeArg(args);
+        this.location = locationArg(args);
+        this.repoRoot = repoArg(args);
+        List<String> names = Generic.list(blueprints(args));
+        addRemainingArgumentsAsBlueprintNames(args, names);
+        this.blueprintNames = Generic.seal(names);
+    }
+
+    @Override public List<String> getBlueprintPaths() {
+        return blueprintPaths;
+    }
+
+    @Override public List<String> getUriPatterns() {
+        return uriPatterns;
+    }
+
+    @Override public List<String> getBlueprintResources() {
+        return blueprintResources;
+    }
+
+    @Override public File getHome() {
+        return home;
+    }
+
+    @Override public Location getLocation() {
+        return location;
+    }
+
+    @Override public List<String> getBlueprintNames() {
+        return blueprintNames;
+    }
+
+    @Override public URI getRepoRoot() {
+        return repoRoot;
+    }
+
+    private static void addRemainingArgumentsAsBlueprintNames(List<String> remainingArgs,
+                                                              List<String> blueprintNames) {
+        blueprintNames.addAll(remainingBlueprints(remainingArgs));
+    }
+
+    private static List<String> blueprintResourcesArg(List<String> args) {
         return split(parseOption(args, "blueprint-resources"));
     }
 
-    static List<String> blueprintPathsArg(List<String> args) {
+    private static List<String> blueprintPathsArg(List<String> args) {
         return split(parseOption(args, "blueprint-paths"));
     }
 
-    static List<String> blueprints(List<String> args) {
+    private static List<String> blueprints(List<String> args) {
         return split(parseOption(args, "blueprints"));
     }
 
-    static List<String> uriPatterns(List<String> args) {
+    private static List<String> uriPatterns(List<String> args) {
         return split(parseOption(args, "uri-patterns"));
     }
 
-    static List<String> remainingBlueprints(List<String> args) {
+    private static List<String> remainingBlueprints(List<String> args) {
         if (args.isEmpty()) {
             return Collections.emptyList();
         }
@@ -56,7 +104,7 @@ class CommandLineHelper {
         return names;
     }
 
-    static URI repoArg(List<String> args) {
+    private static URI repoArg(List<String> args) {
         String repo = parseOption(args, "repo");
         if (repo == null) {
             String defaultRepo = parseOption(args, "defaultRepo");
@@ -65,7 +113,7 @@ class CommandLineHelper {
         return URI.create(repo);
     }
 
-    static File homeArg(List<String> args) {
+    private static File homeArg(List<String> args) {
         String home = parseOption(args, "home");
         if (home == null) {
             String defaultHome = parseOption(args, "defaultHome");
@@ -75,7 +123,7 @@ class CommandLineHelper {
         return new File(home).getAbsoluteFile();
     }
 
-    static Location locationArg(List<String> args) {
+    private static Location locationArg(List<String> args) {
         String spec = parseOption(args, "location");
         if (spec == null) {
             String defaultLocation = parseOption(args, "defaultLocation");
