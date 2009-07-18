@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.Reader;
 import java.util.Iterator;
 
-class LineIterable implements Iterable<String> {
+final class LineIterable implements Iterable<String> {
 
     private final Reader reader;
 

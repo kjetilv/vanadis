@@ -28,7 +28,7 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.regex.Pattern;
 
-public class Files {
+public final class Files {
 
     public static File createFromURI(String uriString) {
         URI uri;
@@ -231,4 +231,6 @@ public class Files {
         }
         return path;
     }
+
+    private Files() {}
 }

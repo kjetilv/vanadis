@@ -21,7 +21,7 @@ import vanadis.core.lang.VarArgs;
 
 import java.io.UnsupportedEncodingException;
 
-public class Bytes {
+public final class Bytes {
 
     private static final String ENC = "utf-8";
 
@@ -142,4 +142,6 @@ public class Bytes {
             throw new Error("Unsupported encoding", e);
         }
     }
+
+    private Bytes() {}
 }
