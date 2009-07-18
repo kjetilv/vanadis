@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-class ChainableIterable<E> implements Iterable<E> {
+final class ChainableIterable<E> implements Iterable<E> {
 
     static <E> ChainableIterable<E> create(Iterable<E> iterable) {
         return new ChainableIterable<E>(iterable);

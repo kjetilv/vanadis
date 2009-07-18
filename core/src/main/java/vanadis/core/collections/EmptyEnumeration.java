@@ -19,7 +19,7 @@ package vanadis.core.collections;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
-class EmptyEnumeration<E> implements Enumeration<E> {
+final class EmptyEnumeration<E> implements Enumeration<E> {
 
     @Override
     public boolean hasMoreElements() {

@@ -34,7 +34,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *
  * <blockquote>{@code Map<Foo,Bar> map = Mapper.map(foo1, bar1, foo2, bar2);}</blockquote>
  */
-public class Generic {
+public final class Generic {
 
     public static final EmptyDictionary<String, Object> EMPTY_DICTIONARY = new EmptyDictionary<String, Object>();
 
