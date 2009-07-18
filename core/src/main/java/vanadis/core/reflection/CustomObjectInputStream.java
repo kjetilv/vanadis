@@ -25,6 +25,7 @@ import java.io.ObjectStreamClass;
 import java.util.Collections;
 import java.util.Map;
 
+@SuppressWarnings({"AbstractClassExtendsConcreteClass"})
 public abstract class CustomObjectInputStream extends ObjectInputStream {
 
     private static final Map<String, Class<?>> PRIMITIVES = Collections.<String, Class<?>>unmodifiableMap
@@ -37,8 +38,7 @@ public abstract class CustomObjectInputStream extends ObjectInputStream {
                          "long", long.class,
                          "short", short.class));
 
-    CustomObjectInputStream(InputStream in)
-            throws IOException {
+    protected CustomObjectInputStream(InputStream in) throws IOException {
         super(in);
     }
 

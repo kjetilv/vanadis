@@ -25,7 +25,7 @@ import java.util.Date;
  * A time, as in a point in time.  It can answer how long ago it is since that time, and it can provide the
  * time span between it and another point in time.  Useful for all kinds of "waiting and retrying" type of logic.
  */
-public class Time implements Comparable<Time> {
+public final class Time implements Comparable<Time> {
 
     private static final TickTock SYSTEM_CLOCK = new SystemTickTock();
 
@@ -134,5 +134,4 @@ public class Time implements Comparable<Time> {
     public int hashCode() {
         return EqHc.hc(mark);
     }
-
 }

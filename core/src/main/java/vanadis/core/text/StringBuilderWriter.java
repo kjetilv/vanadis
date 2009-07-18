@@ -1,6 +1,6 @@
 package vanadis.core.text;
 
-public class StringBuilderWriter extends AbstractModernWriter {
+public final class StringBuilderWriter extends AbstractModernWriter {
 
     private final StringBuilder sb;
 

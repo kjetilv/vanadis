@@ -1,6 +1,6 @@
 package vanadis.core.text;
 
-public class DotProgress {
+public final class DotProgress {
 
     private final Printer printer;
 
