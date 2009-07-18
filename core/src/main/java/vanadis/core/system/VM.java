@@ -16,9 +16,6 @@
 
 package vanadis.core.system;
 
-import vanadis.core.properties.PropertySet;
-import vanadis.core.properties.PropertySets;
-
 import javax.management.MBeanServer;
 import java.io.File;
 import java.lang.management.ManagementFactory;
@@ -30,15 +27,13 @@ public class VM {
 
     private static Integer pid;
 
-    private static final PropertySet PROPERTY_SET = PropertySets.systemProperties();
-
-    public static final String VERSION = PROPERTY_SET.getString("java.version");
+    public static final String VERSION = System.getProperty("java.version");
 
     public static final boolean MUSTANG = isMajor("6");
 
     public static final boolean TIGER = isMajor("5");
 
-    public static final String LN = PROPERTY_SET.getString("line.separator");
+    public static final String LN = System.getProperty("line.separator");
 
     public static final MBeanServer JMX = ManagementFactory.getPlatformMBeanServer();
 

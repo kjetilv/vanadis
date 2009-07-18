@@ -16,15 +16,10 @@
 
 package vanadis.core.ver;
 
-import vanadis.core.lang.EqHc;
-import vanadis.core.lang.Not;
-import vanadis.core.lang.ToString;
-import vanadis.core.lang.VarArgs;
-
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class Version implements Comparable<Version>, Serializable {
+public final class Version implements Comparable<Version>, Serializable {
 
     private static final long[] EMPTY = new long[]{};
 
@@ -53,9 +48,10 @@ public class Version implements Comparable<Version>, Serializable {
     }
 
     private Version(String adHoc, boolean snapshot, long... parts) {
-        this.adHoc = parts == null
-                ? Not.nil(adHoc, "adhoc version")
-                : null;
+        if (parts == null && adHoc == null) {
+            throw new NullPointerException("Required adhoc version or version parts.");
+        }
+        this.adHoc = parts == null ? adHoc : null;
         this.snapshot = snapshot;
         this.parts = this.adHoc == null ? initial(parts) ? EMPTY : parts
                 : null;
@@ -152,7 +148,7 @@ public class Version implements Comparable<Version>, Serializable {
     private static final String DASH_SNAPSHOT = "-SNAPSHOT";
 
     private static boolean initial(long... parts) {
-        if (VarArgs.present(parts)) {
+        if (gotVarArgs(parts)) {
             for (long l : parts) {
                 if (l != 0) {
                     return false;
@@ -160,6 +156,10 @@ public class Version implements Comparable<Version>, Serializable {
             }
         }
         return true;
+    }
+
+    private static boolean gotVarArgs(long... parts) {
+        return parts != null && parts.length > 0;
     }
 
     private static long[] parts(String version) {
@@ -186,7 +186,7 @@ public class Version implements Comparable<Version>, Serializable {
 
     @Override
     public String toString() {
-        return ToString.of(this, toVersionString());
+        return getClass().getSimpleName() + "[" + toVersionString() + "]";
     }
 
     @Override
@@ -196,9 +196,17 @@ public class Version implements Comparable<Version>, Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        Version version = EqHc.retyped(this, obj);
-        return version != null &&
-                Arrays.equals(parts, version.parts) || EqHc.eq(adHoc, version.adHoc);
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof Version) {
+            Version version = (Version) obj;
+            return version != null &&Arrays.equals(parts, version.parts);
+        }
+        return false;
     }
 
     @Override
