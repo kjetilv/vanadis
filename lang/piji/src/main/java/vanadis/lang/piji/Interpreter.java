@@ -16,9 +16,9 @@
 
 package vanadis.lang.piji;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.lang.piji.fun.Functions;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
@@ -37,7 +37,7 @@ import java.util.List;
  */
 public final class Interpreter {
 
-    private static final Log log = Logs.get(Interpreter.class);
+    private static final Logger log = LoggerFactory.getLogger(Interpreter.class);
 
     private static final Symbol INTERPRETER = Symbol.get("interpreter");
 

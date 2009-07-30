@@ -16,7 +16,7 @@ public class RelativeURIResolver implements BundleResolver {
     public URI resolve(BundleSpecification bundleSpecification) {
         URI repo = bundleSpecification.getRepo();
         URI uri = repo == null ? root : repo;
-        return bundleSpecification.getCoordinate().uriIn(uri, true);
+        return bundleSpecification.getCoordinate().uriIn(uri, true, false);
     }
 
     @Override

@@ -15,7 +15,7 @@
  */
 package vanadis.core.reflection;
 
-public final class ArgumentTypeMismatchException extends InvokeException {
+public class ArgumentTypeMismatchException extends InvokeException {
 
     private static final long serialVersionUID = -7891226002388323103L;
 

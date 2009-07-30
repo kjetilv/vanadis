@@ -18,8 +18,11 @@ package vanadis.extrt;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.ModuleSpecification;
+import vanadis.concurrent.OperationQueuer;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.IORuntimeException;
 import vanadis.core.lang.Not;
@@ -27,9 +30,6 @@ import vanadis.core.lang.ToString;
 import vanadis.ext.ModuleSystemException;
 import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.Context;
-import vanadis.util.concurrent.OperationQueuer;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.io.IOException;
 import java.util.*;
@@ -398,7 +398,7 @@ class SystemEventsImpl implements SystemEvents {
         return moduleSpecifications;
     }
 
-    private static final Log log = Logs.get(SystemEventsImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(SystemEventsImpl.class);
 
     @Override
     public String toString() {

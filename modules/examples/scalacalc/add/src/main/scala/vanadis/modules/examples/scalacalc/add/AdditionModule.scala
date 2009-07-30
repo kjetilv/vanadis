@@ -7,5 +7,5 @@ import ext.{Module, Expose}
 class AdditionModule {
 
   @Expose
-  def getAdder() : Adder = new MyAdder();
+  def getAdder() : Adder = new MyAdder()
 }

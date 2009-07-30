@@ -19,7 +19,7 @@ import vanadis.core.collections.Generic;
 import vanadis.core.collections.Iterables;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
-import vanadis.util.mvn.Repo;
+import vanadis.mvn.Repo;
 
 import java.net.URI;
 import java.util.*;
@@ -136,8 +136,9 @@ public class SystemSpecification {
 
     private BundleResolver resolvers(Iterable<BundleResolver> resolvers) {
         boolean defaultRepository = this.root.equals(Repo.DEFAULT_URI);
-        return defaultRepository ? new ManyBundleResolvers(resolvers, rootResolver())
-                : new ManyBundleResolvers(resolvers).prepend(rootResolver());
+        return defaultRepository
+                ? new ManyBundleResolvers(resolvers, rootResolver(), MVN_PAX)
+                : new ManyBundleResolvers(resolvers).prepend(rootResolver()).append(MVN_PAX);
     }
 
     private RelativeURIResolver rootResolver() {
@@ -239,6 +240,8 @@ public class SystemSpecification {
         }
         return otherNodeCoordinates;
     }
+
+    private static final BundleResolver MVN_PAX = new URIPatternResolver("mvn:${groupId}/${artifactId}/${version}");
 
     @Override
     public String toString() {

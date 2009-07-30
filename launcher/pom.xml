@@ -29,20 +29,34 @@
   <name>${artifactId}</name>
   <dependencies>
     <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.blueprints</artifactId>
+      <groupId>org.ops4j.pax.url</groupId>
+      <artifactId>pax-url-wrap</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ops4j.pax.url</groupId>
+      <artifactId>pax-url-mvn</artifactId>
+      <version>1.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.osgi.core</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.osgi.compendium</artifactId>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.mvn</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.blueprints</artifactId>
     </dependency>
   </dependencies>
 </project>

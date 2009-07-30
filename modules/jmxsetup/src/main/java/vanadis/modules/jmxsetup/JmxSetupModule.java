@@ -15,6 +15,8 @@
  */
 package vanadis.modules.jmxsetup;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.jmx.Jmx;
 import vanadis.core.lang.ToString;
@@ -22,8 +24,6 @@ import vanadis.ext.*;
 import static vanadis.ext.CoreProperty.OBJECTNAME;
 import static vanadis.ext.CoreProperty.OBJECTNAME_NAME;
 import vanadis.osgi.ServiceProperties;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import javax.management.DynamicMBean;
 import javax.management.ObjectName;
@@ -82,7 +82,7 @@ public class JmxSetupModule extends AbstractModule {
         }
     }
 
-    private static final Log log = Logs.get(JmxSetupModule.class);
+    private static final Logger log = LoggerFactory.getLogger(JmxSetupModule.class);
 
     @Override
     public String toString() {

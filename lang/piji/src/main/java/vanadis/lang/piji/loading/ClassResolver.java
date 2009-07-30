@@ -16,9 +16,9 @@
 
 package vanadis.lang.piji.loading;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.Map;
 
 public final class ClassResolver {
 
-    private final Log log = Logs.get(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final ClassLoader loader;
 

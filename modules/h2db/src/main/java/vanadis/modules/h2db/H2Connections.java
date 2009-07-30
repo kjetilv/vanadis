@@ -17,11 +17,11 @@
 package vanadis.modules.h2db;
 
 import org.h2.Driver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.lang.ToString;
 import vanadis.services.db.Connections;
 import vanadis.services.db.DbException;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.io.File;
 import java.sql.Connection;
@@ -33,7 +33,7 @@ public class H2Connections implements Connections {
         Driver.load();
     }
 
-    private static final Log log = Logs.get(H2Connections.class);
+    private static final Logger log = LoggerFactory.getLogger(H2Connections.class);
 
     private final String user;
 

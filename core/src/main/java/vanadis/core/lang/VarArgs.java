@@ -16,12 +16,7 @@
 
 package vanadis.core.lang;
 
-import vanadis.core.collections.Generic;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Utility methods for checking the state of your varargs.
@@ -121,7 +116,7 @@ public final class VarArgs {
     }
 
     public static <T> Set<T> set(T[] varargs) {
-        return Generic.set(list(varargs));
+        return new HashSet(list(varargs));
     }
 
     private VarArgs() { }

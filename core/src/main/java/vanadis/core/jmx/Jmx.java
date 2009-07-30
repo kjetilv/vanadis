@@ -21,7 +21,7 @@ import vanadis.core.system.VM;
 
 import javax.management.*;
 
-public class Jmx {
+public final class Jmx {
 
     public static void registerJmx(ObjectName objectName, DynamicMBean dynamicMBean) {
         registerJmx(objectName, dynamicMBean, null);
@@ -81,4 +81,6 @@ public class Jmx {
             throw new JmxException("Failed to unregister " + objectName, e);
         }
     }
+
+    private Jmx() {}
 }

@@ -75,7 +75,7 @@ public final class Blueprints implements Iterable<String>, Serializable {
         return getSystemSpecification(root, Arrays.asList(blueprintNames));
     }
 
-    public SystemSpecification getSystemSpecification(URI root, List<String> blueprintNames) {
+    public SystemSpecification getSystemSpecification(URI root, Iterable<String> blueprintNames) {
         Not.empty(blueprintNames, "blueprint names");
         SystemSpecification systemSpecification = null;
         for (String blueprintName : blueprintNames) {

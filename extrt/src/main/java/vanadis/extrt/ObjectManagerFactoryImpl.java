@@ -16,7 +16,10 @@
 
 package vanadis.extrt;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.blueprints.ModuleSpecification;
+import vanadis.concurrent.OperationQueuer;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
@@ -25,9 +28,6 @@ import vanadis.ext.ModuleSystemException;
 import vanadis.objectmanagers.ObjectManager;
 import vanadis.objectmanagers.ObjectManagerFactory;
 import vanadis.osgi.Context;
-import vanadis.util.concurrent.OperationQueuer;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -36,7 +36,7 @@ import java.util.Set;
 
 final class ObjectManagerFactoryImpl implements ObjectManagerFactory {
 
-    private static final Log log = Logs.get(ObjectManagerFactoryImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(ObjectManagerFactoryImpl.class);
 
     private final Context context;
 

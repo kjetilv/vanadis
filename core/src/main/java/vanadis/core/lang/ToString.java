@@ -16,8 +16,6 @@
 
 package vanadis.core.lang;
 
-import vanadis.core.system.VM;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Array;
@@ -68,8 +66,7 @@ public final class ToString {
                 return Arrays.toString((boolean[]) object);
             }
             throw new IllegalStateException
-                    ("Uh-oh! A new PRIMITIVE type has appeared in Java " + VM.VERSION +
-                            ": " + object.getClass() + "!  The fools!");
+                    ("Uh-oh! A new PRIMITIVE type has appeared in Java: " + object.getClass() + "!  The fools!");
         }
         return object.toString();
     }

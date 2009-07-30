@@ -16,33 +16,32 @@
 
 package vanadis.launcher;
 
-public class SystemPackages {
+class SystemPackages {
 
-    public static final String COVERAGE =
+    static final String COVERAGE =
             "com.vladium.emma.rt,com.intellij.rt.coverage.data,com.intellij.rt.coverage,com.intellij.rt";
 
-    public static final String PROFILING =
+    static final String PROFILING =
             "com.jprofiler.agent,org.netbeans.lib.profiler.server";
 
-    public static final String UTIL =
-            "vanadis.core.collections," +
-                    "vanadis.core.lang," +
-                    "vanadis.core.properties," +
-                    "vanadis.core.system," +
-                    "vanadis.core.io," +
-                    "vanadis.core.reflection," +
-                    "vanadis.core.text," +
-                    "vanadis.core.time," +
-                    "vanadis.core.jmx," +
-                    "vanadis.core.ver," +
-                    "vanadis.util.concurrent," +
-                    "vanadis.util.exceptions," +
-                    "vanadis.util.log," +
-                    "vanadis.util.mvn," +
-                    "vanadis.util.xml," +
-                    "vanadis.blueprints";
+    static final String UTIL = "vanadis.core.collections," +
+            "vanadis.core.lang," +
+            "vanadis.core.properties," +
+            "vanadis.core.system," +
+            "vanadis.core.io," +
+            "vanadis.core.reflection," +
+            "vanadis.core.text," +
+            "vanadis.core.time," +
+            "vanadis.core.jmx," +
+            "vanadis.core.ver," +
+            "vanadis.util.concurrent," +
+            "vanadis.util.exceptions," +
+            "vanadis.util.log," +
+            "vanadis.util.mvn," +
+            "vanadis.util.xml," +
+            "vanadis.blueprints";
 
-    public static final String JDK = "javax.accessibility," +
+    static final String JDK = "javax.accessibility," +
             "javax.activation," +
             "javax.activity," +
             "javax.annotation," +
@@ -379,25 +378,4 @@ public class SystemPackages {
             "com.sun.xml.internal.xsom.visitor," +
             "sun.reflect," +
             "sun.misc";
-
-    public static final String LOG4J = "org.apache.log4j;version=1.2.15," +
-            "org.apache.log4j.lf5;version=1.2.15," +
-            "org.apache.log4j.lf5.viewer;version=1.2.15," +
-            "org.apache.log4j.lf5.viewer.images;version=1.2.15," +
-            "org.apache.log4j.lf5.viewer.categoryexplorer;version=1.2.15," +
-            "org.apache.log4j.lf5.viewer.configure;version=1.2.15," +
-            "org.apache.log4j.lf5.config;version=1.2.15," +
-            "org.apache.log4j.lf5.util;version=1.2.15," +
-            "org.apache.log4j.xml;version=1.2.15," +
-            "org.apache.log4j.spi;version=1.2.15," +
-            "org.apache.log4j.helpers;version=1.2.15," +
-            "org.apache.log4j.chainsaw;version=1.2.15," +
-            "org.apache.log4j.varia;version=1.2.15," +
-            "org.apache.log4j.net;version=1.2.15," +
-            "org.apache.log4j.jmx;version=1.2.15," +
-            "org.apache.log4j.or;version=1.2.15," +
-            "org.apache.log4j.or.sax;version=1.2.15," +
-            "org.apache.log4j.or.jms;version=1.2.15," +
-            "org.apache.log4j.config;version=1.2.15," +
-            "org.apache.log4j.nt;version=1.2.15";
 }

@@ -20,6 +20,8 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import vanadis.concurrent.OperationQueuer;
+import vanadis.concurrent.ThreadedDispatch;
 import vanadis.core.time.TimeSpan;
 import vanadis.ext.Inject;
 import vanadis.ext.ModuleSystemException;
@@ -29,8 +31,6 @@ import vanadis.osgi.Context;
 import vanadis.osgi.Registration;
 import vanadis.osgi.ServiceProperties;
 import vanadis.osgi.impl.BareBonesContext;
-import vanadis.util.concurrent.OperationQueuer;
-import vanadis.util.concurrent.ThreadedDispatch;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;

@@ -27,7 +27,7 @@ import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class IO {
+public final class IO {
 
     static final String ENC = "utf-8";
 
@@ -130,4 +130,6 @@ public class IO {
     static <T> T failEncoding(String enc, UnsupportedEncodingException e) {
         throw new IllegalArgumentException("Unknown encoding: " + enc, e);
     }
+
+    private IO() {}
 }

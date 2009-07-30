@@ -16,14 +16,14 @@
 
 package vanadis.extrt;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.lang.ToString;
 import static vanadis.core.reflection.Invoker.invoke;
 import vanadis.ext.Inject;
 import vanadis.ext.ModuleSystemException;
 import vanadis.osgi.Reference;
 import vanadis.osgi.ServiceProperties;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -99,7 +99,7 @@ final class MethodInjector<T> extends AccessibleInjector<T> {
         return injectPoint == retractPoint;
     }
 
-    private static final Log log = Logs.get(MethodInjector.class);
+    private static final Logger log = LoggerFactory.getLogger(MethodInjector.class);
 
     private static boolean takesProperties(Method point) {
         Class<?>[] types = point.getParameterTypes();

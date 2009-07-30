@@ -26,7 +26,10 @@ abstract class AbstractSpecification implements Serializable {
 
     private final boolean globalProperties;
 
-    AbstractSpecification(PropertySet propertySet, Boolean globalProperties) {
+    private final String configPropertiesPid;
+
+    AbstractSpecification(PropertySet propertySet, Boolean globalProperties, String configPropertiesPid) {
+        this.configPropertiesPid = configPropertiesPid;
         this.propertySet = propertySet == null || propertySet.isEmpty() ? PropertySets.EMPTY
                 : propertySet;
         this.globalProperties = !this.propertySet.isEmpty() && globalProperties != null && globalProperties;
@@ -38,5 +41,9 @@ abstract class AbstractSpecification implements Serializable {
 
     public final PropertySet getPropertySet() {
         return propertySet;
+    }
+
+    public String getConfigPropertiesPid() {
+        return configPropertiesPid;
     }
 }

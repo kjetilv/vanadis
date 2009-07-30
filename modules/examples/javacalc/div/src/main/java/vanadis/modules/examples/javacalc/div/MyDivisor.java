@@ -20,8 +20,7 @@ import vanadis.modules.examples.javacalc.calcservices.Divisor;
 
 import java.util.Arrays;
 
-public class MyDivisor extends AbstractArithmetics
-        implements Divisor {
+public class MyDivisor extends AbstractArithmetics implements Divisor {
 
     @Override
     public int div(int... args) {

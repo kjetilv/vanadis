@@ -16,12 +16,12 @@
 
 package vanadis.osgi.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.lang.Not;
 import vanadis.osgi.Context;
 import vanadis.osgi.Filter;
 import vanadis.osgi.Reference;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -103,5 +103,5 @@ final class ServiceProxyHandler<T> implements InvocationHandler {
         return context.getReference(serviceInterface, filter);
     }
 
-    private static final Log log = Logs.get(ServiceProxyHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(ServiceProxyHandler.class);
 }

@@ -20,6 +20,19 @@
             xmlns="http://kjetilv.github.com/vanadis/blueprints">
   <!-- Configuration with all that defines vanadis, all auto-loaded -->
   <blueprint name="base">
+
+    <!-- Logger stuff -->
+    <bundles group="org.slf4j" version="1.5.8">
+      <auto-bundle artifact="slf4j-api"/>
+      <auto-bundle artifact="slf4j-jdk14"/>
+    </bundles>
+
+    <!-- PAX Stuff.  -->
+    <bundles group="org.ops4j.pax.url">
+      <auto-bundle artifact="pax-url-mvn" version="1.0.0"/>
+      <auto-bundle artifact="pax-url-wrap" version="1.0.0"/>
+    </bundles>
+
     <!-- Additional OSGi services -->
     <auto-bundle group="org.apache.felix" artifact="org.osgi.compendium"
                  version="1.2.0"/>
@@ -30,8 +43,6 @@
     <auto-bundle group="org.objectweb.asm" artifact="com.springsource.org.objectweb.asm"
                  version="3.1.0"/>
     <bundles group="vanadis" artifact-prefix="vanadis">
-      <!-- Log setup -->
-      <auto-bundle artifact="log4jsetup"/>
       <!-- Annotation muncher -->
       <auto-bundle artifact="annopro"/>
       <!-- Humane OSGi API's -->
@@ -40,13 +51,17 @@
       <auto-bundle artifact="objectmanagers"/>
       <!-- Vanadis services -->
       <auto-bundle artifact="services"/>
+      <!-- Maven support -->
+      <auto-bundle artifact="mvn"/>
+      <!-- Concurrency support -->
+      <auto-bundle artifact="concurrent"/>
       <!-- API for users of extender module -->
       <auto-bundle artifact="ext"/>
       <!-- The extender module picks up managed modules using a quick ASM scan. -->
       <auto-bundle artifact="extrt"/>
     </bundles>
 
-    <!-- Log Service -->
+    <!-- Logger Service -->
     <auto-bundle group="vanadis.modules" artifact="vanadis.modules.log"/>
   </blueprint>
 
@@ -79,7 +94,7 @@
         <property name="org.osgi.service.http.port.secure">baseport+81</property>
       </properties>
     </bundle>
-      <bundle group="vanadis.modules" artifact="vanadis.modules.httpwhiteboard"/>
+    <bundle group="vanadis.modules" artifact="vanadis.modules.httpwhiteboard"/>
   </blueprint>
 
   <blueprint name="jetty-http">
@@ -91,7 +106,7 @@
         <property name="org.osgi.service.http.port.secure">baseport+80</property>
       </properties>
     </bundle>
-      <bundle group="vanadis.modules" artifact="vanadis.modules.httpwhiteboard"/>
+    <bundle group="vanadis.modules" artifact="vanadis.modules.httpwhiteboard"/>
   </blueprint>
 
   <!-- Template for full stand-alone vanadis -->

@@ -15,12 +15,12 @@
  */
 package vanadis.deployer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.osgi.Context;
 import vanadis.osgi.Registration;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.net.URI;
 import java.util.Collection;
@@ -62,5 +62,5 @@ final class DeployImpl implements Deploy {
         }
     }
 
-    private static final Log log = Logs.get(DeployImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(DeployImpl.class);
 }

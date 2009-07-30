@@ -63,7 +63,6 @@
           <exclude>*vanadis:vanadis.main*</exclude>
           <exclude>*vanadis:vanadis.launcher*</exclude>
           <exclude>*org.apache.felix.main*</exclude>
-          <exclude>*com.springsource.org.apache.log4j*</exclude>
         </excludes>
       </repository>
     </repositories>
@@ -79,7 +78,6 @@
           <include>*vanadis:vanadis.main*</include>
           <include>*vanadis:vanadis.launcher*</include>
           <include>*org.apache.felix.main*</include>
-          <include>*com.springsource.org.apache.log4j*</include>
         </includes>
       </dependencySet>
     </dependencySets>

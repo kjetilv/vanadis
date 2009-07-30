@@ -17,8 +17,10 @@ package vanadis.blueprints;
 
 import junit.framework.Assert;
 import org.junit.Test;
-import vanadis.util.mvn.Coordinate;
-import vanadis.util.mvn.Repo;
+import vanadis.core.lang.Not;
+import vanadis.core.properties.PropertySet;
+import vanadis.mvn.Coordinate;
+import vanadis.mvn.Repo;
 
 import java.util.Arrays;
 
@@ -31,13 +33,19 @@ public class BlueprintTest {
     @Test
     public void combineNodeData() {
         SystemSpecification nd1 = new SystemSpecification
-                (null, "test1", Repo.DEFAULT.toURI(), null, Arrays.asList(BundleSpecification.create(FOO_BAR, 1, null)),
+                (null, "test1", Repo.DEFAULT.toURI(), null, Arrays.asList(bs(FOO_BAR, 1, null)),
                  null);
         SystemSpecification nd2 =
                 new SystemSpecification(null, "test2", Repo.DEFAULT.toURI(), null,
-                                        Arrays.asList(BundleSpecification.create(ZIP_ZOT, 1, null)),
+                                        Arrays.asList(bs(ZIP_ZOT, 1, null)),
                                         null);
         SystemSpecification nd = nd1.combinedWith(nd2);
         Assert.assertNotNull(nd);
+    }
+
+    public static BundleSpecification bs(Coordinate coordinate,
+                                         Integer startLevel, PropertySet propertySet) {
+        return BundleSpecification.create(null, Not.nil(coordinate, "coordinate"), startLevel,
+                                          propertySet, null, null);
     }
 }

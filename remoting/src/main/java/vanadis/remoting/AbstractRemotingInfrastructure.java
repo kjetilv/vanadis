@@ -15,17 +15,17 @@
  */
 package vanadis.remoting;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.io.Location;
 import vanadis.services.remoting.RemotingException;
 import vanadis.services.remoting.RemotingInfrastructure;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class AbstractRemotingInfrastructure implements RemotingInfrastructure {
 
-    private static final Log log = Logs.get(AbstractRemotingInfrastructure.class);
+    private static final Logger log = LoggerFactory.getLogger(AbstractRemotingInfrastructure.class);
 
     private boolean active;
 

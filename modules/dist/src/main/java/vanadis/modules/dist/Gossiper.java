@@ -16,8 +16,8 @@
 package vanadis.modules.dist;
 
 import vanadis.osgi.Registration;
-import vanadis.util.io.Location;
-import vanadis.util.properties.PropertySets;
+import vanadis.core.io.Location;
+import vanadis.core.properties.PropertySets;
 import org.jgroups.JChannel;
 
 import java.util.concurrent.ScheduledExecutorService;

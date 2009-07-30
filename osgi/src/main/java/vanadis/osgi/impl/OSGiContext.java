@@ -19,6 +19,8 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
 import vanadis.core.lang.EqHc;
@@ -26,8 +28,6 @@ import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.osgi.*;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.net.URI;
 import java.net.URL;
@@ -317,7 +317,7 @@ public final class OSGiContext extends ContextAdapter {
         }
     }
 
-    private static final Log log = Logs.get(OSGiContext.class);
+    private static final Logger log = LoggerFactory.getLogger(OSGiContext.class);
 
     private static final ServiceReference[] NO_SERVICE_REFERENCES = new ServiceReference[]{};
 

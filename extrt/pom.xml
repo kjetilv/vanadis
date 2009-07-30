@@ -32,7 +32,15 @@
   <dependencies>
     <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
+      <artifactId>vanadis.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.concurrent</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.mvn</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
@@ -40,40 +48,17 @@
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.osgi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.osgi</artifactId>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
       <artifactId>vanadis.ext</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.services</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.blueprints</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.objectmanagers</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.log4j</groupId>
-      <artifactId>com.springsource.org.apache.log4j</artifactId>
+      <artifactId>vanadis.osgi</artifactId>
+      <type>test-jar</type>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.services</artifactId>
     </dependency>
   </dependencies>
   <build>

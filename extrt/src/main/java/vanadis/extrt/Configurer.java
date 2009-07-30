@@ -16,6 +16,8 @@
 
 package vanadis.extrt;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -30,9 +32,6 @@ import vanadis.core.reflection.Invoker;
 import vanadis.ext.Configuration;
 import vanadis.ext.Configure;
 import vanadis.ext.ModuleSystemException;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
-import vanadis.util.xml.XmlException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -45,7 +44,7 @@ import java.util.*;
 
 class Configurer {
 
-    private static final Log log = Logs.get(Configurer.class);
+    private static final Logger log = LoggerFactory.getLogger(Configurer.class);
 
     private final AnnotationDatum<?> datum;
 
@@ -200,7 +199,7 @@ class Configurer {
     private void setPropertyXml(Object configured, Node node) {
         boolean isElement = Element.class.isAssignableFrom(propertyType);
         boolean isDocument = Document.class.isAssignableFrom(propertyType);
-        if (log.isDebug()) {
+        if (log.isDebugEnabled()) {
             log.debug(MessageFormat.format
                     ("{0}.{1}({2}) => target: {3})",
                      configured.getClass().getSimpleName(), propertyName, isElement, configured));
@@ -223,7 +222,7 @@ class Configurer {
         try {
             return documentBuilderFactory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            throw new XmlException("Failed to create document builder", e);
+            throw new IllegalStateException("Failed to create document builder", e);
         }
     }
 
@@ -241,7 +240,7 @@ class Configurer {
 
     private void setPropertyValue(Object configured, boolean xml, PropertySet variables,
                                   Object finalValue) {
-        if (log.isDebug()) {
+        if (log.isDebugEnabled()) {
             log.debug(MessageFormat.format
                     ("{0}.{1}({2}) => target: {3})",
                      configured.getClass().getSimpleName(), propertyName, finalValue, configured));

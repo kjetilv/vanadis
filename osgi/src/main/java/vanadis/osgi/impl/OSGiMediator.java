@@ -15,16 +15,16 @@
  */
 package vanadis.osgi.impl;
 
-import vanadis.core.collections.Generic;
-import vanadis.core.lang.ToString;
-import vanadis.osgi.*;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import vanadis.core.collections.Generic;
+import vanadis.core.lang.ToString;
+import vanadis.osgi.*;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -32,7 +32,7 @@ import java.util.Set;
 
 final class OSGiMediator<T> implements Mediator<T>, ServiceTrackerCustomizer {
 
-    private static final Log log = Logs.get(OSGiMediator.class);
+    private static final Logger log = LoggerFactory.getLogger(OSGiMediator.class);
 
     private static final Object[] NO_SERVICES = new Object[]{};
 
@@ -137,7 +137,7 @@ final class OSGiMediator<T> implements Mediator<T>, ServiceTrackerCustomizer {
         try {
             object = bundleContext.getService(serviceReference);
         } catch (IllegalStateException e) {
-            if (log.isDebug()) {
+            if (log.isDebugEnabled()) {
                 log.debug(this + " skips add, bundle context invalid", e);
             }
             return null;

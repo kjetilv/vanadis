@@ -34,7 +34,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *
  * <blockquote>{@code Map<Foo,Bar> map = Mapper.map(foo1, bar1, foo2, bar2);}</blockquote>
  */
-public class Generic {
+public final class Generic {
 
     public static final EmptyDictionary<String, Object> EMPTY_DICTIONARY = new EmptyDictionary<String, Object>();
 
@@ -386,8 +386,21 @@ public class Generic {
      * @return Unmodifiable copy
      */
     public static <T> List<T> seal(List<T> list) {
-        return list == null || list.isEmpty() ? Collections.<T>emptyList()
+        return list == null || list.isEmpty()
+                ? Collections.<T>emptyList()
                 : Collections.unmodifiableList(list(list));
+    }
+
+    /**
+     * Return safely unmodifiable copy of the input list.
+     *
+     * @param iterable List
+     * @return Unmodifiable copy
+     */
+    public static <T> Collection<T> seal(Iterable<T> iterable) {
+        return iterable == null || !iterable.iterator().hasNext()
+                ? Collections.<T>emptyList()
+                : Collections.unmodifiableList(list(iterable));
     }
 
     /**

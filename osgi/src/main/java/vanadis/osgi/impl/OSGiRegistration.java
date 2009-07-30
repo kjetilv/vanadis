@@ -15,20 +15,20 @@
  */
 package vanadis.osgi.impl;
 
+import org.osgi.framework.Bundle;
+import org.osgi.framework.ServiceRegistration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.lang.EqHc;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.osgi.OSGiUtils;
 import vanadis.osgi.Registration;
 import vanadis.osgi.ServiceProperties;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.ServiceRegistration;
 
 final class OSGiRegistration<T> implements Registration<T> {
 
-    private static final Log log = Logs.get(OSGiRegistration.class);
+    private static final Logger log = LoggerFactory.getLogger(OSGiRegistration.class);
 
     private final ServiceRegistration osgiRegistration;
 
@@ -84,7 +84,7 @@ final class OSGiRegistration<T> implements Registration<T> {
             boolean active = OSGiUtils.isActive(bundle);
             if (active) {
                 return attemptUnregister();
-            } else if (log.isDebug()) {
+            } else if (log.isDebugEnabled()) {
                 log.debug(this + " skipped unregister, bundle not active, in state " + bundle.getState());
             }
         } else {

@@ -26,11 +26,12 @@ public final class Not {
         return object;
     }
 
+    public static <T, I extends Iterable<T>> I empty(I iterable, String msg) {
+        return iterable.iterator().hasNext() ? iterable : Not.<I>nonEmpty(msg);
+    }
+
     public static <T, C extends Collection<T>> C empty(C collection, String msg) {
-        if (nil(collection, msg).isEmpty()) {
-            nonEmpty(msg);
-        }
-        return collection;
+        return nil(collection, msg).isEmpty() ? Not.<C>nonEmpty(msg) : collection;
     }
 
     public static String nilOrEmpty(String string, String msg) {
@@ -40,7 +41,7 @@ public final class Not {
         return string;
     }
 
-    private static String nonEmpty(String msg) {
+    private static <T> T nonEmpty(String msg) {
         throw new IllegalArgumentException("Expected non-empty: " + msg);
     }
 

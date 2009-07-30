@@ -64,7 +64,11 @@
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
+      <artifactId>vanadis.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.mvn</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
@@ -100,10 +104,6 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.log4j</groupId>
-      <artifactId>com.springsource.org.apache.log4j</artifactId>
-    </dependency>
-    <dependency>
       <groupId>vanadis</groupId>
       <artifactId>vanadis.extrt</artifactId>
     </dependency>
@@ -115,11 +115,6 @@
     <dependency>
       <groupId>vanadis</groupId>
       <artifactId>vanadis.osgi</artifactId>
-      <type>test-jar</type>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.extrt</artifactId>
       <type>test-jar</type>
     </dependency>
   </dependencies>

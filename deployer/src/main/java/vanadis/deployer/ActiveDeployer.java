@@ -15,15 +15,15 @@
  */
 package vanadis.deployer;
 
+import org.osgi.framework.ServiceRegistration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
 import vanadis.core.lang.VarArgs;
 import vanadis.core.time.Time;
 import vanadis.core.time.TimeSpan;
 import vanadis.osgi.Registration;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
-import org.osgi.framework.ServiceRegistration;
 
 import java.net.URI;
 import java.util.*;
@@ -172,7 +172,7 @@ final class ActiveDeployer implements Runnable {
         return !pause.waitFor(cycleCondition, false);
     }
 
-    private static final Log log = Logs.get(ActiveDeployer.class);
+    private static final Logger log = LoggerFactory.getLogger(ActiveDeployer.class);
 
     private static final String BUNDLE = "bundle";
 
@@ -186,7 +186,7 @@ final class ActiveDeployer implements Runnable {
             nextTime = untilThen.approximate().toHumanFriendlyString();
         } catch (Exception e) {
             String oops = "Failed resolve next time";
-            if (log.isDebug()) {
+            if (log.isDebugEnabled()) {
                 log.debug(oops, e);
             }
             nextTime = oops;

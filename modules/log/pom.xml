@@ -31,15 +31,15 @@
   <dependencies>
     <dependency>
       <groupId>vanadis</groupId>
+      <artifactId>vanadis.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
       <artifactId>vanadis.ext</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
     </dependency>
   </dependencies>
 </project>

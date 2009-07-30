@@ -9,25 +9,25 @@ public class MainTest {
 
     @Test
     public void parseOnlyBlueprintNames() {
-        assertFooBarOnly(new Main.CommandLineDigest("-blueprints foo,bar"));
+        assertFooBarOnly(new ArgumentsSpecs("-blueprints foo,bar"));
     }
 
     @Test
     public void parseOnlyNames() {
-        assertFooBarOnly(new Main.CommandLineDigest("foo,bar"));
+        assertFooBarOnly(new ArgumentsSpecs("foo,bar"));
     }
 
     @Test
     public void parseOnlySpacedNames() {
-        assertFooBarOnly(new Main.CommandLineDigest("foo bar"));
+        assertFooBarOnly(new ArgumentsSpecs("foo bar"));
     }
 
     @Test
     public void parseNothing() {
-        assertEmpty(new Main.CommandLineDigest(""));
+        assertEmpty(new ArgumentsSpecs(""));
     }
 
-    private static void assertFooBarOnly(Main.CommandLineDigest ms) {
+    private static void assertFooBarOnly(ArgumentsSpecs ms) {
         assertEquals(Arrays.asList("foo", "bar"), ms.getBlueprintNames());
         assertNull(ms.getHome());
         assertNull(ms.getRepoRoot());
@@ -36,7 +36,7 @@ public class MainTest {
         assertTrue(ms.getBlueprintResources().isEmpty());
     }
 
-    private static void assertEmpty(Main.CommandLineDigest ms) {
+    private static void assertEmpty(ArgumentsSpecs ms) {
         assertTrue(ms.getBlueprintNames().toString(), ms.getBlueprintNames().isEmpty());
         assertNull(ms.getHome());
         assertNull(ms.getRepoRoot());

@@ -16,9 +16,12 @@
 
 package vanadis.extrt;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.annopro.AnnotationDatum;
 import vanadis.annopro.AnnotationsDigest;
 import vanadis.blueprints.ModuleSpecification;
+import vanadis.concurrent.OperationQueuer;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
 import vanadis.core.lang.Not;
@@ -32,9 +35,6 @@ import vanadis.osgi.Context;
 import vanadis.osgi.Reference;
 import vanadis.osgi.Registration;
 import vanadis.osgi.ServiceProperties;
-import vanadis.util.concurrent.OperationQueuer;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import javax.management.DynamicMBean;
 import java.lang.annotation.Annotation;
@@ -581,7 +581,7 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
         }
     }
 
-    private static final Log log = Logs.get(ObjectManagerImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(ObjectManagerImpl.class);
 
     private static final String SCALASET_SUFFIX = "_$eq";
 

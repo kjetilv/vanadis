@@ -4,9 +4,9 @@ import calcservices.Divisor
 
 class MyDivisor extends Divisor {
 
-  def div(args: Array[Int]) = {
+  override def div(args: Array[Int]) = {
     var dividend = args(0)
-    args.slice(1).foreach(i => dividend /= i)
+    args.slice(1).foreach(dividend /= _)
     dividend
   }
 }

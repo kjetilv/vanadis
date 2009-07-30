@@ -15,8 +15,7 @@
  */
 package vanadis.modules.dist;
 
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
+import vanadis.core.log.Logs;
 import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;
 

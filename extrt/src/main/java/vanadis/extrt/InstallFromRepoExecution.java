@@ -16,10 +16,10 @@
 package vanadis.extrt;
 
 import vanadis.blueprints.BundleSpecification;
-import vanadis.ext.CommandExecution;
 import vanadis.core.text.Printer;
+import vanadis.ext.CommandExecution;
+import vanadis.mvn.Coordinate;
 import vanadis.osgi.Context;
-import vanadis.util.mvn.Coordinate;
 
 import java.net.URI;
 

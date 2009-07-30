@@ -15,15 +15,15 @@
  */
 package vanadis.modules.reposerv;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.io.Closeables;
 import vanadis.core.io.Files;
 import vanadis.core.io.IO;
 import vanadis.core.lang.ToString;
 import vanadis.ext.Attribute;
 import vanadis.ext.Manageable;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
-import vanadis.util.mvn.Repo;
+import vanadis.mvn.Repo;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -132,7 +132,7 @@ class RepoServlet extends HttpServlet {
         return path.startsWith(prefix) ? path.substring(prefix.length()) : path;
     }
 
-    private static final Log log = Logs.get(RepoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(RepoServlet.class);
 
     private static final long serialVersionUID = -6057331810490806039L;
 

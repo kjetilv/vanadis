@@ -21,6 +21,7 @@ import vanadis.annopro.AnnotationDatum;
 import vanadis.annopro.AnnotationsDigest;
 import vanadis.annopro.AnnotationsDigests;
 import vanadis.blueprints.ModuleSpecification;
+import vanadis.concurrent.OperationQueuer;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Closeables;
 import vanadis.core.lang.Strings;
@@ -30,7 +31,6 @@ import vanadis.ext.Module;
 import vanadis.ext.ModuleSystemException;
 import vanadis.objectmanagers.ObjectManagerFactory;
 import vanadis.osgi.Context;
-import vanadis.util.concurrent.OperationQueuer;
 
 import java.io.IOException;
 import java.io.InputStream;

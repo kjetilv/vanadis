@@ -17,7 +17,10 @@
 package vanadis.extrt;
 
 import org.osgi.framework.Bundle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.blueprints.ModuleSpecification;
+import vanadis.concurrent.OperationQueuer;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
@@ -29,9 +32,6 @@ import vanadis.osgi.Context;
 import vanadis.osgi.Contexts;
 import vanadis.osgi.Registration;
 import vanadis.osgi.ServiceProperties;
-import vanadis.util.concurrent.OperationQueuer;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -133,14 +133,14 @@ class BundleManager implements Iterable<String> {
                 factory.shutdown();
             } finally {
                 Throwable throwable = registration.unregisterSafely();
-                if (throwable != null && log.isDebug()) {
+                if (throwable != null && log.isDebugEnabled()) {
                     log.debug(registration + " failed to unregister properly", throwable);
                 }
             }
         }
     }
 
-    private static final Log log = Logs.get(BundleManager.class);
+    private static final Logger log = LoggerFactory.getLogger(BundleManager.class);
 
     private static Map<Registration<ObjectManagerFactory>, ObjectManagerFactory> registerFactories(Context context,
                                                                                                    Collection<ObjectManagerFactory> managedFactories) {

@@ -19,6 +19,8 @@ package vanadis.extrt;
 import org.osgi.framework.BundleContext;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.ModuleSpecification;
+import vanadis.concurrent.OperationQueuer;
+import vanadis.concurrent.ThreadedDispatch;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
@@ -27,8 +29,6 @@ import vanadis.ext.Command;
 import vanadis.ext.CommandExecution;
 import vanadis.ext.GenericCommand;
 import vanadis.osgi.*;
-import vanadis.util.concurrent.OperationQueuer;
-import vanadis.util.concurrent.ThreadedDispatch;
 
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicBoolean;

@@ -30,7 +30,7 @@
   <dependencies>
     <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
+      <artifactId>vanadis.mvn</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.felix</groupId>

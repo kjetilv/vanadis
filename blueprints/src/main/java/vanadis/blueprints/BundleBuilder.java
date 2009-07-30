@@ -3,7 +3,7 @@ package vanadis.blueprints;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.ver.Version;
-import vanadis.util.mvn.Coordinate;
+import vanadis.mvn.Coordinate;
 
 import java.math.BigInteger;
 import java.net.URI;
@@ -25,6 +25,8 @@ final class BundleBuilder {
     private Boolean globalProperties;
 
     private PropertySet propertySet;
+
+    private String configurationPid;
 
     private String repo;
 
@@ -62,6 +64,13 @@ final class BundleBuilder {
     BundleBuilder setRepo(String repo) {
         if (repo != null) {
             this.repo = repo;
+        }
+        return this;
+    }
+
+    BundleBuilder setConfigurationPid(String configurationPid) {
+        if (configurationPid != null) {
+            this.configurationPid = configurationPid;
         }
         return this;
     }
@@ -131,11 +140,10 @@ final class BundleBuilder {
         String artifact = artifactPrefix == null
                 ? notNil(this.artifact, "artifact")
                 : append(artifactPrefix, this.artifact);
-        Coordinate coordinate = this.version == null
-                ? Coordinate.unversioned(group, artifact)
-                : Coordinate.versioned(group, artifact, new Version(this.version));
-        return BundleSpecification.create
-                (repo == null ? null : URI.create(repo), coordinate, startLevel, propertySet, globalProperties);
+        Coordinate coordinate = coordinate(group, artifact);
+        return BundleSpecification.create(repoUri(), coordinate,
+                                          startLevel, propertySet,
+                                          globalProperties, configurationPid);
     }
 
     BundleBuilder addPropertySet(PropertySet propertySet) {
@@ -164,10 +172,14 @@ final class BundleBuilder {
         return this;
     }
 
-    private static PropertySet append(PropertySet current, PropertySet addition) {
-        return addition == null || addition.isEmpty() ? current
-                : current == null ? addition
-                        : current.with(addition);
+    private Coordinate coordinate(String group, String artifact) {
+        return this.version == null
+                ? Coordinate.unversioned(group, artifact)
+                : Coordinate.versioned(group, artifact, new Version(this.version));
+    }
+
+    private URI repoUri() {
+        return repo == null ? null : URI.create(repo);
     }
 
     private <T> T notNil(T t, String what) {
@@ -189,6 +201,12 @@ final class BundleBuilder {
         return leftEnd && rightEnd ? current + addition.substring(1)
                 : leftEnd || rightEnd ? current + addition
                         : current + DOT + addition;
+    }
+
+    private static PropertySet append(PropertySet current, PropertySet addition) {
+        return addition == null || addition.isEmpty() ? current
+                : current == null ? addition
+                        : current.with(addition);
     }
 
     @Override

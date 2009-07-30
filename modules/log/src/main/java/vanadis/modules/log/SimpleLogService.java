@@ -16,15 +16,15 @@
 
 package vanadis.modules.log;
 
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.log.LogService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
 import vanadis.ext.AutoLaunch;
 import vanadis.ext.Expose;
 import vanadis.ext.Module;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
-import org.osgi.framework.ServiceReference;
-import org.osgi.service.log.LogService;
 
 import java.util.Map;
 
@@ -32,7 +32,7 @@ import java.util.Map;
 @Expose(ranking = Integer.MIN_VALUE, exposedType = LogService.class)
 public class SimpleLogService implements LogService {
 
-    private static final Log log = Logs.get(SimpleLogService.class);
+    private static final Logger log = LoggerFactory.getLogger(SimpleLogService.class);
 
     private static final Map<Integer, String> LEVELS =
             Generic.map(LogService.LOG_DEBUG, "DEBUG",
@@ -42,22 +42,34 @@ public class SimpleLogService implements LogService {
 
     @Override
     public void log(int level, String msg) {
-        log.log(LEVELS.get(level), msg, null);
+        doLog(level, null, msg);
     }
 
     @Override
     public void log(int level, String msg, Throwable throwable) {
-        log.log(LEVELS.get(level), msg, throwable);
+        doLog(level, throwable, msg);
     }
 
     @Override
     public void log(ServiceReference serviceReference, int level, String msg) {
-        log.log(LEVELS.get(level), serviceReference + ": " + msg, null);
+        doLog(level, null, serviceReference + ": " + msg);
     }
 
     @Override
     public void log(ServiceReference serviceReference, int level, String msg, Throwable throwable) {
-        log.log(LEVELS.get(level), serviceReference + ": " + msg, throwable);
+        doLog(level, throwable, serviceReference + ": " + msg);
+    }
+
+    private void doLog(int level, Throwable throwable, String string) {
+        if (level == LOG_DEBUG) {
+            log.debug(LEVELS.get(level), string, throwable);
+        } else if (level == LOG_ERROR) {
+            log.error(LEVELS.get(level), string, throwable);
+        } else if (level == LOG_INFO) {
+            log.info(LEVELS.get(level), string, throwable);
+        } else if (level == LOG_WARNING) {
+            log.warn(LEVELS.get(level), string, throwable);
+        }
     }
 
     @Override

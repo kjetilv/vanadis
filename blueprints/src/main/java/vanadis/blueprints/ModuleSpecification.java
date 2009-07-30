@@ -29,31 +29,38 @@ import java.util.Map;
 public final class ModuleSpecification extends AbstractSpecification {
 
     public static ModuleSpecification create(String type) {
-        return new ModuleSpecification(type, type, null, null, null);
+        return new ModuleSpecification(type, type, null, null, null, null);
     }
 
     public static ModuleSpecification create(String type, String name) {
-        return new ModuleSpecification(type, name, null, null, null);
+        return new ModuleSpecification(type, name, null, null, null, null);
     }
 
     public static ModuleSpecification create(String type, String name, PropertySet propertySet) {
-        return new ModuleSpecification(type, name, propertySet, null, null);
+        return new ModuleSpecification(type, name, propertySet, null, null, null);
     }
 
     public static ModuleSpecification create(String type, String name,
                                              PropertySet propertySet, Boolean globalProperties) {
-        return new ModuleSpecification(type, name, propertySet, globalProperties, null);
+        return new ModuleSpecification(type, name, propertySet, globalProperties, null, null);
     }
 
     public static ModuleSpecification create(String type, String name, PropertySet propertySet,
                                              Iterable<ModuleSpecificationFeature> features) {
-        return new ModuleSpecification(type, name, propertySet, null, features);
+        return new ModuleSpecification(type, name, propertySet, null, null, features);
     }
 
     public static ModuleSpecification create(String type, String name,
                                              PropertySet propertySet, Boolean globalProperties,
                                              Iterable<ModuleSpecificationFeature> features) {
-        return new ModuleSpecification(type, name, propertySet, globalProperties, features);
+        return create(type, name, propertySet, globalProperties, null, features);
+    }
+
+    public static ModuleSpecification create(String type, String name,
+                                             PropertySet propertySet,
+                                             Boolean globalProperties, String configPropertiesPid,
+                                             Iterable<ModuleSpecificationFeature> features) {
+        return new ModuleSpecification(type, name, propertySet, globalProperties, configPropertiesPid, features);
     }
 
     public static ModuleSpecification createFrom(URI uri) {
@@ -64,7 +71,7 @@ public final class ModuleSpecification extends AbstractSpecification {
         String typeName = Not.nil(managed, "managed").getClass().getName();
         String instanceName = managed.getClass().getSimpleName() + "@" +
                 System.identityHashCode(managed);
-        return new ModuleSpecification(typeName, instanceName, null, null, null);
+        return new ModuleSpecification(typeName, instanceName, null, null, null, null);
     }
 
     private final String name;
@@ -73,9 +80,10 @@ public final class ModuleSpecification extends AbstractSpecification {
 
     private final Map<CaseString, ModuleSpecificationFeature> serviceFeatures;
 
-    private ModuleSpecification(String type, String name, PropertySet propertySet, Boolean globalProperties,
-                                Iterable<ModuleSpecificationFeature> features) {
-        super(propertySet, globalProperties);
+    private ModuleSpecification(String type, String name, PropertySet propertySet,
+                                Boolean globalProperties,
+                                String configPropertiesPid, Iterable<ModuleSpecificationFeature> features) {
+        super(propertySet, globalProperties, configPropertiesPid);
         this.type = Not.nilOrEmpty(type, "type");
         this.name = Not.nilOrEmpty(name, "name");
         this.serviceFeatures = features == null ? NO_FEATURES : indexFeatures(features);

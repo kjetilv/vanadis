@@ -30,12 +30,8 @@
   <name>${artifactId}</name>
   <dependencies>
     <dependency>
-      <groupId>org.apache.log4j</groupId>
-      <artifactId>com.springsource.org.apache.log4j</artifactId>
-    </dependency>
-    <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.util</artifactId>
+      <artifactId>vanadis.core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.objectweb.asm</groupId>

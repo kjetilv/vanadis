@@ -16,17 +16,7 @@
 package vanadis.blueprints;
 
 import org.w3c.dom.Element;
-import vanadis.blueprints.gen.BlueprintType;
-import vanadis.blueprints.gen.BlueprintsType;
-import vanadis.blueprints.gen.BundleType;
-import vanadis.blueprints.gen.BundlesType;
-import vanadis.blueprints.gen.FeatureType;
-import vanadis.blueprints.gen.ModuleType;
-import vanadis.blueprints.gen.MultiPropertyType;
-import vanadis.blueprints.gen.PropertiesType;
-import vanadis.blueprints.gen.PropertyType;
-import vanadis.blueprints.gen.PropertyValue;
-import vanadis.blueprints.gen.XmlPropertyType;
+import vanadis.blueprints.gen.*;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Closeables;
 import vanadis.core.lang.Not;
@@ -325,6 +315,7 @@ public class BlueprintsReader {
                                           properties(scan(PropertiesType.class,
                                                           moduleType.getPropertiesOrInjectOrExpose())),
                                           toBool(moduleType.getGlobalProperties()),
+                                          r(moduleType.getConfigurationPid()),
                                           features(moduleType));
     }
 
@@ -414,6 +405,7 @@ public class BlueprintsReader {
                 .setArtifact(r(bundle.getArtifact()))
                 .setGroup(r(bundle.getGroup()))
                 .setVersion(r(bundle.getVersion()))
+                .setConfigurationPid(r(bundle.getConfigurationPid()))
                 .setGlobalProperties(toBool(bundle.getGlobalProperties()))
                 .setStartLevel(toInt(bundle.getStartLevel()))
                 .addPropertySet(properties(bundle.getProperties()))

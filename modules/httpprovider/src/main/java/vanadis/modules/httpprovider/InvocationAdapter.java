@@ -18,20 +18,20 @@ package vanadis.modules.httpprovider;
 import com.sun.grizzly.tcp.http11.GrizzlyAdapter;
 import com.sun.grizzly.tcp.http11.GrizzlyRequest;
 import com.sun.grizzly.tcp.http11.GrizzlyResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vanadis.core.io.Closeables;
 import vanadis.core.lang.ContextClassLoaderSwitch;
 import vanadis.core.reflection.ContextClassLoaderObjectInputStream;
 import vanadis.remoting.*;
 import vanadis.services.remoting.RemotingException;
-import vanadis.util.log.Log;
-import vanadis.util.log.Logs;
 
 import java.io.*;
 
 @SuppressWarnings({"RawUseOfParameterizedType"})
 public class InvocationAdapter extends GrizzlyAdapter {
 
-    private static final Log log = Logs.get(InvocationAdapter.class);
+    private static final Logger log = LoggerFactory.getLogger(InvocationAdapter.class);
 
     private final ClassLoader classLoader;
 

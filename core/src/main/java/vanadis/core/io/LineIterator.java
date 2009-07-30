@@ -22,7 +22,7 @@ import java.io.LineNumberReader;
 import java.io.Reader;
 import java.util.Iterator;
 
-class LineIterator implements Iterator<String> {
+final class LineIterator implements Iterator<String> {
 
     private final LineNumberReader reader;
 
