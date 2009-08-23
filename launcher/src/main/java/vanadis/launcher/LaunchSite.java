@@ -61,22 +61,23 @@ public final class LaunchSite {
     @ForTestingPurposes
     public static LaunchSite repository(List<String> blueprintNames,
                                         List<String> blueprintPaths) {
-        return new LaunchSite(null, null, null, null, blueprintNames, blueprintPaths, null, null);
+        return new LaunchSite(null, null, null, null, blueprintNames, blueprintPaths, null, null, null);
     }
 
     @ForTestingPurposes
     public static LaunchSite repository(SystemSpecification systemSpecification) {
-        return new LaunchSite(null, null, null, null, null, null, null, systemSpecification);
+        return new LaunchSite(null, null, null, null, null, null, null, null, systemSpecification);
     }
 
     public static LaunchSite create(SiteSpecs ss) {
         return new LaunchSite(ss.getHome(), ss.getLocation(), ss.getRepoRoot(), ss.getUriPatterns(),
-                              ss.getBlueprintNames(), ss.getBlueprintPaths(), ss.getBlueprintResources(), null);
+                              ss.getBlueprintNames(), ss.getBlueprintPaths(), ss.getBlueprintResources(),
+                              ss.getLauncherClasses(), null);
     }
 
     private LaunchSite(File home, Location location, URI repo, List<String> uriPatterns,
                        List<String> blueprintNames, List<String> blueprintPaths, List<String> blueprintResources,
-                       SystemSpecification systemSpecification) {
+                       List<String> launcherClasses, SystemSpecification systemSpecification) {
         this.home = DirHelper.resolveHome(home);
         this.repo = DirHelper.resolveRepo(this.home, repo);
         this.bundleResolvers = compileBundleResolvers(uriPatterns);
@@ -84,7 +85,7 @@ public final class LaunchSite {
                 ? Generic.seal(Generic.list((Iterable<String>) blueprintNames))
                 : Collections.<String>emptyList();
         this.location = LocationHelper.resolveLocation(location);
-        this.launcher = createLauncher();
+        this.launcher = createLauncher(launcherClasses);
         this.closeHook = new CloseHook(this);
         this.blueprintPaths = Generic.seal(blueprintPaths);
         this.blueprintResources = Generic.seal(blueprintResources);
@@ -234,10 +235,8 @@ public final class LaunchSite {
         }
     }
 
-    private static final String LAUNCHER_PROPERTY = "vanadis.launcher";
-
-    private static final String DEFAULT_LAUNCHERS =
-            "vanadis.felix.FelixOSGiLauncher,vanadis.equinox.EquinoxOSGiLauncher";
+     private static final List<String> DEFAULT_LAUNCHERS = Arrays.asList
+            ("vanadis.felix.FelixOSGiLauncher", "vanadis.equinox.EquinoxOSGiLauncher");
 
     private static void write(StringBuilder sb, String sep, Iterable<?> list) {
         for (Object object : list) {
@@ -278,11 +277,8 @@ public final class LaunchSite {
         }
     }
 
-    private static OSGiLauncher createLauncher() {
-        String property = System.getProperty(LAUNCHER_PROPERTY, DEFAULT_LAUNCHERS);
-        String[] classNames = property.split(",");
-        Class<?> launcherClass = launcherClass(classNames);
-        return newLauncher(launcherClass);
+    private static OSGiLauncher createLauncher(List<String> launcherClasses) {
+        return newLauncher(launcherClass(launcherClasses));
     }
 
     private static OSGiLauncher newLauncher(Class<?> launcherClass) {
@@ -293,17 +289,18 @@ public final class LaunchSite {
         }
     }
 
-    private static Class<?> launcherClass(String[] classNames) {
+    private static Class<?> launcherClass(List<String> classNames) {
         Exception exception = null;
-        for (String className : classNames) {
+        for (String className : (classNames == null || classNames.isEmpty()
+                ? DEFAULT_LAUNCHERS
+                : classNames)) {
             try {
                 return Class.forName(className, true, classLoader());
             } catch (Exception e) {
                 exception = exception == null ? e : exception;
             }
         }
-        throw new StartupException
-                ("Could not load any of launcher classes: " + Arrays.toString(classNames), exception);
+        throw new StartupException("Could not load any of launcher classes: " + classNames, exception);
     }
 
     private static ClassLoader classLoader() {

@@ -27,6 +27,8 @@ class ArgumentsSpecs implements SiteSpecs {
 
     private List<String> uriPatterns;
 
+    private List<String> launcherClasses;
+
     @ForTestingPurposes
     ArgumentsSpecs(String args) {
         this(Generic.linkedList(args.split("\\s")));
@@ -36,6 +38,7 @@ class ArgumentsSpecs implements SiteSpecs {
         this.blueprintPaths = blueprintPathsArg(args);
         this.blueprintResources = blueprintResourcesArg(args);
         this.uriPatterns = uriPatterns(args);
+        this.launcherClasses = launcherClass(args);
         this.home = homeArg(args);
         this.location = locationArg(args);
         this.repoRoot = repoArg(args);
@@ -72,6 +75,10 @@ class ArgumentsSpecs implements SiteSpecs {
         return repoRoot;
     }
 
+    @Override public List<String> getLauncherClasses() {
+        return launcherClasses;
+    }
+
     private static void addRemainingArgumentsAsBlueprintNames(List<String> remainingArgs,
                                                               List<String> blueprintNames) {
         blueprintNames.addAll(remainingBlueprints(remainingArgs));
@@ -91,6 +98,11 @@ class ArgumentsSpecs implements SiteSpecs {
 
     private static List<String> uriPatterns(List<String> args) {
         return split(parseOption(args, "uri-patterns"));
+    }
+
+    private static List<String> launcherClass(List<String> args) {
+        return split(parseOption
+                (args, "launcher-class", "vanadis.felix.FelixOSGiLauncher,vanadis.equinox.EquinoxOSGiLauncher"));
     }
 
     private static List<String> remainingBlueprints(List<String> args) {
@@ -134,6 +146,10 @@ class ArgumentsSpecs implements SiteSpecs {
     }
 
     private static String parseOption(List<String> args, String option) {
+        return parseOption(args, option, null);
+    }
+
+    private static String parseOption(List<String> args, String option, String def) {
         for (int i = 0; i < args.size() - 1; i++) {
             if (args.get(i).startsWith("-")) {
                 String arg = dedash(args.get(i).toLowerCase());
@@ -147,7 +163,7 @@ class ArgumentsSpecs implements SiteSpecs {
                 }
             }
         }
-        return null;
+        return def;
     }
 
     private static String dedash(String arg) {
