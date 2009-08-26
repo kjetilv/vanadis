@@ -15,6 +15,7 @@
  */
 package vanadis.extrt;
 
+import org.osgi.framework.Constants;
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Pair;
 import vanadis.core.lang.Not;
@@ -23,11 +24,14 @@ import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.reflection.Retyper;
-import vanadis.ext.*;
+import vanadis.ext.CoreProperty;
+import vanadis.ext.Expose;
+import vanadis.ext.ModuleSystemException;
+import vanadis.ext.Property;
+import vanadis.objectmanagers.ObjectManagerExposePointMBean;
 import vanadis.osgi.Context;
 import vanadis.osgi.Registration;
 import vanadis.osgi.ServiceProperties;
-import org.osgi.framework.Constants;
 
 import javax.management.DynamicMBean;
 import javax.management.MalformedObjectNameException;

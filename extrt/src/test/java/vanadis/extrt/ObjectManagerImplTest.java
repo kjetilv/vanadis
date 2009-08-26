@@ -23,6 +23,8 @@ import vanadis.core.collections.Generic;
 import vanadis.core.properties.PropertySet;
 import vanadis.ext.*;
 import vanadis.objectmanagers.ObjectManager;
+import vanadis.objectmanagers.ObjectManagerExposePointMBean;
+import vanadis.objectmanagers.ObjectManagerMBean;
 import vanadis.osgi.*;
 import vanadis.osgi.impl.BonyRegistration;
 

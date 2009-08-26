@@ -20,7 +20,7 @@ import vanadis.core.properties.PropertySets;
 import vanadis.core.reflection.Retyper;
 import vanadis.ext.Property;
 
-public class PropertyUtils {
+class PropertyUtils {
 
     static void transferProperties(Property[] properties, PropertySet propertySet) {
         for (Property property : properties) {

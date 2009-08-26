@@ -13,7 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.extrt;
 
-public interface ObjectManagerInjectPointMBean extends ObjectManagerFeatureMBean {
+package vanadis.objectmanagers;
+
+public interface ObjectManagerFactoryMBean {
+
+    String getModuleClass();
+
+    String getContextName();
+
+    String getType();
+
+    String[] getLaunchedServices();
 }

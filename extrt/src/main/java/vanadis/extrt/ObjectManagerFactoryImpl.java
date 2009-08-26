@@ -27,6 +27,7 @@ import vanadis.core.properties.PropertySets;
 import vanadis.ext.ModuleSystemException;
 import vanadis.objectmanagers.ObjectManager;
 import vanadis.objectmanagers.ObjectManagerFactory;
+import vanadis.objectmanagers.ObjectManagerFactoryMBean;
 import vanadis.osgi.Context;
 
 import java.util.Collection;

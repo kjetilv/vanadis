@@ -17,7 +17,7 @@ package vanadis.extrt;
 
 import vanadis.objectmanagers.ObjectManager;
 
-public interface ObjectManagerObserver {
+interface ObjectManagerObserver {
 
     void updated(ObjectManager objectManager);
 }

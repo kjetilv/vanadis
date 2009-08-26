@@ -1,6 +1,6 @@
 package vanadis.extrt;
 
-public class UnknownBundleException extends RuntimeException {
+class UnknownBundleException extends RuntimeException {
 
     public UnknownBundleException(String message) {
         super(message);

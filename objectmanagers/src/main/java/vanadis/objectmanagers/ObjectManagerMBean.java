@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package vanadis.extrt;
+package vanadis.objectmanagers;
 
-public interface ObjectManagerFactoryMBean {
+public interface ObjectManagerMBean {
 
-    String getModuleClass();
+    String getName();
 
-    String getContextName();
+    String getState();
 
-    String getType();
+    String getClassLoader();
 
-    String[] getLaunchedServices();
+    String getObject();
 }
