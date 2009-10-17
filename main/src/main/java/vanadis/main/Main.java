@@ -18,6 +18,7 @@ package vanadis.main;
 import vanadis.core.collections.Generic;
 import vanadis.core.test.ForTestingPurposes;
 import vanadis.launcher.LaunchSite;
+import vanadis.launcher.ArgumentsSpecs;
 
 import java.io.PrintStream;
 import java.util.Arrays;
@@ -42,6 +43,7 @@ public final class Main {
     private static final PrintStream ERR = System.err;
 
     private static LaunchSite fromCommandLine(List<String> args) {
-        return LaunchSite.create(new ArgumentsSpecs(args));
+        ArgumentsSpecs ss = new ArgumentsSpecs(args);
+        return LaunchSite.create(ss);
     }
 }

@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import vanadis.launcher.ArgumentsSpecs;
+
 public class MainTest {
 
     @Test
@@ -28,7 +30,7 @@ public class MainTest {
     }
 
     private static void assertFooBarOnly(ArgumentsSpecs ms) {
-        assertEquals(Arrays.asList("foo", "bar"), ms.getBlueprintNames());
+        assertEquals(Arrays.asList("foo", "bar"), ms.getAdditionalBlueprintNames());
         assertNull(ms.getHome());
         assertNull(ms.getRepoRoot());
         assertNull(ms.getLocation());
@@ -37,7 +39,7 @@ public class MainTest {
     }
 
     private static void assertEmpty(ArgumentsSpecs ms) {
-        assertTrue(ms.getBlueprintNames().toString(), ms.getBlueprintNames().isEmpty());
+        assertTrue(ms.getAdditionalBlueprintNames().toString(), ms.getAdditionalBlueprintNames().isEmpty());
         assertNull(ms.getHome());
         assertNull(ms.getRepoRoot());
         assertNull(ms.getLocation());

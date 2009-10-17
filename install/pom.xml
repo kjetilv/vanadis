@@ -50,11 +50,19 @@
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
+      <artifactId>vanadis.mvn</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
       <artifactId>vanadis.annopro</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
       <artifactId>vanadis.launcher</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.launchsite</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
@@ -129,8 +137,19 @@
       <artifactId>com.springsource.org.objectweb.asm</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>com.springsource.org.apache.commons.logging</artifactId>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.5.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jdk14</artifactId>
+      <version>1.5.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.5.8</version>
     </dependency>
     <dependency>
       <groupId>com.sun.grizzly.osgi</groupId>

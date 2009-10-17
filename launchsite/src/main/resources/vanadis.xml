@@ -21,6 +21,8 @@
   <!-- Configuration with all that defines vanadis, all auto-loaded -->
   <blueprint name="base">
 
+    <auto-bundle group="vanadis" artifact="vanadis.logsetup" version="1.1-SNAPSHOT"/>
+      
     <!-- PAX Stuff.  -->
     <bundles group="org.ops4j.pax.url">
       <auto-bundle artifact="pax-url-mvn" version="1.0.0"/>

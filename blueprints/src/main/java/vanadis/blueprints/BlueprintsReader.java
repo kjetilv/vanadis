@@ -70,19 +70,19 @@ public class BlueprintsReader {
         return new Blueprints(source, base, list).validate();
     }
 
-    public static Blueprints read(ClassLoader loader,
+    public static Blueprints read(ResourceLoader resourceLoader,
                                   List<String> bootConfigPaths,
                                   List<String> bootConfigResources) {
-        Not.nil(loader, "loader");
+        Not.nil(resourceLoader, "resourceLoader");
         Iterable<String> bootPaths = bootConfigPaths == null ? Collections.<String>emptyList()
                 : bootConfigPaths;
         Iterable<String> bootResources =
                 resolveResources(bootConfigPaths == null ? Collections.<String>emptyList() : bootConfigPaths,
                                  bootConfigResources);
-        return unmarshal(loader, bootResources, bootPaths, unmarshaller());
+        return unmarshal(resourceLoader, bootResources, bootPaths, unmarshaller());
     }
 
-    private static Blueprints unmarshal(ClassLoader loader,
+    private static Blueprints unmarshal(ResourceLoader loader,
                                         Iterable<String> bootResources, Iterable<String> bootPaths,
                                         Unmarshaller unmarshaller) {
         Blueprints blueprints = null;
@@ -99,6 +99,7 @@ public class BlueprintsReader {
             List<Blueprint> list = unmarshal(source, stream, unmarshaller);
             blueprints = new Blueprints(source, blueprints, list);
         }
+        assert blueprints != null : "No blueprints created";
         return blueprints.validate();
     }
 
@@ -131,22 +132,27 @@ public class BlueprintsReader {
         }
     }
 
-    private static URL resourceToNonNullURL(ClassLoader loader, String resource) {
-        URL url = loader.getResource(resource);
+    private static URL resourceToNonNullURL(ResourceLoader loader, String resource) {
+        URL url = loader.get(resource);
         if (url != null) {
             return url;
         }
         throw new IllegalArgumentException(loader + " did not find resource '" + resource + "'");
     }
 
-    private static InputStream streamResource(ClassLoader loader, String source, URL url) {
-        InputStream stream = loader.getResourceAsStream(source);
+    private static InputStream streamResource(ResourceLoader loader, String source, URL url) {
+        URL stream = loader.get(source);
         if (stream == null) {
             throw new IllegalArgumentException
                     (loader + " found resource '" + source + "' at " + url +
                             ", but did not get a stream!");
         }
-        return stream;
+        try {
+            return stream.openStream();
+        } catch (IOException e) {
+            throw new IllegalStateException
+                    (url + " found by " + loader + " for resource " + source + " did not open", e);
+        }
     }
 
     private static Iterable<String> resolveResources(List<String> bootConfigPaths,

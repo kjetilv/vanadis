@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.log4jsetup;
+package vanadis.logsetup;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;

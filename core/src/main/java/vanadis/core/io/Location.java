@@ -39,7 +39,7 @@ public final class Location implements Serializable {
     }
 
     public static Location parse(String spec) {
-        if (spec.contains(":")) {
+        if (validSpec(spec).contains(":")) {
             String[] strings = spec.split(":");
             if (strings.length == 2) {
                 String host = strings[0];
@@ -62,6 +62,10 @@ public final class Location implements Serializable {
             }
             return new Location(port);
         }
+    }
+
+    private static String validSpec(String spec) {
+        return Not.nil(spec, "location spec");
     }
 
     private final String host;

@@ -26,7 +26,7 @@ import java.util.List;
 
 public interface OSGiLauncher {
 
-    LaunchResult launch(URI home, Location location, 
+    LaunchResult launch(URI home, Location location,
                         List<BundleResolver> bundleResolvers,
                         SystemSpecification systemSpecification);
 
@@ -43,5 +43,4 @@ public interface OSGiLauncher {
     String getProviderInfo();
 
     void close(PrintStream stream);
-
 }

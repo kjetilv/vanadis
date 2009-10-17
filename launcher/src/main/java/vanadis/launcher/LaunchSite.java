@@ -58,39 +58,46 @@ public final class LaunchSite {
 
     private final List<BundleResolver> bundleResolvers;
 
+    private static final List<String> BASE_COMMANDS = Arrays.asList("base-commands");
+
     @ForTestingPurposes
     public static LaunchSite repository(List<String> blueprintNames,
                                         List<String> blueprintPaths) {
-        return new LaunchSite(null, null, null, null, blueprintNames, blueprintPaths, null, null, null);
+        return new LaunchSite(null, null, null, null, blueprintNames, blueprintPaths, null, null, null, null, null);
     }
 
     @ForTestingPurposes
     public static LaunchSite repository(SystemSpecification systemSpecification) {
-        return new LaunchSite(null, null, null, null, null, null, null, null, systemSpecification);
+        return new LaunchSite(null, null, null, null, null, null, null, null, systemSpecification, null, null);
     }
 
     public static LaunchSite create(SiteSpecs ss) {
+        return create(ss, null, null);
+    }
+
+    public static LaunchSite create(SiteSpecs ss, OSGiLauncher launcher, ResourceLoader resourceLoader) {
         return new LaunchSite(ss.getHome(), ss.getLocation(), ss.getRepoRoot(), ss.getUriPatterns(),
-                              ss.getBlueprintNames(), ss.getBlueprintPaths(), ss.getBlueprintResources(),
-                              ss.getLauncherClasses(), null);
+                              ss.getAdditionalBlueprintNames(), ss.getBlueprintPaths(), ss.getBlueprintResources(),
+                              launcher == null ? ss.getLauncherClasses() : null, null, launcher, resourceLoader);
     }
 
     private LaunchSite(File home, Location location, URI repo, List<String> uriPatterns,
                        List<String> blueprintNames, List<String> blueprintPaths, List<String> blueprintResources,
-                       List<String> launcherClasses, SystemSpecification systemSpecification) {
+                       List<String> launcherClasses, SystemSpecification systemSpecification,
+                       OSGiLauncher launcher, ResourceLoader resourceLoader) {
         this.home = DirHelper.resolveHome(home);
         this.repo = DirHelper.resolveRepo(this.home, repo);
         this.bundleResolvers = compileBundleResolvers(uriPatterns);
-        this.blueprintNames = systemSpecification == null
-                ? Generic.seal(Generic.list((Iterable<String>) blueprintNames))
-                : Collections.<String>emptyList();
+        this.blueprintNames = systemSpecification == null || blueprintNames == null || blueprintNames.isEmpty()
+                ? BASE_COMMANDS
+                : Generic.seal(blueprintNames);
         this.location = LocationHelper.resolveLocation(location);
-        this.launcher = createLauncher(launcherClasses);
+        this.launcher = launcher == null ? createLauncher(launcherClasses) : launcher;
         this.closeHook = new CloseHook(this);
         this.blueprintPaths = Generic.seal(blueprintPaths);
         this.blueprintResources = Generic.seal(blueprintResources);
         this.systemSpecification = systemSpecification == null
-                ? readSystemSpecification(blueprintPaths, blueprintResources)
+                ? readSystemSpecification(blueprintPaths, blueprintResources, resourceLoader)
                 : systemSpecification;
     }
 
@@ -156,8 +163,12 @@ public final class LaunchSite {
     }
 
     private SystemSpecification readSystemSpecification(List<String> blueprintPaths,
-                                                        List<String> blueprintResources) {
-        Blueprints blueprints = BlueprintsReader.read(classLoader(), blueprintPaths, blueprintResources);
+                                                        List<String> blueprintResources,
+                                                        ResourceLoader resourceLoader) {
+        Blueprints blueprints = BlueprintsReader.read
+                (resourceLoader == null ? new ClassLoaderResourceLoader(classLoader()) : resourceLoader,
+                        blueprintPaths,
+                        blueprintResources);
         return blueprints.getSystemSpecification(this.repo, this.blueprintNames);
     }
 
@@ -309,11 +320,9 @@ public final class LaunchSite {
     }
 
     private static void startupFailed(Throwable throwable, boolean stackTrace) {
-        System.err.println("STARTUP FAILED : " + throwable == null ? "<no exception>" : throwable.getMessage());
-        if (throwable != null) {
-            for (Throwable cause = throwable.getCause(); cause != null; cause = cause.getCause()) {
-                System.err.println("         cause : " + cause);
-            }
+        System.err.println(throwable.getMessage());
+        for (Throwable cause = throwable.getCause(); cause != null; cause = cause.getCause()) {
+            System.err.println("         cause : " + cause);
         }
         if (stackTrace) {
             throwable.printStackTrace(System.err);
