@@ -14,6 +14,8 @@ public interface SiteSpecs {
 
     List<String> getBlueprintResources();
 
+    List<String> getLauncherClasses();
+
     File getHome();
 
     Location getLocation();
