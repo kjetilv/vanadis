@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" relativePaths="true" type="JAVA_MODULE" version="4">
-  <component name="FacetManager">
-    <facet type="Osmorc" name="OSGi">
-      <configuration osmorcControlsManifest="true" manifestLocation="" jarfileLocation="$MODULE_DIR$/../target/vanadis-maven-plugin.jar" useBndFile="false" bndFileLocation="" bundleActivator="" bundleSymbolicName="vanadis-maven-plugin" bundleVersion="1.1-SNAPSHOT" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false">
-        <additionalProperties>
-          <property key="Bundle-Vendor" value="Kjetil Valstadsve" />
-          <property key="Ignore-Package" value="org.w3c.*,org.xml.*,sun.misc.*,sun.tools.*,com.sun.jdmk.*" />
-          <property key="Bundle-Name" value="vanadis:vanadis-maven-plugin:1.1-SNAPSHOT" />
-          <property key="Private-Package" value="vanadis-maven-plugin.*" />
-          <property key="Bundle-Description" value="vanadis-maven-plugin Maven Mojo built by kjetil on Mac OS X" />
-          <property key="Bundle-License" value="http://www.apache.org/licenses/LICENSE-2.0.txt" />
-        </additionalProperties>
-        <additionalJARContents />
-      </configuration>
-    </facet>
-  </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
