@@ -18,6 +18,7 @@ package vanadis.core.io;
 
 import vanadis.core.collections.Pair;
 import vanadis.core.lang.Not;
+import vanadis.core.lang.Strings;
 import vanadis.core.lang.VarArgs;
 import vanadis.core.system.VM;
 
@@ -41,11 +42,19 @@ public final class Files {
     }
 
     public static File create(URI uri) {
-        try {
-            return new File(uri);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid file URI: " + uri.toASCIIString(), e);
+        if (uri.isAbsolute()) {
+            try {
+                return new File(uri);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Invalid file URI: " + uri.toASCIIString(), e);
+            }
         }
+        String scheme = uri.getScheme();
+        String path = uri.getPath();
+        if ("file".equalsIgnoreCase(scheme) || Strings.isBlank(scheme) && !Strings.isBlank(path)) {
+            return new File(path);
+        }
+        throw new IllegalArgumentException("Non-absolute URI, which could not resolve to a file: " + uri);
     }
 
     public static File createDirectory(File root, String... subdirs) {

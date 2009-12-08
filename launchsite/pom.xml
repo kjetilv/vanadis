@@ -23,45 +23,36 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>vanadis</groupId>
-    <artifactId>vanadis.launcher</artifactId>
+    <artifactId>vanadis.launchsite</artifactId>
     <packaging>bundle</packaging>
-    <description>Vanadis: Launcher</description>
+    <description>Vanadis: Launch Site</description>
     <name>${artifactId}</name>
     <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.url</groupId>
-            <artifactId>pax-url-wrap</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.url</groupId>
-            <artifactId>pax-url-mvn</artifactId>
-            <version>1.0.0</version>
-        </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.osgi.core</artifactId>
         </dependency>
         <dependency>
             <groupId>vanadis</groupId>
-            <artifactId>vanadis.core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>vanadis</groupId>
-            <artifactId>vanadis.mvn</artifactId>
+            <artifactId>vanadis.launcher</artifactId>
         </dependency>
         <dependency>
             <groupId>vanadis</groupId>
             <artifactId>vanadis.blueprints</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
-            <version>4.1.0</version>
-        </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-Activator>${artifactId}.LaunchBundleActivator</Bundle-Activator>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

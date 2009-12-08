@@ -20,7 +20,7 @@ public interface SiteSpecs {
 
     Location getLocation();
 
-    List<String> getBlueprintNames();
+    List<String> getAdditionalBlueprintNames();
 
     URI getRepoRoot();
 }

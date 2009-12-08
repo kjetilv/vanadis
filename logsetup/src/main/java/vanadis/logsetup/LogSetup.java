@@ -15,27 +15,23 @@
  */
 package vanadis.logsetup;
 
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceRegistration;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Files;
 import vanadis.core.io.Location;
-import org.apache.log4j.*;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceRegistration;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.net.URI;
 import java.text.MessageFormat;
-import java.util.Arrays;
 import java.util.Dictionary;
-import java.util.logging.Handler;
+import java.util.logging.*;
 
-public final class Log4JSetup {
+public final class LogSetup {
 
     private static final String LOG_PATH = "var/logs/vanadis-{0}-{1}.log";
-
-    private static final String SYSTEM_OUT = "System.out";
 
     private static File logFile;
 
@@ -72,8 +68,7 @@ public final class Log4JSetup {
     }
 
     public static void go(BundleContext bundleContext, String home, String location) {
-        rerouteJavaUtilLogging();
-        setupLog4J(bundleContext, home, location);
+        setupLogging(bundleContext, home, location);
     }
 
     @SuppressWarnings({"EmptyCatchBlock"})
@@ -89,18 +84,20 @@ public final class Log4JSetup {
         return String.valueOf(System.currentTimeMillis());
     }
 
-    private static void setupLog4J(BundleContext bundleContext, String home, String location) {
-        Logger logger = LogManager.getRootLogger();
-        logger.setLevel(Level.DEBUG);
-        LogManager.getLogger("vanadis").setLevel(Level.ALL);
-        LogManager.getLogger("org.jgroups").setLevel(Level.ERROR);
+    private static void setupLogging(BundleContext bundleContext, String home, String location) {
+        LogManager logManager = LogManager.getLogManager();
+        Logger logger = logManager.getLogger("");
+        logger.setLevel(Level.FINEST);
+//        logManager.getLogger("vanadis").setLevel(Level.ALL);
+//        logManager.getLogger("org.jgroups").setLevel(Level.SEVERE);
         try {
             File file = setupLogFile(bundleContext, home, location);
-            Layout layout = new VanadisLayout();
-            WriterAppender appender = file.getParentFile().exists() || file.getParentFile().mkdirs()
-                    ? new RollingFileAppender(layout, file.getPath(), false)
-                    : new ConsoleAppender(layout, SYSTEM_OUT);
-            logger.addAppender(appender);
+            Formatter layout = new VanadisFormat();
+            Handler appender = file.getParentFile().exists() || file.getParentFile().mkdirs()
+                    ? new FileHandler(file.getPath(), false)
+                    : new ConsoleHandler();
+            appender.setFormatter(layout);
+            logger.addHandler(appender);
         } catch (IOException e) {
             e.printStackTrace(System.err);
             System.err.println("Log setup failed, terminating!");
@@ -121,25 +118,7 @@ public final class Log4JSetup {
         return String.valueOf(Location.parse(location).getPort());
     }
 
-    private static void rerouteJavaUtilLogging() {
-        java.util.logging.Logger rootLogger =
-                java.util.logging.LogManager.getLogManager().getLogger("");
-        if (rootLogger != null) {
-            clearHandlers(rootLogger);
-            rootLogger.addHandler(new ForwardingHandler());
-        }
-    }
-
-    private static void clearHandlers(java.util.logging.Logger logger) {
-        Handler[] handlers = logger.getHandlers();
-        if (handlers != null) {
-            for (Handler handler : Arrays.asList(handlers)) {
-                logger.removeHandler(handler);
-            }
-        }
-    }
-
-    private Log4JSetup() {
+    private LogSetup() {
         // Hee hee he
     }
 }

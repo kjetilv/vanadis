@@ -18,17 +18,17 @@ package vanadis.logsetup;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class Log4jSetupBundleActivator implements BundleActivator {
+public class LogSetupBundleActivator implements BundleActivator {
 
     @Override
     public void start(BundleContext bundleContext) {
-        Log4JSetup.go(bundleContext,
-                      bundleContext.getProperty("vanadis.home"),
-                      bundleContext.getProperty("vanadis.location"));
+        LogSetup.go(bundleContext,
+                    bundleContext.getProperty("vanadis.home"),
+                    bundleContext.getProperty("vanadis.location"));
     }
 
     @Override
     public void stop(BundleContext bundleContext) {
-        Log4JSetup.gone();
+        LogSetup.gone();
     }
 }

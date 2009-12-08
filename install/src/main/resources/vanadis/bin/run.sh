@@ -28,7 +28,7 @@ fi
 ETC=$VANADIS_HOME/etc
 
 LIB=$VANADIS_HOME/lib
-CP=
+CP=$ETCM
 for JAR in $VANADIS_HOME/lib/*
 do
     CP=$CP:$JAR
@@ -37,7 +37,7 @@ CP=${ETC}${CP}
 
 mkdir -p $VANADIS_HOME/var
 echo $JAVA_HOME/bin/java $VANADIS_OPTS -classpath $CP vanadis.main.Main \
- -blueprints vanadis-basic \
+ -blueprints vanadis-basic,grizzly-networking,grizzly-http \
  -defaultHome $VANADIS_HOME -defaultLocation $VANADIS_LOCATION -defaultRepo repo $* \
  > $VANADIS_HOME/var/command
 

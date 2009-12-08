@@ -15,15 +15,14 @@
  */
 package vanadis.logsetup;
 
-import org.apache.log4j.Layout;
-import org.apache.log4j.spi.LoggingEvent;
-import org.apache.log4j.spi.ThrowableInformation;
+import java.util.logging.LogRecord;
+import java.util.logging.SimpleFormatter;
 
 import java.sql.Date;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 
-final class VanadisLayout extends Layout {
+final class VanadisFormat extends SimpleFormatter {
 
     static final SimpleDateFormat FORMAT =
             new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss,SSS");
@@ -42,47 +41,39 @@ final class VanadisLayout extends Layout {
         NAMES[7] = "DEBUG";
     }
 
+    @SuppressWarnings({"SynchronizedMethod"})
     @Override
-    public String format(LoggingEvent event) {
-        return toString(event);
+    public synchronized String format(LogRecord record) {
+        return toString(record);
     }
 
-    @Override
-    public boolean ignoresThrowable() {
-        return false;
+    static String toString(LogRecord record) {
+        String base = baseMessage(record);
+        return withThrowableInformation(base, record);
     }
 
-    @Override
-    public void activateOptions() {
+    static String withThrowableInformation(String base, LogRecord record) {
+        Throwable thrown = record.getThrown();
+        return thrown != null ? withThrowableInformation(base, thrown) : base;
     }
 
-    static String toString(LoggingEvent event) {
-        String base = baseMessage(event);
-        return withThrowableInformation(base, event);
+    static String baseMessage(LogRecord record) {
+        String name = record.getLoggerName();
+        return LOG_FORMAT.format(new Object[]
+                { record.getLevel().getName(),
+                  FORMAT.format(new Date(record.getMillis())),
+                  name,
+                  record.getMessage(),
+                  record.getThreadID()
+                });
     }
 
-    static String withThrowableInformation(String base, LoggingEvent event) {
-        ThrowableInformation information = event.getThrowableInformation();
-        return information != null ? withThrowableInformation(base, information) : base;
-    }
-
-    static String baseMessage(LoggingEvent event) {
-        String name = event.getLoggerName();
-        return LOG_FORMAT.format(new Object[]{
-                NAMES[event.getLevel().getSyslogEquivalent()],
-                FORMAT.format(new Date(event.timeStamp)),
-                name,
-                event.getMessage(),
-                event.getThreadName()
-        });
-    }
-
-    static String withThrowableInformation(String base, ThrowableInformation information) {
+    static String withThrowableInformation(String base, Throwable throwable) {
         StringBuilder sb = new StringBuilder(base).append("[Exception: ");
-        for (String line : information.getThrowableStrRep()) {
+        for (StackTraceElement line : throwable.getStackTrace()) {
             sb.append(LN).append(line);
         }
-        sb.append("]@").append(information.getThrowable().hashCode()).append(LN);
+        sb.append("]@").append(throwable.hashCode()).append(LN);
         return sb.toString();
     }
 }

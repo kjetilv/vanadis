@@ -34,11 +34,6 @@ class SystemPackages {
             "vanadis.core.time," +
             "vanadis.core.jmx," +
             "vanadis.core.ver," +
-            "vanadis.util.concurrent," +
-            "vanadis.util.exceptions," +
-            "vanadis.util.log," +
-            "vanadis.util.mvn," +
-            "vanadis.util.xml," +
             "vanadis.blueprints";
 
     static final String JDK = "javax.accessibility," +
