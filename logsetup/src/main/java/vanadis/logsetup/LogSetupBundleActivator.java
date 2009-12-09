@@ -23,8 +23,14 @@ public class LogSetupBundleActivator implements BundleActivator {
     @Override
     public void start(BundleContext bundleContext) {
         LogSetup.go(bundleContext,
-                    bundleContext.getProperty("vanadis.home"),
-                    bundleContext.getProperty("vanadis.location"));
+                getProperty(bundleContext, "vanadis.home"),
+                getProperty(bundleContext, "vanadis.location"));
+    }
+
+    private String getProperty(BundleContext bundleContext, String property) {
+        String value = bundleContext.getProperty(property);
+        return value == null ? System.getProperty(property)
+                : value;
     }
 
     @Override
