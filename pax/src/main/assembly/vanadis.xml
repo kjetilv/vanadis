@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2009 Kjetil Valstadsve
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<assembly>
+  <id>vanadis</id>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <formats>
+    <format>zip</format>
+    <format>tar.gz</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+      <lineEnding>unix</lineEnding>
+      <directory>target/unpacked</directory>
+      <outputDirectory>vanadis/etc</outputDirectory>
+      <directoryMode>0755</directoryMode>
+      <includes>
+        <include>vanadis.xml</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <lineEnding>unix</lineEnding>
+      <directory>src/main/resources/vanadis</directory>
+      <outputDirectory>vanadis</outputDirectory>
+      <directoryMode>0755</directoryMode>
+      <excludes>
+        <exclude>bin/*.sh</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet>
+      <lineEnding>unix</lineEnding>
+      <directory>src/main/resources/vanadis</directory>
+      <outputDirectory>vanadis</outputDirectory>
+      <fileMode>0755</fileMode>
+      <directoryMode>0755</directoryMode>
+      <includes>
+        <include>bin/*.sh</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+  <binaries>
+    <repositories>
+      <repository>
+        <outputDirectory>vanadis/repo</outputDirectory>
+        <excludes>
+          <exclude>*vanadis:vanadis.felix*</exclude>
+          <exclude>*vanadis:vanadis.core*</exclude>
+          <exclude>*vanadis:vanadis.blueprints*</exclude>
+          <exclude>*vanadis:vanadis.launcher*</exclude>
+          <exclude>*vanadis:vanadis.launchsite*</exclude>
+          <exclude>*vanadis:vanadis.main*</exclude>
+          <exclude>*vanadis:vanadis.mvn*</exclude>
+          <exclude>*org.apache.felix.main*</exclude>
+          <exclude>*org.slf4j*</exclude>
+        </excludes>
+      </repository>
+    </repositories>
+    <dependencySets>
+      <dependencySet>
+        <useTransitiveDependencies>false</useTransitiveDependencies>
+        <outputDirectory>vanadis/lib</outputDirectory>
+        <includes>
+          <include>*vanadis:vanadis.felix*</include>
+          <include>*vanadis:vanadis.core*</include>
+          <include>*vanadis:vanadis.blueprints*</include>
+          <include>*vanadis:vanadis.launcher*</include>
+          <include>*vanadis:vanadis.launchsite*</include>
+          <include>*vanadis:vanadis.main*</include>
+          <include>*vanadis:vanadis.mvn*</include>
+          <include>*org.apache.felix.main*</include>
+          <include>*org.slf4j*</include>
+        </includes>
+      </dependencySet>
+    </dependencySets>
+  </binaries>
+</assembly>
