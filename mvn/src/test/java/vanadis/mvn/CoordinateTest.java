@@ -57,31 +57,31 @@ public class CoordinateTest {
 
     @Test
     public void equality() {
-        VAsserts.assertEqHcMatch(Coordinate.at("junit:junit:4.4"),
-                                 Coordinate.at("junit:junit:4.4"));
-        VAsserts.assertEqHcMatch(Coordinate.at("junit:junit:4.4"),
-                                 Coordinate.versioned("junit", "junit", new Version("4.4")));
+        VAsserts.assertEqHcMatch(Coordinate.at("vanadis:vanadis.core:1.0-SNAPSHOT"),
+                                 Coordinate.at("vanadis:vanadis.core:1.0-SNAPSHOT"));
+        VAsserts.assertEqHcMatch(Coordinate.at("vanadis:vanadis.core:1.0-SNAPSHOT"),
+                                 Coordinate.versioned("vanadis", "vanadis.core", new Version("1.0-SNAPSHOT")));
     }
 
     @Test @Ignore
     public void findUnversionedArtifact() {
-        File file = Coordinate.at("junit:junit").fileIn(Repo.DEFAULT);
+        File file = Coordinate.at("vanadis:vanadis.core").fileIn(Repo.DEFAULT);
         Assert.assertNotNull(file);
         Assert.assertEquals("Expected the latest junit here",
-                            "junit-4.6.jar", file.getName());
+                            "vanadis.core-1.0-SNAPSHOT.jar", file.getName());
     }
 
-    @Test
+    @Test @Ignore
     public void findRawVersionedArtifact() {
-        File versionDir = Files.getExistingDirectory(Repo.DEFAULT, "junit", "junit", "4.5");
-        File file = Coordinate.at("junit:junit:4.5").collapsedFileIn(versionDir);
-        Assert.assertTrue(file.getName().equals("junit-4.5.jar"));
+        File versionDir = Files.getExistingDirectory(Repo.DEFAULT, "vanadis", "vanadis.core", "1.0-SNAPSHOT");
+        File file = Coordinate.at("vanadis:vanadis.core:1.0-SNAPSHOT").collapsedFileIn(versionDir);
+        Assert.assertTrue(file.getName().equals("vanadis.core-1.0-SNAPSHOT.jar"));
     }
 
-    @Test
+    @Test @Ignore
     public void mapCoordinate() {
         File repo = Repo.DEFAULT;
-        File jarFile = Coordinate.at("junit:junit:4.5").fileIn(repo);
+        File jarFile = Coordinate.at("vanadis:vanadis.core:1.0-SNAPSHOT").fileIn(repo);
         Assert.assertTrue(jarFile.exists());
     }
 
