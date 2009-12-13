@@ -73,14 +73,12 @@
         <useTransitiveDependencies>false</useTransitiveDependencies>
         <outputDirectory>vanadis/lib</outputDirectory>
         <includes>
-          <include>*vanadis:vanadis.felix*</include>
           <include>*vanadis:vanadis.core*</include>
           <include>*vanadis:vanadis.blueprints*</include>
           <include>*vanadis:vanadis.launcher*</include>
           <include>*vanadis:vanadis.launchsite*</include>
           <include>*vanadis:vanadis.main*</include>
           <include>*vanadis:vanadis.mvn*</include>
-          <include>*org.apache.felix.main*</include>
           <include>*org.slf4j*</include>
         </includes>
       </dependencySet>

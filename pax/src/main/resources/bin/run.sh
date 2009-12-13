@@ -26,7 +26,6 @@ then
 fi
 
 ETC=$VANADIS_HOME/etc
-
 LIB=$VANADIS_HOME/lib
 CP=$ETC
 for JAR in $VANADIS_HOME/lib/*
