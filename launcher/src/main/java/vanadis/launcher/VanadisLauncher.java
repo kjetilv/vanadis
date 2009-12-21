@@ -109,13 +109,6 @@ public class VanadisLauncher implements OSGiLauncher {
         }
     }
 
-    private void setLaunchResultState(BundleContext bundleContext, List<Bundle> bundles) {
-        this.launchResult = new LaunchResult(bundleContext, bundles);
-        Bundle bundle = this.bundleContext.getBundle();
-        this.bootstrapId = bundle.getBundleId();
-        this.bundleHeaders = bundle.getHeaders();
-    }
-
     @Override
     public final boolean isLaunched() {
         return launched.get() && !failedLaunch.get();
@@ -138,8 +131,15 @@ public class VanadisLauncher implements OSGiLauncher {
         return location;
     }
 
-    private void assertPrelaunchState(boolean check) {
-        assert check : this + " was launched twice!";
+    private void setLaunchResultState(BundleContext bundleContext, List<Bundle> bundles) {
+        this.launchResult = new LaunchResult(bundleContext, bundles);
+        Bundle bundle = this.bundleContext.getBundle();
+        this.bootstrapId = bundle.getBundleId();
+        this.bundleHeaders = bundle.getHeaders();
+    }
+
+    private void assertPrelaunchState(boolean expectedPrelaunchState) {
+        assert expectedPrelaunchState : this + " was launched twice!";
     }
 
     private void requireLaunched() {
@@ -181,8 +181,8 @@ public class VanadisLauncher implements OSGiLauncher {
                 bundle.start();
             } catch (BundleException e) {
                 throw new StartupException
-                        (bundleContext + " failed to start bundle " + bundle + ", " +
-                                bundles.size() + " was started: " + bundles, e);
+                    (bundleContext + " failed to start bundle " + bundle + ", " +
+                        bundles.size() + " was started: " + bundles, e);
             }
         }
     }

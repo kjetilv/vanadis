@@ -64,7 +64,7 @@
 
   <!-- Fancy Scala modules -->
   <blueprint name="vanadis-scalacalc">
-    <bundle group="org.scala-lang-osgi" artifact="scala-library" version="2.7.4"/>
+    <bundle group="∂£org.scala-lang-osgi" artifact="scala-library" version="2.7.4"/>
     <bundle group="org.scala-lang-osgi" artifact="scala-compiler" version="2.7.4"/>
 
     <bundles group="vanadis.modules.examples.scalacalc"

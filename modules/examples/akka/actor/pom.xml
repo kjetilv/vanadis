@@ -15,23 +15,17 @@
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <parent>
-        <relativePath>../pom.xml</relativePath>
-        <groupId>vanadis</groupId>
-        <artifactId>vanadis.modules</artifactId>
-        <version>1.1-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>vanadis.modules</groupId>
-    <artifactId>vanadis.modules.examples</artifactId>
+  <parent>
+    <relativePath>../pom.xml</relativePath>
+    <groupId>vanadis.modules.examples</groupId>
+    <artifactId>vanadis.modules.examples.akka</artifactId>
     <version>1.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <description>Vanadis Module: Examples</description>
-    <name>${artifactId}</name>
-    <modules>
-        <module>akka</module>
-        <module>scalamodule</module>
-        <module>scalacalc</module>
-        <module>javacalc</module>
-    </modules>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>vanadis.modules.examples.akka</groupId>
+  <artifactId>vanadis.modules.examples.akka.actor</artifactId>
+  <version>1.1-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <description>Vanadis Module: Example: Akka Module: Actor</description>
+  <name>${artifactId}</name>
 </project>

@@ -55,7 +55,7 @@ public class ManyBundleResolvers implements BundleResolver {
 
     @Override
     public URI resolve(BundleSpecification bundleSpecification) {
-        URI uri = null;
+        URI uri;
         for (BundleResolver bundleResolver : bundleResolvers) {
             uri = bundleResolver.resolve(bundleSpecification);
             if (uri != null) {

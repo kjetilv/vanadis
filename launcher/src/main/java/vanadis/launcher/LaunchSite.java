@@ -60,6 +60,8 @@ public final class LaunchSite {
 
     private static final List<String> BASE_COMMANDS = Arrays.asList("base-commands");
 
+    private final ResourceLoader resourceLoader;
+
     @ForTestingPurposes
     public static LaunchSite repository(List<String> blueprintNames,
                                         List<String> blueprintPaths) {
@@ -96,8 +98,8 @@ public final class LaunchSite {
         this.closeHook = new CloseHook(this);
         this.blueprintPaths = Generic.seal(blueprintPaths);
         this.blueprintResources = Generic.seal(blueprintResources);
-        this.systemSpecification = systemSpecification == null
-                ? readSystemSpecification(blueprintPaths, blueprintResources, resourceLoader)
+        this.resourceLoader = resourceLoader == null ? new ClassLoaderResourceLoader(classLoader()) : resourceLoader;
+        this.systemSpecification = systemSpecification == null ? readSystemSpec(blueprintPaths, blueprintResources)
                 : systemSpecification;
     }
 
@@ -162,13 +164,8 @@ public final class LaunchSite {
         return launcher.getLaunchResult();
     }
 
-    private SystemSpecification readSystemSpecification(List<String> blueprintPaths,
-                                                        List<String> blueprintResources,
-                                                        ResourceLoader resourceLoader) {
-        Blueprints blueprints = BlueprintsReader.read
-                (resourceLoader == null ? new ClassLoaderResourceLoader(classLoader()) : resourceLoader,
-                        blueprintPaths,
-                        blueprintResources);
+    private SystemSpecification readSystemSpec(List<String> blueprintPaths, List<String> blueprintResources) {
+        Blueprints blueprints = BlueprintsReader.read(resourceLoader, blueprintPaths, blueprintResources);
         return blueprints.getSystemSpecification(this.repo, this.blueprintNames);
     }
 
