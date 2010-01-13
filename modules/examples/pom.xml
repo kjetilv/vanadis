@@ -29,7 +29,7 @@
     <description>Vanadis Module: Examples</description>
     <name>${artifactId}</name>
     <modules>
-        <module>akka</module>
+        <!--<module>akka</module>-->
         <module>scalamodule</module>
         <module>scalacalc</module>
         <module>javacalc</module>
