@@ -30,7 +30,7 @@ abstract class AccessibleInjector<T> extends Injector<T> {
 
     private final ContextListener<T> contextListener = new InjectorContextListener();
 
-    protected AccessibleInjector(FeatureAnchor<T> featureAnchor,
+    AccessibleInjector(FeatureAnchor<T> featureAnchor,
                                  Inject annotation,
                                  boolean multi,
                                  boolean passReference,
@@ -61,21 +61,21 @@ abstract class AccessibleInjector<T> extends Injector<T> {
         getContext().addContextListener(getServiceInterface(), (ContextListener<T>) listener, filter(), true);
     }
 
-    protected final boolean isReplaceUnregistered() {
+    final boolean isReplaceUnregistered() {
         return replaceUnregistered;
     }
 
-    protected final boolean isReplaceWithoutNull() {
+    final boolean isReplaceWithoutNull() {
         return replaceWithoutNull;
     }
 
-    protected final Map.Entry<Reference<T>, T> setReplacement() {
+    final Map.Entry<Reference<T>, T> setReplacement() {
         Map.Entry<Reference<T>, T> replacement = getReplacement();
         inject(replacement.getKey(), replacement.getValue(), false);
         return replacement;
     }
 
-    protected class InjectorContextListener extends AbstractContextListener<T> {
+    private class InjectorContextListener extends AbstractContextListener<T> {
 
         @Override
         public void serviceRegistered(Reference<T> reference) {

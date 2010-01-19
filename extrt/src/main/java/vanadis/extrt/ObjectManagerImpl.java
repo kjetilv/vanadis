@@ -30,7 +30,6 @@ import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.ext.*;
 import vanadis.objectmanagers.*;
-import static vanadis.objectmanagers.ManagedState.*;
 import vanadis.osgi.Context;
 import vanadis.osgi.Reference;
 import vanadis.osgi.Registration;
@@ -45,6 +44,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+
+import static vanadis.objectmanagers.ManagedState.*;
 
 final class ObjectManagerImpl implements ObjectManager, InjectionListener {
 
@@ -228,12 +229,12 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
     }
 
     @Override
-    public void wasInjected(Injector<?> injector) {
+    public void wasInjected(ManagedFeature<?,?> injector) {
         asyncInjectionListener.wasInjected(injector);
     }
 
     @Override
-    public void wasRetracted(Injector<?> injector) {
+    public void wasRetracted(ManagedFeature<?, ?> injector) {
         asyncInjectionListener.wasRetracted(injector);
     }
 
@@ -649,20 +650,20 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
         }
 
         @Override
-        public void wasInjected(Injector<?> injector) {
+        public void wasInjected(ManagedFeature<?,?> feature) {
             try {
-                if (injector.isComplete()) {
-                    injectorDependencyTracker.progress(injector.getFeatureName());
+                if (feature.isComplete()) {
+                    injectorDependencyTracker.progress(feature.getFeatureName());
                 }
                 resolveCurrentState();
             } catch (Exception e) {
-                state.updateState(e, "{0} failed to process injection from {1}", this, injector);
+                state.updateState(e, "{0} failed to process injection from {1}", this, feature);
             }
         }
 
         @Override
-        public void wasRetracted(Injector<?> injector) {
-            injectorDependencyTracker.setback(injector.getFeatureName());
+        public void wasRetracted(ManagedFeature<?, ?> feature) {
+            injectorDependencyTracker.setback(feature.getFeatureName());
             handleRetractionEvent();
         }
 

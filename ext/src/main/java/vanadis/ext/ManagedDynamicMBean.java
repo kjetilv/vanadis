@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.extrt;
+package vanadis.ext;
 
 import vanadis.annopro.AnnotationDatum;
 import vanadis.annopro.AnnotationsDigest;
@@ -27,10 +27,6 @@ import vanadis.core.lang.ToString;
 import vanadis.core.reflection.ArgumentTypeMismatchException;
 import vanadis.core.reflection.GetNSet;
 import vanadis.core.reflection.Invoker;
-import vanadis.ext.Attribute;
-import vanadis.ext.Manageable;
-import vanadis.ext.Operation;
-import vanadis.ext.Param;
 
 import javax.management.*;
 import java.lang.reflect.Field;

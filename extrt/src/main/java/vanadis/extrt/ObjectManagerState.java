@@ -68,10 +68,6 @@ class ObjectManagerState {
         return managedState;
     }
 
-    void fail() {
-
-    }
-
     void transition(Transition transition) {
         if (managedState == transition.getTargetState()) {
             return;

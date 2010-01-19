@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.concurrent.OperationQueuer;
 import vanadis.core.collections.Generic;
+import vanadis.core.lang.EntryPoint;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.ext.CoreProperty;
@@ -60,6 +61,7 @@ class BundleManager implements Iterable<String> {
         return new BundleManager(context, bundle, factories.values());
     }
 
+    @EntryPoint
     private BundleManager(Context context, Bundle bundle, Collection<ObjectManagerFactory> factories) {
         this.bundle = bundle;
         this.typedFactories = typedFactories(factories);

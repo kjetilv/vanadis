@@ -289,7 +289,7 @@ class Configurer {
                 : annotatedName;
     }
 
-    public static String defaultValue(Configure configure) {
+    private static String defaultValue(Configure configure) {
         String value = configure.def().trim();
         return value.length() == 0 ? null : value;
     }

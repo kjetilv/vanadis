@@ -50,12 +50,12 @@ class FeatureAnchor<T> {
 
     private final OperationQueuer queuer;
 
-    FeatureAnchor(String featureName, Class<T> serviceInterface, ObjectManager objectManager,
+    private FeatureAnchor(String featureName, Class<T> serviceInterface, ObjectManager objectManager,
                   Context context, OperationQueuer queuer) {
         this(featureName, serviceInterface, objectManager, true, context, queuer);
     }
 
-    FeatureAnchor(String featureName, Class<T> serviceInterface, ObjectManager objectManager,
+    private FeatureAnchor(String featureName, Class<T> serviceInterface, ObjectManager objectManager,
                   boolean required,
                   Context context, OperationQueuer queuer) {
         this.featureName = Not.nil(featureName, "feature name");

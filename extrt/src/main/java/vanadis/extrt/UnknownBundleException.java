@@ -2,11 +2,11 @@ package vanadis.extrt;
 
 class UnknownBundleException extends RuntimeException {
 
-    public UnknownBundleException(String message) {
+    UnknownBundleException(String message) {
         super(message);
     }
 
-    public UnknownBundleException(String msg, Throwable cause) {
+    UnknownBundleException(String msg, Throwable cause) {
         super(msg, cause);
     }
 

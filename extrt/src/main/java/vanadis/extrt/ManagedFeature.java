@@ -86,25 +86,25 @@ abstract class ManagedFeature<T, M> {
         }
     }
 
-    protected ObjectManager getObjectManager() {
+    ObjectManager getObjectManager() {
         return getFeatureData().getObjectManager();
     }
 
     protected abstract void performDeactivate();
 
-    protected final boolean isTeardownMode() {
+    final boolean isTeardownMode() {
         return teardownMode.get();
     }
 
-    protected final boolean isActive() {
+    final boolean isActive() {
         return !isTeardownMode();
     }
 
-    protected final Context getContext() {
+    final Context getContext() {
         return getFeatureData().getContext();
     }
 
-    protected final OperationQueuer getQueuer() {
+    final OperationQueuer getQueuer() {
         return getFeatureData().getQueuer();
     }
 
@@ -117,7 +117,7 @@ abstract class ManagedFeature<T, M> {
                                      "feature", getFeatureName()));
     }
 
-    protected FeatureAnchor<T> getFeatureData() {
+    FeatureAnchor<T> getFeatureData() {
         return featureAnchor;
     }
 }

@@ -17,11 +17,11 @@
 package vanadis.extrt;
 
 /**
- * An {@link Injector} will notify about its state changes via this interface. 
+ * An {@link Injector} will notify about its state changes via this interface.
  */
 interface InjectionListener {
 
-    void wasInjected(Injector<?> injector);
+    void wasInjected(ManagedFeature<?,?> feature);
 
-    void wasRetracted(Injector<?> injector);
+    void wasRetracted(ManagedFeature<?, ?> feature);
 }

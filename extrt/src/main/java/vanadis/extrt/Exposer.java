@@ -24,10 +24,7 @@ import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.reflection.Retyper;
-import vanadis.ext.CoreProperty;
-import vanadis.ext.Expose;
-import vanadis.ext.ModuleSystemException;
-import vanadis.ext.Property;
+import vanadis.ext.*;
 import vanadis.objectmanagers.ObjectManagerExposePointMBean;
 import vanadis.osgi.Context;
 import vanadis.osgi.Registration;
@@ -110,10 +107,6 @@ abstract class Exposer<T> extends ManagedFeature<T, ObjectManagerExposePointMBea
         return properties;
     }
 
-    Registration<T> getRegistration() {
-        return registrations.isEmpty() ? null : registrations.get(0);
-    }
-
     @Override
     boolean isMulti() {
         return registrations.size() > 1;
@@ -121,10 +114,6 @@ abstract class Exposer<T> extends ManagedFeature<T, ObjectManagerExposePointMBea
 
     boolean isPersistent() {
         return persistent;
-    }
-
-    boolean isRemotable() {
-        return remotable;
     }
 
     private ObjectName objectName(Expose annotation) {
@@ -178,17 +167,17 @@ abstract class Exposer<T> extends ManagedFeature<T, ObjectManagerExposePointMBea
             return null;
         }
         if (object.getClass().isArray() && Array.getLength(object) == 0) {
-            return failRequiredArray();
+            failRequiredArray();
+            return null;
         }
         return Pair.of(object, runtimePropertySet);
     }
 
-    private Pair<Object, PropertySet> failRequiredArray() {
+    private void failRequiredArray() {
         if (isRequired()) {
             throw new ModuleSystemException
                     (this + " retrieved empty array for non-optional service!");
         }
-        return null;
     }
 
     protected abstract Object resolveExposedObject(PropertySet runtimePropertySet);

@@ -61,16 +61,14 @@ class Bundles implements Iterable<Bundle>, Closeable {
 
     private final Map<String,BundleException> lastNamedResolveErrors = Generic.map();
 
-    private ConfigurationAdmin configurationAdmin;
+    private final ConfigurationAdmin configurationAdmin;
+
+    private static final int HISTORY_SIZE = 100;
 
     Bundles(BundleContext bundleContext, Context context) {
-        this(bundleContext, context, 100);
-    }
-
-    Bundles(BundleContext bundleContext, Context context, int historySize) {
         this.bundleContext = Not.nil(bundleContext, "bundle context");
         this.context = Not.nil(context, "context");
-        this.specHistory = Generic.sizeLimitedHashMap(historySize);
+        this.specHistory = Generic.sizeLimitedHashMap(HISTORY_SIZE);
         this.packageAdmin = context.getServiceProxy(PackageAdmin.class);
         this.configurationAdmin = context.getServiceProxy(ConfigurationAdmin.class);
         this.startLevel = context.getServiceProxy(StartLevel.class);

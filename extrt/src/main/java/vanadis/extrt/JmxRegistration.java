@@ -46,7 +46,7 @@ final class JmxRegistration<T> {
         return create(context, type, object, objectName);
     }
 
-    static <T> JmxRegistration<T> create(Context context, Class<T> type, T object, ObjectName objectName) {
+    private static <T> JmxRegistration<T> create(Context context, Class<T> type, T object, ObjectName objectName) {
         return new JmxRegistration<T>(context, type, object, objectName);
     }
 

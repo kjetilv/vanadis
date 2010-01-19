@@ -36,7 +36,7 @@ import java.util.List;
  * {@link #start(org.osgi.framework.BundleContext) the start method}
  * returns, vanadis is busy loading and registering bundles.
  */
-public final class FrameworkExtenderBundleActivator implements BundleActivator {
+final class FrameworkExtenderBundleActivator implements BundleActivator {
 
     private FrameworkExtender frameworkExtender;
 
@@ -44,7 +44,7 @@ public final class FrameworkExtenderBundleActivator implements BundleActivator {
 
     private final List<Registration<Command>> commands = Generic.list();
 
-    public FrameworkExtenderBundleActivator() {
+    private FrameworkExtenderBundleActivator() {
         log.info(this + " created");
     }
 

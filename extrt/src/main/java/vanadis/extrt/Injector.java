@@ -117,47 +117,47 @@ abstract class Injector<T> extends ManagedFeature<T, ObjectManagerInjectPointMBe
         doDeactivate();
     }
 
-    protected final Map.Entry<Reference<T>, T> getReplacement() {
+    final Map.Entry<Reference<T>, T> getReplacement() {
         return references.entrySet().iterator().next();
     }
 
-    protected final boolean containsReferences() {
+    final boolean containsReferences() {
         return !references.isEmpty();
     }
 
-    protected final boolean isRemotable() {
+    final boolean isRemotable() {
         return remotable;
     }
 
-    protected final Filter getAnnotatedFilter() {
+    final Filter getAnnotatedFilter() {
         return annotatedFilter;
     }
 
-    protected final int getMinimum() {
+    final int getMinimum() {
         return minimum;
     }
 
     @Override
-    protected final boolean isMulti() {
+    final boolean isMulti() {
         return multi;
     }
 
-    protected final Object getManaged() {
+    final Object getManaged() {
         return getObjectManager().getManagedObject();
     }
 
-    protected final boolean isPassReference() {
+    final boolean isPassReference() {
         return passReference;
     }
 
-    protected final Filter filter() {
+    final Filter filter() {
         if (filter == null) {
             filter = isRemotable() ? getAnnotatedFilter().and(REMOTABLE_FILTER) : getAnnotatedFilter();
         }
         return filter;
     }
 
-    protected final void inject(Reference<T> reference, T providedService, boolean update) {
+    final void inject(Reference<T> reference, T providedService, boolean update) {
         Not.nil(reference, "reference");
         if (discontinued) {
             log.debug(this + " discontinued, skipping inject of " + providedService);
@@ -183,7 +183,7 @@ abstract class Injector<T> extends ManagedFeature<T, ObjectManagerInjectPointMBe
         }
     }
 
-    protected final void uninject(Reference<T> reference, T providedService) {
+    final void uninject(Reference<T> reference, T providedService) {
         Not.nil(reference, "reference");
         if (discontinued) {
             log.debug(this + " discontinued, skipping uninject of " + providedService);
@@ -287,7 +287,7 @@ abstract class Injector<T> extends ManagedFeature<T, ObjectManagerInjectPointMBe
 
     private static final Filter REMOTABLE_FILTER = CoreProperty.REMOTABLE.filter(true);
 
-    protected static Filter filter(Property[] properties, PropertySet configuredProperties) {
+    private static Filter filter(Property[] properties, PropertySet configuredProperties) {
         Filter filter = Filters.NULL;
         for (Property property : properties) {
             String[] value = values(property.value(), property.values());

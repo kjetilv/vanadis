@@ -17,6 +17,12 @@
 package vanadis.extrt;
 
 import junit.framework.Assert;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import org.w3c.dom.Element;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
@@ -28,13 +34,6 @@ import vanadis.ext.Inject;
 import vanadis.osgi.Context;
 import vanadis.osgi.ContextListener;
 import vanadis.osgi.impl.BareBonesContext;
-import org.junit.After;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.internal.runners.JUnit4ClassRunner;
-import org.junit.runner.RunWith;
-import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -42,8 +41,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static org.junit.Assert.*;
+
 @SuppressWarnings({"RawUseOfParameterizedType"})
-@RunWith(JUnit4ClassRunner.class)
+@RunWith(JUnit4.class)
 public class ModuleTest {
 
     private final List<ContextListener<Map>> mapListeners = Generic.list();
@@ -65,7 +66,7 @@ public class ModuleTest {
 
     public static class ListPusher {
 
-        private List<?> list;
+        private final List<?> list;
 
         public ListPusher(List<?> list) {
             this.list = list;

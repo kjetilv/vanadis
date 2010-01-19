@@ -15,14 +15,15 @@
  */
 package vanadis.extrt;
 
-import vanadis.ext.Attribute;
+import org.junit.Test;
 import vanadis.ext.Manageable;
+import vanadis.ext.ManagedDynamicMBean;
 import vanadis.ext.Operation;
 import vanadis.ext.Param;
-import static org.junit.Assert.*;
-import org.junit.Test;
 
 import javax.management.*;
+
+import static org.junit.Assert.*;
 
 public class ManagedDynamicMBeanTest {
 

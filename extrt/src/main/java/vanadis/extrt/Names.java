@@ -22,9 +22,9 @@ import vanadis.core.reflection.GetNSet;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class Names {
+class Names {
 
-    static final String NAME_PROPERTY = "name";
+    private static final String NAME_PROPERTY = "name";
 
     static String nameOfType(AnnotationDatum<Class<?>> annotationData, String name) {
         PropertySet propertySet = annotationData.getPropertySet();

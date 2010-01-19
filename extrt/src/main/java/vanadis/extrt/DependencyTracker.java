@@ -94,10 +94,6 @@ final class DependencyTracker<T extends ManagedFeature<?,?>> implements Iterable
         return trackees.values().iterator();
     }
 
-    public boolean isComplete(String name) {
-        return complete.contains(name);
-    }
-
     public Iterable<T> requiredIncomplete() {
         return trackees(requiredIncomplete);
     }
@@ -112,10 +108,6 @@ final class DependencyTracker<T extends ManagedFeature<?,?>> implements Iterable
 
     public Collection<String> completeNames() {
         return complete;
-    }
-
-    public Collection<String> requiredIncompleteNames() {
-        return requiredIncomplete;
     }
 
     public boolean isRequiredComplete() {

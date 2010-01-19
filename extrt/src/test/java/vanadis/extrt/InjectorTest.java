@@ -26,7 +26,6 @@ import vanadis.core.time.TimeSpan;
 import vanadis.ext.Inject;
 import vanadis.ext.ModuleSystemException;
 import vanadis.ext.Retract;
-import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.Context;
 import vanadis.osgi.Registration;
 import vanadis.osgi.ServiceProperties;
@@ -94,7 +93,7 @@ public class InjectorTest {
     public void simpleInjection() throws IOException {
         Employee employee = new Employee();
         OperationQueuer operationQueuer = new ThreadedDispatch("dispatch", TimeSpan.seconds(5));
-        ObjectManager manager = ObjectManagerImpl.create(context, null, null, employee, null, operationQueuer);
+        ObjectManagerImpl.create(context, null, null, employee, null, operationQueuer);
 
         Registration<HRService> registration =
                 context.register(new HRServiceImpl(), ServiceProperties.create(HRService.class));
