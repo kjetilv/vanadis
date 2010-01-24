@@ -40,9 +40,9 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
 
     public static DynamicMBean create(Object target) {
         AnnotationsDigest digest = AnnotationsDigests.createFromInstance(target);
-        if (digest.hasClassData(Manageable.class) ||
-                digest.hasMethodData(Attribute.class, Operation.class) ||
-                digest.hasFieldData(Attribute.class)) {
+        if (digest.hasClassData(Managed.class) ||
+                digest.hasMethodData(Attr.class, Operation.class) ||
+                digest.hasFieldData(Attr.class)) {
             return new ManagedDynamicMBean(digest, target);
         }
         return null;
@@ -67,10 +67,10 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
     private ManagedDynamicMBean(AnnotationsDigest digest, Object target) {
         Not.nil(digest, "digest");
         this.target = Not.nil(target, "target");
-        Manageable manageable = manageable(digest);
+        Managed manageable = managed(digest);
         objectName = objectName(manageable);
-        attributeMethods = organizeAttributes(digest.getMethodData(Attribute.class));
-        attributeFields = digest.getFieldDataIndex(Attribute.class);
+        attributeMethods = organizeAttributes(digest.getMethodData(Attr.class));
+        attributeFields = digest.getFieldDataIndex(Attr.class);
         operations = digest.getMethodDataIndex(Operation.class);
         attributeInfos = attributeInfos();
         operationInfos = operationInfos();
@@ -162,7 +162,7 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
         }
     }
 
-    private ObjectName objectName(Manageable manageable) {
+    private ObjectName objectName(Managed manageable) {
         if (manageable == null) {
             return null;
         }
@@ -177,7 +177,7 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
         }
     }
 
-    private MBeanInfo info(Object target, Manageable manageable) {
+    private MBeanInfo info(Object target, Managed manageable) {
         String desc = manageable == null ? target.getClass().getName() : manageable.desc();
         return new MBeanInfo(target.getClass().getName(), desc,
                              attributeInfos, null, operationInfos, null);
@@ -205,7 +205,7 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
             Pair<AnnotationDatum<Method>, AnnotationDatum<Method>> pair = entry.getValue();
             AnnotationDatum<Method> getDatum = pair.getOne();
             AnnotationDatum<Method> setDatum = pair.getTwo();
-            Attribute annotation = getDatum != null ? attr(getDatum) : attr(setDatum);
+            Attr annotation = getDatum != null ? attr(getDatum) : attr(setDatum);
             infos.add(new MBeanAttributeInfo
                     (entry.getKey(),
                      annotation.string() ? STRING : type(getDatum.getElement().getReturnType()),
@@ -216,7 +216,7 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
         }
         for (Map.Entry<String, AnnotationDatum<Field>> entry : attributeFields.entrySet()) {
             Field field = entry.getValue().getElement();
-            vanadis.ext.Attribute annotation = field.getAnnotation(Attribute.class);
+            Attr annotation = field.getAnnotation(Attr.class);
             infos.add(new MBeanAttributeInfo
                     (entry.getKey(),
                      annotation.string() ? STRING : type(field.getType()),
@@ -240,9 +240,9 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
         return object;
     }
 
-    private static Attribute attr(AnnotationDatum<?> datum) {
+    private static Attr attr(AnnotationDatum<?> datum) {
         return datum.createProxy(ManagedDynamicMBean.class.getClassLoader(),
-                                 Attribute.class);
+                                 Attr.class);
     }
 
     private static Operation oper(AnnotationDatum<Method> datum) {
@@ -250,13 +250,13 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
                                  Operation.class);
     }
 
-    private static Manageable mng(AnnotationDatum<Class<?>> datum) {
+    private static Managed mng(AnnotationDatum<Class<?>> datum) {
         return datum.createProxy(ManagedDynamicMBean.class.getClassLoader(),
-                                 Manageable.class);
+                                 Managed.class);
     }
 
-    private static Manageable manageable(AnnotationsDigest digest) {
-        AnnotationDatum<Class<?>> datum = digest.getClassDatum(Manageable.class);
+    private static Managed managed(AnnotationsDigest digest) {
+        AnnotationDatum<Class<?>> datum = digest.getClassDatum(Managed.class);
         return datum == null ? null : mng(datum);
     }
 

@@ -27,24 +27,24 @@ public class ManagedDynamicMBeanTest {
 
     private static final String[] EMPTY_SIG = new String[]{};
 
-    @Manageable(desc = "one")
+    @Managed(desc = "one")
     class Managed1 {
     }
 
-    @Manageable(desc = "one", objectName = "foo.bar.zot:type=name")
+    @Managed(desc = "one", objectName = "foo.bar.zot:type=name")
     class Managed2 {
     }
 
     class Managed1Attr {
 
         @SuppressWarnings({"UnusedDeclaration"})
-        @Attribute(desc = "f1")
+        @Attr(desc = "f1")
         private final String field = "value1";
     }
 
     class Managed1AttrMeth {
 
-        @Attribute(desc = "f1")
+        @Attr(desc = "f1")
         public String getField() {
             return "value1";
         }
@@ -53,12 +53,12 @@ public class ManagedDynamicMBeanTest {
     class Managed1RWAttrMeth {
         private String field;
 
-        @Attribute(desc = "f1")
+        @Attr(desc = "f1")
         public String getField() {
             return field;
         }
 
-        @Attribute
+        @Attr
         public void setField(String string) {
             this.field = string;
         }
@@ -66,7 +66,7 @@ public class ManagedDynamicMBeanTest {
 
     class Managed1AttrIsMeth {
 
-        @Attribute(desc = "f1")
+        @Attr(desc = "f1")
         boolean isField() {
             return true;
         }

@@ -21,8 +21,8 @@ import vanadis.core.io.Closeables;
 import vanadis.core.io.Files;
 import vanadis.core.io.IO;
 import vanadis.core.lang.ToString;
-import vanadis.ext.Attribute;
-import vanadis.ext.Manageable;
+import vanadis.ext.Attr;
+import vanadis.ext.Managed;
 import vanadis.mvn.Repo;
 
 import javax.servlet.ServletException;
@@ -35,7 +35,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Manageable(desc = "Repo Servlet: Local repository access")
+@Managed(desc = "Repo Servlet: Local repository access")
 class RepoServlet extends HttpServlet {
 
     private final File repoFile;
@@ -58,17 +58,17 @@ class RepoServlet extends HttpServlet {
         }
     }
 
-    @Attribute(desc = "Count: Requests processed total")
+    @Attr(desc = "Count: Requests processed total")
     public long getRequestsProcessed() {
         return requestsProcessed.get();
     }
 
-    @Attribute(desc = "Count: Bundles served total")
+    @Attr(desc = "Count: Bundles served total")
     public long getBundlesServed() {
         return bundlesServed.get();
     }
 
-    @Attribute(desc = "Count: Bytes served total")
+    @Attr(desc = "Count: Bytes served total")
     public long getBytesServed() {
         return bytesServed.get();
     }

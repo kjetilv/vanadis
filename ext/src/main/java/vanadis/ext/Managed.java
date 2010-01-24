@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Manageable {
+public @interface Managed {
 
     String objectName() default "";
 

@@ -19,7 +19,7 @@ import vanadis.ext.*;
 
 import javax.servlet.Servlet;
 
-@Manageable(desc = "Repo Servlet Module: Local repository access over HTTP")
+@Managed(desc = "Repo Servlet Module: Local repository access over HTTP")
 @Module(moduleType = "reposerv")
 public class RepoServletModule extends AbstractModule {
 

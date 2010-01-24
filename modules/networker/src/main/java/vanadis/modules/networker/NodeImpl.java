@@ -23,7 +23,7 @@ import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.time.TimeSpan;
-import vanadis.ext.Attribute;
+import vanadis.ext.Attr;
 import vanadis.ext.CoreProperty;
 import static vanadis.ext.CoreProperty.OBJECTMANAGER_NAME;
 import vanadis.objectmanagers.ObjectManager;
@@ -55,7 +55,7 @@ final class NodeImpl extends AbstractNetworker implements Node {
 
     private final NodeState nodeState;
 
-    @Attribute
+    @Attr
     private final AtomicBoolean connected = new AtomicBoolean();
 
     private final Lock connectingLock = new ReentrantLock(true);
@@ -84,12 +84,12 @@ final class NodeImpl extends AbstractNetworker implements Node {
         }
     }
 
-    @Attribute
+    @Attr
     public int getRoutersCount() {
         return routers.size();
     }
 
-    @Attribute
+    @Attr
     public Location getLocation() {
         return remoting.getEndPoint();
     }

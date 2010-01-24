@@ -21,7 +21,7 @@ import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
 import vanadis.core.lang.ToString;
 import vanadis.core.time.TimeSpan;
-import vanadis.ext.Attribute;
+import vanadis.ext.Attr;
 import vanadis.remoting.ServiceFilterTargetReference;
 import vanadis.services.networking.*;
 import vanadis.services.remoting.Remoting;
@@ -49,17 +49,17 @@ class RouterImpl extends AbstractNetworker implements Router {
         this.remoting = remoting;
     }
 
-    @Attribute
+    @Attr
     public int getExposureCount() {
         return exposures.size();
     }
 
-    @Attribute
+    @Attr
     public int getInjectPointCount() {
         return injectPoints.size();
     }
 
-    @Attribute
+    @Attr
     public int getNodeCount() {
         return nodes.size();
     }

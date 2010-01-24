@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RUNTIME)
 @Target({FIELD, METHOD})
-public @interface Attribute {
+public @interface Attr {
 
     /**
      * Flip to true to return a String attribute instead of the attribute value
