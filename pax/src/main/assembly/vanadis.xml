@@ -61,7 +61,6 @@
           <exclude>*vanadis:vanadis.blueprints*</exclude>
           <exclude>*vanadis:vanadis.launcher*</exclude>
           <exclude>*vanadis:vanadis.launchsite*</exclude>
-          <exclude>*vanadis:vanadis.main*</exclude>
           <exclude>*vanadis:vanadis.mvn*</exclude>
           <exclude>*org.apache.felix.main*</exclude>
           <exclude>*org.slf4j*</exclude>
@@ -77,7 +76,6 @@
           <include>*vanadis:vanadis.blueprints*</include>
           <include>*vanadis:vanadis.launcher*</include>
           <include>*vanadis:vanadis.launchsite*</include>
-          <include>*vanadis:vanadis.main*</include>
           <include>*vanadis:vanadis.mvn*</include>
           <include>*org.slf4j*</include>
         </includes>

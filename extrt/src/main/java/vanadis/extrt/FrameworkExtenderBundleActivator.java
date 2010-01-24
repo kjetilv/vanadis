@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
+import vanadis.core.lang.UsedByReflection;
 import vanadis.core.time.TimeSpan;
 import vanadis.ext.Command;
 import vanadis.ext.GenericCommand;
@@ -36,7 +37,8 @@ import java.util.List;
  * {@link #start(org.osgi.framework.BundleContext) the start method}
  * returns, vanadis is busy loading and registering bundles.
  */
-final class FrameworkExtenderBundleActivator implements BundleActivator {
+@UsedByReflection
+public final class FrameworkExtenderBundleActivator implements BundleActivator {
 
     private FrameworkExtender frameworkExtender;
 
@@ -44,7 +46,8 @@ final class FrameworkExtenderBundleActivator implements BundleActivator {
 
     private final List<Registration<Command>> commands = Generic.list();
 
-    private FrameworkExtenderBundleActivator() {
+    @UsedByReflection
+    public FrameworkExtenderBundleActivator() {
         log.info(this + " created");
     }
 

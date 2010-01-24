@@ -91,6 +91,25 @@
               <args>-D vanadis.location=localhost:16000</args>
             </configuration>
           </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>felix-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attached</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <finalName>${artifactId}-${project.version}-felix</finalName>
+                    <tarLongFileMode>gnu</tarLongFileMode>
+                    <descriptors>
+                        <descriptor>src/main/assembly/vanadis.xml</descriptor>
+                    </descriptors>
+                </configuration>
+            </plugin>
         </plugins>
       </build>
     </profile>

@@ -17,20 +17,20 @@ package vanadis.logsetup;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import vanadis.core.system.VM;
 
 public class LogSetupBundleActivator implements BundleActivator {
 
     @Override
     public void start(BundleContext bundleContext) {
         LogSetup.go(bundleContext,
-                getProperty(bundleContext, "vanadis.home"),
-                getProperty(bundleContext, "vanadis.location"));
+                getProperty(bundleContext, "vanadis.home", VM.HOME.getAbsolutePath()),
+                getProperty(bundleContext, "vanadis.location", "localhost:16000"));
     }
 
-    private String getProperty(BundleContext bundleContext, String property) {
+    private String getProperty(BundleContext bundleContext, String property, String def) {
         String value = bundleContext.getProperty(property);
-        return value == null ? System.getProperty(property)
-                : value;
+        return value == null ? System.getProperty(property, def) : value;
     }
 
     @Override
