@@ -1,6 +1,6 @@
 package vanadis.modules.examples.scalacalc.sub
 
-import calcservices.Subtractor
+import vanadis.modules.examples.scalacalc.calcservices.Subtractor
 
 class MySubtractor extends Subtractor {
 

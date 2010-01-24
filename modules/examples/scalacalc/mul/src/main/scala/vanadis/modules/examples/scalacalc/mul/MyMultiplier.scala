@@ -1,6 +1,6 @@
 package vanadis.modules.examples.scalacalc.mul
 
-import calcservices.Multiplier
+import vanadis.modules.examples.scalacalc.calcservices.Multiplier
 
 class MyMultiplier extends Multiplier {
 

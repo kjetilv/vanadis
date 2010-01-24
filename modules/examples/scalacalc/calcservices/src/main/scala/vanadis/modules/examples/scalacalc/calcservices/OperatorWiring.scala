@@ -1,7 +1,7 @@
 package vanadis.modules.examples.scalacalc.calcservices
 
 import scala.collection.mutable
-import ext.{Track, Expose}
+import vanadis.ext.{Track, Expose}
 
 trait OperatorWiring {
 

@@ -1,7 +1,7 @@
 package vanadis.modules.examples.scalacalc.mul
 
-import calcservices.Multiplier
-import ext.{Module, Expose}
+import vanadis.modules.examples.scalacalc.calcservices.Multiplier
+import vanadis.ext.{Module, Expose}
 
 @Module { val moduleType = "scalacalc-mul" }
 class MultiplicationModule {

@@ -1,8 +1,7 @@
 package vanadis.modules.examples.scalacalc.calculator
 
-import ext.{Inject, AbstractModule, Module, Expose}
-import scala.collection.mutable
-import scalacalc.calcservices._
+import vanadis.ext.{Inject, Module, Expose}
+import vanadis.modules.examples.scalacalc.calcservices._
 
 @Module { val moduleType = "scalacalc-calculator" }
 class CalculatorModule {

@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.extrt;
+package vanadis.ext;
 
 import org.junit.Test;
-import vanadis.ext.Manageable;
-import vanadis.ext.ManagedDynamicMBean;
-import vanadis.ext.Operation;
-import vanadis.ext.Param;
 
 import javax.management.*;
 

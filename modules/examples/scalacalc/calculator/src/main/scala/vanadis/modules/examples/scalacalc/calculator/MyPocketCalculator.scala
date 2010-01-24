@@ -1,7 +1,7 @@
 package vanadis.modules.examples.scalacalc.calculator
 
 import _root_.java.lang.String
-import calcservices._
+import vanadis.modules.examples.scalacalc.calcservices._
 
 class MyPocketCalculator(module: CalculatorModule) extends PocketCalculator {
 

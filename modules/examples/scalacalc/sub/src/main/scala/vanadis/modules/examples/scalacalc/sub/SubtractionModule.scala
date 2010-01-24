@@ -1,7 +1,7 @@
 package vanadis.modules.examples.scalacalc.sub
 
-import calcservices.Subtractor
-import ext.{Module, Expose}
+import vanadis.modules.examples.scalacalc.calcservices.Subtractor
+import vanadis.ext.{Module, Expose}
 
 @Module { val moduleType = "scalacalc-sub" }
 class SubtractionModule {

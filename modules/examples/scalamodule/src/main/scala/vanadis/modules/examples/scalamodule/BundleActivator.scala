@@ -1,6 +1,5 @@
 package vanadis.modules.examples.scalamodule;
 
-//import vanadis.osgi._
 import org.osgi.framework._
 
 class BundleActivator extends org.osgi.framework.BundleActivator {
@@ -9,7 +8,7 @@ class BundleActivator extends org.osgi.framework.BundleActivator {
     var bundleNames = context.getBundles().
             map(b => b.getSymbolicName()).
             filter(b => b != context.getBundle());
-    Console.printf("Installed bundles: {0}", bundleNames.toString());
+    printf("Installed bundles: {0}", bundleNames.toString());
   }
 
   def stop(context: BundleContext) {}
