@@ -17,6 +17,7 @@ package vanadis.modules.rmiprovider;
 
 import vanadis.core.io.Location;
 import vanadis.core.lang.ToString;
+import vanadis.core.lang.UsedByReflection;
 import vanadis.ext.AbstractModule;
 import vanadis.ext.Configure;
 import vanadis.ext.Expose;
@@ -34,7 +35,7 @@ public class RmiRemotingModule extends AbstractModule {
     @Configure(required = true)
     private Location location;
 
-    public RmiRemotingModule() {
+    @UsedByReflection public RmiRemotingModule() {
         this(null);
     }
 

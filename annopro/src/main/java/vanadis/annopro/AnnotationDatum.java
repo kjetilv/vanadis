@@ -55,6 +55,9 @@ public final class AnnotationDatum<E extends AnnotatedElement> {
     }
 
     public E getElement() {
+        if (element == null) {
+            throw new IllegalStateException(this + " was not initialized with an actual element");
+        }
         return element;
     }
 
@@ -86,7 +89,7 @@ public final class AnnotationDatum<E extends AnnotatedElement> {
         return createProxy(classLoader, type, false, propertySet);
     }
 
-    public <A extends Annotation> A createProxy(ClassLoader classLoader, Class<A> type, boolean deep, PropertySet propertySet) {
+    <A extends Annotation> A createProxy(ClassLoader classLoader, Class<A> type, boolean deep, PropertySet propertySet) {
         AnnotationDatum<E> instrumentedData = deep
                 ? this.withShadowingProperties(propertySet)
                 : this.shallowWithShadowingProperties(propertySet);
@@ -126,7 +129,7 @@ public final class AnnotationDatum<E extends AnnotatedElement> {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return EqHc.hc(propertySet, annotationType);
     }
 
     @Override
@@ -139,6 +142,6 @@ public final class AnnotationDatum<E extends AnnotatedElement> {
 
     @Override
     public String toString() {
-        return ToString.of(this, "t", annotationType, "p", propertySet);
+        return ToString.of(this, element, "t", annotationType, "p", propertySet);
     }
 }

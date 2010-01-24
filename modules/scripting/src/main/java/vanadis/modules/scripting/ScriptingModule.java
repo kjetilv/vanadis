@@ -15,6 +15,7 @@
  */
 package vanadis.modules.scripting;
 
+import vanadis.core.lang.UsedByReflection;
 import vanadis.ext.*;
 import vanadis.services.scripting.ScriptingSessions;
 
@@ -31,7 +32,7 @@ public class ScriptingModule extends AbstractContextAware {
     @Configure(required = false, def = DEFAULT_VALUE)
     private String defaultLanguage;
 
-    public ScriptingModule() {
+    @UsedByReflection public ScriptingModule() {
         this(null);
     }
 

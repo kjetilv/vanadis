@@ -21,6 +21,7 @@ import vanadis.concurrent.ExecutorUtils;
 import vanadis.core.io.Location;
 import vanadis.core.lang.EntryPoint;
 import vanadis.core.lang.ToString;
+import vanadis.core.lang.UsedByReflection;
 import vanadis.core.time.TimeSpan;
 import vanadis.ext.*;
 import vanadis.osgi.ServiceProperties;
@@ -63,7 +64,7 @@ public class NetworkerModule extends AbstractContextAware {
 
     private final NodeState nodeState = new NodeState();
 
-    public NetworkerModule() {
+    @UsedByReflection public NetworkerModule() {
         this(false, TimeSpan.HALF_MINUTE, TimeSpan.HALF_MINUTE, 1, null);
     }
 
@@ -75,12 +76,6 @@ public class NetworkerModule extends AbstractContextAware {
         this.remoting = remoting;
     }
 
-    @Override
-    public void configured() {
-        service = threads > 1 ? Executors.newScheduledThreadPool(threads) :
-                Executors.newSingleThreadScheduledExecutor();
-    }
-
     private LocalNode connectedNode() {
         Node node = node();
         return node != null && node.isConnected() ? node : null;
@@ -88,6 +83,12 @@ public class NetworkerModule extends AbstractContextAware {
 
     private Node node() {
         return this.node.get();
+    }
+
+    @Override
+    public void configured() {
+        service = threads > 1 ? Executors.newScheduledThreadPool(threads) :
+                Executors.newSingleThreadScheduledExecutor();
     }
 
     @Configure(required = false)
@@ -156,11 +157,8 @@ public class NetworkerModule extends AbstractContextAware {
 
     @Override
     public void dependenciesResolved() {
-        this.router = routing
-                ? new RouterImpl(service, retry, remoting)
-                : null;
-        NodeImpl node = new NodeImpl
-                (requiredContext(), service, remoting, router, nodeState, retry);
+        this.router = routing ? new RouterImpl(service, retry, remoting) : null;
+        NodeImpl node = new NodeImpl(requiredContext(), service, remoting, router, nodeState, retry);
         this.node.set(node);
         log.info(this + " set up node");
     }

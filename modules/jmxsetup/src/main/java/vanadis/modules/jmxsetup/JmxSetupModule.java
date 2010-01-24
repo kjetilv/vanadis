@@ -34,6 +34,7 @@ public class JmxSetupModule extends AbstractModule {
 
     private static final Map<Object, ObjectName> objects = Generic.identityMap();
 
+    @SuppressWarnings({"unchecked"})
     @Inject(properties = @Property(name = OBJECTNAME_NAME), required = false)
     public void addJmxService(Object service, ServiceProperties<?> serviceProperties) {
         ObjectName objectName = OBJECTNAME.lookupIn(serviceProperties.getPropertySet());

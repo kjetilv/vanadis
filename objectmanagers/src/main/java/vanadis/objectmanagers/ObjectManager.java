@@ -22,7 +22,7 @@ import java.util.Collection;
 /**
  * <P>The ObjectManager handles the lifecycle of exactly one managed object, in
  * terms of exposures, trackings and injections.  It is primarily applied to
- * {@link vanadis.ext.Module modules}. It is created by a dedicated factory , which is
+ * <code>vanadis.ext.Module</code>. It is created by a dedicated factory , which is
  * created at bundle load time.  The factory can create instances of this
  * interface, using a {@link ModuleSpecification}.</P>
  *

@@ -18,5 +18,6 @@ package vanadis.ext;
 /**
  * Convenience superclass that adds context awareness.
  */
-public abstract class AbstractContextAware extends AbstractModule implements ContextAware {
-}
+public abstract class AbstractContextAware
+        extends AbstractModule
+        implements ContextAware { }

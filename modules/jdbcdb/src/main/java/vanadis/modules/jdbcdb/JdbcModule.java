@@ -16,6 +16,7 @@
 package vanadis.modules.jdbcdb;
 
 import vanadis.core.lang.ToString;
+import vanadis.core.lang.UsedByReflection;
 import vanadis.ext.AbstractModule;
 import vanadis.ext.Configure;
 import vanadis.ext.Expose;
@@ -45,7 +46,7 @@ public class JdbcModule extends AbstractModule {
 
     private JdbcConnectionsMBean jdbcConnectionsMBean;
 
-    public JdbcModule() {
+    @UsedByReflection public JdbcModule() {
         this(null, null, null, null, false);
     }
 
@@ -55,14 +56,6 @@ public class JdbcModule extends AbstractModule {
         this.driverClassName = driverClassName;
         this.connectionUrl = connectionUrl;
         this.readOnly = readOnly;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public String getPasswd() {
-        return passwd;
     }
 
     @Expose(managed = true)

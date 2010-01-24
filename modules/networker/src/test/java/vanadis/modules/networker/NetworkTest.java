@@ -89,13 +89,12 @@ public class NetworkTest {
     }
 
     private Remoting setupNode(String where) {
-        BareBonesContext context = new BareBonesContext();
+        Context context = new BareBonesContext();
         Remoting remoting = new RemotingImpl
                 (new FakeRemotingInfrastructure(Location.parse(where)),
-                 new FakeRemoteClientFactory(context));
-        nodes.put(Location.parse(where),
-                  Pair.<Context, Node>of
-                          (context, new NodeImpl(context, service, remoting, router, TimeSpan.HALF_MINUTE)));
+                 new FakeRemoteClientFactory((BareBonesContext) context));
+        Node node = new NodeImpl(context, service, remoting, router, TimeSpan.HALF_MINUTE);
+        nodes.put(Location.parse(where), Pair.of(context, node));
         return remoting;
     }
 

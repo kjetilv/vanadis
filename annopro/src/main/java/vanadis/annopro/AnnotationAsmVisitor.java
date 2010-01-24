@@ -26,7 +26,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 import java.util.Map;
 
-public class AnnotationAsmVisitor<E extends AnnotatedElement>
+class AnnotationAsmVisitor<E extends AnnotatedElement>
         implements AnnotationVisitor {
 
     private final String name;

@@ -16,6 +16,7 @@
 package vanadis.modules.h2db;
 
 import vanadis.core.lang.ToString;
+import vanadis.core.lang.UsedByReflection;
 import vanadis.ext.AbstractModule;
 import vanadis.ext.Configure;
 import vanadis.ext.Expose;
@@ -44,7 +45,7 @@ public class H2Module extends AbstractModule {
 
     private H2ConnectionsMBean h2ConnectionsMBean;
 
-    public H2Module() {
+    @UsedByReflection public H2Module() {
         this(null, null, null, null);
     }
 
