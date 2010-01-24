@@ -149,7 +149,8 @@ final class ListExecution implements CommandExecution {
                 } else {
                     p.p("<none>").cr();
                 }
-                p.indOut(2);
+                p.outd();
+                p.outd();
             }
             p.outd();
         }
@@ -220,33 +221,35 @@ final class ListExecution implements CommandExecution {
 
     private static void writeFeatures(String header, Printer p,
                                       Collection<? extends ManagedFeatureSummary> featureSummaries) {
-        if (!featureSummaries.isEmpty()) {
+        if (featureSummaries.isEmpty()) {
+            return;
+        }
+        p.ind();
+        p.p(header).cr();
+        for (ManagedFeatureSummary summary : featureSummaries) {
             p.ind();
-            p.p(header).cr();
-            for (ManagedFeatureSummary summary : featureSummaries) {
-                p.ind();
-                p.p(summary.getName()).p(":").p(summary.getFeatureClass());
-                if (summary instanceof InjectedServiceSummary) {
-                    InjectedServiceSummary inj = (InjectedServiceSummary) summary;
-                    p.p("/").p(inj.getInjectionType());
-                    Filter filter = inj.getFilter();
-                    if (filter != null && !filter.isNull()) {
-                        p.cr().p(" filter: ").p(filter);
-                    }
+            p.p(summary.getName()).p(":").p(summary.getFeatureClass());
+            if (summary instanceof InjectedServiceSummary) {
+                InjectedServiceSummary inj = (InjectedServiceSummary) summary;
+                p.p("/").p(inj.getInjectionType());
+                Filter filter = inj.getFilter();
+                if (filter != null && !filter.isNull()) {
+                    p.cr().p(" filter: ").p(filter);
                 }
-                p.cr();
-                p.ind();
-                if (summary.isActive()) {
-                    for (InstanceSummary instanceSummary : summary) {
-                        writeInstanceSummary(p, instanceSummary);
-                    }
-                } else {
-                    p.p("<no matches>").cr();
+            }
+            p.cr();
+            p.ind();
+            if (summary.isActive()) {
+                for (InstanceSummary instanceSummary : summary) {
+                    writeInstanceSummary(p, instanceSummary);
                 }
-                p.outd();
+            } else {
+                p.p("<no matches>").cr();
             }
             p.outd();
+            p.outd();
         }
+        p.outd();
     }
 
     private static Printer writeInstanceSummary(Printer p, InstanceSummary summary) {
@@ -292,6 +295,7 @@ final class ListExecution implements CommandExecution {
                     p.p(property).p("=").p(ps.get(property)).cr();
                 }
             }
+            p.outd();
         }
         p.outd();
         return p;
