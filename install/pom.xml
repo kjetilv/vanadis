@@ -139,17 +139,17 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.5.8</version>
+            <version>1.5.10</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
-            <version>1.5.8</version>
+            <version>1.5.10</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.5.8</version>
+            <version>1.5.10</version>
         </dependency>
         <dependency>
             <groupId>com.sun.grizzly.osgi</groupId>
@@ -235,7 +235,7 @@
                             <finalName>${artifactId}-${project.version}-equinox</finalName>
                             <tarLongFileMode>gnu</tarLongFileMode>
                             <descriptors>
-                                <descriptor>src/main/assembly/vanadis.xml</descriptor>
+                                <descriptor>src/main/assembly/vanadis-assembly.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </plugin>
@@ -305,7 +305,7 @@
                             <finalName>${artifactId}-${project.version}-felix</finalName>
                             <tarLongFileMode>gnu</tarLongFileMode>
                             <descriptors>
-                                <descriptor>src/main/assembly/vanadis.xml</descriptor>
+                                <descriptor>src/main/assembly/vanadis-assembly.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </plugin>

@@ -15,103 +15,128 @@
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <parent>
-    <relativePath>../pom.xml</relativePath>
+    <parent>
+        <relativePath>../pom.xml</relativePath>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
     <groupId>vanadis</groupId>
-    <artifactId>vanadis</artifactId>
+    <artifactId>vanadis.pax</artifactId>
     <version>1.1-SNAPSHOT</version>
-  </parent>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>vanadis</groupId>
-  <artifactId>vanadis.pax</artifactId>
-  <version>1.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <description>Vanadis: Pax Vanadana</description>
-  <name>${artifactId}</name>
-  <!--
-    Transitive dependencies don't work, so we list exhaustively.  If transitive, the
-    assembly plugin actually picks up any test jars and uses them instead of the
-    real jars! We avoid that by turning its "useTransitiveDependencies" switch OFF!
+    <packaging>pom</packaging>
+    <description>Vanadis: Pax Vanadana</description>
+    <name>${artifactId}</name>
+    <!--
+      Transitive dependencies don't work, so we list exhaustively.  If transitive, the
+      assembly plugin actually picks up any test jars and uses them instead of the
+      real jars! We avoid that by turning its "useTransitiveDependencies" switch OFF!
 
-    Unfortunately, we must then arrayList all dependencies here, not just the 'leaf' ones.
-  -->
-  <dependencies>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.blueprints</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.mvn</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.launcher</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
-      <artifactId>vanadis.launchsite</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-jdk14</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
+      Unfortunately, we must then arrayList all dependencies here, not just the 'leaf' ones.
+    -->
+    <dependencies>
+        <dependency>
+            <groupId>vanadis</groupId>
+            <artifactId>vanadis.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vanadis</groupId>
+            <artifactId>vanadis.blueprints</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vanadis</groupId>
+            <artifactId>vanadis.mvn</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vanadis</groupId>
+            <artifactId>vanadis.launcher</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vanadis</groupId>
+            <artifactId>vanadis.launchsite</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ops4j.pax.runner</groupId>
+            <artifactId>pax-runner</artifactId>
+            <version>1.4.0</version>
+            <!--<scope>runtime</scope>-->
+        </dependency>
 
-  </dependencies>
-  <profiles>
-    <profile>
-      <id>vanadis-pax</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.ops4j</groupId>
-            <artifactId>maven-pax-plugin</artifactId>
-            <version>1.4</version>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <framework>felix</framework>
-              <repositoryURL>${settings.localRepository}</repositoryURL>
-              <args>-D vanadis.location=localhost:16000</args>
-            </configuration>
-          </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>felix-assembly</id>
-                        <phase>package</phase>
+    </dependencies>
+    <profiles>
+        <profile>
+            <id>vanadis-pax</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.ops4j</groupId>
+                        <artifactId>maven-pax-plugin</artifactId>
+                        <version>1.4</version>
                         <goals>
-                            <goal>attached</goal>
+                            <goal>run</goal>
                         </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <finalName>${artifactId}-${project.version}-felix</finalName>
-                    <tarLongFileMode>gnu</tarLongFileMode>
-                    <descriptors>
-                        <descriptor>src/main/assembly/vanadis.xml</descriptor>
-                    </descriptors>
-                </configuration>
-            </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+                        <configuration>
+                            <framework>felix</framework>
+                            <repositoryURL>${settings.localRepository}</repositoryURL>
+                            <args>-D vanadis.location=localhost:16000</args>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>felix-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>attached</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <finalName>${artifactId}-${project.version}-pax</finalName>
+                            <tarLongFileMode>gnu</tarLongFileMode>
+                            <descriptors>
+                                <descriptor>src/main/assembly/vanadis-assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <id>make directory</id>
+                                <phase>install</phase>
+                                <configuration>
+                                    <tasks>
+                                        <delete quiet="true" dir="${basedir}/${artifactId}-${project.version}/vanadis-pax"/>
+                                        <unzip src="${basedir}/target/${artifactId}-${project.version}-pax-vanadis.zip"
+                                               dest="${basedir}/target"/>
+                                    </tasks>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

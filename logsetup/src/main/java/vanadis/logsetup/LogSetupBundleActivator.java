@@ -17,8 +17,10 @@ package vanadis.logsetup;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import vanadis.core.lang.UsedByReflection;
 import vanadis.core.system.VM;
 
+@UsedByReflection
 public class LogSetupBundleActivator implements BundleActivator {
 
     @Override

@@ -31,10 +31,10 @@ abstract class AccessibleInjector<T> extends Injector<T> {
     private final ContextListener<T> contextListener = new InjectorContextListener();
 
     AccessibleInjector(FeatureAnchor<T> featureAnchor,
-                                 Inject annotation,
-                                 boolean multi,
-                                 boolean passReference,
-                                 InjectionListener listener) {
+                       Inject annotation,
+                       boolean multi,
+                       boolean passReference,
+                       InjectionListener listener) {
         super(featureAnchor,
               annotation.properties(),
               annotation.remotable(),

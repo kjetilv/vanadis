@@ -298,15 +298,16 @@ public class BlueprintsReader {
     public static ModuleSpecification toModuleSpecification(JAXBElement<?> moduleType) {
         if (moduleType.getDeclaredType().equals(ModuleType.class)) {
             return toModuleSpecification((ModuleType) moduleType.getValue());
-        } else if (moduleType.getDeclaredType().equals(BlueprintType.class)) {
-            return toModuleSpecification(((BlueprintType)moduleType.getValue()).getBundlesOrAutoBundleOrBundle().get(0));
-        } else if (moduleType.getDeclaredType().equals(BlueprintsType.class)) {
-            return toModuleSpecification(((BlueprintsType)moduleType.getValue()).getBlueprint().get(0));
-        } else {
-            throw new IllegalArgumentException
-                    ("Invalid JAXBElement, expected value of " + ModuleType.class +
-                            ", got " + moduleType.getDeclaredType());
         }
+        if (moduleType.getDeclaredType().equals(BlueprintType.class)) {
+            return toModuleSpecification(((BlueprintType)moduleType.getValue()).getBundlesOrAutoBundleOrBundle().get(0));
+        }
+        if (moduleType.getDeclaredType().equals(BlueprintsType.class)) {
+            return toModuleSpecification(((BlueprintsType)moduleType.getValue()).getBlueprint().get(0));
+        }
+        throw new IllegalArgumentException
+                ("Invalid JAXBElement, expected value of " + ModuleType.class +
+                        ", got " + moduleType.getDeclaredType());
     }
 
     private static ModuleSpecification toModuleSpecification(BlueprintType blueprintType) {

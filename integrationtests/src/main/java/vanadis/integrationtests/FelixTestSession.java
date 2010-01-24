@@ -371,8 +371,8 @@ public final class FelixTestSession {
 
     private static final Collection<BundleSpecification> AUTO_CONFIGURATION = Arrays.asList
             (id("org.apache.felix:org.osgi.compendium:1.2.0"),
-             id("org.slf4j:slf4j-api:1.5.8"),
-             id("org.slf4j:slf4j-simple:1.5.8"),
+             id("org.slf4j:slf4j-api:1.5.10"),
+             id("org.slf4j:slf4j-simple:1.5.10"),
              id("org.apache.commons:com.springsource.org.apache.commons.logging:1.1.1"),
              id("org.objectweb.asm:com.springsource.org.objectweb.asm:3.1.0"),
              vana("annopro", "1.1-SNAPSHOT"),

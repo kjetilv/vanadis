@@ -73,7 +73,7 @@ final class ListExecution implements CommandExecution {
 
     private static CoreProperty<String> property(String[] args) {
         for (String arg : args) {
-            if (args != null && !arg.equalsIgnoreCase("-v")) {
+            if (arg != null && !arg.equalsIgnoreCase("-v")) {
                 return arg.startsWith("name=") ? CoreProperty.OBJECTMANAGER_NAME : CoreProperty.OBJECTMANAGER_TYPE;
             }
         }
@@ -82,7 +82,7 @@ final class ListExecution implements CommandExecution {
 
     private static String type(String[] args) {
         for (String arg : args) {
-            if (args != null && !arg.equalsIgnoreCase("-v")) {
+            if (arg != null && !arg.equalsIgnoreCase("-v")) {
                 return arg.startsWith("type=") || arg.startsWith("name=") ? arg.substring(5) : arg;
             }
         }
@@ -142,7 +142,7 @@ final class ListExecution implements CommandExecution {
                 p.p("Hash:").p(System.identityHashCode(fac)).cr();
                 p.p("Launched:").cr();
                 p.ind();
-                if (verbose && fac.getLaunchCount() > 0) {
+                if (fac.getLaunchCount() > 0) {
                     for (ModuleSpecification spec : fac) {
                         p.p(spec.getName()).cr();
                     }

@@ -100,6 +100,10 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
 
     }
 
+    private interface TestService2 extends Cloneable {
+
+    }
+
     public static class VanillaExposer {
 
         @Expose
@@ -515,6 +519,23 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
         assertNull(inheritedInject.getService());
         manage(new Blotter());
         assertNotNull(inheritedInject.getService());
+    }
+
+    public static class ConstructedObject {
+
+        public ConstructedObject(TestService testService) {
+            assertNotNull(testService);
+        }
+
+        @Expose
+        public TestService2 getMe() {
+            return new TestService2() {};
+        }
+    }
+
+    @Test
+    public void autoConstructInject() {
+        
     }
 }
 

@@ -29,7 +29,7 @@ import java.text.MessageFormat;
 import java.util.Dictionary;
 import java.util.logging.*;
 
-public final class LogSetup {
+final class LogSetup {
 
     private static final String LOG_PATH = "var/logs/vanadis-{0}-{1}.log";
 
@@ -61,13 +61,13 @@ public final class LogSetup {
                 : Files.createFromURI(homeProperty.toString());
     }
 
-    public static void gone() {
+    static void gone() {
         if (logFileRegistration != null) {
             logFileRegistration.unregister();
         }
     }
 
-    public static void go(BundleContext bundleContext, String home, String location) {
+    static void go(BundleContext bundleContext, String home, String location) {
         setupLogging(bundleContext, home, location);
     }
 

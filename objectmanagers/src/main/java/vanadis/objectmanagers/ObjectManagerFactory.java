@@ -22,7 +22,7 @@ import java.util.Collection;
 /**
  * The object manager factory is associated with exactly one
  * module.  It is capable of creating new instances of
- * {@link vanadis.ext.ObjectManager object managers} from
+ * {@link ObjectManager object managers} from
  * {@link ModuleSpecification service specifications}.
  */
 public interface ObjectManagerFactory extends Iterable<ModuleSpecification> {
@@ -67,7 +67,7 @@ public interface ObjectManagerFactory extends Iterable<ModuleSpecification> {
     void close(ModuleSpecification moduleSpecification);
 
     /**
-     * All returned {@link vanadis.ext.ObjectManager object managers} will have
+     * All returned {@link ObjectManager object managers} will have
      * this {@link ObjectManager#getType() type}.
      *
      * @return Type

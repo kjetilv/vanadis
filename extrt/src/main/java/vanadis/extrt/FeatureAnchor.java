@@ -67,10 +67,6 @@ class FeatureAnchor<T> {
         this.queuer = queuer;
     }
 
-    ModuleSpecificationFeature getModuleSpecificationFeature() {
-        return specificationFeature;
-    }
-
     FeatureAnchor<T> asRequired(boolean required) {
         return new FeatureAnchor<T>(featureName, serviceInterface, objectManager, required, context, queuer);
     }
