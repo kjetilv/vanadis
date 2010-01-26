@@ -135,14 +135,9 @@ public class SystemSpecification {
     }
 
     private BundleResolver resolvers(Iterable<BundleResolver> resolvers) {
-        boolean defaultRepository = this.root.equals(Repo.DEFAULT_URI);
-        return defaultRepository
-                ? new ManyBundleResolvers(resolvers, rootResolver(), MVN_PAX)
-                : new ManyBundleResolvers(resolvers).prepend(rootResolver()).append(MVN_PAX);
-    }
-
-    private RelativeURIResolver rootResolver() {
-        return new RelativeURIResolver(this.root);
+        RelativeURIResolver rootResolver = new RelativeURIResolver(this.root);
+        return this.root.equals(Repo.DEFAULT_URI) ? new ManyBundleResolvers(resolvers, rootResolver, MVN_PAX)
+                : new ManyBundleResolvers(resolvers).prepend(rootResolver).append(MVN_PAX);
     }
 
     public List<BundleSpecification> getAutoBundles(Iterable<BundleResolver> resolvers) {

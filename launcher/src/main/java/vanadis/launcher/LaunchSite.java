@@ -52,13 +52,9 @@ public final class LaunchSite {
 
     private PrintStream out;
 
-    private final Collection<String> blueprintPaths;
-
-    private final List<String> blueprintResources;
-
     private final List<BundleResolver> bundleResolvers;
 
-    private static final List<String> BASE_COMMANDS = Arrays.asList("base-commands");
+    private static final List<String> BASE_BLUEPRINTS = Arrays.asList("base-commands");
 
     private final ResourceLoader resourceLoader;
 
@@ -79,7 +75,7 @@ public final class LaunchSite {
 
     public static LaunchSite create(SiteSpecs ss, OSGiLauncher launcher, ResourceLoader resourceLoader) {
         return new LaunchSite(ss.getHome(), ss.getLocation(), ss.getRepoRoot(), ss.getUriPatterns(),
-                              ss.getAdditionalBlueprintNames(), ss.getBlueprintPaths(), ss.getBlueprintResources(),
+                              ss.getBlueprintNames(), ss.getBlueprintPaths(), ss.getBlueprintResources(),
                               launcher == null ? ss.getLauncherClasses() : null, null, launcher, resourceLoader);
     }
 
@@ -90,29 +86,14 @@ public final class LaunchSite {
         this.home = DirHelper.resolveHome(home);
         this.repo = DirHelper.resolveRepo(this.home, repo);
         this.bundleResolvers = compileBundleResolvers(uriPatterns);
-        this.blueprintNames = systemSpecification == null || blueprintNames == null || blueprintNames.isEmpty()
-                ? BASE_COMMANDS
-                : Generic.seal(blueprintNames);
+        this.blueprintNames = blueprintNames == null || blueprintNames.isEmpty() ? BASE_BLUEPRINTS
+            : Generic.seal(blueprintNames);
         this.location = LocationHelper.resolveLocation(location);
         this.launcher = launcher == null ? createLauncher(launcherClasses) : launcher;
         this.closeHook = new CloseHook(this);
-        this.blueprintPaths = Generic.seal(blueprintPaths);
-        this.blueprintResources = Generic.seal(blueprintResources);
         this.resourceLoader = resourceLoader == null ? new ClassLoaderResourceLoader(classLoader()) : resourceLoader;
         this.systemSpecification = systemSpecification == null ? readSystemSpec(blueprintPaths, blueprintResources)
-                : systemSpecification;
-    }
-
-    public Collection<String> getBlueprintPaths() {
-        return blueprintPaths;
-    }
-
-    public List<String> getBlueprintResources() {
-        return blueprintResources;
-    }
-
-    public Collection<String> getBlueprintNames() {
-        return blueprintNames;
+            : systemSpecification;
     }
 
     public boolean launch(PrintStream out) {
@@ -136,10 +117,6 @@ public final class LaunchSite {
 
     public SystemSpecification getSystemSpecification() {
         return systemSpecification;
-    }
-
-    public URI getRepo() {
-        return repo;
     }
 
     public URI getHome() {
@@ -243,8 +220,8 @@ public final class LaunchSite {
         }
     }
 
-     private static final List<String> DEFAULT_LAUNCHERS = Arrays.asList
-            ("vanadis.felix.FelixOSGiLauncher", "vanadis.equinox.EquinoxOSGiLauncher");
+    private static final List<String> DEFAULT_LAUNCHERS = Arrays.asList
+        ("vanadis.felix.FelixOSGiLauncher", "vanadis.equinox.EquinoxOSGiLauncher");
 
     private static void write(StringBuilder sb, String sep, Iterable<?> list) {
         for (Object object : list) {
@@ -269,9 +246,9 @@ public final class LaunchSite {
     private static ObjectName composeObjectName(Location location) {
         try {
             return new ObjectName(LaunchSite.class.getName() +
-                    ":host=" + location.getHost() +
-                    ",port=" + location.getPort() +
-                    ",pid=" + VM.pid());
+                ":host=" + location.getHost() +
+                ",port=" + location.getPort() +
+                ",pid=" + VM.pid());
         } catch (MalformedObjectNameException e) {
             throw new StartupException("Unexpectedly invalid object name", e);
         }
@@ -300,8 +277,8 @@ public final class LaunchSite {
     private static Class<?> launcherClass(List<String> classNames) {
         Exception exception = null;
         for (String className : (classNames == null || classNames.isEmpty()
-                ? DEFAULT_LAUNCHERS
-                : classNames)) {
+            ? DEFAULT_LAUNCHERS
+            : classNames)) {
             try {
                 return Class.forName(className, true, classLoader());
             } catch (Exception e) {

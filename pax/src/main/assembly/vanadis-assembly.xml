@@ -21,64 +21,33 @@
     <format>zip</format>
     <format>tar.gz</format>
   </formats>
-  <fileSets>
-    <fileSet>
-      <lineEnding>unix</lineEnding>
-      <directory>target/unpacked</directory>
-      <outputDirectory>vanadis/etc</outputDirectory>
-      <directoryMode>0755</directoryMode>
-      <includes>
-        <include>vanadis.xml</include>
-      </includes>
-    </fileSet>
-    <fileSet>
-      <lineEnding>unix</lineEnding>
-      <directory>src/main/resources/vanadis</directory>
-      <outputDirectory>vanadis</outputDirectory>
-      <directoryMode>0755</directoryMode>
-      <excludes>
-        <exclude>bin/*.sh</exclude>
-      </excludes>
-    </fileSet>
-    <fileSet>
-      <lineEnding>unix</lineEnding>
-      <directory>src/main/resources/vanadis</directory>
-      <outputDirectory>vanadis</outputDirectory>
-      <fileMode>0755</fileMode>
-      <directoryMode>0755</directoryMode>
-      <includes>
-        <include>bin/*.sh</include>
-      </includes>
-    </fileSet>
-  </fileSets>
+  <fileSet>
+    <lineEnding>unix</lineEnding>
+    <directory>src/main/resources/vanadis</directory>
+    <outputDirectory>vanadis</outputDirectory>
+    <directoryMode>0755</directoryMode>
+    <excludes>
+      <exclude>bin/*.sh</exclude>
+    </excludes>
+  </fileSet>
+  <fileSet>
+    <lineEnding>unix</lineEnding>
+    <directory>src/main/resources/vanadis</directory>
+    <outputDirectory>vanadis</outputDirectory>
+    <fileMode>0755</fileMode>
+    <directoryMode>0755</directoryMode>
+    <includes>
+      <include>bin/*.sh</include>
+    </includes>
+  </fileSet>
   <binaries>
-    <repositories>
-      <repository>
-        <outputDirectory>vanadis/repo</outputDirectory>
-        <excludes>
-          <exclude>*vanadis:vanadis.felix*</exclude>
-          <exclude>*vanadis:vanadis.core*</exclude>
-          <exclude>*vanadis:vanadis.blueprints*</exclude>
-          <exclude>*vanadis:vanadis.launcher*</exclude>
-          <exclude>*vanadis:vanadis.launchsite*</exclude>
-          <exclude>*vanadis:vanadis.mvn*</exclude>
-          <exclude>*org.apache.felix.main*</exclude>
-          <exclude>*org.slf4j*</exclude>
-        </excludes>
-      </repository>
-    </repositories>
     <dependencySets>
       <dependencySet>
         <useTransitiveDependencies>false</useTransitiveDependencies>
         <outputDirectory>vanadis/lib</outputDirectory>
-        <includes>
-          <include>*vanadis:vanadis.core*</include>
-          <include>*vanadis:vanadis.blueprints*</include>
-          <include>*vanadis:vanadis.launcher*</include>
-          <include>*vanadis:vanadis.launchsite*</include>
-          <include>*vanadis:vanadis.mvn*</include>
-          <include>*org.slf4j*</include>
-        </includes>
+        <excludes>
+          <exclude>*pax-runner*</exclude>
+        </excludes>
       </dependencySet>
     </dependencySets>
   </binaries>

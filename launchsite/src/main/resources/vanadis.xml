@@ -20,18 +20,11 @@
             xmlns="http://kjetilv.github.com/vanadis/blueprints">
   <!-- Configuration with all that defines vanadis, all auto-loaded -->
   <blueprint name="base">
-
-    <auto-bundle group="vanadis" artifact="vanadis.logsetup" version="1.1-SNAPSHOT"/>
-      
     <!-- PAX Stuff.  -->
     <bundles group="org.ops4j.pax.url">
       <auto-bundle artifact="pax-url-mvn" version="1.0.0"/>
       <auto-bundle artifact="pax-url-wrap" version="1.0.0"/>
     </bundles>
-
-    <!-- Additional OSGi services -->
-    <auto-bundle group="org.apache.felix" artifact="org.osgi.compendium"
-                 version="1.2.0"/>
     <!-- ASM -->
     <auto-bundle group="org.objectweb.asm" artifact="com.springsource.org.objectweb.asm"
                  version="3.1.0"/>
@@ -56,16 +49,8 @@
     <auto-bundle group="vanadis.modules" artifact="vanadis.modules.log"/>
   </blueprint>
 
-  <!-- Shell-enabled extension of the base -->
-  <blueprint name="base-shell" extends="base">
-    <!-- The felix shell -->
-    <auto-bundle group="org.apache.felix" artifact="org.apache.felix.shell" version="1.2.0"/>
-    <!-- The felix shell text interface -->
-    <auto-bundle group="org.apache.felix" artifact="org.apache.felix.shell.tui" version="1.2.0"/>
-  </blueprint>
-
   <!-- Extensions adding vanadis commands -->
-  <blueprint name="base-commands" extends="base-shell">
+  <blueprint name="base-commands" extends="base">
     <bundles group="vanadis.modules" artifact-prefix="vanadis.modules">
       <bundle artifact="felixcmds"/>
     </bundles>
