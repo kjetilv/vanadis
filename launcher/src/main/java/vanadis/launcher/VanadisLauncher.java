@@ -26,6 +26,7 @@ import vanadis.blueprints.SystemSpecification;
 import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
 import vanadis.core.lang.Not;
+import vanadis.core.lang.ToString;
 import vanadis.core.time.TimeSpan;
 
 import java.io.PrintStream;
@@ -326,4 +327,8 @@ public class VanadisLauncher implements OSGiLauncher {
         return timeout.newDeadline().tryEvery(retry, waiter);
     }
 
+    @Override
+    public String toString() {
+        return ToString.of(this, "home", home, "location", location);
+    }
 }
