@@ -8,6 +8,12 @@ import java.util.List;
 
 public interface SiteSpecs {
 
+    File getHome();
+
+    Location getLocation();
+
+    List<String> getBlueprintNames();
+
     List<String> getBlueprintPaths();
 
     List<String> getUriPatterns();
@@ -15,12 +21,6 @@ public interface SiteSpecs {
     List<String> getBlueprintResources();
 
     List<String> getLauncherClasses();
-
-    File getHome();
-
-    Location getLocation();
-
-    List<String> getAdditionalBlueprintNames();
 
     URI getRepoRoot();
 }

@@ -63,11 +63,8 @@ public abstract class AbstractSiteSpecs<T> implements SiteSpecs {
         return location;
     }
 
+    @Override
     public List<String> getBlueprintNames() {
-        return blueprintNames;
-    }
-
-    @Override public List<String> getAdditionalBlueprintNames() {
         return blueprintNames;
     }
 
@@ -172,6 +169,6 @@ public abstract class AbstractSiteSpecs<T> implements SiteSpecs {
     }
 
     protected List<String> parseAdditionalBlueprintNames(List<String> blueprintNames, T source) {
-        return Collections.emptyList();
+        return blueprintNames;
     }
 }

@@ -26,11 +26,11 @@ public class LogSetupBundleActivator implements BundleActivator {
     @Override
     public void start(BundleContext bundleContext) {
         LogSetup.go(bundleContext,
-                getProperty(bundleContext, "vanadis.home", VM.HOME.getAbsolutePath()),
-                getProperty(bundleContext, "vanadis.location", "localhost:16000"));
+                    getProperty(bundleContext, "vanadis.home", VM.CWD.getAbsolutePath()),
+                    getProperty(bundleContext, "vanadis.location", "localhost:16000"));
     }
 
-    private String getProperty(BundleContext bundleContext, String property, String def) {
+    private static String getProperty(BundleContext bundleContext, String property, String def) {
         String value = bundleContext.getProperty(property);
         return value == null ? System.getProperty(property, def) : value;
     }
