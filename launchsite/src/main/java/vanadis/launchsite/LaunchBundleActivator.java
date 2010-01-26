@@ -2,8 +2,10 @@ package vanadis.launchsite;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import vanadis.core.lang.UsedByReflection;
 import vanadis.launcher.*;
 
+@UsedByReflection
 public class LaunchBundleActivator implements BundleActivator {
 
     private LaunchSite launchSite;
