@@ -77,7 +77,6 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
         mBeanInfo = info(target, manageable);
     }
 
-
     @Override
     public Object getAttribute(String name)
             throws AttributeNotFoundException, ReflectionException {
@@ -154,6 +153,7 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
             try {
                 Invoker.invoke(this, target, setter, attribute.getValue());
             } catch (ArgumentTypeMismatchException e) {
+                //noinspection ThrowInsideCatchBlockWhichIgnoresCaughtException
                 throw new InvalidAttributeValueException(e.toString());
             }
         } else if (required) {
@@ -227,23 +227,6 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
         return infos.toArray(new MBeanAttributeInfo[infos.size()]);
     }
 
-    private boolean isIs(AnnotationDatum<Method> getDatum) {
-        return getDatum != null && getDatum.getElement().getName().startsWith("is");
-    }
-
-    private Class<?> attributeType(AnnotationDatum<Method> getDatum, AnnotationDatum<Method> setDatum) {
-        if (getDatum != null) {
-            return getDatum.getElement().getReturnType();
-        }
-        if (setDatum != null) {
-            Class<?>[] types = setDatum.getElement().getParameterTypes();
-            if (types != null && types.length == 1) {
-                return types[0];
-            }
-        }
-        throw new IllegalArgumentException("Unable to derive namedType of " + getDatum + "/" + setDatum);
-    }
-
     private Object getIfExists(String name) {
         Object object = null;
         try {
@@ -254,6 +237,23 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
             assert false : "Damn those checked exceptions: " + e;
         }
         return object;
+    }
+    
+    private static boolean isIs(AnnotationDatum<Method> getDatum) {
+        return getDatum != null && getDatum.getElement().getName().startsWith("is");
+    }
+
+    private static Class<?> attributeType(AnnotationDatum<Method> getDatum, AnnotationDatum<Method> setDatum) {
+        if (getDatum != null) {
+            return getDatum.getElement().getReturnType();
+        }
+        if (setDatum != null) {
+            Class<?>[] types = setDatum.getElement().getParameterTypes();
+            if (types != null && types.length == 1) {
+                return types[0];
+            }
+        }
+        throw new IllegalArgumentException("Unable to derive namedType of " + getDatum + "/" + setDatum);
     }
 
     private static Attr attr(AnnotationDatum<?> datum) {

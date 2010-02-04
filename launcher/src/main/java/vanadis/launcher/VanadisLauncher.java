@@ -94,7 +94,6 @@ public class VanadisLauncher implements OSGiLauncher {
                                      List<BundleResolver> bundleResolvers,
                                      SystemSpecification systemSpecification) {
         setLaunchState(home, location, bundleResolvers, systemSpecification);
-
         try {
             assertPrelaunchState(this.bundleContext == null);
             List<Bundle> bundles = startAutoBundles(bundleContext);
@@ -154,7 +153,7 @@ public class VanadisLauncher implements OSGiLauncher {
 
     private List<Bundle> startAutoBundles(BundleContext bundleContext) {
         List<Bundle> bundles = Generic.list();
-        for (BundleSpecification specification : getSystemSpecification().getAutoBundles(bundleResolvers)) {
+        for (BundleSpecification specification : systemSpecification.getAutoBundles(bundleResolvers)) {
             bundles.add(install(bundleContext, specification));
         }
         for (Bundle bundle : bundles) {
@@ -188,13 +187,9 @@ public class VanadisLauncher implements OSGiLauncher {
         }
     }
 
-    protected final SystemSpecification getSystemSpecification() {
-        return systemSpecification;
-    }
-
-    protected final void setLaunchState(URI home, Location location,
-                                        List<BundleResolver> bundleResolvers,
-                                        SystemSpecification systemSpecification) {
+    private void setLaunchState(URI home, Location location,
+                                List<BundleResolver> bundleResolvers,
+                                SystemSpecification systemSpecification) {
         if (launched.getAndSet(true)) {
             throw new IllegalArgumentException(this + " already launched");
         }
