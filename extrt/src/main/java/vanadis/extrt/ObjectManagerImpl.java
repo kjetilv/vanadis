@@ -29,6 +29,7 @@ import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.ext.*;
+import vanadis.jmx.ManagedDynamicMBean;
 import vanadis.objectmanagers.*;
 import vanadis.osgi.Context;
 import vanadis.osgi.Reference;

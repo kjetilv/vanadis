@@ -23,9 +23,7 @@
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>vanadis</groupId>
   <artifactId>vanadis.deployer</artifactId>
-  <version>1.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <description>Vanadis: Deployer</description>
   <name>${artifactId}</name>

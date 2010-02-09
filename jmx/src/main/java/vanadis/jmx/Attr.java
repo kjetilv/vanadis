@@ -23,8 +23,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
 
 /**
- * For tagging fields and methods as JMX attributes.  Applies to
- * {@link Module modules} and {@link Expose exposed} objects.
+ * For tagging fields and methods as JMX attributes.
  */
 @Documented
 @Retention(RUNTIME)

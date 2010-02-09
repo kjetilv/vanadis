@@ -22,9 +22,7 @@
     <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>vanadis</groupId>
   <artifactId>vanadis.integrationtests</artifactId>
-  <version>1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>Vanadis Module: Integration Tests</description>
   <name>${artifactId}</name>

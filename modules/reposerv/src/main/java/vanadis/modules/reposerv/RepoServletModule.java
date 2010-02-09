@@ -16,6 +16,7 @@
 package vanadis.modules.reposerv;
 
 import vanadis.ext.*;
+import vanadis.jmx.Managed;
 
 import javax.servlet.Servlet;
 

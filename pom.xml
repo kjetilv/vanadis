@@ -40,11 +40,6 @@
         <version>1.9.15a</version>
       </dependency>
       <dependency>
-        <groupId>org.eclipse.osgi</groupId>
-        <artifactId>org.eclipse.osgi</artifactId>
-        <version>3.4.3.R34x_v20081215-1030</version>
-      </dependency>
-      <dependency>
         <groupId>org.apache.felix</groupId>
         <artifactId>org.apache.felix.webconsole</artifactId>
         <version>2.0.0</version>
@@ -189,6 +184,11 @@
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
+        <artifactId>vanadis.jmx</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
         <artifactId>vanadis.extrt</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
@@ -210,16 +210,6 @@
         <classifier>vanadis-felix</classifier>
         <version>1.1-SNAPSHOT</version>
         <type>zip</type>
-      </dependency>
-      <dependency>
-        <groupId>vanadis</groupId>
-        <artifactId>vanadis.felix</artifactId>
-        <version>1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>vanadis</groupId>
-        <artifactId>vanadis.equinox</artifactId>
-        <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
@@ -365,11 +355,6 @@
         <version>1.1-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jaxb2-maven-plugin</artifactId>
-        <version>1.2</version>
       </dependency>
       <dependency>
         <groupId>org.ops4j.pax.runner</groupId>
@@ -617,6 +602,7 @@
   <modules>
     <module>core</module>
     <module>vanadis-maven-plugin</module>
+    <module>jmx</module>
   </modules>
   <profiles>
     <profile>
@@ -626,6 +612,7 @@
         <module>mvn</module>
         <module>logsetup</module>
         <module>osgi</module>
+        <module>jmx</module>
         <module>objectmanagers</module>
         <module>blueprints</module>
         <module>annopro</module>

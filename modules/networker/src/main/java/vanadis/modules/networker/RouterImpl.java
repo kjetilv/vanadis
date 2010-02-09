@@ -21,7 +21,7 @@ import vanadis.core.collections.Generic;
 import vanadis.core.io.Location;
 import vanadis.core.lang.ToString;
 import vanadis.core.time.TimeSpan;
-import vanadis.ext.Attr;
+import vanadis.jmx.Attr;
 import vanadis.remoting.ServiceFilterTargetReference;
 import vanadis.services.networking.*;
 import vanadis.services.remoting.Remoting;

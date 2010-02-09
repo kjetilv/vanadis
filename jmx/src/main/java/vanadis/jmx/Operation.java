@@ -41,5 +41,5 @@ public @interface Operation {
 
     Param[] params() default {};
 
-    int impact() default MBeanOperationInfo.INFO;
+    int impact() default 0; // MBeanOperationInfo.INFO;
 }

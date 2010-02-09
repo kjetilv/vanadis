@@ -31,16 +31,25 @@
     <bundles group="vanadis" artifact-prefix="vanadis">
       <!-- Annotation muncher -->
       <auto-bundle artifact="annopro"/>
+
+      <!-- Jmx introspection -->
+      <auto-bundle artifact="jmx"/>
+
       <!-- Humane OSGi API's -->
       <auto-bundle artifact="osgi"/>
+
       <!-- Object Manager interfaces -->
       <auto-bundle artifact="objectmanagers"/>
+
       <!-- Vanadis services -->
       <auto-bundle artifact="services"/>
+
       <!-- Concurrency support -->
       <auto-bundle artifact="concurrent"/>
+
       <!-- API for users of extender module -->
       <auto-bundle artifact="ext"/>
+
       <!-- The extender module picks up managed modules using a quick ASM scan. -->
       <auto-bundle artifact="extrt"/>
     </bundles>
