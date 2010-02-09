@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.ext;
+package vanadis.jmx;
 
 import vanadis.annopro.AnnotationDatum;
 import vanadis.annopro.AnnotationsDigest;
@@ -27,6 +27,10 @@ import vanadis.core.lang.ToString;
 import vanadis.core.reflection.ArgumentTypeMismatchException;
 import vanadis.core.reflection.GetNSet;
 import vanadis.core.reflection.Invoker;
+import vanadis.jmx.Attr;
+import vanadis.jmx.Managed;
+import vanadis.jmx.Operation;
+import vanadis.jmx.Param;
 
 import javax.management.*;
 import java.lang.reflect.Field;

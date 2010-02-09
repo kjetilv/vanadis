@@ -13,28 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.ext;
+package vanadis.jmx;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
 import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for JMX-exposed beans.  Applies to {@link vanadis.ext.Module modules} and
- * {@link vanadis.ext.Expose exposed} objects.
+ * For tagging fields and methods as JMX attributes.  Applies to
+ * {@link Module modules} and {@link Expose exposed} objects.
  */
 @Documented
 @Retention(RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Managed {
-
-    String objectName() default "";
+@Target({FIELD, METHOD})
+public @interface Attr {
 
     /**
-     * A description.
-     * @return Description
+     * Flip to true to return a String attribute instead of the attribute value
+     *
+     * @return True iff stringify
      */
+    boolean string() default false;
+
     String desc() default "";
 }
