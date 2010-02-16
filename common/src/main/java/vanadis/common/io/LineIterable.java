@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-package vanadis.core.properties;
+package vanadis.common.io;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import vanadis.common.text.Resolve;
-import vanadis.core.properties.PropertySets;
+import java.io.File;
+import java.io.Reader;
+import java.util.Iterator;
 
-public class ResolveTest {
+final class LineIterable implements Iterable<String> {
 
-    @Test
-    public void testResolve() {
-        String value = Resolve.resolve("${foo}${foo}", PropertySets.create("foo", "bar"));
-        assertEquals("barbar", value);
+    private final Reader reader;
+
+    LineIterable(File reader) {
+        this(Files.readFile(reader));
+    }
+
+    LineIterable(Reader reader) {
+        this.reader = reader;
+    }
+
+    @Override
+    public Iterator<String> iterator() {
+        return new LineIterator(reader);
     }
 }

@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package vanadis.core.properties;
+package vanadis.common.time;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import vanadis.common.text.Resolve;
-import vanadis.core.properties.PropertySets;
+import java.util.concurrent.ExecutionException;
 
-public class ResolveTest {
+public class ExecutionRuntimeException extends RuntimeException {
 
-    @Test
-    public void testResolve() {
-        String value = Resolve.resolve("${foo}${foo}", PropertySets.create("foo", "bar"));
-        assertEquals("barbar", value);
+    private static final long serialVersionUID = 2900157738144087434L;
+
+    public ExecutionRuntimeException(ExecutionException throwable) {
+        super(throwable.getCause());
     }
+
+    public ExecutionRuntimeException(String s, ExecutionException throwable) {
+        super(s, throwable.getCause());
+        Thread.currentThread().interrupt();
+    }
+
 }

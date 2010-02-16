@@ -14,18 +14,24 @@
  * limitations under the License.
  */
 
-package vanadis.core.properties;
+package vanadis.common.io;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import vanadis.common.text.Resolve;
-import vanadis.core.properties.PropertySets;
+final class BuilderSink implements StringSink {
 
-public class ResolveTest {
+    private final StringBuilder builder;
 
-    @Test
-    public void testResolve() {
-        String value = Resolve.resolve("${foo}${foo}", PropertySets.create("foo", "bar"));
-        assertEquals("barbar", value);
+    BuilderSink(StringBuilder builder) {
+        this.builder = builder;
+    }
+
+    @Override
+    public StringSink print(Object object) {
+        this.builder.append(object);
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return this.builder.toString();
     }
 }

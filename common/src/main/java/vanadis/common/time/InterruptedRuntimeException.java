@@ -1,5 +1,5 @@
 /*
- * Copyright 2008 Kjetil Valstadsve
+ * Copyright 2009 Kjetil Valstadsve
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,22 @@
  * limitations under the License.
  */
 
-package vanadis.core.properties;
+package vanadis.common.time;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import vanadis.common.text.Resolve;
-import vanadis.core.properties.PropertySets;
+public class InterruptedRuntimeException extends RuntimeException {
 
-public class ResolveTest {
+    private static final long serialVersionUID = 2900157738144087434L;
 
-    @Test
-    public void testResolve() {
-        String value = Resolve.resolve("${foo}${foo}", PropertySets.create("foo", "bar"));
-        assertEquals("barbar", value);
+    public InterruptedRuntimeException(InterruptedException cause) {
+        this(null, cause);
+    }
+
+    public InterruptedRuntimeException(String s) {
+        this(s, null);
+    }
+
+    public InterruptedRuntimeException(String s, InterruptedException cause) {
+        super(s, cause);
+        Thread.currentThread().interrupt();
     }
 }

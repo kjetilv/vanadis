@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package vanadis.core.properties;
+package vanadis.common.time;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import vanadis.common.text.Resolve;
-import vanadis.core.properties.PropertySets;
+final class SystemTickTock implements TickTock {
+    @Override
+    public long n() {
+        return System.nanoTime();
+    }
 
-public class ResolveTest {
-
-    @Test
-    public void testResolve() {
-        String value = Resolve.resolve("${foo}${foo}", PropertySets.create("foo", "bar"));
-        assertEquals("barbar", value);
+    @Override
+    public long m() {
+        return System.currentTimeMillis();
     }
 }

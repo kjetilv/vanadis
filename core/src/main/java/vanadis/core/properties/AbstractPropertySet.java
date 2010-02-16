@@ -18,7 +18,7 @@ package vanadis.core.properties;
 
 import vanadis.core.collections.Generic;
 import vanadis.core.reflection.Retyper;
-import vanadis.core.text.Resolve;
+import vanadis.common.text.Resolve;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -18,6 +18,8 @@ package vanadis.core.properties;
 import junit.framework.Assert;
 import org.junit.Test;
 import vanadis.core.collections.Generic;
+import vanadis.core.properties.PropertySet;
+import vanadis.core.properties.PropertySets;
 
 import java.util.Map;
 

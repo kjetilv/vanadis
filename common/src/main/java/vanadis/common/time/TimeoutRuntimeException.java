@@ -1,5 +1,5 @@
 /*
- * Copyright 2008 Kjetil Valstadsve
+ * Copyright 2009 Kjetil Valstadsve
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package vanadis.core.properties;
+package vanadis.common.time;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import vanadis.common.text.Resolve;
-import vanadis.core.properties.PropertySets;
+import java.util.concurrent.TimeoutException;
 
-public class ResolveTest {
+public class TimeoutRuntimeException extends RuntimeException {
 
-    @Test
-    public void testResolve() {
-        String value = Resolve.resolve("${foo}${foo}", PropertySets.create("foo", "bar"));
-        assertEquals("barbar", value);
+    private static final long serialVersionUID = 2900157738144087434L;
+
+    public TimeoutRuntimeException(TimeSpan timeout, TimeoutException throwable) {
+        super("Timeout after " + timeout, throwable);
+    }
+
+    public TimeoutRuntimeException(String msg, TimeSpan timeout, TimeoutException throwable) {
+        super("Timeout after " + timeout + " : " + msg, throwable);
     }
 }

@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-package vanadis.core.properties;
+package vanadis.common.time;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import vanadis.common.text.Resolve;
-import vanadis.core.properties.PropertySets;
+/**
+     * This interface is only used for unit testing.
+ */
+interface TickTock {
 
-public class ResolveTest {
+    /**
+     * Get nano-resolution mark.
+     *
+     * @return Number of nanoseconds
+     */
+    long n();
 
-    @Test
-    public void testResolve() {
-        String value = Resolve.resolve("${foo}${foo}", PropertySets.create("foo", "bar"));
-        assertEquals("barbar", value);
-    }
+    /**
+     * Get milli-resolution mark, also known as epoch.
+     *
+     * @return Number of milliseconds
+     */
+    long m();
+
 }

@@ -14,18 +14,28 @@
  * limitations under the License.
  */
 
-package vanadis.core.properties;
+package vanadis.common.io;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import vanadis.common.text.Resolve;
-import vanadis.core.properties.PropertySets;
+import vanadis.core.lang.ToString;
 
-public class ResolveTest {
+import java.io.PrintStream;
 
-    @Test
-    public void testResolve() {
-        String value = Resolve.resolve("${foo}${foo}", PropertySets.create("foo", "bar"));
-        assertEquals("barbar", value);
+final class StreamSink implements StringSink {
+
+    private final PrintStream stream;
+
+    StreamSink(PrintStream stream) {
+        this.stream = stream;
+    }
+
+    @Override
+    public StringSink print(Object object) {
+        stream.print(object);
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return ToString.of(this, stream);
     }
 }

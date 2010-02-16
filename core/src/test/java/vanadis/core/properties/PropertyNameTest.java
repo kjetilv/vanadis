@@ -3,6 +3,7 @@ package vanadis.core.properties;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import vanadis.core.collections.Generic;
+import vanadis.core.properties.CaseString;
 
 import java.util.Map;
 

@@ -14,18 +14,9 @@
  * limitations under the License.
  */
 
-package vanadis.core.properties;
+package vanadis.common.io;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import vanadis.common.text.Resolve;
-import vanadis.core.properties.PropertySets;
+interface StringSink {
 
-public class ResolveTest {
-
-    @Test
-    public void testResolve() {
-        String value = Resolve.resolve("${foo}${foo}", PropertySets.create("foo", "bar"));
-        assertEquals("barbar", value);
-    }
+    StringSink print(Object object);
 }
