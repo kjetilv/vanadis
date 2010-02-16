@@ -17,14 +17,14 @@ package vanadis.blueprints;
 
 import org.w3c.dom.Element;
 import vanadis.blueprints.gen.*;
+import vanadis.common.io.Closeables;
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Closeables;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.Strings;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
+import vanadis.core.properties.Resolve;
 import vanadis.core.reflection.Retyper;
-import vanadis.core.text.Resolve;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;

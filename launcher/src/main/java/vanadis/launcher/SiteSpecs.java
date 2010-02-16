@@ -1,6 +1,6 @@
 package vanadis.launcher;
 
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 
 import java.io.File;
 import java.net.URI;

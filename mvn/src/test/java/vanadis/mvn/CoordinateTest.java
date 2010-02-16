@@ -18,9 +18,9 @@ package vanadis.mvn;
 import junit.framework.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import vanadis.core.io.Files;
+import vanadis.common.io.Files;
 import vanadis.core.test.VAsserts;
-import vanadis.core.ver.Version;
+import vanadis.common.ver.Version;
 
 import java.io.File;
 import java.net.URI;

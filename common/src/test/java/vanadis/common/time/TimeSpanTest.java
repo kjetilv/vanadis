@@ -15,7 +15,7 @@
  */
 package vanadis.common.time;
 
-import vanadis.common.test.VAsserts;
+import vanadis.core.test.VAsserts;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;

@@ -1,7 +1,7 @@
 package vanadis.launcher;
 
 import vanadis.core.collections.Generic;
-import vanadis.core.test.ForTestingPurposes;
+import vanadis.common.test.ForTestingPurposes;
 
 import java.util.List;
 

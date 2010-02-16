@@ -15,8 +15,8 @@
  */
 package vanadis.osgi.impl;
 
-import vanadis.core.io.Files;
-import vanadis.core.io.Location;
+import vanadis.common.io.Files;
+import vanadis.common.io.Location;
 import vanadis.core.system.VM;
 import org.osgi.framework.BundleContext;
 

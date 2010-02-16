@@ -4,7 +4,7 @@ import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
-import vanadis.core.text.Resolve;
+import vanadis.core.properties.Resolve;
 import vanadis.mvn.Coordinate;
 
 import java.net.URI;

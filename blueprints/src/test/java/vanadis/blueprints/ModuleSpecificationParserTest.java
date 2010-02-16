@@ -15,11 +15,8 @@
  */
 package vanadis.blueprints;
 
-import static junit.framework.Assert.*;
 import org.junit.Test;
 import org.w3c.dom.Element;
-import static vanadis.blueprints.ModuleSpecificationFeatureType.EXPOSE;
-import static vanadis.blueprints.ModuleSpecificationFeatureType.INJECT;
 import vanadis.core.properties.PropertySet;
 
 import java.io.File;
@@ -27,6 +24,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
+
+import static junit.framework.Assert.*;
+import static vanadis.blueprints.ModuleSpecificationFeatureType.EXPOSE;
+import static vanadis.blueprints.ModuleSpecificationFeatureType.INJECT;
 
 public class ModuleSpecificationParserTest {
 

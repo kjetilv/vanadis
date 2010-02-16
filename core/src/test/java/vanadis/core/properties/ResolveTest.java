@@ -16,10 +16,9 @@
 
 package vanadis.core.properties;
 
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import vanadis.common.text.Resolve;
-import vanadis.core.properties.PropertySets;
+
+import static org.junit.Assert.assertEquals;
 
 public class ResolveTest {
 

@@ -15,8 +15,8 @@
  */
 package vanadis.launcher;
 
-import vanadis.core.io.Location;
-import vanadis.core.io.Probe;
+import vanadis.common.io.Location;
+import vanadis.common.io.Probe;
 import vanadis.core.system.VM;
 
 class LocationHelper {

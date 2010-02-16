@@ -17,7 +17,7 @@ package vanadis.modules.rmiprovider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.services.remoting.RemotingException;
 
 import java.net.MalformedURLException;

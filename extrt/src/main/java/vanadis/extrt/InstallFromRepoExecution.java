@@ -16,7 +16,7 @@
 package vanadis.extrt;
 
 import vanadis.blueprints.BundleSpecification;
-import vanadis.core.text.Printer;
+import vanadis.common.text.Printer;
 import vanadis.ext.CommandExecution;
 import vanadis.mvn.Coordinate;
 import vanadis.osgi.Context;

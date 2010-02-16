@@ -18,13 +18,13 @@ package vanadis.mvn;
 
 import org.w3c.dom.Document;
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Closeables;
-import vanadis.core.io.Files;
-import vanadis.core.io.IORuntimeException;
+import vanadis.common.io.Closeables;
+import vanadis.common.io.Files;
+import vanadis.common.io.IORuntimeException;
 import vanadis.core.lang.EqHc;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
-import vanadis.core.ver.Version;
+import vanadis.common.ver.Version;
 import vanadis.mvn.xml.Xml;
 
 import java.io.*;
@@ -233,7 +233,7 @@ public final class Coordinate implements Serializable {
     public URI uriIn(URI repo, boolean validate) {
         return uriIn(repo, validate, true);
     }
-    
+
     public URI uriIn(URI repo, boolean validate, boolean fail) {
         return in(repo, validate, fail);
     }

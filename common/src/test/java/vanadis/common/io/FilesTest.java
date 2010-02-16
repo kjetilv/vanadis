@@ -18,7 +18,6 @@ package vanadis.common.io;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import vanadis.common.io.Files;
 import vanadis.common.time.TimeSpan;
 
 import java.io.File;

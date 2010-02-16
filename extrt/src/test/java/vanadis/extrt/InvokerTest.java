@@ -19,11 +19,11 @@ package vanadis.extrt;
 import static junit.framework.Assert.*;
 
 import vanadis.core.reflection.InvokeException;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.properties.PropertySets;
 
 import static vanadis.core.reflection.Invoker.*;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

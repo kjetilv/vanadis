@@ -21,8 +21,8 @@ import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
 import vanadis.core.lang.VarArgs;
-import vanadis.core.time.Time;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.Time;
+import vanadis.common.time.TimeSpan;
 import vanadis.osgi.Registration;
 
 import java.net.URI;

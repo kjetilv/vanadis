@@ -29,11 +29,16 @@
   <dependencies>
     <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.core</artifactId>
+      <artifactId>vanadis.common</artifactId>
     </dependency>
     <dependency>
       <groupId>vanadis</groupId>
       <artifactId>vanadis.core</artifactId>
+      <type>test-jar</type>
+    </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.common</artifactId>
       <type>test-jar</type>
     </dependency>
     <dependency>

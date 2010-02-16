@@ -15,7 +15,7 @@
  */
 package vanadis.services.scripting;
 
-import vanadis.core.io.IO;
+import vanadis.common.io.IO;
 
 import javax.script.*;
 import java.io.Reader;

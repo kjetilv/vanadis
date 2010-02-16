@@ -305,7 +305,18 @@
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
+        <artifactId>vanadis.common</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
         <artifactId>vanadis.core</artifactId>
+        <version>1.1-SNAPSHOT</version>
+        <type>test-jar</type>
+      </dependency>
+      <dependency>
+        <groupId>vanadis</groupId>
+        <artifactId>vanadis.common</artifactId>
         <version>1.1-SNAPSHOT</version>
         <type>test-jar</type>
       </dependency>
@@ -601,21 +612,21 @@
   </build>
   <modules>
     <module>core</module>
+    <module>common</module>
     <module>vanadis-maven-plugin</module>
+    <module>annopro</module>
     <module>jmx</module>
+    <module>concurrent</module>
+    <module>osgi</module>
   </modules>
   <profiles>
     <profile>
       <id>vanadis</id>
       <modules>
-        <module>concurrent</module>
-        <module>mvn</module>
         <module>logsetup</module>
-        <module>osgi</module>
-        <module>jmx</module>
+        <module>mvn</module>
         <module>objectmanagers</module>
         <module>blueprints</module>
-        <module>annopro</module>
         <module>deployer</module>
         <module>lang</module>
         <module>ext</module>

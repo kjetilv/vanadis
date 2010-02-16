@@ -26,14 +26,14 @@ class SystemPackages {
 
     static final String UTIL = "vanadis.core.collections," +
             "vanadis.core.lang," +
-            "vanadis.core.properties," +
+            "vanadis.common.properties," +
             "vanadis.core.system," +
-            "vanadis.core.io," +
+            "vanadis.common.io," +
             "vanadis.core.reflection," +
-            "vanadis.core.text," +
-            "vanadis.core.time," +
+            "vanadis.common.text," +
+            "vanadis.common.time," +
             "vanadis.core.jmx," +
-            "vanadis.core.ver," +
+            "vanadis.common.ver," +
             "vanadis.blueprints";
 
     static final String JDK = "javax.accessibility," +

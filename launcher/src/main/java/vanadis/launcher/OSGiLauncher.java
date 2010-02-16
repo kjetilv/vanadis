@@ -18,7 +18,7 @@ package vanadis.launcher;
 
 import vanadis.blueprints.BundleResolver;
 import vanadis.blueprints.SystemSpecification;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 
 import java.io.PrintStream;
 import java.net.URI;

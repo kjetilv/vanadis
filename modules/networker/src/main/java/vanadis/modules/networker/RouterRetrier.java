@@ -16,7 +16,7 @@
 package vanadis.modules.networker;
 
 import vanadis.concurrent.AbstractRetrier;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 import vanadis.modules.networker.actions.RegisterRemoteExposuresAction;
 import vanadis.modules.networker.actions.RegisterRemoteInjectPointsAction;
 import vanadis.modules.networker.actions.UnregisterRemoteExposuresAction;

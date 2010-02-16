@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import vanadis.core.io.Closeables;
+import vanadis.common.io.Closeables;
 import vanadis.core.system.VM;
 
 import java.io.ByteArrayOutputStream;

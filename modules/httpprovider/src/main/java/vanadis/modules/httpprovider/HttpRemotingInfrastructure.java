@@ -15,8 +15,8 @@
  */
 package vanadis.modules.httpprovider;
 
-import vanadis.core.io.Location;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.io.Location;
+import vanadis.common.time.TimeSpan;
 import vanadis.remoting.AbstractHttpInfrastructure;
 import vanadis.remoting.GenericHttpInfrastructure;
 

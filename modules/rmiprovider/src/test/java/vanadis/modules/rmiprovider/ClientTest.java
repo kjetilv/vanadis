@@ -17,8 +17,8 @@ package vanadis.modules.rmiprovider;
 
 import junit.framework.Assert;
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Closeables;
-import vanadis.core.io.Location;
+import vanadis.common.io.Closeables;
+import vanadis.common.io.Location;
 import vanadis.remoting.MapTargetReference;
 import vanadis.remoting.RemotingImpl;
 import vanadis.remoting.TestTarget;

@@ -15,7 +15,7 @@
  */
 package vanadis.modules.networker;
 
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 
 import java.util.concurrent.ScheduledExecutorService;
 

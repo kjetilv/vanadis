@@ -16,7 +16,7 @@
 
 package vanadis.concurrent;
 
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 
 public interface SessionsScavenger<V> {
 

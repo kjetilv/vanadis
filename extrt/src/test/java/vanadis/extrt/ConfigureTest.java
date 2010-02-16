@@ -16,7 +16,7 @@
 package vanadis.extrt;
 
 import vanadis.blueprints.ModuleSpecification;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.system.VM;

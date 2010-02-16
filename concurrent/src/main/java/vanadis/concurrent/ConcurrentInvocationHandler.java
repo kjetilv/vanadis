@@ -18,7 +18,7 @@ package vanadis.concurrent;
 
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

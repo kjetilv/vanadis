@@ -16,7 +16,7 @@
 package vanadis.modules.rmiprovider;
 
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.lang.Proxies;
 import vanadis.core.lang.ToString;
 import vanadis.services.remoting.RemoteClientFactory;

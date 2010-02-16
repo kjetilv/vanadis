@@ -16,7 +16,7 @@
 
 package vanadis.concurrent;
 
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 
 import java.io.Closeable;
 import java.util.concurrent.Future;

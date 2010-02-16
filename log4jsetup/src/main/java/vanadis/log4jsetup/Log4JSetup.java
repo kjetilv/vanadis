@@ -16,9 +16,8 @@
 package vanadis.logsetup;
 
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Files;
-import vanadis.core.io.Location;
-import org.apache.log4j.*;
+import vanadis.common.io.Files;
+import vanadis.common.io.Location;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 

@@ -16,8 +16,8 @@
 package vanadis.integrationtests;
 
 import junit.framework.Assert;
-import vanadis.core.time.Deadline;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.Deadline;
+import vanadis.common.time.TimeSpan;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 

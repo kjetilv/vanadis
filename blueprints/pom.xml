@@ -32,6 +32,10 @@
       <artifactId>vanadis.mvn</artifactId>
     </dependency>
     <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.core</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.osgi.core</artifactId>
     </dependency>

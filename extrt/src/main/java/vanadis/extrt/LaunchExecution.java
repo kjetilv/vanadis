@@ -16,7 +16,7 @@
 package vanadis.extrt;
 
 import vanadis.ext.CommandExecution;
-import vanadis.core.text.Printer;
+import vanadis.common.text.Printer;
 import vanadis.osgi.Context;
 
 class LaunchExecution implements CommandExecution {

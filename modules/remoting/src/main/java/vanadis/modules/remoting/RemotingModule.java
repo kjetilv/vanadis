@@ -15,8 +15,8 @@
  */
 package vanadis.modules.remoting;
 
-import vanadis.core.io.Closeables;
-import vanadis.core.io.Location;
+import vanadis.common.io.Closeables;
+import vanadis.common.io.Location;
 import vanadis.core.lang.ToString;
 import vanadis.ext.AbstractContextAware;
 import vanadis.ext.Expose;

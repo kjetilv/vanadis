@@ -17,8 +17,8 @@
 package vanadis.concurrent;
 
 import vanadis.core.collections.Generic;
-import vanadis.core.time.Time;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.Time;
+import vanadis.common.time.TimeSpan;
 
 import java.util.Map;
 import java.util.NoSuchElementException;

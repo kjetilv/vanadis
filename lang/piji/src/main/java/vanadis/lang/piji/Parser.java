@@ -17,7 +17,7 @@
 package vanadis.lang.piji;
 
 import vanadis.core.collections.Generic;
-import vanadis.core.io.IORuntimeException;
+import vanadis.common.io.IORuntimeException;
 import vanadis.core.lang.ToString;
 
 import java.io.*;

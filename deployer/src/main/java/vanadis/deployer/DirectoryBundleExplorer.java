@@ -15,8 +15,8 @@
  */
 package vanadis.deployer;
 
-import vanadis.core.io.Closeables;
-import vanadis.core.io.IORuntimeException;
+import vanadis.common.io.Closeables;
+import vanadis.common.io.IORuntimeException;
 
 import java.io.*;
 import java.util.jar.JarEntry;

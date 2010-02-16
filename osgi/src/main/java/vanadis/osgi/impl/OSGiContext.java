@@ -22,7 +22,7 @@ import org.osgi.framework.ServiceRegistration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.lang.EqHc;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;

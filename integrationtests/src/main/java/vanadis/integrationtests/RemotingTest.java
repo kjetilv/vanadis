@@ -17,8 +17,8 @@ package vanadis.integrationtests;
 
 import junit.framework.Assert;
 import org.junit.Test;
-import vanadis.core.io.Location;
-import vanadis.core.io.Probe;
+import vanadis.common.io.Location;
+import vanadis.common.io.Probe;
 
 public class RemotingTest extends SingleFelixTestCase {
 

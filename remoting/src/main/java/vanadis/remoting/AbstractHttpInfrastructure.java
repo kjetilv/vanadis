@@ -19,11 +19,11 @@ import com.sun.grizzly.http.SelectorThread;
 import com.sun.grizzly.tcp.http11.GrizzlyAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.lang.ToString;
 import vanadis.core.system.VM;
-import vanadis.core.time.Time;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.Time;
+import vanadis.common.time.TimeSpan;
 import vanadis.services.remoting.RemotingException;
 
 import java.io.File;

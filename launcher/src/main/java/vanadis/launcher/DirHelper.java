@@ -15,9 +15,9 @@
  */
 package vanadis.launcher;
 
-import vanadis.core.io.Files;
+import vanadis.common.io.Files;
 import vanadis.core.system.VM;
-import vanadis.core.time.Time;
+import vanadis.common.time.Time;
 import vanadis.mvn.Repo;
 
 import java.io.File;

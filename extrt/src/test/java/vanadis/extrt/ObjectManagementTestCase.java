@@ -18,7 +18,7 @@ package vanadis.extrt;
 import org.junit.After;
 import org.junit.Before;
 import vanadis.blueprints.ModuleSpecification;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.impl.BareBonesContext;
 

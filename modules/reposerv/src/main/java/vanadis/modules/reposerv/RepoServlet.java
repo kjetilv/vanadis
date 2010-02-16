@@ -17,9 +17,9 @@ package vanadis.modules.reposerv;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vanadis.core.io.Closeables;
-import vanadis.core.io.Files;
-import vanadis.core.io.IO;
+import vanadis.common.io.Closeables;
+import vanadis.common.io.Files;
+import vanadis.common.io.IO;
 import vanadis.core.lang.ToString;
 import vanadis.jmx.Attr;
 import vanadis.jmx.Managed;

@@ -15,7 +15,7 @@
  */
 package vanadis.deployer;
 
-import vanadis.core.time.Time;
+import vanadis.common.time.Time;
 
 interface UriExplorer {
 

@@ -535,7 +535,7 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
 
     @Test
     public void autoConstructInject() {
-        
+
     }
 }
 

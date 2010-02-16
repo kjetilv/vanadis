@@ -17,7 +17,7 @@
 package vanadis.concurrent;
 
 import vanadis.core.lang.ToString;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ScheduledExecutorService;

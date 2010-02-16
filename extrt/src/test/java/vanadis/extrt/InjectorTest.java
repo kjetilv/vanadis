@@ -22,7 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 import vanadis.concurrent.OperationQueuer;
 import vanadis.concurrent.ThreadedDispatch;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 import vanadis.ext.Inject;
 import vanadis.ext.ModuleSystemException;
 import vanadis.ext.Retract;

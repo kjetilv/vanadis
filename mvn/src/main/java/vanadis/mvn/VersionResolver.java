@@ -1,7 +1,7 @@
 package vanadis.mvn;
 
 import vanadis.core.collections.Pair;
-import vanadis.core.test.ForTestingPurposes;
+import vanadis.common.test.ForTestingPurposes;
 
 import java.io.File;
 

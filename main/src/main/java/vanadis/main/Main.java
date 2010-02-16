@@ -16,7 +16,7 @@
 package vanadis.main;
 
 import vanadis.core.collections.Generic;
-import vanadis.core.test.ForTestingPurposes;
+import vanadis.common.test.ForTestingPurposes;
 import vanadis.launcher.LaunchSite;
 import vanadis.launcher.ArgumentsSpecs;
 

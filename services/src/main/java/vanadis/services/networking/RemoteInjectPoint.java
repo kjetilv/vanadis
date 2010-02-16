@@ -15,7 +15,7 @@
  */
 package vanadis.services.networking;
 
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.lang.ToString;
 import vanadis.osgi.Filter;
 

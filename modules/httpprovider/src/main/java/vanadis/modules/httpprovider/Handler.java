@@ -15,7 +15,7 @@
  */
 package vanadis.modules.httpprovider;
 
-import vanadis.core.io.Closeables;
+import vanadis.common.io.Closeables;
 import vanadis.core.lang.ContextClassLoaderSwitch;
 import vanadis.core.reflection.ContextClassLoaderObjectInputStream;
 import vanadis.remoting.AbstractHandler;

@@ -15,10 +15,10 @@
  */
 package vanadis.deployer;
 
-import vanadis.core.io.Files;
+import vanadis.common.io.Files;
 import vanadis.core.lang.ToString;
-import vanadis.core.time.TimeSpan;
-import vanadis.core.text.Printer;
+import vanadis.common.time.TimeSpan;
+import vanadis.common.text.Printer;
 import vanadis.ext.*;
 import vanadis.osgi.Context;
 

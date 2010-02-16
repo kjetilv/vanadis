@@ -17,7 +17,7 @@
 package vanadis.concurrent;
 
 import vanadis.core.lang.ToString;
-import vanadis.core.time.Time;
+import vanadis.common.time.Time;
 
 public class ScavengeResult<V> {
 

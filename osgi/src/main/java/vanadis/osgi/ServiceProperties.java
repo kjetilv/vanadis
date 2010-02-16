@@ -22,6 +22,7 @@ import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import org.osgi.framework.Constants;
+import vanadis.core.properties.PropertySet;
 
 import java.io.Serializable;
 import java.util.Arrays;

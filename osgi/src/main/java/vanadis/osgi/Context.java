@@ -15,7 +15,7 @@
  */
 package vanadis.osgi;
 
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.properties.PropertySet;
 
 import java.net.URI;
@@ -61,7 +61,6 @@ public interface Context {
      * Register a service with no service properties except its service interfaces.
      *
      * @param service          Service
-     * @param serviceInterface Servce
      * @return A registration
      */
     <T> Registration<T> register(T service);

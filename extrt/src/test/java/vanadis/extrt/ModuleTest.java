@@ -25,7 +25,7 @@ import org.junit.runners.JUnit4;
 import org.w3c.dom.Element;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.ext.Configure;

@@ -15,7 +15,7 @@
  */
 package vanadis.services.remoting;
 
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 
 public interface RemotingInfrastructure {
 

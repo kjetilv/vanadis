@@ -20,7 +20,7 @@ import org.junit.Before;
 import org.osgi.framework.Bundle;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.ModuleSpecification;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 import vanadis.objectmanagers.ManagedState;
 import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.Reference;

@@ -16,7 +16,7 @@
 
 package vanadis.objectmanagers;
 
-import vanadis.core.time.Time;
+import vanadis.common.time.Time;
 
 /**
  * Describes a failure situation registred in a module.

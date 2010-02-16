@@ -23,7 +23,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import vanadis.annopro.AnnotationDatum;
 import vanadis.core.reflection.Invoker;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.lang.Strings;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;

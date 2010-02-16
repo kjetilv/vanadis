@@ -72,7 +72,7 @@
           <instructions>
             <Import-Package>
               org.slf4j*;version="[1.5.0,2.0.0)",
-              vanadis.core.properties,
+              vanadis.common.properties,
               *
             </Import-Package>
             <Export-Package>${artifactId}</Export-Package>

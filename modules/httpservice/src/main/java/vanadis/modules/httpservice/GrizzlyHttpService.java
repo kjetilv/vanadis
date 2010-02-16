@@ -19,7 +19,7 @@ import com.sun.grizzly.http.SelectorThread;
 import com.sun.grizzly.http.servlet.ServletAdapter;
 import com.sun.grizzly.standalone.StaticStreamAlgorithm;
 import vanadis.core.collections.EnumerationIterable;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.lang.ToString;
 import vanadis.osgi.Context;
 import org.osgi.service.http.HttpContext;

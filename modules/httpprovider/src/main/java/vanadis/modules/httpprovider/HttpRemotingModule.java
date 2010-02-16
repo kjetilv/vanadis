@@ -15,10 +15,10 @@
  */
 package vanadis.modules.httpprovider;
 
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 import vanadis.ext.AbstractModule;
 import vanadis.ext.Configure;
 import vanadis.ext.Expose;

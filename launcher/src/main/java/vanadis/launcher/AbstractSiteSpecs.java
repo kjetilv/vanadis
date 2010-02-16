@@ -1,7 +1,7 @@
 package vanadis.launcher;
 
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.lang.Strings;
 
 import java.io.File;

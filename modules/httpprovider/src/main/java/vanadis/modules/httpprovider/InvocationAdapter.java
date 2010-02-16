@@ -20,7 +20,7 @@ import com.sun.grizzly.tcp.http11.GrizzlyRequest;
 import com.sun.grizzly.tcp.http11.GrizzlyResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vanadis.core.io.Closeables;
+import vanadis.common.io.Closeables;
 import vanadis.core.lang.ContextClassLoaderSwitch;
 import vanadis.core.reflection.ContextClassLoaderObjectInputStream;
 import vanadis.remoting.*;

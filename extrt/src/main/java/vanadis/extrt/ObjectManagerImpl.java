@@ -23,7 +23,7 @@ import vanadis.annopro.AnnotationsDigest;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.concurrent.OperationQueuer;
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;

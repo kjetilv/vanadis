@@ -18,8 +18,8 @@ package vanadis.concurrent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vanadis.core.time.InterruptedRuntimeException;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.InterruptedRuntimeException;
+import vanadis.common.time.TimeSpan;
 
 import java.util.Collections;
 import java.util.List;

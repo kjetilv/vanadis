@@ -15,7 +15,7 @@
  */
 package vanadis.modules.scripting;
 
-import vanadis.core.text.Printer;
+import vanadis.common.text.Printer;
 import vanadis.ext.CommandExecution;
 import vanadis.osgi.Context;
 import vanadis.osgi.Reference;

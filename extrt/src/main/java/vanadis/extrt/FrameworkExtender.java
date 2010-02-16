@@ -24,7 +24,7 @@ import vanadis.concurrent.ThreadedDispatch;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 import vanadis.ext.Command;
 import vanadis.ext.CommandExecution;
 import vanadis.ext.GenericCommand;

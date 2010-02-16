@@ -18,11 +18,11 @@ package vanadis.launcher;
 
 import vanadis.blueprints.*;
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.jmx.Jmx;
 import vanadis.core.lang.ToString;
 import vanadis.core.system.VM;
-import vanadis.core.test.ForTestingPurposes;
+import vanadis.common.test.ForTestingPurposes;
 
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;

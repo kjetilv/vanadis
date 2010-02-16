@@ -19,7 +19,7 @@ import junit.framework.Assert;
 import static junit.framework.Assert.*;
 import org.junit.Test;
 import vanadis.core.lang.Not;
-import vanadis.core.ver.Version;
+import vanadis.common.ver.Version;
 import vanadis.mvn.Coordinate;
 import vanadis.mvn.Repo;
 

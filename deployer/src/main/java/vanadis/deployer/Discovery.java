@@ -17,7 +17,7 @@ package vanadis.deployer;
 
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
-import vanadis.core.time.Time;
+import vanadis.common.time.Time;
 
 import java.io.File;
 import java.net.URI;

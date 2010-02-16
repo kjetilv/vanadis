@@ -16,9 +16,9 @@
 package vanadis.modules.scripting;
 
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Closeables;
-import vanadis.core.io.IO;
-import vanadis.core.io.IORuntimeException;
+import vanadis.common.io.Closeables;
+import vanadis.common.io.IO;
+import vanadis.common.io.IORuntimeException;
 import vanadis.core.lang.Strings;
 import vanadis.core.lang.ToString;
 import vanadis.core.system.VM;

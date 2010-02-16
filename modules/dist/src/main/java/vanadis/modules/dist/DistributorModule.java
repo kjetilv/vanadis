@@ -15,14 +15,13 @@
  */
 package vanadis.modules.dist;
 
-import vanadis.ext.*;
 import vanadis.services.remoting.Remoting;
 import vanadis.core.collect.Generic;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.lang.ToString;
 import vanadis.core.log.Log;
 import vanadis.core.log.Logs;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 import org.jgroups.JChannel;
 import org.w3c.dom.Element;
 

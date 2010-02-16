@@ -19,7 +19,7 @@ package vanadis.extrt;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.core.collections.Generic;
 import vanadis.core.properties.PropertySet;
-import vanadis.core.text.Printer;
+import vanadis.common.text.Printer;
 import vanadis.ext.CommandExecution;
 import vanadis.ext.CoreProperty;
 import vanadis.objectmanagers.*;

@@ -15,7 +15,7 @@
  */
 package vanadis.extrt;
 
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import org.junit.Assert;
 import org.junit.Test;
 

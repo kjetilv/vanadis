@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.core.collections.EnumerationIterable;
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Closeables;
+import vanadis.common.io.Closeables;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.ext.ModuleSystemException;

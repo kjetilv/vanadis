@@ -15,7 +15,7 @@
  */
 package vanadis.modules.dist;
 
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import org.junit.Test;
 
 import java.io.IOException;

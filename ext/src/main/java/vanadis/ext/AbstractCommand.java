@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Pair;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
-import vanadis.core.text.Printer;
+import vanadis.common.text.Printer;
 import vanadis.osgi.Context;
 
 import java.io.ByteArrayOutputStream;

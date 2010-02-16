@@ -35,6 +35,10 @@
       <groupId>vanadis</groupId>
       <artifactId>vanadis.core</artifactId>
     </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.common</artifactId>
+    </dependency>
   </dependencies>
     <build>
         <plugins>

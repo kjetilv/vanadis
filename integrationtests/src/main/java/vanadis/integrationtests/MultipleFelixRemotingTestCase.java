@@ -16,12 +16,12 @@
 package vanadis.integrationtests;
 
 import junit.framework.Assert;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.reflection.Invoker;
-import vanadis.core.time.TimeSpan;
-import static vanadis.core.time.TimeSpan.*;
+import vanadis.common.time.TimeSpan;
+import static vanadis.common.time.TimeSpan.*;
 import vanadis.objectmanagers.ManagedState;
 import vanadis.osgi.Reference;
 

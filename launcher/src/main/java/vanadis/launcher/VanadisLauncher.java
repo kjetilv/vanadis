@@ -24,10 +24,10 @@ import vanadis.blueprints.BundleResolver;
 import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.SystemSpecification;
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 
 import java.io.PrintStream;
 import java.net.URI;

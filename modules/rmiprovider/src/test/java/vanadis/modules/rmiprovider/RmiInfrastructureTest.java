@@ -16,7 +16,7 @@
 package vanadis.modules.rmiprovider;
 
 import junit.framework.TestCase;
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 
 public class RmiInfrastructureTest extends TestCase {
 

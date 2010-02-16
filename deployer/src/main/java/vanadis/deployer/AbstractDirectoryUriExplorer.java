@@ -16,11 +16,11 @@
 package vanadis.deployer;
 
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Closeables;
-import vanadis.core.io.IORuntimeException;
+import vanadis.common.io.Closeables;
+import vanadis.common.io.IORuntimeException;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
-import vanadis.core.time.Time;
+import vanadis.common.time.Time;
 
 import java.io.*;
 import java.net.URI;

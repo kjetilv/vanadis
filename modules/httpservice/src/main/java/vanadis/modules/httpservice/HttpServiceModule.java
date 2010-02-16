@@ -16,9 +16,8 @@
 package vanadis.modules.httpservice;
 
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Closeables;
-import vanadis.core.io.Location;
-import vanadis.ext.*;
+import vanadis.common.io.Closeables;
+import vanadis.common.io.Location;
 import vanadis.osgi.ServiceProperties;
 import org.osgi.service.http.HttpService;
 

@@ -17,7 +17,7 @@
 package vanadis.extrt;
 
 import vanadis.core.system.VM;
-import vanadis.core.text.Printer;
+import vanadis.common.text.Printer;
 import vanadis.ext.CommandExecution;
 import vanadis.osgi.Context;
 

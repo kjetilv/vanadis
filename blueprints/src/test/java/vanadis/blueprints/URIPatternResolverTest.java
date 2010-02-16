@@ -2,7 +2,7 @@ package vanadis.blueprints;
 
 import junit.framework.Assert;
 import org.junit.Test;
-import vanadis.core.ver.Version;
+import vanadis.common.ver.Version;
 import vanadis.mvn.Coordinate;
 
 import java.net.URI;

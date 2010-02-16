@@ -16,7 +16,7 @@
 
 package vanadis.mvn;
 
-import vanadis.core.ver.Version;
+import vanadis.common.ver.Version;
 
 import java.io.File;
 import java.io.FileFilter;

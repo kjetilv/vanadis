@@ -16,8 +16,8 @@
 package vanadis.concurrent;
 
 import junit.framework.TestCase;
-import vanadis.core.io.Closeables;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.io.Closeables;
+import vanadis.common.time.TimeSpan;
 
 import java.io.Closeable;
 import java.util.concurrent.atomic.AtomicInteger;

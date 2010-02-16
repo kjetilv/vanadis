@@ -17,7 +17,7 @@ package vanadis.extrt;
 
 import vanadis.core.lang.Not;
 import vanadis.ext.CommandExecution;
-import vanadis.core.text.Printer;
+import vanadis.common.text.Printer;
 import vanadis.osgi.Context;
 
 class QuitExecution implements CommandExecution {

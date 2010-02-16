@@ -15,7 +15,7 @@
  */
 package vanadis.deployer;
 
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;

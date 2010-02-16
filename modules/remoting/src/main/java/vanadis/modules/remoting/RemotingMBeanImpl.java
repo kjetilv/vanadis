@@ -1,6 +1,6 @@
 package vanadis.modules.remoting;
 
-import vanadis.core.io.Location;
+import vanadis.common.io.Location;
 import vanadis.core.lang.ToString;
 
 final class RemotingMBeanImpl implements RemotingMBean {

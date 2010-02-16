@@ -17,7 +17,7 @@ package vanadis.concurrent;
 
 import junit.framework.Assert;
 import org.junit.Test;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;

@@ -18,9 +18,9 @@ package vanadis.annopro;
 
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
+import org.objectweb.asm.AnnotationVisitor;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
-import org.objectweb.asm.AnnotationVisitor;
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;

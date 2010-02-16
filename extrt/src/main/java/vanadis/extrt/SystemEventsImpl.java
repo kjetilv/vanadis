@@ -24,7 +24,7 @@ import vanadis.blueprints.BundleSpecification;
 import vanadis.blueprints.ModuleSpecification;
 import vanadis.concurrent.OperationQueuer;
 import vanadis.core.collections.Generic;
-import vanadis.core.io.IORuntimeException;
+import vanadis.common.io.IORuntimeException;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 import vanadis.ext.ModuleSystemException;

@@ -17,7 +17,7 @@ package vanadis.modules.scripting;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vanadis.core.text.Printer;
+import vanadis.common.text.Printer;
 import vanadis.ext.CommandExecution;
 import vanadis.osgi.Context;
 import vanadis.services.scripting.ScriptingSession;

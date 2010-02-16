@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
 import vanadis.core.lang.UsedByReflection;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 import vanadis.ext.Command;
 import vanadis.ext.GenericCommand;
 import vanadis.osgi.Context;

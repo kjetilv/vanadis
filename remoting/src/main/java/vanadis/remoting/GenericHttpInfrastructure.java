@@ -16,8 +16,8 @@
 package vanadis.remoting;
 
 import com.sun.grizzly.tcp.http11.GrizzlyAdapter;
-import vanadis.core.io.Location;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.io.Location;
+import vanadis.common.time.TimeSpan;
 
 public class GenericHttpInfrastructure extends AbstractHttpInfrastructure {
 

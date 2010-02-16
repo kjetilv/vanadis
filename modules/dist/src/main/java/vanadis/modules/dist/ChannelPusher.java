@@ -16,7 +16,7 @@
 package vanadis.modules.dist;
 
 import vanadis.core.lang.ToString;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
 

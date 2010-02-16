@@ -6,7 +6,7 @@ import vanadis.concurrent.ConcurrentSessions;
 import vanadis.concurrent.ScavengeResult;
 import vanadis.concurrent.SessionFactory;
 import vanadis.core.collections.Generic;
-import vanadis.core.time.TimeSpan;
+import vanadis.common.time.TimeSpan;
 
 import java.util.List;
 import java.util.Set;

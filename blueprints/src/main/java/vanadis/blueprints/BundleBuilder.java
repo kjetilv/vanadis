@@ -1,8 +1,8 @@
 package vanadis.blueprints;
 
+import vanadis.common.ver.Version;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
-import vanadis.core.ver.Version;
 import vanadis.mvn.Coordinate;
 
 import java.math.BigInteger;
