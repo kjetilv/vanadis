@@ -23,9 +23,10 @@ import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.time.TimeSpan;
-import vanadis.ext.Attr;
+import vanadis.jmx.Attr;
 import vanadis.ext.CoreProperty;
 import static vanadis.ext.CoreProperty.OBJECTMANAGER_NAME;
+
 import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.*;
 import vanadis.remoting.ServiceFilterTargetReference;

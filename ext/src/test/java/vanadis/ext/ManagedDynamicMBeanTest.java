@@ -16,6 +16,7 @@
 package vanadis.ext;
 
 import org.junit.Test;
+import vanadis.jmx.*;
 
 import javax.management.*;
 

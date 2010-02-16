@@ -22,9 +22,7 @@
     <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>vanadis</groupId>
   <artifactId>vanadis.objectmanagers</artifactId>
-  <version>1.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <description>Vanadis Object Managers</description>
   <name>${artifactId}</name>

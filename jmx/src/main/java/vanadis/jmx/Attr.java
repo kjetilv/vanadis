@@ -13,24 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.ext;
+package vanadis.jmx;
 
-import javax.management.MBeanOperationInfo;
 import java.lang.annotation.Documented;
+import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
 
 /**
- * For tagging methods as JMX operations.  Applies to
- * {@link vanadis.ext.Module modules} and
- * {@link vanadis.ext.Expose exposed} objects.
+ * For tagging fields and methods as JMX attributes.
  */
 @Documented
 @Retention(RUNTIME)
-@Target(METHOD)
-public @interface Operation {
+@Target({FIELD, METHOD})
+public @interface Attr {
 
     /**
      * Flip to true to return a String attribute instead of the attribute value
@@ -40,8 +38,4 @@ public @interface Operation {
     boolean string() default false;
 
     String desc() default "";
-
-    Param[] params() default {};
-
-    int impact() default MBeanOperationInfo.INFO;
 }

@@ -24,6 +24,7 @@ import vanadis.core.lang.ToString;
 import vanadis.core.lang.UsedByReflection;
 import vanadis.core.time.TimeSpan;
 import vanadis.ext.*;
+import vanadis.jmx.Attr;
 import vanadis.osgi.ServiceProperties;
 import vanadis.services.networking.*;
 import vanadis.services.remoting.Remoting;

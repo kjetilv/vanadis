@@ -21,8 +21,8 @@ import vanadis.core.io.Closeables;
 import vanadis.core.io.Files;
 import vanadis.core.io.IO;
 import vanadis.core.lang.ToString;
-import vanadis.ext.Attr;
-import vanadis.ext.Managed;
+import vanadis.jmx.Attr;
+import vanadis.jmx.Managed;
 import vanadis.mvn.Repo;
 
 import javax.servlet.ServletException;

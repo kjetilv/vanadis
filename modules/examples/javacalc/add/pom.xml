@@ -17,14 +17,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <relativePath>../pom.xml</relativePath>
-    <groupId>vanadis.modules.examples</groupId>
+    <groupId>vanadis.modules.examples.javacalc</groupId>
     <artifactId>vanadis.modules.examples.javacalc</artifactId>
     <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>vanadis.modules.examples.javacalc</groupId>
   <artifactId>vanadis.modules.examples.javacalc.add</artifactId>
-  <version>1.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <description>Vanadis Module: Example: Java Calc: Addition Service</description>
   <name>${artifactId}</name>

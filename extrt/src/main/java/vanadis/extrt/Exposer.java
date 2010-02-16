@@ -25,6 +25,7 @@ import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.reflection.Retyper;
 import vanadis.ext.*;
+import vanadis.jmx.ManagedDynamicMBean;
 import vanadis.objectmanagers.ObjectManagerExposePointMBean;
 import vanadis.osgi.Context;
 import vanadis.osgi.Registration;
