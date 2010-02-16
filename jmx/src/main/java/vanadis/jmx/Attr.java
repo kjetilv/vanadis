@@ -35,7 +35,7 @@ public @interface Attr {
      *
      * @return True iff stringify
      */
-    boolean string() default false;
+    boolean asString() default false;
 
     String desc() default "";
 }
