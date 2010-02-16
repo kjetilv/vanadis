@@ -36,9 +36,25 @@ import static vanadis.jmx.JmxFiddly.*;
 public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
 
     public static DynamicMBean create(Object target) {
-        AnnotationsDigest digest = Digests.get(target);
+        return create(target, null, false);
+    }
+
+    public static DynamicMBean create(Object target, String description) {
+        return create(target, description, false);
+    }
+
+    public static DynamicMBean createFull(Object target) {
+        return create(target, null, true);
+    }
+
+    public static DynamicMBean createFull(Object target, String description) {
+        return create(target, description, true);
+    }
+
+    private static DynamicMBean create(Object target, String description, boolean full) {
+        AnnotationsDigest digest = Digests.get(target, full);
         return digest == null ? null
-            : new ManagedDynamicMBean(digest, target);
+            : new ManagedDynamicMBean(digest, target, description);
     }
 
     private final ObjectName objectName;
@@ -57,17 +73,17 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
 
     private final Object target;
 
-    private ManagedDynamicMBean(AnnotationsDigest digest, Object target) {
+    private ManagedDynamicMBean(AnnotationsDigest digest, Object target, String description) {
         Not.nil(digest, "digest");
         this.target = Not.nil(target, "target");
-        Managed manageable = managed(digest);
-        objectName = objectName(manageable);
+        Managed managed = managed(digest);
+        objectName = objectName(managed);
         attributeMethods = organizeAttributes(digest.getMethodData(Attr.class));
         attributeFields = digest.getFieldDataIndex(Attr.class);
         operations = digest.getMethodDataIndex(Operation.class);
         attributeInfos = attributeInfos();
         operationInfos = operationInfos();
-        mBeanInfo = info(target, manageable);
+        mBeanInfo = info(target, description, managed);
     }
 
     @Override
@@ -88,6 +104,7 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
             try {
                 set(attribute, false);
             } catch (Exception ignore) {
+                // ?
             }
         }
         return attributeList;
@@ -169,8 +186,10 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
         }
     }
 
-    private MBeanInfo info(Object target, Managed managedAnnotation) {
-        String desc = managedAnnotation == null ? target.getClass().getName() : managedAnnotation.desc();
+    private MBeanInfo info(Object target, String description, Managed managed) {
+        String desc = description != null ? description
+            : managed != null ? managed.desc()
+                : target.getClass().getName();
         return new MBeanInfo(target.getClass().getName(), desc,
                              attributeInfos, null, operationInfos, null);
     }
