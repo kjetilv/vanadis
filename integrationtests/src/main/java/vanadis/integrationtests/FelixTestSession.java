@@ -41,6 +41,7 @@ import vanadis.mvn.Coordinate;
 import vanadis.mvn.Repo;
 import vanadis.objectmanagers.ManagedState;
 import vanadis.objectmanagers.ObjectManager;
+import vanadis.osgi.*;
 import vanadis.services.networking.RemoteNode;
 import vanadis.services.networking.Router;
 
@@ -370,6 +371,8 @@ public final class FelixTestSession {
 
     private static final Collection<BundleSpecification> AUTO_CONFIGURATION = Arrays.asList
             (id("org.apache.felix:org.osgi.compendium:1.2.0"),
+             id("org.ops4j.pax.url:pax-url-mvn:1.0.0"),
+             id("org.ops4j.pax.url:pax-url-wrap:1.0.0"),
              id("org.slf4j:slf4j-api:1.5.10"),
              id("org.slf4j:slf4j-simple:1.5.10"),
              id("org.apache.commons:com.springsource.org.apache.commons.logging:1.1.1"),
