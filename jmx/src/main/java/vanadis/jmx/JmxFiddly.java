@@ -1,16 +1,13 @@
 package vanadis.jmx;
 
 import vanadis.annopro.AnnotationDatum;
-import vanadis.annopro.AnnotationsDigest;
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Pair;
-import vanadis.core.lang.AccessibleHelper;
 import vanadis.core.reflection.GetNSet;
 
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanOperationInfo;
 import javax.management.MBeanParameterInfo;
-import javax.management.ReflectionException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -60,37 +57,49 @@ class JmxFiddly {
         Map<String, AnnotationDatum<Method>> setters = Generic.map();
         Set<String> attributeNames = Generic.set();
         for (AnnotationDatum<Method> datum : data) {
-            Method method = datum.getElement();
-            String methodName = method.getName();
-            Class<?> returnType = method.getReturnType();
-            String get = GetNSet.getProperty(methodName);
-            int pars = method.getParameterTypes().length;
-            if (get != null && pars == 0 && returnsValue(returnType)) {
-                getters.put(get, datum);
-                attributeNames.add(get);
-            } else {
-                String set = GetNSet.setProperty(methodName);
-                if (set != null && pars == 1) {
-                    setters.put(set, datum);
-                    attributeNames.add(set);
-                } else {
-                    throw new IllegalArgumentException
-                        ("Managed attribute method " + method + " is not a valid setter or getter");
-                }
-            }
+            add(getters, setters, attributeNames, datum);
         }
         Map<String, Pair<AnnotationDatum<Method>, AnnotationDatum<Method>>> attributes = Generic.map();
         for (String name : attributeNames) {
-            AnnotationDatum<Method> getDatum = getters.get(name);
-            AnnotationDatum<Method> setDatum = setters.get(name);
-            if (nonMatching(getDatum, setDatum)) {
-                throw new IllegalArgumentException
-                    ("Managed read/write property " + name + " has non-matching getter/setter: " +
-                        getDatum.getElement() + "/" + setDatum.getElement());
-            }
-            attributes.put(name, Pair.of(getDatum, setDatum));
+            add(getters.get(name), setters.get(name), attributes, name);
         }
         return attributes;
+    }
+
+    private static void add(AnnotationDatum<Method> getDatum, 
+                            AnnotationDatum<Method> setDatum,
+                            Map<String, Pair<AnnotationDatum<Method>, AnnotationDatum<Method>>> attributes,
+                            String name) {
+        if (nonMatching(getDatum, setDatum)) {
+        throw new IllegalArgumentException
+            ("Managed read/write property " + name + " has non-matching getter/setter: " +
+                getDatum.getElement() + "/" + setDatum.getElement());
+    }
+        attributes.put(name, Pair.of(getDatum, setDatum));
+    }
+
+    private static void add(Map<String, AnnotationDatum<Method>> getters,
+                            Map<String, AnnotationDatum<Method>> setters,
+                            Set<String> attributeNames,
+                            AnnotationDatum<Method> datum) {
+        Method method = datum.getElement();
+        String methodName = method.getName();
+        Class<?> returnType = method.getReturnType();
+        String get = GetNSet.getProperty(methodName);
+        int pars = method.getParameterTypes().length;
+        if (get != null && pars == 0 && returnsValue(returnType)) {
+            getters.put(get, datum);
+            attributeNames.add(get);
+        } else {
+            String set = GetNSet.setProperty(methodName);
+            if (set != null && pars == 1) {
+                setters.put(set, datum);
+                attributeNames.add(set);
+            } else {
+                throw new IllegalArgumentException
+                    ("Managed attribute method " + method + " is not a valid setter or getter");
+            }
+        }
     }
 
     private static boolean isIs(AnnotationDatum<Method> getDatum) {
