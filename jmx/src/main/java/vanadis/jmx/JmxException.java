@@ -1,4 +1,4 @@
-package vanadis.core.jmx;
+package vanadis.jmx;
 
 public class JmxException extends RuntimeException {
 

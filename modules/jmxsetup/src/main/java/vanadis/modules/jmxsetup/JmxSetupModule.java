@@ -18,11 +18,12 @@ package vanadis.modules.jmxsetup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vanadis.core.collections.Generic;
-import vanadis.core.jmx.Jmx;
+import vanadis.jmx.Jmx;
 import vanadis.core.lang.ToString;
 import vanadis.ext.*;
 import static vanadis.ext.CoreProperty.OBJECTNAME;
 import static vanadis.ext.CoreProperty.OBJECTNAME_NAME;
+
 import vanadis.osgi.ServiceProperties;
 
 import javax.management.DynamicMBean;

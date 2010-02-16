@@ -16,8 +16,8 @@
 
 package vanadis.extrt;
 
-import vanadis.core.properties.PropertySet;
 import vanadis.core.reflection.Invoker;
+import vanadis.core.properties.PropertySet;
 import vanadis.ext.Expose;
 
 import java.lang.reflect.Field;

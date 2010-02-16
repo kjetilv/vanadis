@@ -17,9 +17,9 @@
 package vanadis.annopro;
 
 import vanadis.core.collections.Generic;
+import vanadis.core.reflection.Invoker;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
-import vanadis.core.reflection.Invoker;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;

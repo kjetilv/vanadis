@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vanadis.core.reflection;
+package vanadis.core.dyn;
 
 import static junit.framework.Assert.assertEquals;
 import org.junit.Assert;
 import org.junit.Test;
+import vanadis.core.reflection.Retyper;
 
 import java.lang.reflect.Array;
 

@@ -16,8 +16,7 @@
 
 package vanadis.core.lang;
 
-import vanadis.core.collections.Generic;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -36,7 +35,7 @@ public abstract class GraphIterable<E> implements Iterable<E> {
     }
 
     private List<E> enumerate(E node) {
-        List<E> es = Generic.list();
+        List<E> es = new ArrayList<E>();
         enumerate(es, node);
         return es;
     }

@@ -39,5 +39,9 @@
       <groupId>vanadis</groupId>
       <artifactId>vanadis.core</artifactId>
     </dependency>
+    <dependency>
+      <groupId>vanadis</groupId>
+      <artifactId>vanadis.jmx</artifactId>
+    </dependency>
   </dependencies>
 </project>

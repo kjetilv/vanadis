@@ -18,6 +18,8 @@ package vanadis.core.time;
 
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Pair;
+import vanadis.core.reflection.AbstractCoercer;
+import vanadis.core.reflection.Retyper;
 import vanadis.core.lang.EqHc;
 import vanadis.core.lang.Not;
 
@@ -40,6 +42,23 @@ import java.util.concurrent.locks.Condition;
  * <P>Intervals can be {@link #newDeadline() converted} to {@link vanadis.core.time.Deadline deadlines}.<P>
  */
 public final class TimeSpan implements Comparable<TimeSpan>, Waiting, Serializable {
+
+    private static class TimeSpanCoercer extends AbstractCoercer<TimeSpan> {
+
+        @Override
+        public TimeSpan coerce(String string) {
+            return TimeSpan.parse(Not.nil(string, "timespan string"));
+        }
+
+        @Override
+        public String toString(TimeSpan timeSpan) {
+            return timeSpan.toTimeSpanString();
+        }
+    }
+
+    static {
+        Retyper.map(new TimeSpanCoercer());
+    }
 
     private static final long serialVersionUID = -4460751471021045914L;
 

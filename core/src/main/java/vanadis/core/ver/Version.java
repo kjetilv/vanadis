@@ -16,10 +16,31 @@
 
 package vanadis.core.ver;
 
+import vanadis.core.reflection.AbstractCoercer;
+import vanadis.core.reflection.Retyper;
+import vanadis.core.lang.Not;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
 public final class Version implements Comparable<Version>, Serializable {
+
+    private static class VersionCoercer extends AbstractCoercer<Version> {
+
+        @Override
+        public Version coerce(String string) {
+            return new Version(Not.nil(string, "version string"));
+        }
+
+        @Override
+        public String toString(Version version) {
+            return version.toVersionString();
+        }
+    }
+
+    static {
+        Retyper.map(new VersionCoercer());
+    }
 
     private static final long[] EMPTY = new long[]{};
 

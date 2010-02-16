@@ -20,12 +20,12 @@ import vanadis.annopro.AnnotationsDigest;
 import vanadis.annopro.AnnotationsDigests;
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Pair;
+import vanadis.core.reflection.Invoker;
 import vanadis.core.lang.AccessibleHelper;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.Strings;
 import vanadis.core.lang.ToString;
 import vanadis.core.reflection.ArgumentTypeMismatchException;
-import vanadis.core.reflection.Invoker;
 
 import javax.management.*;
 import java.lang.reflect.Field;

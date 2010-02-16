@@ -21,6 +21,8 @@ import vanadis.core.lang.AccessibleHelper;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.VarArgs;
 import vanadis.core.properties.PropertySet;
+import vanadis.core.reflection.Enums;
+import vanadis.core.reflection.GetNSet;
 
 import java.lang.reflect.*;
 import java.util.Arrays;

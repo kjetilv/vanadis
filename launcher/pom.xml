@@ -51,6 +51,10 @@
         </dependency>
         <dependency>
             <groupId>vanadis</groupId>
+            <artifactId>vanadis.jmx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vanadis</groupId>
             <artifactId>vanadis.mvn</artifactId>
         </dependency>
         <dependency>

@@ -16,8 +16,8 @@
 
 package vanadis.extrt;
 
-import vanadis.core.lang.ToString;
 import vanadis.core.reflection.Invoker;
+import vanadis.core.lang.ToString;
 import vanadis.ext.Track;
 import vanadis.osgi.Mediator;
 import vanadis.osgi.MediatorListener;

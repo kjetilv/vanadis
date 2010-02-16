@@ -17,6 +17,7 @@ package vanadis.core.lang;
 
 import vanadis.core.collections.Generic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 final class Sieve {

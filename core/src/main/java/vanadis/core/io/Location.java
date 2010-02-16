@@ -16,6 +16,8 @@
 
 package vanadis.core.io;
 
+import vanadis.core.reflection.AbstractCoercer;
+import vanadis.core.reflection.Retyper;
 import vanadis.core.lang.EqHc;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
@@ -28,6 +30,18 @@ import java.util.regex.Pattern;
  * A network location.
  */
 public final class Location implements Serializable {
+
+    public static class LocationCoercer extends AbstractCoercer<Location> {
+
+        @Override
+        public Location coerce(String string) {
+            return parse(Not.nil(string, "location string"));
+        }
+    }
+
+    static {
+        Retyper.map(new LocationCoercer());
+    }
 
     public static Location parseRelative(Location base, String spec) {
         Integer portDelta = parsePortDelta(spec);

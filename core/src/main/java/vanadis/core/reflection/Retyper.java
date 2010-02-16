@@ -17,18 +17,14 @@
 package vanadis.core.reflection;
 
 import vanadis.core.collections.Generic;
-import vanadis.core.io.Location;
 import vanadis.core.lang.Not;
-import vanadis.core.time.TimeSpan;
-import vanadis.core.ver.Version;
+import vanadis.core.reflection.Enums;
 
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -68,7 +64,7 @@ public final class Retyper {
     private static final Map<String, Class<?>> coercedTypeNames = Generic.map();
 
     /**
-     * True iff the class coercable, i.e. we have a {@link vanadis.core.reflection.Retyper.Coercer coercer}
+     * True iff the class coercable, i.e. we have a {@link Retyper.Coercer coercer}
      * for it.
      *
      * @param clazz Class
@@ -89,13 +85,10 @@ public final class Retyper {
 
     static {
         map(new IdentityCoercer());
-        map(new TimeSpanCoercer());
         map(new ObjectNameCoercer());
-        map(new VersionCoercer());
         map(new FileCoercer());
         map(new URLCoercer());
         map(new URICoercer());
-        map(new LocationCoercer());
         map(new LongCoercer(), long.class);
         map(new IntegerCoercer(), int.class);
         map(new ShortCoercer(), short.class);
@@ -262,7 +255,7 @@ public final class Retyper {
 
     /**
      * SPI for coercion.  Register instances for new types using
-     * {@link Retyper#map(vanadis.core.reflection.Retyper.Coercer, Class[])}
+     * {@link Retyper#map(Retyper.Coercer, Class[])}
      */
     public interface Coercer<T> {
 
@@ -273,60 +266,6 @@ public final class Retyper {
         T coerce(String string);
 
         String toString(T t);
-    }
-
-    /**
-     * Helper abstract class for coercers.  Generic arguments
-     * are captured:
-     *
-     * <PRE>private static class FloatCoercer extends AbstractCoercer<Float> {
-     * public Float coerce(String string) {
-     * return Float.parseFloat(nonNull(string));
-     * }
-     * }
-     * </PRE>
-     */
-    public abstract static class AbstractCoercer<T> implements Coercer<T> {
-
-        private final Class<T> type;
-
-        private static final String[] NO_STRINGS = new String[]{};
-
-        @SuppressWarnings({"unchecked"})
-        protected AbstractCoercer() {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(getClass().getGenericSuperclass());
-            Type[] arguments = parameterizedType.getActualTypeArguments();
-            Type argument = arguments[0];
-            this.type = (Class<T>) Class.class.cast(argument);
-        }
-
-        @Override
-        public Class<T> coercedType() {
-            return type;
-        }
-
-        @Override
-        public List<T> coerceMulti(String input) {
-            String[] split = split(input);
-            List<T> ts = Generic.list(split.length);
-            for (String string : split) {
-                ts.add(coerce(string));
-            }
-            return ts;
-        }
-
-        protected static String[] split(String string) {
-            Not.nil(string, "string");
-            String content = string.startsWith("[") && string.endsWith("]")
-                    ? string.substring(1, string.length() - 1)
-                    : string;
-            return content.trim().length() == 0 ? NO_STRINGS : content.split(",");
-        }
-
-        @Override
-        public String toString(T t) {
-            return t.toString();
-        }
     }
 
     private static class FloatCoercer extends AbstractCoercer<Float> {
@@ -409,32 +348,11 @@ public final class Retyper {
         }
     }
 
-    private static class LocationCoercer extends AbstractCoercer<Location> {
-
-        @Override
-        public Location coerce(String string) {
-            return Location.parse(nonNull(string));
-        }
-    }
-
     private static class FileCoercer extends AbstractCoercer<File> {
 
         @Override
         public File coerce(String string) {
             return new File(nonNull(string));
-        }
-    }
-
-    private static class VersionCoercer extends AbstractCoercer<Version> {
-
-        @Override
-        public Version coerce(String string) {
-            return new Version(nonNull(string));
-        }
-
-        @Override
-        public String toString(Version version) {
-            return version.toVersionString();
         }
     }
 
@@ -460,19 +378,6 @@ public final class Retyper {
         @Override
         public String coerce(String string) {
             return string;
-        }
-    }
-
-    private static class TimeSpanCoercer extends AbstractCoercer<TimeSpan> {
-
-        @Override
-        public TimeSpan coerce(String string) {
-            return TimeSpan.parse(nonNull(string));
-        }
-
-        @Override
-        public String toString(TimeSpan timeSpan) {
-            return timeSpan.toTimeSpanString();
         }
     }
 
