@@ -17,7 +17,6 @@ package vanadis.jmx;
 
 import vanadis.annopro.AnnotationDatum;
 import vanadis.annopro.AnnotationsDigest;
-import vanadis.annopro.AnnotationsDigests;
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Pair;
 import vanadis.core.reflection.Invoker;
@@ -30,22 +29,16 @@ import vanadis.core.reflection.ArgumentTypeMismatchException;
 import javax.management.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static vanadis.jmx.JmxFiddly.*;
 
 public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
 
     public static DynamicMBean create(Object target) {
-        AnnotationsDigest digest = AnnotationsDigests.createFromInstance(target);
-        if (digest.hasClassData(Managed.class) ||
-            digest.hasMethodData(Attr.class, Operation.class) ||
-            digest.hasFieldData(Attr.class)) {
-            return new ManagedDynamicMBean(digest, target);
-        }
-        return null;
+        AnnotationsDigest digest = Digests.get(target);
+        return digest == null ? null
+            : new ManagedDynamicMBean(digest, target);
     }
 
     private final ObjectName objectName;
