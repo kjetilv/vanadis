@@ -23,45 +23,47 @@ import javax.management.*;
 
 public final class Jmx {
 
-    public static void registerJmx(ObjectName objectName, DynamicMBean dynamicMBean) {
-        registerJmx(objectName, dynamicMBean, null);
+    public static ObjectName registerJmx(ObjectName objectName, DynamicMBean dynamicMBean) {
+        return registerJmx(objectName, dynamicMBean, null);
     }
 
-    public static void registerJmx(String name, DynamicMBean mbean) {
+    public static ObjectName registerJmx(String name, DynamicMBean mbean) {
         verify(name, mbean);
-        registerJmx(objectName(name), mbean, null);
+        return registerJmx(objectName(name), mbean, null);
     }
 
-    public static <T> void registerJmx(String name, T mbean, Class<T> beanClass) {
+    public static <T> ObjectName registerJmx(String name, T mbean, Class<T> beanClass) {
         verify(name, mbean);
-        registerJmx(objectName(name), mbean, beanClass);
+        return registerJmx(objectName(name), mbean, beanClass);
     }
 
-    public static <T> void registerJmx(ObjectName objectName, T mbean, Class<T> beanClass) {
+    public static <T> ObjectName registerJmx(ObjectName objectName, T mbean, Class<T> beanClass) {
         verify(objectName, mbean);
         try {
             Object mBean = mbean instanceof DynamicMBean ? mbean
                     : new StandardMBean(mbean, Not.nil(beanClass, "bean class"));
             VM.JMX.registerMBean(mBean, objectName);
+            return objectName;
         } catch (InstanceAlreadyExistsException e) {
             throw new JmxException
-                    ("Failed to reregister " + describeArgs(objectName, mbean, beanClass), e);
+                ("Failed to reregister " + describeArgs(objectName, mbean, beanClass), e);
         } catch (RuntimeOperationsException e) {
             throw new JmxException
-                    ("Runtime operations exception " + describeArgs(objectName, mbean, beanClass), e);
+                ("Runtime operations exception " + describeArgs(objectName, mbean, beanClass), e);
         } catch (Exception e) {
             throw new JmxException
-                    ("Failed to register " + describeArgs(objectName, mbean, beanClass), e);
+                ("Failed to register " + describeArgs(objectName, mbean, beanClass), e);
         }
     }
 
-    public static void unregisterJmx(String name) {
-        unregisterJmx(objectName(name));
+    public static ObjectName unregisterJmx(String name) {
+        return unregisterJmx(objectName(name));
     }
 
-    public static void unregisterJmx(ObjectName objectName) {
+    public static ObjectName unregisterJmx(ObjectName objectName) {
         try {
             VM.JMX.unregisterMBean(Not.nil(objectName, "object name"));
+            return objectName;
         } catch (InstanceNotFoundException e) {
             throw new JmxException("Registration not found: " + objectName, e);
         } catch (Exception e) {
