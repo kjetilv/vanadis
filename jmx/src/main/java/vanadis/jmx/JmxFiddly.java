@@ -16,7 +16,7 @@ import java.util.Set;
 
 class JmxFiddly {
 
-    static final String STRING = String.class.getName();
+    private static final String STRING = String.class.getName();
 
     static MBeanAttributeInfo beanAttributeInfo(String key, Field field) {
         Attr annotation = field.getAnnotation(Attr.class);
@@ -29,7 +29,7 @@ class JmxFiddly {
     }
 
     static MBeanAttributeInfo beanAttributeInfo(String key,
-                                                        Pair<AnnotationDatum<Method>, AnnotationDatum<Method>> pair) {
+                                                Pair<AnnotationDatum<Method>, AnnotationDatum<Method>> pair) {
         AnnotationDatum<Method> getDatum = pair.getOne();
         AnnotationDatum<Method> setDatum = pair.getTwo();
         Attr annotation = getDatum != null ? attr(getDatum) : attr(setDatum);
@@ -45,11 +45,11 @@ class JmxFiddly {
         Method method = datum.getElement();
         Operation annotation = oper(datum);
         return new MBeanOperationInfo
-        (method.getName(),
-         annotation.desc(),
-         parameters(annotation, method),
-         annotation.string() ? STRING : JmxFiddly.namedType(method.getReturnType()),
-         annotation.impact());
+            (method.getName(),
+             annotation.desc(),
+             parameters(annotation, method),
+             annotation.string() ? STRING : JmxFiddly.namedType(method.getReturnType()),
+             annotation.impact());
     }
 
     static Map<String, Pair<AnnotationDatum<Method>, AnnotationDatum<Method>>> organizeAttributes(List<AnnotationDatum<Method>> data) {
@@ -66,15 +66,15 @@ class JmxFiddly {
         return attributes;
     }
 
-    private static void add(AnnotationDatum<Method> getDatum, 
+    private static void add(AnnotationDatum<Method> getDatum,
                             AnnotationDatum<Method> setDatum,
                             Map<String, Pair<AnnotationDatum<Method>, AnnotationDatum<Method>>> attributes,
                             String name) {
         if (nonMatching(getDatum, setDatum)) {
-        throw new IllegalArgumentException
-            ("Managed read/write property " + name + " has non-matching getter/setter: " +
-                getDatum.getElement() + "/" + setDatum.getElement());
-    }
+            throw new IllegalArgumentException
+                ("Managed read/write property " + name + " has non-matching getter/setter: " +
+                    getDatum.getElement() + "/" + setDatum.getElement());
+        }
         attributes.put(name, Pair.of(getDatum, setDatum));
     }
 

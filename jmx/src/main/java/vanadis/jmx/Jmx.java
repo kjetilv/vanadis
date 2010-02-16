@@ -27,6 +27,16 @@ public final class Jmx {
         registerJmx(objectName, dynamicMBean, null);
     }
 
+    public static void registerJmx(String name, DynamicMBean mbean) {
+        verify(name, mbean);
+        registerJmx(objectName(name), mbean, null);
+    }
+
+    public static <T> void registerJmx(String name, T mbean, Class<T> beanClass) {
+        verify(name, mbean);
+        registerJmx(objectName(name), mbean, beanClass);
+    }
+
     public static <T> void registerJmx(ObjectName objectName, T mbean, Class<T> beanClass) {
         verify(objectName, mbean);
         try {
@@ -45,31 +55,8 @@ public final class Jmx {
         }
     }
 
-    private static <T> void verify(Object name, T mbean) {
-        Not.nil(name, "name");
-        Not.nil(mbean, "mBean");
-    }
-
-    private static <T> String describeArgs(Object name, T mbean, Class<T> beanClass) {
-        return mbean + ":" + beanClass + " @ " + name;
-    }
-
-    public static <T> void registerJmx(String name, T mbean, Class<T> beanClass) {
-        verify(name, mbean);
-        registerJmx(objectName(name), mbean, beanClass);
-    }
-
     public static void unregisterJmx(String name) {
         unregisterJmx(objectName(name));
-    }
-
-    private static ObjectName objectName(String name) {
-        Not.nil(name, "name");
-        try {
-            return new ObjectName(name);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Failed to parse object name " + name, e);
-        }
     }
 
     public static void unregisterJmx(ObjectName objectName) {
@@ -79,6 +66,24 @@ public final class Jmx {
             throw new JmxException("Registration not found: " + objectName, e);
         } catch (Exception e) {
             throw new JmxException("Failed to unregister " + objectName, e);
+        }
+    }
+
+    private static <T> void verify(Object name, T mbean) {
+        Not.nil(name, "name");
+        Not.nil(mbean, "mBean");
+    }
+
+    private static <T> String describeArgs(Object name, T mbean, Class<T> beanClass) {
+        return mbean + ":" + beanClass + " @ " + name;
+    }
+
+    private static ObjectName objectName(String name) {
+        Not.nil(name, "name");
+        try {
+            return new ObjectName(name);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Failed to parse object name " + name, e);
         }
     }
 
