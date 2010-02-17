@@ -73,6 +73,14 @@ public class ManagedDynamicMBeanTest {
         }
     }
 
+    class Managed1AttrIsMethToString {
+
+        @Attr(desc = "f1", asString = true)
+        boolean isField() {
+            return true;
+        }
+    }
+
     class Managed1Oper {
 
         private boolean done;
@@ -185,7 +193,7 @@ public class ManagedDynamicMBeanTest {
         assertFalse(info.isIs());
 
         assertEquals(attr.getField(), bean.getAttribute("field"));
-        bean.setAttribute(new javax.management.Attribute("field", "newValue"));
+        bean.setAttribute(new Attribute("field", "newValue"));
         assertEquals("newValue", attr.getField());
         assertEquals(attr.getField(), bean.getAttribute("field"));
     }
@@ -198,12 +206,23 @@ public class ManagedDynamicMBeanTest {
     @Test
     public void manageOneMethodIsAttr() throws ReflectionException, MBeanException, AttributeNotFoundException {
         DynamicMBean mBean = ManagedDynamicMBean.create(new Managed1AttrIsMeth());
-        MBeanAttributeInfo info = assertOneField
-                (Managed1AttrIsMeth.class, mBean);
+        MBeanAttributeInfo info = assertOneField(Managed1AttrIsMeth.class, mBean);
+        assertEquals("field", info.getName());
         assertTrue(info.isIs());
         assertFalse(info.isWritable());
         assertTrue(info.isReadable());
         assertEquals(Boolean.TRUE, mBean.getAttribute(info.getName()));
+    }
+
+    @Test
+    public void manageOneMethodIsAttrAsString() throws ReflectionException, MBeanException, AttributeNotFoundException {
+        DynamicMBean mBean = ManagedDynamicMBean.create(new Managed1AttrIsMethToString());
+        MBeanAttributeInfo info = assertOneField(Managed1AttrIsMethToString.class, mBean);
+        assertEquals("field", info.getName());
+        assertFalse(info.isIs());
+        assertFalse(info.isWritable());
+        assertTrue(info.isReadable());
+        assertEquals("true", mBean.getAttribute(info.getName()));
     }
 
     private static void assertOneFieldAttribute(Class<?> clazz, DynamicMBean m1f)

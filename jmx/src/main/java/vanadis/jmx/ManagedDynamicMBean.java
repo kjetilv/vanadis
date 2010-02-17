@@ -34,6 +34,7 @@ import java.util.*;
 import static vanadis.jmx.JmxFiddly.*;
 
 public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
+    private static final String STRING = String.class.getName();
 
     public static DynamicMBean create(Object target) {
         return create(target, null, false);
@@ -59,9 +60,9 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
 
     private final ObjectName objectName;
 
-    private final MBeanAttributeInfo[] attributeInfos;
+    private final Map<String,MBeanAttributeInfo> attributeInfos;
 
-    private final MBeanOperationInfo[] operationInfos;
+    private final Map<String,MBeanOperationInfo> operationInfos;
 
     private final Map<String, Pair<AnnotationDatum<Method>, AnnotationDatum<Method>>> attributeMethods;
 
@@ -81,9 +82,11 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
         attributeMethods = organizeAttributes(digest.getMethodData(Attr.class));
         attributeFields = digest.getFieldDataIndex(Attr.class);
         operations = digest.getMethodDataIndex(Operation.class);
-        attributeInfos = attributeInfos();
-        operationInfos = operationInfos();
-        mBeanInfo = info(target, description, managed);
+        MBeanAttributeInfo[] attributeInfos = attributeInfos();
+        MBeanOperationInfo[] operationInfos = operationInfos();
+        this.mBeanInfo = info(target, description, managed, attributeInfos,  operationInfos);
+        this.attributeInfos = map(attributeInfos);
+        this.operationInfos = map(operationInfos);
     }
 
     @Override
@@ -186,16 +189,8 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
         }
     }
 
-    private MBeanInfo info(Object target, String description, Managed managed) {
-        String desc = description != null ? description
-            : managed != null ? managed.desc()
-                : target.getClass().getName();
-        return new MBeanInfo(target.getClass().getName(), desc,
-                             attributeInfos, null, operationInfos, null);
-    }
-
     private MBeanOperationInfo[] operationInfos() {
-        List<MBeanOperationInfo> infos = Generic.list();
+        List<MBeanOperationInfo> infos = Generic.list(operations.size());
         for (Map.Entry<String, AnnotationDatum<Method>> entry : operations.entrySet()) {
             AnnotationDatum<Method> datum = entry.getValue();
             infos.add(beanOperationInfo(datum));
@@ -204,16 +199,16 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
     }
 
     private MBeanAttributeInfo[] attributeInfos() {
-        List<MBeanAttributeInfo> infos = Generic.list();
+        List<MBeanAttributeInfo> infos = Generic.list(attributeMethods.size() + attributeFields.size());
         for (Map.Entry<String, Pair<AnnotationDatum<Method>, AnnotationDatum<Method>>> entry : attributeMethods.entrySet()) {
-            String key = entry.getKey();
+            String name = entry.getKey();
             Pair<AnnotationDatum<Method>, AnnotationDatum<Method>> pair = entry.getValue();
-            infos.add(beanAttributeInfo(key, pair));
+            infos.add(beanAttributeInfo(name, pair));
         }
         for (Map.Entry<String, AnnotationDatum<Field>> entry : attributeFields.entrySet()) {
-            String key = entry.getKey();
+            String name = entry.getKey();
             Field field = entry.getValue().getElement();
-            infos.add(beanAttributeInfo(key, field));
+            infos.add(beanAttributeInfo(name, field));
         }
         return infos.toArray(new MBeanAttributeInfo[infos.size()]);
     }
@@ -235,17 +230,32 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
         if (attributeMethods.containsKey(name)) {
             Pair<AnnotationDatum<Method>, AnnotationDatum<Method>> datumPair = attributeMethods.get(name);
             Method getter = accessible(datumPair.getOne().getElement());
-            return Invoker.invoke(this, target, getter);
+            return typed(name, Invoker.invoke(this, target, getter));
         }
         if (attributeFields.containsKey(name)) {
             AnnotationDatum<Field> datum = attributeFields.get(name);
             Field field = AccessibleHelper.openSesame(datum.getElement());
-            return Invoker.get(this, target, field);
+            return typed(name, Invoker.get(this, target, field));
         }
         if (required) {
             throw new AttributeNotFoundException(name);
         }
         return null;
+    }
+
+    private Object typed(String name, Object value) {
+        String type = attributeInfos.get(name).getType();
+        return value == null ? null
+            : type.equals(STRING) ? String.valueOf(value)
+                : value;
+    }
+
+    private static <T extends MBeanFeatureInfo> Map<String,T> map(T[] infos) {
+        Map<String,T> map = Generic.map();
+        for (T attributeInfo : infos) {
+            map.put(attributeInfo.getName(), attributeInfo);
+        }
+        return map;
     }
 
     private static Method accessible(Method getter) throws ReflectionException {
