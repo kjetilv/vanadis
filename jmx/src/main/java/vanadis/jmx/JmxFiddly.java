@@ -3,6 +3,7 @@ package vanadis.jmx;
 import vanadis.annopro.AnnotationDatum;
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Pair;
+import vanadis.core.lang.Strings;
 import vanadis.core.reflection.GetNSet;
 
 import javax.management.MBeanAttributeInfo;
@@ -160,13 +161,19 @@ class JmxFiddly {
         return datum.createProxy(ManagedDynamicMBean.class.getClassLoader(), Operation.class);
     }
 
-    static MBeanInfo info(Object target, String description, Managed managed,
-                                  MBeanAttributeInfo[] attributeInfos,
-                                  MBeanOperationInfo[] operationInfos) {
+    static MBeanInfo info(MBeanInfo info, String description) {
+        return description == null || Strings.isEmpty(description) ? info
+            : new MBeanInfo(info.getClassName(), description,
+                            info.getAttributes(), null, info.getOperations(), null);
+    }
+
+    static MBeanInfo info(Class<?> type, String description, Managed managed,
+                          MBeanAttributeInfo[] attributeInfos,
+                          MBeanOperationInfo[] operationInfos) {
         String desc = description != null ? description
             : managed != null ? managed.desc()
-                : target.getClass().getName();
-        return new MBeanInfo(target.getClass().getName(), desc,
+                : type.getName();
+        return new MBeanInfo(type.getName(), desc,
                              attributeInfos, null, operationInfos, null);
     }
 }
