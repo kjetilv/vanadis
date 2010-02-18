@@ -23,7 +23,12 @@ import javax.management.*;
 
 public final class Jmx {
 
+    public static ObjectName registerJmx(Object mbean) {
+        return registerJmx((ObjectName)null, mbean, null);
+    }
+
     public static ObjectName registerJmx(ObjectName objectName, DynamicMBean dynamicMBean) {
+        verify(objectName, dynamicMBean);
         return registerJmx(objectName, dynamicMBean, null);
     }
 

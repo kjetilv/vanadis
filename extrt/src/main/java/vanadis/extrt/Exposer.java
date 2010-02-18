@@ -25,7 +25,7 @@ import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.reflection.Retyper;
 import vanadis.ext.*;
-import vanadis.jmx.ManagedDynamicMBean;
+import vanadis.jmx.ManagedDynamicMBeans;
 import vanadis.objectmanagers.ObjectManagerExposePointMBean;
 import vanadis.osgi.Context;
 import vanadis.osgi.Registration;
@@ -53,8 +53,11 @@ abstract class Exposer<T> extends ManagedFeature<T, ObjectManagerExposePointMBea
 
     private final List<JmxRegistration<?>> jmxRegistrations = Generic.list();
 
-    protected Exposer(FeatureAnchor<T> featureAnchor, Expose annotation) {
+    private final ManagedDynamicMBeans mbeans;
+
+    protected Exposer(FeatureAnchor<T> featureAnchor, Expose annotation, ManagedDynamicMBeans mbeans) {
         super(featureAnchor.asRequired(isRequired(annotation)), ObjectManagerExposePointMBean.class);
+        this.mbeans = mbeans;
         this.requiredDependencies = Arrays.asList(annotation.requiredDependencies());
         this.remotable = annotation.remotable();
         this.persistent = annotation.persistent();
@@ -209,7 +212,7 @@ abstract class Exposer<T> extends ManagedFeature<T, ObjectManagerExposePointMBea
     }
 
     private void registerJmx(T service) {
-        DynamicMBean mBean = ManagedDynamicMBean.create(service);
+        DynamicMBean mBean = mbeans.create(service);
         if (mBean != null) {
             jmxRegistrations.add(JmxRegistration.create
                     (getContext(), mBean, getObjectManager().getManagedClass().getName(),

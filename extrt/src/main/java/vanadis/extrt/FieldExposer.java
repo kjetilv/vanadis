@@ -19,6 +19,7 @@ package vanadis.extrt;
 import vanadis.core.reflection.Invoker;
 import vanadis.core.properties.PropertySet;
 import vanadis.ext.Expose;
+import vanadis.jmx.ManagedDynamicMBeans;
 
 import java.lang.reflect.Field;
 
@@ -26,8 +27,8 @@ final class FieldExposer<T> extends Exposer<T> {
 
     private final Field field;
 
-    FieldExposer(FeatureAnchor<T> featureAnchor, Field field, Expose annotation) {
-        super(featureAnchor, annotation);
+    FieldExposer(FeatureAnchor<T> featureAnchor, Field field, Expose annotation, ManagedDynamicMBeans mbeans) {
+        super(featureAnchor, annotation, mbeans);
         this.field = field;
     }
 

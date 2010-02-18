@@ -29,7 +29,7 @@ import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.ext.*;
-import vanadis.jmx.ManagedDynamicMBean;
+import vanadis.jmx.ManagedDynamicMBeans;
 import vanadis.objectmanagers.*;
 import vanadis.osgi.Context;
 import vanadis.osgi.Reference;
@@ -112,8 +112,8 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
         this.state = new ObjectManagerState(this, observer, failureTracker);
         this.annotationsDigest = ValidAnnotations.read(this.managed.get());
         this.moduleSpecification = moduleSpecification == null
-                ? ModuleSpecification.createDefault(this.managed.get())
-                : moduleSpecification;
+            ? ModuleSpecification.createDefault(this.managed.get())
+            : moduleSpecification;
         this.queuer = queuer;
 
         configurers = setupConfigurers(this.context.getLocation());
@@ -268,7 +268,7 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
     }
 
     private void addCustomJmx() {
-        DynamicMBean mbean = ManagedDynamicMBean.create(managed.get());
+        DynamicMBean mbean = mbeans.create(managed.get());
         if (mbean != null) {
             jmxRegs.add(JmxRegistration.create(context, mbean,
                                                managedClass.getName(),
@@ -435,14 +435,14 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
     private <T> TrackingInjector<T> setupTracker(AccessibleObject trackObject, Class<T> serviceInterface,
                                                  Track track, String featureName) {
         return track(new TrackingInjector<T>
-                (anchor(serviceInterface, featureName), trackObject, track, this));
+            (anchor(serviceInterface, featureName), trackObject, track, this));
     }
 
     private <T> MethodInjector<T> setupMethodInjector(Method injectMethod, Method retractMethod,
                                                       Class<T> serviceInterface,
                                                       Inject inject, String featureName) {
         return track(new MethodInjector<T>
-                (anchor(serviceInterface, featureName), injectMethod, retractMethod, inject, this));
+            (anchor(serviceInterface, featureName), injectMethod, retractMethod, inject, this));
     }
 
     private <T> FieldInjector<T> setupFieldInjector(Field injectField, Class<T> serviceInterface,
@@ -452,12 +452,12 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
 
     private <T> Exposer<T> setupMethodExposer(Method method, Class<T> serviceInterface,
                                               Expose exposeDirective, String featureName) {
-        return track(new MethodExposer<T>(anchor(serviceInterface, featureName), method, exposeDirective));
+        return track(new MethodExposer<T>(anchor(serviceInterface, featureName), method, exposeDirective, mbeans));
     }
 
     private <T> Exposer<T> setupFieldExposer(Field field, Class<T> serviceInterface,
                                              Expose exposeDirective, String featureName) {
-        return track(new FieldExposer<T>(anchor(serviceInterface, featureName), field, exposeDirective));
+        return track(new FieldExposer<T>(anchor(serviceInterface, featureName), field, exposeDirective, mbeans));
     }
 
     private <T> FeatureAnchor<T> anchor(Class<T> serviceInterface, String featureName) {
@@ -582,6 +582,8 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
         }
     }
 
+    private static final ManagedDynamicMBeans mbeans = new ManagedDynamicMBeans();
+
     private static final Logger log = LoggerFactory.getLogger(ObjectManagerImpl.class);
 
     private static final String SCALASET_SUFFIX = "_$eq";
@@ -593,13 +595,13 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
     private static void validate(Context context, Class<?> managedClass, Object managed) {
         if (managedClass == null && managed == null) {
             throw new IllegalArgumentException
-                    ("Neither managed class nor managed instance passed to constructor, context: " + context);
+                ("Neither managed class nor managed instance passed to constructor, context: " + context);
         }
         if (managedClass != null && managed != null && !managedClass.isInstance(managed)) {
             throw new IllegalArgumentException
-                    ("Managed instance " + managed +
-                            " is not an instance of managed " + managedClass +
-                            ", context: " + context);
+                ("Managed instance " + managed +
+                    " is not an instance of managed " + managedClass +
+                    ", context: " + context);
         }
     }
 
@@ -608,8 +610,8 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
         if (serviceInterface.equals(Reference.class)) {
             if (unannotated) {
                 throw new IllegalArgumentException
-                        (injectPoint + " has annotation with argument of " +
-                                Reference.class + ", annotation should specify service interface");
+                    (injectPoint + " has annotation with argument of " +
+                        Reference.class + ", annotation should specify service interface");
             }
             return annotated;
         }
@@ -630,9 +632,9 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
         Class<?>[] addParams = injectMethod.getParameterTypes();
         Class<?>[] removeParams = retractMethod.getParameterTypes();
         return addName.startsWith("add") && removeName.startsWith("remove") &&
-                addName.substring(3).equals(removeName.substring(6)) &&
-                addParams.length >= 1 && removeParams.length == 1 &&
-                addParams[0] == removeParams[0];
+            addName.substring(3).equals(removeName.substring(6)) &&
+            addParams.length >= 1 && removeParams.length == 1 &&
+            addParams[0] == removeParams[0];
     }
 
     private static <M extends ManagedFeature<?, ?>> void deactivate(M managedFeature,

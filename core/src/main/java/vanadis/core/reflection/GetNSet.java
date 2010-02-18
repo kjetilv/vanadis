@@ -38,6 +38,10 @@ public final class GetNSet {
         return property.substring(0, 1).toUpperCase() + property.substring(1);
     }
 
+    public static String getNonBooleanProperty(Method method) {
+        return getNonBooleanProperty(method.getName());
+    }
+
     public static String getProperty(Method method) {
         return getProperty(method.getName());
     }
@@ -48,6 +52,10 @@ public final class GetNSet {
 
     public static String property(Method method) {
         return property(method.getName());
+    }
+
+    public static String getNonBooleanProperty(String methodName) {
+        return resolveByPrefix(methodName, true, "get");
     }
 
     public static String getProperty(String methodName) {

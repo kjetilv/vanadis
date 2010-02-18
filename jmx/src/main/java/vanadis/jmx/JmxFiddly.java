@@ -3,9 +3,11 @@ package vanadis.jmx;
 import vanadis.annopro.AnnotationDatum;
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Pair;
+import vanadis.core.lang.Strings;
 import vanadis.core.reflection.GetNSet;
 
 import javax.management.MBeanAttributeInfo;
+import javax.management.MBeanInfo;
 import javax.management.MBeanOperationInfo;
 import javax.management.MBeanParameterInfo;
 import java.lang.reflect.Field;
@@ -18,9 +20,9 @@ class JmxFiddly {
 
     private static final String STRING = String.class.getName();
 
-    static MBeanAttributeInfo beanAttributeInfo(String key, Field field) {
+    static MBeanAttributeInfo beanAttributeInfo(String name, Field field) {
         Attr annotation = field.getAnnotation(Attr.class);
-        return new MBeanAttributeInfo(key,
+        return new MBeanAttributeInfo(name,
                                       annotation.asString() ? STRING : namedType(field.getType()),
                                       annotation.desc(),
                                       true,
@@ -28,17 +30,18 @@ class JmxFiddly {
                                       false);
     }
 
-    static MBeanAttributeInfo beanAttributeInfo(String key,
+    static MBeanAttributeInfo beanAttributeInfo(String name,
                                                 Pair<AnnotationDatum<Method>, AnnotationDatum<Method>> pair) {
         AnnotationDatum<Method> getDatum = pair.getOne();
         AnnotationDatum<Method> setDatum = pair.getTwo();
         Attr annotation = getDatum != null ? attr(getDatum) : attr(setDatum);
-        return new MBeanAttributeInfo(key,
-                                      annotation.asString() ? STRING : namedType(attributeType(getDatum, setDatum)),
+        boolean asString = annotation.asString();
+        return new MBeanAttributeInfo(name,
+                                      asString ? STRING : namedType(attributeType(getDatum, setDatum)),
                                       annotation.desc(),
                                       getDatum != null,
                                       setDatum != null,
-                                      isIs(getDatum));
+                                      !asString && isIs(getDatum));
     }
 
     static MBeanOperationInfo beanOperationInfo(AnnotationDatum<Method> datum) {
@@ -48,7 +51,7 @@ class JmxFiddly {
             (method.getName(),
              annotation.desc(),
              parameters(annotation, method),
-             annotation.string() ? STRING : JmxFiddly.namedType(method.getReturnType()),
+             annotation.asString() ? STRING : JmxFiddly.namedType(method.getReturnType()),
              annotation.impact());
     }
 
@@ -156,5 +159,21 @@ class JmxFiddly {
 
     static Operation oper(AnnotationDatum<Method> datum) {
         return datum.createProxy(ManagedDynamicMBean.class.getClassLoader(), Operation.class);
+    }
+
+    static MBeanInfo info(MBeanInfo info, String description) {
+        return description == null || Strings.isEmpty(description) ? info
+            : new MBeanInfo(info.getClassName(), description,
+                            info.getAttributes(), null, info.getOperations(), null);
+    }
+
+    static MBeanInfo info(Class<?> type, String description, Managed managed,
+                          MBeanAttributeInfo[] attributeInfos,
+                          MBeanOperationInfo[] operationInfos) {
+        String desc = description != null ? description
+            : managed != null ? managed.desc()
+                : type.getName();
+        return new MBeanInfo(type.getName(), desc,
+                             attributeInfos, null, operationInfos, null);
     }
 }

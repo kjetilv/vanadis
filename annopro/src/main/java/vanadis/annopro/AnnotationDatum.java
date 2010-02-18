@@ -24,7 +24,9 @@ import vanadis.core.properties.PropertySet;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 
 public final class AnnotationDatum<E extends AnnotatedElement> {
 
@@ -52,6 +54,16 @@ public final class AnnotationDatum<E extends AnnotatedElement> {
         this.annotationType = Not.nil(annotationType, "annotationType");
         Not.nil(propertySet, "propertySet");
         this.propertySet = shallow ? propertySet.orphan() : propertySet;
+    }
+
+    public String getTypeName() {
+        if (element instanceof Field) {
+            return ((Field)element).getType().getName();
+        }
+        if (element instanceof Method) {
+            return ((Method)element).getReturnType().getName();
+        }
+        return null;
     }
 
     public E getElement() {
@@ -91,8 +103,8 @@ public final class AnnotationDatum<E extends AnnotatedElement> {
 
     <A extends Annotation> A createProxy(ClassLoader classLoader, Class<A> type, boolean deep, PropertySet propertySet) {
         AnnotationDatum<E> instrumentedData = deep
-                ? this.withShadowingProperties(propertySet)
-                : this.shallowWithShadowingProperties(propertySet);
+            ? this.withShadowingProperties(propertySet)
+            : this.shallowWithShadowingProperties(propertySet);
         InvocationHandler handler = new AnnotationHandler(classLoader, instrumentedData);
         return Proxies.genericProxy(classLoader, type, handler);
     }
@@ -120,7 +132,7 @@ public final class AnnotationDatum<E extends AnnotatedElement> {
 
     private AnnotationDatum<E> withShadowingProperties(PropertySet propertySet) {
         return propertySet == null ? this
-                : derivedData(this.propertySet == null ? propertySet : propertySet.withParent(this.propertySet, false));
+            : derivedData(this.propertySet == null ? propertySet : propertySet.withParent(this.propertySet, false));
     }
 
     private AnnotationDatum<E> derivedData(PropertySet shadowed) {
@@ -136,8 +148,8 @@ public final class AnnotationDatum<E extends AnnotatedElement> {
     public boolean equals(Object obj) {
         AnnotationDatum<E> annotationData = EqHc.retyped(this, obj);
         return annotationData != null &&
-                EqHc.eq(propertySet, annotationData.propertySet,
-                        annotationType, annotationData.annotationType);
+            EqHc.eq(propertySet, annotationData.propertySet,
+                    annotationType, annotationData.annotationType);
     }
 
     @Override
