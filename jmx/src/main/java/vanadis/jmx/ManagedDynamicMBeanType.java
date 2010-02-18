@@ -17,7 +17,6 @@ package vanadis.jmx;
 
 import vanadis.annopro.AnnotationDatum;
 import vanadis.annopro.AnnotationsDigest;
-import vanadis.annopro.AnnotationsDigests;
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Pair;
 import vanadis.core.lang.Not;
@@ -30,7 +29,6 @@ import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import static vanadis.jmx.JmxFiddly.*;
 
@@ -39,65 +37,6 @@ public class ManagedDynamicMBeanType {
     private final Class<?> type;
 
     private final ObjectName objectName;
-
-    public static ManagedDynamicMBeanType create(Class<?> type) {
-        return create(type, false);
-    }
-
-    public static ManagedDynamicMBeanType createFull(Class<?> type) {
-        return create(type, true);
-    }
-
-    public static ManagedDynamicMBeanType create(Class<?> type, boolean full) {
-        AnnotationsDigest digest;
-        Integer key = System.identityHashCode(type);
-        synchronized (LOCK) {
-            if (undigested.contains(key)) {
-                return null;
-            }
-            Map<Integer, ManagedDynamicMBeanType> digs = full ? fullDigests : digests;
-            ManagedDynamicMBeanType existing = digs.get(key);
-            if (existing == null) {
-                digest = newDigest(type, full);
-                if (digest == null) {
-                    undigested.add(key);
-                    return null;
-                }
-                ManagedDynamicMBeanType beanType = new ManagedDynamicMBeanType(digest, type);
-                digs.put(key, beanType);
-                return beanType;
-            }
-            return existing;
-        }
-    }
-
-    static final Object LOCK = new Object();
-
-    static final Set<Integer> undigested = Generic.set();
-
-    static final Map<Integer, ManagedDynamicMBeanType> digests = new TypeMap();
-
-    static final Map<Integer, ManagedDynamicMBeanType> fullDigests = new TypeMap();
-
-    static AnnotationsDigest newDigest(Class<?> type, boolean full) {
-        AnnotationsDigest digest = full ? AnnotationsDigests.createFullFromType(type)
-            : AnnotationsDigests.createFromType(type);
-        if (digest.hasClassData(Managed.class) ||
-            digest.hasMethodData(Attr.class, Operation.class) ||
-            digest.hasFieldData(Attr.class)) {
-            return digest;
-        }
-        return null;
-    }
-
-    private static class TypeMap extends LinkedHashMap<Integer, ManagedDynamicMBeanType> {
-        private static final long serialVersionUID = -1042710807356175911L;
-
-        @Override
-        protected boolean removeEldestEntry(Map.Entry<Integer, ManagedDynamicMBeanType> eldest) {
-            return size() > 256;
-        }
-    }
 
     private final Map<String,MBeanAttributeInfo> attributeInfos;
 
@@ -109,7 +48,7 @@ public class ManagedDynamicMBeanType {
 
     private final MBeanInfo mBeanInfo;
 
-    private ManagedDynamicMBeanType(AnnotationsDigest digest, Class<?> type) {
+    ManagedDynamicMBeanType(AnnotationsDigest digest, Class<?> type) {
         this.type = type;
         Not.nil(digest, "digest");
         Managed managed = managed(digest);
@@ -169,7 +108,7 @@ public class ManagedDynamicMBeanType {
         }
         return infos.toArray(new MBeanAttributeInfo[infos.size()]);
     }
-    
+
     private static ObjectName objectName(Managed managedAnnotation, Class<?> type) {
         if (managedAnnotation == null) {
             return null;

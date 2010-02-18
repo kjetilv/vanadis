@@ -113,7 +113,7 @@ public class ManagedDynamicMBeanTest {
 
     @Test
     public void manageObjectName() throws Exception {
-        DynamicMBean bean = ManagedDynamicMBean.create(new Managed2());
+        DynamicMBean bean = new ManagedDynamicMBeans().create(new Managed2());
         ObjectName objectName = ((MBeanRegistration) bean).preRegister(null, null);
         Assert.assertNotNull(objectName);
         Assert.assertEquals(new ObjectName("foo.bar.zot:type=name"), objectName);
@@ -121,13 +121,13 @@ public class ManagedDynamicMBeanTest {
 
     @Test
     public void dontManage() {
-        Assert.assertNull(ManagedDynamicMBean.create(new Object()));
+        Assert.assertNull(new ManagedDynamicMBeans().create(new Object()));
     }
 
     @Test
     public void manageOperPar() throws ReflectionException, MBeanException {
         Managed1OperPar oper = new Managed1OperPar();
-        ManagedDynamicMBeanType beanType = ManagedDynamicMBeanType.create(oper.getClass());
+        ManagedDynamicMBeanType beanType = new ManagedDynamicMBeans().mbeanType(oper.getClass(), false);
         doManageOperPar(oper, beanType.bean(oper));
         doManageOperPar(oper, beanType.bean(oper));
     }
@@ -153,7 +153,7 @@ public class ManagedDynamicMBeanTest {
     @Test
     public void manageOper() throws ReflectionException, MBeanException {
         Managed1Oper oper = new Managed1Oper();
-        DynamicMBean op = ManagedDynamicMBean.create(oper);
+        DynamicMBean op = new ManagedDynamicMBeans().create(oper);
         MBeanInfo info = op.getMBeanInfo();
         MBeanOperationInfo[] infos = info.getOperations();
         Assert.assertNotNull(infos);
@@ -171,7 +171,7 @@ public class ManagedDynamicMBeanTest {
 
     @Test
     public void manageSimple() {
-        DynamicMBean m1 = ManagedDynamicMBean.create(new Managed1());
+        DynamicMBean m1 = new ManagedDynamicMBeans().create(new Managed1());
         Assert.assertNotNull(m1);
         MBeanInfo info = m1.getMBeanInfo();
         Assert.assertNotNull(info.getAttributes());
@@ -183,13 +183,13 @@ public class ManagedDynamicMBeanTest {
 
     @Test
     public void manageOneField() throws ReflectionException, MBeanException, AttributeNotFoundException {
-        assertOneFieldAttribute(Managed1Attr.class, ManagedDynamicMBean.create(new Managed1Attr()));
+        assertOneFieldAttribute(Managed1Attr.class, new ManagedDynamicMBeans().create(new Managed1Attr()));
     }
 
     @Test
     public void manageRWOneField() throws ReflectionException, MBeanException, AttributeNotFoundException, InvalidAttributeValueException {
         Managed1RWAttrMeth attr = new Managed1RWAttrMeth();
-        DynamicMBean bean = ManagedDynamicMBean.create(attr);
+        DynamicMBean bean = new ManagedDynamicMBeans().create(attr);
         MBeanAttributeInfo info = assertOneField(Managed1RWAttrMeth.class, bean);
         Assert.assertTrue(info.isReadable());
         Assert.assertTrue(info.isWritable());
@@ -203,12 +203,12 @@ public class ManagedDynamicMBeanTest {
 
     @Test
     public void manageOneMethodAttr() throws ReflectionException, MBeanException, AttributeNotFoundException {
-        assertOneFieldAttribute(Managed1AttrMeth.class, ManagedDynamicMBean.create(new Managed1AttrMeth()));
+        assertOneFieldAttribute(Managed1AttrMeth.class, new ManagedDynamicMBeans().create(new Managed1AttrMeth()));
     }
 
     @Test
     public void manageOneMethodIsAttr() throws ReflectionException, MBeanException, AttributeNotFoundException {
-        DynamicMBean mBean = ManagedDynamicMBean.create(new Managed1AttrIsMeth());
+        DynamicMBean mBean = new ManagedDynamicMBeans().create(new Managed1AttrIsMeth());
         MBeanAttributeInfo info = assertOneField(Managed1AttrIsMeth.class, mBean);
         Assert.assertEquals("field", info.getName());
         Assert.assertTrue(info.isIs());
@@ -219,7 +219,7 @@ public class ManagedDynamicMBeanTest {
 
     @Test
     public void manageOneMethodIsAttrAsString() throws ReflectionException, MBeanException, AttributeNotFoundException {
-        DynamicMBean mBean = ManagedDynamicMBean.create(new Managed1AttrIsMethToString());
+        DynamicMBean mBean = new ManagedDynamicMBeans().create(new Managed1AttrIsMethToString());
         MBeanAttributeInfo info = assertOneField(Managed1AttrIsMethToString.class, mBean);
         Assert.assertEquals("field", info.getName());
         Assert.assertFalse(info.isIs());

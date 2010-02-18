@@ -34,29 +34,6 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
 
     private static final String STRING = String.class.getName();
 
-    public static DynamicMBean create(Object target) {
-        return create(target, null, false);
-    }
-
-    public static DynamicMBean create(Object target, String description) {
-        return create(target, description, false);
-    }
-
-    public static DynamicMBean createFull(Object target) {
-        return create(target, null, true);
-    }
-
-    public static DynamicMBean createFull(Object target, String description) {
-        return create(target, description, true);
-    }
-
-    private static DynamicMBean create(Object target, String description, boolean full) {
-        Class<?> type = target.getClass();
-        ManagedDynamicMBeanType beanType = ManagedDynamicMBeanType.create(type, full);
-        return beanType == null ? null
-            : beanType.bean(target, description);
-    }
-
     private final ObjectName objectName;
 
     private final MBeanInfo mBeanInfo;

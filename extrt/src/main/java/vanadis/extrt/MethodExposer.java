@@ -20,6 +20,7 @@ import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.reflection.Invoker;
 import vanadis.ext.Expose;
+import vanadis.jmx.ManagedDynamicMBeans;
 import vanadis.osgi.ServiceProperties;
 
 import java.lang.reflect.Method;
@@ -30,8 +31,8 @@ final class MethodExposer<T> extends Exposer<T> {
 
     private final boolean runtimeProperties;
 
-    MethodExposer(FeatureAnchor<T> featureAnchor, Method method, Expose annotation) {
-        super(featureAnchor, annotation);
+    MethodExposer(FeatureAnchor<T> featureAnchor, Method method, Expose annotation, ManagedDynamicMBeans mbeans) {
+        super(featureAnchor, annotation, mbeans);
         this.runtimeProperties = method != null && method.getParameterTypes().length == 1;
         this.method = method;
     }

@@ -14,10 +14,6 @@
   <dependencies>
     <dependency>
       <groupId>vanadis</groupId>
-      <artifactId>vanadis.core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>vanadis</groupId>
       <artifactId>vanadis.annopro</artifactId>
     </dependency>
   </dependencies>
