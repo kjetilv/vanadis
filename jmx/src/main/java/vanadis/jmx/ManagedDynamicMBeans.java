@@ -36,7 +36,7 @@ public class ManagedDynamicMBeans {
     }
 
     protected Object key(Class<?> type) {
-        return System.identityHashCode(type) + "-" + System.identityHashCode(type.getClassLoader());
+        return type;
     }
 
     public ManagedDynamicMBeanType mbeanType(Class<?> type, boolean full) {

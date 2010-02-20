@@ -112,6 +112,13 @@ public class ManagedDynamicMBeanTest {
     }
 
     @Test
+    public void useDescription() {
+        ManagedDynamicMBeans beans = new ManagedDynamicMBeans();
+        Assert.assertEquals("foobar", beans.create(new Managed1(), "foobar").getMBeanInfo().getDescription());
+        Assert.assertEquals("one", beans.create(new Managed1()).getMBeanInfo().getDescription());
+    }
+
+    @Test
     public void manageObjectName() throws Exception {
         DynamicMBean bean = new ManagedDynamicMBeans().create(new Managed2());
         ObjectName objectName = ((MBeanRegistration) bean).preRegister(null, null);
