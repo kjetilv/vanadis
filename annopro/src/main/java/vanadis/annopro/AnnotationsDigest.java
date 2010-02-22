@@ -34,6 +34,8 @@ public interface AnnotationsDigest {
 
     Iterable<AnnotationDatum<Field>> fieldData(Field field);
 
+    List<List<AnnotationDatum<Integer>>> parameterData(Method method);
+
     Iterable<AnnotationDatum<Class<?>>> classData();
 
     Iterable<AnnotationDatum<Method>> methodData();
@@ -53,6 +55,8 @@ public interface AnnotationsDigest {
     Map<String, AnnotationDatum<Field>> getFieldDataIndex(Class<? extends Annotation> type);
 
     List<AnnotationDatum<Method>> getMethodData(Class<? extends Annotation> type);
+
+    Map<Method, List<List<AnnotationDatum<Integer>>>> getParameterDataIndex(Class<? extends Annotation> type);
 
     Map<String, AnnotationDatum<Method>> getMethodDataIndex(Class<? extends Annotation> type);
 

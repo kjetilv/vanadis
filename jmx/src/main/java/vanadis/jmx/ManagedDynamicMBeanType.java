@@ -26,7 +26,6 @@ import vanadis.core.lang.ToString;
 import javax.management.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +43,8 @@ public class ManagedDynamicMBeanType {
 
     private final Map<String, AnnotationDatum<Method>> operations;
 
+    private final Map<Method,List<List<AnnotationDatum<Integer>>>> operationParams;
+
     private final Map<String, AnnotationDatum<Field>> attributeFields;
 
     private final MBeanInfo mBeanInfo;
@@ -52,10 +53,11 @@ public class ManagedDynamicMBeanType {
         this.type = type;
         Not.nil(digest, "digest");
         Managed managed = managed(digest);
-        objectName = objectName(managed, type);
-        attributeMethods = organizeAttributes(digest.getMethodData(Attr.class));
-        attributeFields = digest.getFieldDataIndex(Attr.class);
-        operations = digest.getMethodDataIndex(Operation.class);
+        this.objectName = objectName(managed, type);
+        this.attributeMethods = organizeAttributes(digest.getMethodData(Attr.class));
+        this.attributeFields = digest.getFieldDataIndex(Attr.class);
+        this.operations = digest.getMethodDataIndex(Operation.class);
+        this.operationParams = digest.getParameterDataIndex(Operation.class);
         MBeanAttributeInfo[] attributeInfoArray = attributeInfos();
         MBeanOperationInfo[] operationInfoArray = operationInfos();
         this.mBeanInfo = info(type, null, managed, attributeInfoArray, operationInfoArray);
@@ -89,7 +91,8 @@ public class ManagedDynamicMBeanType {
         List<MBeanOperationInfo> infos = Generic.list(operations.size());
         for (Map.Entry<String, AnnotationDatum<Method>> entry : operations.entrySet()) {
             AnnotationDatum<Method> datum = entry.getValue();
-            infos.add(beanOperationInfo(datum));
+            List<List<AnnotationDatum<Integer>>> params = operationParams.get(datum.getElement());
+            infos.add(beanOperationInfo(datum, params));
         }
         return infos.toArray(new MBeanOperationInfo[infos.size()]);
     }

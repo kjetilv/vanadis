@@ -22,13 +22,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import vanadis.annopro.AnnotationDatum;
-import vanadis.core.reflection.Invoker;
 import vanadis.common.io.Location;
 import vanadis.core.lang.Strings;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 import vanadis.core.reflection.GetNSet;
+import vanadis.core.reflection.Invoker;
 import vanadis.ext.Configuration;
 import vanadis.ext.Configure;
 import vanadis.ext.ModuleSystemException;
@@ -36,7 +36,6 @@ import vanadis.ext.ModuleSystemException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.MessageFormat;
@@ -60,7 +59,7 @@ class Configurer {
 
     private final Class<?> propertyType;
 
-    private final AnnotatedElement element;
+    private final Object element;
 
     private final boolean required;
 
@@ -73,8 +72,8 @@ class Configurer {
         this.managed = managed;
         this.location = location;
         this.moduleSpecificationPropertySet = moduleSpecificationPropertySet == null
-                ? PropertySets.EMPTY
-                : moduleSpecificationPropertySet.copy(false);
+            ? PropertySets.EMPTY
+            : moduleSpecificationPropertySet.copy(false);
         this.datum = datum;
         element = datum.getElement();
         propertyType = typeOf(element);
@@ -114,10 +113,8 @@ class Configurer {
         return propertyType;
     }
 
-    private <A extends AnnotatedElement> void setProperties(Object configured,
-                                                            PropertySet propertySet,
-                                                            AnnotationDatum<A> datum) {
-        A element = datum.getElement();
+    private <E> void setProperties(Object configured, PropertySet propertySet, AnnotationDatum<E> datum) {
+        E element = datum.getElement();
         Class<?> type = typeOf(element);
         Object properties = convert(propertySet, type);
         set(configured, null, properties);
@@ -146,7 +143,7 @@ class Configurer {
             }
         } else {
             throw new ModuleSystemException
-                    ("Required property " + propertyName + " not set for " + configured);
+                ("Required property " + propertyName + " not set for " + configured);
         }
     }
 
@@ -156,7 +153,7 @@ class Configurer {
             resolvedValue = moduleSpecificationPropertySet.get(propertyName, variables);
         } else if (propertyType == Location.class) {
             String stringValue = Strings.neitherNullNorEmpty
-                    (moduleSpecificationPropertySet.get(propertyName, variables));
+                (moduleSpecificationPropertySet.get(propertyName, variables));
             String value = stringValue == null ? defaultValue : stringValue;
             resolvedValue = portAdjusted(value);
         } else {
@@ -184,16 +181,16 @@ class Configurer {
         throw new IllegalStateException(this + " could not convert properties to " + type + ": " + set);
     }
 
-    private static <A extends AnnotatedElement> Class<?> typeOf(A element) {
+    private static <E> Class<?> typeOf(E element) {
         return element instanceof Method
-                ? ((Method) element).getParameterTypes()[0]
-                : ((Field) element).getType();
+            ? ((Method) element).getParameterTypes()[0]
+            : ((Field) element).getType();
     }
 
     private Node getXml() {
         return moduleSpecificationPropertySet.has(Node.class, propertyName)
-                ? moduleSpecificationPropertySet.get(Node.class, propertyName)
-                : null;
+            ? moduleSpecificationPropertySet.get(Node.class, propertyName)
+            : null;
     }
 
     private void setPropertyXml(Object configured, Node node) {
@@ -201,19 +198,19 @@ class Configurer {
         boolean isDocument = Document.class.isAssignableFrom(propertyType);
         if (log.isDebugEnabled()) {
             log.debug(MessageFormat.format
-                    ("{0}.{1}({2}) => target: {3})",
-                     configured.getClass().getSimpleName(), propertyName, isElement, configured));
+                ("{0}.{1}({2}) => target: {3})",
+                 configured.getClass().getSimpleName(), propertyName, isElement, configured));
         }
         Object value = isDocument && node instanceof Document ? node
-                : isDocument && node instanceof Element ? toDocument((Element) node)
-                        : isElement && node instanceof Element ? node
-                                : isElement && node instanceof Document ? documentElement(node)
-                                        : null;
+            : isDocument && node instanceof Element ? toDocument((Element) node)
+                : isElement && node instanceof Element ? node
+                    : isElement && node instanceof Document ? documentElement(node)
+                        : null;
         if (value != null) {
             set(configured, null, value);
         } else {
             throw new IllegalArgumentException
-                    (this + " got value of " + node.getClass() + " for argument of " + propertyType);
+                (this + " got value of " + node.getClass() + " for argument of " + propertyType);
         }
     }
 
@@ -242,8 +239,8 @@ class Configurer {
                                   Object finalValue) {
         if (log.isDebugEnabled()) {
             log.debug(MessageFormat.format
-                    ("{0}.{1}({2}) => target: {3})",
-                     configured.getClass().getSimpleName(), propertyName, finalValue, configured));
+                ("{0}.{1}({2}) => target: {3})",
+                 configured.getClass().getSimpleName(), propertyName, finalValue, configured));
         }
         if (xml) {
             set(configured, null, finalValue);
@@ -282,11 +279,11 @@ class Configurer {
         return value;
     }
 
-    private static String propertyName(AnnotatedElement object, String annotatedName) {
+    private static String propertyName(Object object, String annotatedName) {
         String name = object instanceof Method ? ((Method) object).getName() : ((Field) object).getName();
         return annotatedName.trim().length() == 0
-                ? GetNSet.resolveByPrefix(name, true, "set")
-                : annotatedName;
+            ? GetNSet.resolveByPrefix(name, true, "set")
+            : annotatedName;
     }
 
     private static String defaultValue(Configure configure) {

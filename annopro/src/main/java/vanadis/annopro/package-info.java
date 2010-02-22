@@ -16,7 +16,5 @@
 
 /**
  * <P>Utility for annotation processing, working on both class objects and bytecode.</P>
- *
- * <P>Returns an {@link
  */
 package vanadis.annopro;

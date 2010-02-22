@@ -23,12 +23,11 @@ import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-public final class AnnotationDatum<E extends AnnotatedElement> {
+public final class AnnotationDatum<E> {
 
     private final String annotationType;
 
@@ -38,14 +37,11 @@ public final class AnnotationDatum<E extends AnnotatedElement> {
 
     private static final String DEFAULT_PROPERTY = "value";
 
-    static <E extends AnnotatedElement> AnnotationDatum<E> create(String annotationType,
-                                                                  PropertySet propertySet) {
+    static <E> AnnotationDatum<E> create(String annotationType, PropertySet propertySet) {
         return create(null, annotationType, propertySet);
     }
 
-    static <E extends AnnotatedElement> AnnotationDatum<E> create(E element,
-                                                                  String annotationType,
-                                                                  PropertySet propertySet) {
+    static <E> AnnotationDatum<E> create(E element, String annotationType, PropertySet propertySet) {
         return new AnnotationDatum<E>(element, annotationType, propertySet, false);
     }
 

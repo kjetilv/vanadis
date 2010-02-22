@@ -35,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>vanadis</groupId>
-            <artifactId>vanadis.common</artifactId>
+            <artifactId>vanadis.core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.objectweb.asm</groupId>

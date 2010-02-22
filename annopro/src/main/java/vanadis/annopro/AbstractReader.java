@@ -27,5 +27,7 @@ abstract class AbstractReader {
 
     abstract Map<Method, List<AnnotationDatum<Method>>> readAllMethods();
 
+    abstract Map<Method, List<List<AnnotationDatum<Integer>>>> readAllParameters();
+
     abstract Map<Field, List<AnnotationDatum<Field>>> readAllFields();
 }

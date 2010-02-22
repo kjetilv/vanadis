@@ -16,21 +16,21 @@
 package vanadis.jmx;
 
 import java.lang.annotation.Documented;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
 import java.lang.annotation.Retention;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * For tagging {@link Operation Operation} parameters.
  */
 @Documented
 @Retention(RUNTIME)
-@Target({FIELD, METHOD})
+@Target({FIELD, METHOD, PARAMETER})
 public @interface Param {
 
     String name();
 
-    String desc();
+    String desc() default "";
 }

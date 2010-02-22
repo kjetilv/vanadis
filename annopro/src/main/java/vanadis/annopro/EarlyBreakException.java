@@ -18,4 +18,9 @@ package vanadis.annopro;
 class EarlyBreakException extends RuntimeException {
 
     private static final long serialVersionUID = 8701705749691962417L;
+
+    @Override
+    public Throwable fillInStackTrace() {
+        return this;
+    }
 }

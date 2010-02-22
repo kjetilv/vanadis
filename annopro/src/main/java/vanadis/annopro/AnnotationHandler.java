@@ -43,51 +43,52 @@ class AnnotationHandler implements InvocationHandler {
         if (method.getDeclaringClass() == Object.class) {
             return method.invoke(this, args);
         }
-        Object value = datum.getPropertySet().get(method.getName());
-        if (value == null) {
-            return null;
-        }
+        String propertyName = method.getName();
         Class<?> returnType = method.getReturnType();
-        if (returnType.isInstance(value)) {
-            return value;
-        }
-        if (isAnnotation(returnType)) {
-            return nestedAnnotationDatum(method, value, returnType);
-        }
-        if (returnType.isArray() && isAnnotation(returnType.getComponentType())) {
-            return nestedAnnotationData(method, value, returnType);
-        }
-        return typedReturnValue(method, value, returnType);
+        return get(propertyName, returnType);
     }
 
-    private Object typedReturnValue(Method method, Object value, Class<?> returnType) {
+    public Object get(String propertyName, Class<?> returnType) {
+        Object value = datum.getPropertySet().get(propertyName);
+        return value == null ? null
+            : returnType.isInstance(value) ? value
+                : isAnnotation(returnType) ? nestedAnnotationDatum(propertyName, value, returnType)
+                    : isAnnotationArray(returnType) ? nestedAnnotationData(propertyName, value, returnType)
+                        : typedReturnValue(propertyName, value, returnType);
+    }
+
+    private static boolean isAnnotationArray(Class<?> returnType) {
+        return returnType.isArray() && isAnnotation(returnType.getComponentType());
+    }
+
+    private Object typedReturnValue(String name, Object value, Class<?> returnType) {
         try {
             return Retyper.coerce(returnType, value);
         } catch (Exception e) {
             throw new IllegalStateException
-                    ("Could not return property " + method.getName() + " using " + datum +
+                    ("Could not return property " + name + " using " + datum +
                             ", problematic string value for type " +
                             returnType + ": '" + value + "'", e);
         }
     }
 
-    private Object nestedAnnotationData(Method method, Object value, Class<?> returnType) {
+    private Object nestedAnnotationData(String name, Object value, Class<?> returnType) {
         if (value instanceof Collection<?>) {
             return nestedProxies(value, (Class<Annotation>) returnType.getComponentType());
         } else {
             throw new IllegalStateException
-                    ("Could not return annotation array property " + method.getName() + " using " + datum +
+                    ("Could not return annotation array property " + name + " using " + datum +
                             ", expected instance of " + AnnotationDatum.class +
                             ": " + ToString.ofObjectOrArray(value));
         }
     }
 
-    private Object nestedAnnotationDatum(Method method, Object value, Class<?> returnType) {
+    private Object nestedAnnotationDatum(String name, Object value, Class<?> returnType) {
         if (value instanceof AnnotationDatum<?>) {
             return nestedProxy(value, (Class<Annotation>) returnType);
         } else {
             throw new IllegalStateException
-                    ("Could not return annotation property " + method.getName() + " using " + datum +
+                    ("Could not return annotation property " + name + " using " + datum +
                             ", expected instance of " + AnnotationDatum.class + ": " + value);
         }
     }
@@ -106,7 +107,7 @@ class AnnotationHandler implements InvocationHandler {
         return Annotation.class.isAssignableFrom(returnType);
     }
 
-    private <A extends Annotation> Object nestedProxy(Object value, Class<A> returnType) {
+    private <A extends Annotation> A nestedProxy(Object value, Class<A> returnType) {
         AnnotationDatum<?> datum = (AnnotationDatum<?>) value;
         return datum.createProxy(classLoader, returnType);
     }

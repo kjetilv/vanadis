@@ -16,17 +16,16 @@
 
 package vanadis.annopro;
 
+import org.objectweb.asm.AnnotationVisitor;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.ToString;
-import org.objectweb.asm.AnnotationVisitor;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
 
-import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 import java.util.Map;
 
-class AnnotationAsmVisitor<E extends AnnotatedElement>
+class AnnotationAsmVisitor<E>
         implements AnnotationVisitor {
 
     private final String name;
@@ -107,7 +106,6 @@ class AnnotationAsmVisitor<E extends AnnotatedElement>
             throw new IllegalStateException(this + " has no data, array or host properties");
         }
         if (gotWhatWeNeeded) {
-            // Got what we needed
             throw new EarlyBreakException();
         }
     }

@@ -17,19 +17,15 @@
 package vanadis.annopro;
 
 import vanadis.core.collections.Generic;
-import vanadis.core.reflection.Invoker;
 import vanadis.core.properties.PropertySet;
 import vanadis.core.properties.PropertySets;
+import vanadis.core.reflection.Invoker;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 final class ClassObjectReader extends AbstractReader {
 
@@ -44,23 +40,48 @@ final class ClassObjectReader extends AbstractReader {
         Map<String, AnnotationDatum<Class<?>>> map = Generic.map();
         for (Class<?> type : typeChain) {
             for (Annotation annotation : type.getDeclaredAnnotations()) {
-                load(type, annotation, map);
+                loadInto(map, annotation, type);
             }
         }
         return map;
     }
 
     @Override
-    public Map<Method, List<AnnotationDatum<Method>>> readAllMethods() {
-        Set<Method> methods = Generic.linkedHashSet();
-        for (Class<?> clazz : typeChain) {
-            addLeafMethods(methods, clazz);
+    Map<Method, List<List<AnnotationDatum<Integer>>>> readAllParameters() {
+        Map<Method, List<List<AnnotationDatum<Integer>>>> map = Generic.linkedHashMap();
+        Set<Method> methods = allMethods();
+        for (Method method : methods) {
+            List<List<AnnotationDatum<Integer>>> parametersAnnotations = Generic.list();
+            Annotation[][] parametersAnnotationsArray = method.getParameterAnnotations();
+            for (Annotation[] parameterAnnotationsArray : parametersAnnotationsArray) {
+                List<AnnotationDatum<Integer>> parameterAnnotations = Generic.list();
+                for (int i = 0; i < parameterAnnotationsArray.length; i++) {
+                    Annotation annotation = parameterAnnotationsArray[i];
+                    parameterAnnotations.add(datum(i, annotation));
+                }
+                parametersAnnotations.add(parameterAnnotations);
+            }
+            map.put(method, parametersAnnotations);
         }
+        return map;
+    }
+
+    @Override
+    public Map<Method, List<AnnotationDatum<Method>>> readAllMethods() {
+        Set<Method> methods = allMethods();
         Map<Method, List<AnnotationDatum<Method>>> map = Generic.linkedHashMap();
         for (Method method : methods) {
             map.put(method, readAllFromMethod(method));
         }
         return map;
+    }
+
+    private Set<Method> allMethods() {
+        Set<Method> methods = Generic.linkedHashSet();
+        for (Class<?> clazz : typeChain) {
+            addLeafMethods(methods, clazz);
+        }
+        return methods;
     }
 
     @Override
@@ -76,8 +97,7 @@ final class ClassObjectReader extends AbstractReader {
         return map;
     }
 
-    private static <E extends AnnotatedElement> void load(E element, Annotation annotation,
-                                                          Map<String, AnnotationDatum<E>> map) {
+    private static <E> void loadInto(Map<String, AnnotationDatum<E>> map, Annotation annotation, E element) {
         String key = annotation.annotationType().getName();
         AnnotationDatum<E> existingData = map.get(key);
         if (existingData == null) {
@@ -85,13 +105,13 @@ final class ClassObjectReader extends AbstractReader {
         }
     }
 
-    private static <E extends AnnotatedElement> AnnotationDatum<E> datum(E element, Annotation annotation) {
+    private static <E> AnnotationDatum<E> datum(E element, Annotation annotation) {
         return AnnotationDatum.create(element,
                                       annotation.annotationType().getName(),
                                       properties(element, annotation));
     }
 
-    private static <E extends AnnotatedElement> PropertySet properties(E element, Annotation annotation) {
+    private static <E> PropertySet properties(E element, Annotation annotation) {
         PropertySet propertySet = PropertySets.create();
         Class<? extends Annotation> annoClass = annotation.annotationType();
         Method[] declaredMethods = annoClass.getDeclaredMethods();
@@ -102,7 +122,7 @@ final class ClassObjectReader extends AbstractReader {
         return propertySet;
     }
 
-    private static <E extends AnnotatedElement> Object createValue(E element, Annotation annotation, Method method) {
+    private static <E> Object createValue(E element, Annotation annotation, Method method) {
         boolean array = method.getReturnType().isArray();
         Method annotationMethod = methodOnAnnotation(annotation, method);
         Object value = Invoker.invoke(AnnotationsDigestsImpl.class,
@@ -123,7 +143,7 @@ final class ClassObjectReader extends AbstractReader {
         return newArray;
     }
 
-    private static <E extends AnnotatedElement> Object possiblyNestedArray(E element, Class<?> type, Object array) {
+    private static <E> Object possiblyNestedArray(E element, Class<?> type, Object array) {
         if (!isAnnotation(type)) {
             return array;
         }
@@ -139,7 +159,7 @@ final class ClassObjectReader extends AbstractReader {
         return Annotation.class.isAssignableFrom(type);
     }
 
-    private static <E extends AnnotatedElement> Object possiblyNested(E element, Class<?> type, Object value) {
+    private static <E> Object possiblyNested(E element, Class<?> type, Object value) {
         if (!isAnnotation(type)) {
             return value;
         }
@@ -197,7 +217,7 @@ final class ClassObjectReader extends AbstractReader {
             Class<?>[] methodTypes = overrider.getParameterTypes();
             Class<?>[] referenceTypes = overridee.getParameterTypes();
             return referenceTypes.length == methodTypes.length &&
-                    Arrays.equals(referenceTypes, methodTypes);
+                Arrays.equals(referenceTypes, methodTypes);
         }
         return false;
     }
@@ -235,20 +255,20 @@ final class ClassObjectReader extends AbstractReader {
     private List<AnnotationDatum<Method>> readAllFromMethod(Method method) {
         Map<String, AnnotationDatum<Method>> annotations = Generic.linkedHashMap();
         for (Class<?> type : typeChain) {
-            for (Method target : type.getDeclaredMethods()) {
-                extractOverrides(method, annotations, target);
+            for (Method potentialOverride : type.getDeclaredMethods()) {
+                extractOverrides(method, annotations, potentialOverride);
             }
         }
         return Generic.list(annotations.values());
     }
 
     private static void extractOverrides(Method anchorMethod,
-                                         Map<String, AnnotationDatum<Method>> annotations,
+                                         Map<String, AnnotationDatum<Method>> map,
                                          Method potentialOverrider) {
         Annotation[] declaredAnnotations = potentialOverrider.getDeclaredAnnotations();
         if (declaredAnnotations.length > 0 && overrides(anchorMethod, potentialOverrider, true)) {
             for (Annotation declaredAnnotation : declaredAnnotations) {
-                load(anchorMethod, declaredAnnotation, annotations);
+                loadInto(map, declaredAnnotation, anchorMethod);
             }
         }
     }

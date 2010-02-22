@@ -44,13 +44,14 @@ class JmxFiddly {
                                       !asString && isIs(getDatum));
     }
 
-    static MBeanOperationInfo beanOperationInfo(AnnotationDatum<Method> datum) {
+    static MBeanOperationInfo beanOperationInfo(AnnotationDatum<Method> datum,
+                                                List<List<AnnotationDatum<Integer>>> params) {
         Method method = datum.getElement();
         Operation annotation = oper(datum);
         return new MBeanOperationInfo
             (method.getName(),
              annotation.desc(),
-             parameters(annotation, method),
+             parameters(annotation, params, method),
              annotation.asString() ? STRING : JmxFiddly.namedType(method.getReturnType()),
              annotation.impact());
     }
@@ -128,17 +129,36 @@ class JmxFiddly {
         return returnType.isArray() ? "[L" + name + ";" : name;
     }
 
-    private static MBeanParameterInfo[] parameters(Operation operation, Method method) {
+    private static MBeanParameterInfo[] parameters(Operation operation,
+                                                   List<List<AnnotationDatum<Integer>>> params,
+                                                   Method method) {
         List<MBeanParameterInfo> infos = Generic.list();
-        Param[] params = operation.params();
-        for (int i = 0; i < method.getParameterTypes().length; i++) {
-            Param param = i < params.length ? params[i] : null;
-            String name = param == null ? "param" + i : param.name();
-            String desc = param == null ? "param" + i : param.desc();
-            Class<?> parameter = method.getParameterTypes()[i];
-            infos.add(new MBeanParameterInfo(name, namedType(parameter), desc));
+        if (empty(params)) {
+            Param[] paramArray = operation.params();
+            for (int i = 0; i < method.getParameterTypes().length; i++) {
+                Param param = i < paramArray.length ? paramArray[i] : null;
+                String name = param == null ? "param" + i : param.name();
+                String desc = param == null ? "param" + i : param.desc();
+                Class<?> parameter = method.getParameterTypes()[i];
+                infos.add(new MBeanParameterInfo(name, namedType(parameter), desc));
+            }
+        } else {
+            for (int i = 0, paramsSize = params.size(); i < paramsSize; i++) {
+                Class<?>[] types = method.getParameterTypes();
+                List<AnnotationDatum<Integer>> paramAnnotations = params.get(i);
+                for (int j = 0, paramAnnotationsSize = paramAnnotations.size(); j < paramAnnotationsSize; j++) {
+                    AnnotationDatum<Integer> paramAnnotation = paramAnnotations.get(j);
+                    infos.add(new MBeanParameterInfo(paramAnnotation.getPropertySet().getString("name"),
+                                                     namedType(types[i]),
+                                                     paramAnnotation.getPropertySet().getString("desc")));
+                }
+            }
         }
         return infos.toArray(new MBeanParameterInfo[infos.size()]);
+    }
+
+    private static boolean empty(List<List<AnnotationDatum<Integer>>> params) {
+        return params == null || params.isEmpty() || params.get(0) == null || params.get(0).isEmpty();
     }
 
     private static boolean nonMatching(AnnotationDatum<Method> getDatum, AnnotationDatum<Method> setDatum) {
@@ -162,7 +182,8 @@ class JmxFiddly {
     }
 
     static MBeanInfo info(MBeanInfo info, String description) {
-        return description == null || Strings.isEmpty(description) ? info
+        return description == null || Strings.isEmpty(description)
+            ? info
             : new MBeanInfo(info.getClassName(), description,
                             info.getAttributes(), null, info.getOperations(), null);
     }

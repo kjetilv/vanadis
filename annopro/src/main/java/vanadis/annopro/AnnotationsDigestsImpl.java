@@ -24,7 +24,6 @@ import vanadis.core.lang.ToString;
 
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -48,6 +47,8 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     private final Iterable<AnnotationDatum<Field>> fields;
 
     private final List<Class<?>> typeChain;
+
+    private final Map<Method, List<List<AnnotationDatum<Integer>>>> methodParametersAnnotations;
 
     AnnotationsDigestsImpl(Class<?> type, boolean inherits) {
         this(Not.nil(type, "type"), null, inherits, null);
@@ -78,6 +79,7 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
         this.classAnnotations = reader.annotations();
         this.fieldAnnotations = reader.readAllFields();
         this.methodAnnotations = reader.readAllMethods();
+        this.methodParametersAnnotations = reader.readAllParameters();
         this.fieldsByType = annotatedFields();
         this.fields = Iterables.chain(fieldAnnotations.values());
         this.methodsByType = annotatedMetods();
@@ -95,6 +97,11 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     @Override
     public Iterable<AnnotationDatum<Field>> fieldData(Field field) {
         return fieldAnnotations.get(field);
+    }
+
+    @Override
+    public List<List<AnnotationDatum<Integer>>> parameterData(Method method) {
+        return methodParametersAnnotations.get(method);
     }
 
     @Override
@@ -187,6 +194,16 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
         for (AnnotationDatum<Field> datum : getFieldData(type)) {
             Field field = datum.getElement();
             map.put(field.getName(), datum);
+        }
+        return map;
+    }
+
+    @Override
+    public Map<Method, List<List<AnnotationDatum<Integer>>>> getParameterDataIndex(Class<? extends Annotation> type) {
+        Map<Method, List<List<AnnotationDatum<Integer>>>> map = Generic.map();
+        for (AnnotationDatum<Method> datum : getMethodData(type)) {
+            Method element = datum.getElement();
+            map.put(element, methodParametersAnnotations.get(datum.getElement()));
         }
         return map;
     }
@@ -336,7 +353,7 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
         return types;
     }
 
-    private static <K, AE1 extends AnnotatedElement, AE2 extends AnnotatedElement> Set<K> intersectingKeys
+    private static <K, AE1, AE2> Set<K> intersectingKeys
             (Map<K, AnnotationDatum<AE1>> fieldIndex,
              Map<K, AnnotationDatum<AE2>> methodIndex) {
         Set<K> intersectingKeys = Generic.set(fieldIndex.keySet());

@@ -41,6 +41,14 @@ public class ManagedDynamicMBeanTest {
         private final String field = "value1";
     }
 
+    class ManagedNonAttr {
+
+        @Attr(desc = "fi", asString = true)
+        public Integer fi() {
+            return 0;
+        }
+    }
+
     class Managed1AttrMeth {
 
         @Attr(desc = "f1")
@@ -111,6 +119,28 @@ public class ManagedDynamicMBeanTest {
         }
     }
 
+    class Managed1OperPar2 {
+
+        private boolean troo;
+
+        @Operation(desc = "f1", impact = MBeanOperationInfo.ACTION_INFO)
+        boolean doIt(@Param(name = "truth", desc = "And nothing but") boolean truth) {
+            troo = truth;
+            return truth;
+        }
+
+        boolean isTroo() {
+            return troo;
+        }
+    }
+
+    @Test
+    public void managedNonAttr() throws ReflectionException, AttributeNotFoundException, MBeanException {
+        ManagedDynamicMBeans beans = new ManagedDynamicMBeans();
+        DynamicMBean bean = beans.create(new ManagedNonAttr());
+        Assert.assertEquals("0", bean.getAttribute("fi"));
+    }
+
     @Test
     public void useDescription() {
         ManagedDynamicMBeans beans = new ManagedDynamicMBeans();
@@ -136,10 +166,34 @@ public class ManagedDynamicMBeanTest {
         Managed1OperPar oper = new Managed1OperPar();
         ManagedDynamicMBeanType beanType = new ManagedDynamicMBeans().mbeanType(oper.getClass(), false);
         doManageOperPar(oper, beanType.bean(oper));
+    }
+
+    @Test
+    public void manageOperPar2() throws ReflectionException, MBeanException {
+        Managed1OperPar2 oper = new Managed1OperPar2();
+        ManagedDynamicMBeanType beanType = new ManagedDynamicMBeans().mbeanType(oper.getClass(), false);
         doManageOperPar(oper, beanType.bean(oper));
     }
 
     private void doManageOperPar(Managed1OperPar oper, DynamicMBean bean) throws MBeanException, ReflectionException {
+        MBeanInfo mBeanInfo = bean.getMBeanInfo();
+        MBeanOperationInfo[] operationInfos = mBeanInfo.getOperations();
+        Assert.assertEquals(1, operationInfos.length);
+        MBeanOperationInfo operationInfo = operationInfos[0];
+        MBeanParameterInfo[] parameterInfos = operationInfo.getSignature();
+        Assert.assertEquals(1, parameterInfos.length);
+        MBeanParameterInfo parameterInfo = parameterInfos[0];
+        Assert.assertEquals("truth", parameterInfo.getName());
+        Assert.assertEquals("And nothing but", parameterInfo.getDescription());
+
+        Assert.assertFalse(oper.isTroo());
+        bean.invoke("doIt", new Object[]{Boolean.TRUE}, new String[]{"boolean"});
+        Assert.assertTrue(oper.isTroo());
+        bean.invoke("doIt", new Object[]{Boolean.FALSE}, new String[]{"boolean"});
+        Assert.assertFalse(oper.isTroo());
+    }
+
+    private void doManageOperPar(Managed1OperPar2 oper, DynamicMBean bean) throws MBeanException, ReflectionException {
         MBeanInfo mBeanInfo = bean.getMBeanInfo();
         MBeanOperationInfo[] operationInfos = mBeanInfo.getOperations();
         Assert.assertEquals(1, operationInfos.length);

@@ -40,6 +40,11 @@ class BytecodesReader extends AbstractReader {
     }
 
     @Override
+    Map<Method, List<List<AnnotationDatum<Integer>>>> readAllParameters() {
+        return Collections.emptyMap();
+    }
+
+    @Override
     public Map<Method, List<AnnotationDatum<Method>>> readAllMethods() {
         return Collections.emptyMap();
     }
