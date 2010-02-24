@@ -19,6 +19,7 @@ class EarlyBreakException extends RuntimeException {
 
     private static final long serialVersionUID = 8701705749691962417L;
 
+    @SuppressWarnings({"NonSynchronizedMethodOverridesSynchronizedMethod"})
     @Override
     public Throwable fillInStackTrace() {
         return this;

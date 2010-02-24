@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 class AnnotationAsmVisitor<E>
-        implements AnnotationVisitor {
+    implements AnnotationVisitor {
 
     private final String name;
 
@@ -44,11 +44,11 @@ class AnnotationAsmVisitor<E>
 
     private boolean gotWhatWeNeeded;
 
-    public AnnotationAsmVisitor(String name, String type,
-                                Map<String, AnnotationDatum<E>> hostData,
-                                List<AnnotationDatum<E>> hostArray,
-                                PropertySet propertySet,
-                                String targetAnnotation) {
+    AnnotationAsmVisitor(String name, String type,
+                         Map<String, AnnotationDatum<E>> hostData,
+                         List<AnnotationDatum<E>> hostArray,
+                         PropertySet propertySet,
+                         String targetAnnotation) {
         this.name = name;
         this.type = type;
         this.hostData = hostData;
@@ -80,8 +80,8 @@ class AnnotationAsmVisitor<E>
             gotWhatWeNeeded = true;
         }
         return name != null
-                ? new AnnotationAsmVisitor<E>(name, type, null, null, propertySet, targetAnnotation)
-                : new AnnotationAsmVisitor<E>(null, type, null, hostArray, null, targetAnnotation);
+            ? new AnnotationAsmVisitor<E>(name, type, null, null, propertySet, targetAnnotation)
+            : new AnnotationAsmVisitor<E>(null, type, null, hostArray, null, targetAnnotation);
     }
 
     @Override
