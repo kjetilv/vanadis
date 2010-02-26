@@ -23,9 +23,9 @@
   <description>Vanadis</description>
   <name>${artifactId}</name>
   <scm>
-    <connection>scm:svn:https://vanadis.svn.sourceforge.net/svnroot/vanadis/trunk/vanadis</connection>
-    <developerConnection>scm:svn:https://vanadis.svn.sourceforge.net/svnroot/vanadis/trunk/vanadis</developerConnection>
-    <url>http://vanadis.svn.sourceforge.net/viewvc/vanadis/trunk/vanadis</url>
+    <connection>scm:git:git://github.com/kjetilv/vanadis.git</connection>
+    <developerConnection>scm:git:git://git@github.com/kjetilv/vanadis.git</developerConnection>
+    <url>http://github.com/kjetilv/vanadis/</url>
   </scm>
   <dependencyManagement>
     <dependencies>
