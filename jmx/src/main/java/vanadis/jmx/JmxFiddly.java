@@ -132,29 +132,37 @@ class JmxFiddly {
     private static MBeanParameterInfo[] parameters(Operation operation,
                                                    List<List<AnnotationDatum<Integer>>> params,
                                                    Method method) {
+        return empty(params) ? useOperationParams(operation, method) : useParamAnnotations(params, method);
+    }
+
+    private static MBeanParameterInfo[] useParamAnnotations(List<List<AnnotationDatum<Integer>>> params,
+                                                            Method method) {
         List<MBeanParameterInfo> infos = Generic.list();
-        if (empty(params)) {
-            Param[] paramArray = operation.params();
-            for (int i = 0; i < method.getParameterTypes().length; i++) {
-                Param param = i < paramArray.length ? paramArray[i] : null;
-                String name = param == null ? "param" + i : param.name();
-                String desc = param == null ? "param" + i : param.desc();
-                Class<?> parameter = method.getParameterTypes()[i];
-                infos.add(new MBeanParameterInfo(name, namedType(parameter), desc));
-            }
-        } else {
-            for (int i = 0, paramsSize = params.size(); i < paramsSize; i++) {
-                Class<?>[] types = method.getParameterTypes();
-                List<AnnotationDatum<Integer>> paramAnnotations = params.get(i);
-                for (int j = 0, paramAnnotationsSize = paramAnnotations.size(); j < paramAnnotationsSize; j++) {
-                    AnnotationDatum<Integer> paramAnnotation = paramAnnotations.get(j);
-                    infos.add(new MBeanParameterInfo(paramAnnotation.getPropertySet().getString("name"),
-                                                     namedType(types[i]),
-                                                     paramAnnotation.getPropertySet().getString("desc")));
-                }
+        Class<?>[] types = method.getParameterTypes();
+        for (int i = 0, paramsSize = params.size(); i < paramsSize; i++) {
+            String type = namedType(types[i]);
+            List<AnnotationDatum<Integer>> paramAnnotations = params.get(i);
+            for (int j = 0, paramAnnotationsSize = paramAnnotations.size(); j < paramAnnotationsSize; j++) {
+                AnnotationDatum<Integer> paramAnnotation = paramAnnotations.get(j);
+                infos.add(new MBeanParameterInfo(paramAnnotation.getPropertySet().getString("name"),
+                                                 type,
+                                                 paramAnnotation.getPropertySet().getString("desc")));
             }
         }
         return infos.toArray(new MBeanParameterInfo[infos.size()]);
+    }
+
+    private static MBeanParameterInfo[] useOperationParams(Operation operation, Method method) {
+        Param[] paramArray = operation.params();
+        MBeanParameterInfo[] infos = new MBeanParameterInfo[paramArray.length];
+        for (int i = 0; i < method.getParameterTypes().length; i++) {
+            Param param = i < paramArray.length ? paramArray[i] : null;
+            String name = param == null ? "param" + i : param.name();
+            String desc = param == null ? "param" + i : param.desc();
+            Class<?> parameter = method.getParameterTypes()[i];
+            infos[i] = new MBeanParameterInfo(name, namedType(parameter), desc);
+        }
+        return infos;
     }
 
     private static boolean empty(List<List<AnnotationDatum<Integer>>> params) {

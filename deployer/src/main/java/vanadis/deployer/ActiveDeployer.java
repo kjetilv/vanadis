@@ -139,9 +139,18 @@ final class ActiveDeployer implements Runnable {
     }
 
     private void registerUri(UriExplorer explorer, URI uri, Collection<Throwable> exceptions) {
+        String type = explorer.getType();
+        Registration<?> registration = getRegistration(type, uri, exceptions);
+        if (registration != null) {
+            registrations.put(uri, registration);
+            log.info(this + ": " + explorer + " registered URL " + uri +
+                    " on " + registration);
+        }
+    }
+
+    private Registration<?> getRegistration(String type, URI uri, Collection<Throwable> exceptions) {
         Registration<?> registration = null;
         try {
-            String type = explorer.getType();
             if (type.equalsIgnoreCase(BUNDLE)) {
                 registration = deploy.deployBundle(uri);
             } else if (type.equalsIgnoreCase(SERVICE)) {
@@ -149,13 +158,8 @@ final class ActiveDeployer implements Runnable {
             }
         } catch (Exception e) {
             exceptions.add(e);
-            return;
         }
-        if (registration != null) {
-            registrations.put(uri, registration);
-            log.info(this + ": " + explorer + " registered URL " + uri +
-                    " on " + registration);
-        }
+        return registration;
     }
 
     void triggerCycle() {
