@@ -154,15 +154,20 @@ class JmxFiddly {
 
     private static MBeanParameterInfo[] useOperationParams(Operation operation, Method method) {
         Param[] paramArray = operation.params();
-        MBeanParameterInfo[] infos = new MBeanParameterInfo[paramArray.length];
-        for (int i = 0; i < method.getParameterTypes().length; i++) {
-            Param param = i < paramArray.length ? paramArray[i] : null;
-            String name = param == null ? "param" + i : param.name();
-            String desc = param == null ? "param" + i : param.desc();
-            Class<?> parameter = method.getParameterTypes()[i];
-            infos[i] = new MBeanParameterInfo(name, namedType(parameter), desc);
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        MBeanParameterInfo[] infos = new MBeanParameterInfo[parameterTypes.length];
+        for (int i = 0; i < parameterTypes.length; i++) {
+            infos[i] = paramInfo(parameterTypes[i], paramArray, i);
         }
         return infos;
+    }
+
+    private static MBeanParameterInfo paramInfo(Class<?> parameterType, Param[] paramArray, int index) {
+        if (index < paramArray.length) {
+            Param param = paramArray[index];
+            return new MBeanParameterInfo(param.name(), namedType(parameterType), param.desc());
+        }
+        return new MBeanParameterInfo("param" + index, namedType(parameterType), "param" + index);
     }
 
     private static boolean empty(List<List<AnnotationDatum<Integer>>> params) {

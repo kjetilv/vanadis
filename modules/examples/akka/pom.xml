@@ -19,7 +19,7 @@
         <relativePath>../pom.xml</relativePath>
         <groupId>vanadis.modules.examples</groupId>
         <artifactId>vanadis.modules.examples</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.1.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>vanadis.modules.examples.akka</artifactId>
@@ -54,7 +54,7 @@
             <dependency>
                 <groupId>vanadis.modules.examples.akka</groupId>
                 <artifactId>vanadis.modules.examples.akka.actor</artifactId>
-                <version>1.1-SNAPSHOT</version>
+                <version>1.1.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
