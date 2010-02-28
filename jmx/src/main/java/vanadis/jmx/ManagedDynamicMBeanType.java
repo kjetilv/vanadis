@@ -35,6 +35,8 @@ public class ManagedDynamicMBeanType {
 
     private final Class<?> type;
 
+    private final JmxMapping mapping;
+
     private final ObjectName objectName;
 
     private final Map<String,MBeanAttributeInfo> attributeInfos;
@@ -49,15 +51,16 @@ public class ManagedDynamicMBeanType {
 
     private final MBeanInfo mBeanInfo;
 
-    ManagedDynamicMBeanType(AnnotationsDigest digest, Class<?> type) {
-        this.type = type;
-        Not.nil(digest, "digest");
-        Managed managed = managed(digest);
+    ManagedDynamicMBeanType(AnnotationsDigest digest, Class<?> type, JmxMapping mapping) {
+        this.type = Not.nil(type, "type");
+        this.mapping = mapping == null ? JmxMapping.DEFAULT : mapping;
+        Managed managed = toManaged(Not.nil(digest, "digest").getClassDatum(this.mapping.getClassType()));
+
         this.objectName = objectName(managed, type);
-        this.attributeMethods = organizeAttributes(digest.getMethodData(Attr.class));
-        this.attributeFields = digest.getFieldDataIndex(Attr.class);
-        this.operations = digest.getMethodDataIndex(Operation.class);
-        this.operationParams = digest.getParameterDataIndex(Operation.class);
+        this.attributeMethods = organizeAttributes(digest.getMethodData(this.mapping.getFieldType()));
+        this.attributeFields = digest.getFieldDataIndex(this.mapping.getFieldType());
+        this.operations = digest.getMethodDataIndex(this.mapping.getOperationType());
+        this.operationParams = digest.getParameterDataIndex(this.mapping.getOperationType());
         MBeanAttributeInfo[] attributeInfoArray = attributeInfos();
         MBeanOperationInfo[] operationInfoArray = operationInfos();
         this.mBeanInfo = info(type, null, managed, attributeInfoArray, operationInfoArray);
@@ -135,13 +138,8 @@ public class ManagedDynamicMBeanType {
         return map;
     }
 
-    private static Managed mng(AnnotationDatum<Class<?>> datum) {
-        return datum.createProxy(ManagedDynamicMBeanType.class.getClassLoader(), Managed.class);
-    }
-
-    private static Managed managed(AnnotationsDigest digest) {
-        AnnotationDatum<Class<?>> datum = digest.getClassDatum(Managed.class);
-        return datum == null ? null : mng(datum);
+    private static Managed toManaged(AnnotationDatum<Class<?>> datum) {
+        return datum == null ? null : datum.createProxy(ManagedDynamicMBeanType.class.getClassLoader(), Managed.class);
     }
 
     @Override
@@ -149,19 +147,19 @@ public class ManagedDynamicMBeanType {
         return ToString.of(this, "type", type);
     }
 
-    public Map<String, AnnotationDatum<Method>> getOperations() {
+    Map<String, AnnotationDatum<Method>> getOperations() {
         return operations;
     }
 
-    public Map<String, Pair<AnnotationDatum<Method>, AnnotationDatum<Method>>> getAttributeMethods() {
+    Map<String, Pair<AnnotationDatum<Method>, AnnotationDatum<Method>>> getAttributeMethods() {
         return attributeMethods;
     }
 
-    public Map<String, AnnotationDatum<Field>> getAttributeFields() {
+    Map<String, AnnotationDatum<Field>> getAttributeFields() {
         return attributeFields;
     }
 
-    public Map<String, MBeanAttributeInfo> getAttributeInfos() {
+    Map<String, MBeanAttributeInfo> getAttributeInfos() {
         return attributeInfos;
     }
 }

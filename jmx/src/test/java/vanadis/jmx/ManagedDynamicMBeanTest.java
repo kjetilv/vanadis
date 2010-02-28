@@ -144,8 +144,9 @@ public class ManagedDynamicMBeanTest {
     @Test
     public void useDescription() {
         ManagedDynamicMBeans beans = new ManagedDynamicMBeans();
-        Assert.assertEquals("foobar", beans.create(new Managed1(), "foobar").getMBeanInfo().getDescription());
-        Assert.assertEquals("one", beans.create(new Managed1()).getMBeanInfo().getDescription());
+        Managed1 target = new Managed1();
+        Assert.assertEquals("foobar", beans.create(target, "foobar").getMBeanInfo().getDescription());
+        Assert.assertEquals("one", beans.create(target).getMBeanInfo().getDescription());
     }
 
     @Test

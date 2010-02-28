@@ -26,6 +26,14 @@ public class AnnotationsDigests {
         return createFromType(Not.nil(object, "object").getClass());
     }
 
+    public static AnnotationsDigest createFullFromInstance(Object object) {
+        return createFullFromType(Not.nil(object, "object").getClass());
+    }
+
+    public static AnnotationsDigest createFullFromType(Class<?> clazz) {
+        return new AnnotationsDigestsImpl(Not.nil(clazz, "class"), true);
+    }
+
     public static AnnotationsDigest createFromType(Class<?> clazz) {
         return new AnnotationsDigestsImpl(Not.nil(clazz, "class"), false);
     }
@@ -37,13 +45,5 @@ public class AnnotationsDigests {
     public static AnnotationsDigest createFromStream(InputStream bytecode, String targetAnnotation) {
         return new AnnotationsDigestsImpl(Not.nil(bytecode, "bytecode stream"),
                                           Not.nil(targetAnnotation, "target annotation"));
-    }
-
-    public static AnnotationsDigest createFullFromInstance(Object object) {
-        return createFullFromType(Not.nil(object, "object").getClass());
-    }
-
-    public static AnnotationsDigest createFullFromType(Class<?> clazz) {
-        return new AnnotationsDigestsImpl(Not.nil(clazz, "class"), true);
     }
 }

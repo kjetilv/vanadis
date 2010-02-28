@@ -20,6 +20,16 @@ class JmxFiddly {
 
     private static final String STRING = String.class.getName();
 
+    static MBeanInfo info(Class<?> type, String description, Managed managed,
+                          MBeanAttributeInfo[] attributeInfos,
+                          MBeanOperationInfo[] operationInfos) {
+        String desc = description != null ? description
+            : managed != null ? managed.desc()
+                : type.getName();
+        return new MBeanInfo(type.getName(), desc,
+                             attributeInfos, null, operationInfos, null);
+    }
+
     static MBeanAttributeInfo beanAttributeInfo(String name, Field field) {
         Attr annotation = field.getAnnotation(Attr.class);
         return new MBeanAttributeInfo(name,
@@ -35,7 +45,7 @@ class JmxFiddly {
         AnnotationDatum<Method> getDatum = pair.getOne();
         AnnotationDatum<Method> setDatum = pair.getTwo();
         Attr annotation = getDatum != null ? attr(getDatum) : attr(setDatum);
-        boolean asString = annotation.asString();
+        boolean asString = asString(annotation);
         return new MBeanAttributeInfo(name,
                                       asString ? STRING : namedType(attributeType(getDatum, setDatum)),
                                       annotation.desc(),
@@ -52,8 +62,8 @@ class JmxFiddly {
             (method.getName(),
              annotation.desc(),
              parameters(annotation, params, method),
-             annotation.asString() ? STRING : JmxFiddly.namedType(method.getReturnType()),
-             annotation.impact());
+             asString(annotation) ? STRING : JmxFiddly.namedType(method.getReturnType()),
+             impact(annotation));
     }
 
     static Map<String, Pair<AnnotationDatum<Method>, AnnotationDatum<Method>>> organizeAttributes(List<AnnotationDatum<Method>> data) {
@@ -68,6 +78,30 @@ class JmxFiddly {
             add(getters.get(name), setters.get(name), attributes, name);
         }
         return attributes;
+    }
+
+    private static boolean asString(Attr annotation) {
+        try {
+            return annotation.asString();
+        } catch (NullPointerException e) {
+            return false;
+        }
+    }
+
+    private static boolean asString(Operation annotation) {
+        try {
+            return annotation.asString();
+        } catch (NullPointerException e) {
+            return false;
+        }
+    }
+
+    private static int impact(Operation annotation) {
+        try {
+            return annotation.impact();
+        } catch (NullPointerException e) {
+            return MBeanOperationInfo.ACTION;
+        }
     }
 
     private static void add(AnnotationDatum<Method> getDatum,
@@ -199,15 +233,5 @@ class JmxFiddly {
             ? info
             : new MBeanInfo(info.getClassName(), description,
                             info.getAttributes(), null, info.getOperations(), null);
-    }
-
-    static MBeanInfo info(Class<?> type, String description, Managed managed,
-                          MBeanAttributeInfo[] attributeInfos,
-                          MBeanOperationInfo[] operationInfos) {
-        String desc = description != null ? description
-            : managed != null ? managed.desc()
-                : type.getName();
-        return new MBeanInfo(type.getName(), desc,
-                             attributeInfos, null, operationInfos, null);
     }
 }

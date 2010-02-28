@@ -27,7 +27,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 
-final class ClassObjectReader extends AbstractReader {
+final class ClassObjectReader implements AnnotationReader {
 
     private final List<Class<?>> typeChain;
 
@@ -47,7 +47,7 @@ final class ClassObjectReader extends AbstractReader {
     }
 
     @Override
-    Map<Method, List<List<AnnotationDatum<Integer>>>> readAllParameters() {
+    public Map<Method, List<List<AnnotationDatum<Integer>>>> readAllParameters() {
         Map<Method, List<List<AnnotationDatum<Integer>>>> map = Generic.linkedHashMap();
         Set<Method> methods = allMethods();
         for (Method method : methods) {

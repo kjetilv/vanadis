@@ -16,7 +16,6 @@
 
 package vanadis.annopro;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -42,23 +41,23 @@ public interface AnnotationsDigest {
 
     Iterable<AnnotationDatum<Field>> fieldData();
 
-    <A extends Annotation> AnnotationDatum<Class<?>> getClassDatum(Class<A> type);
+    AnnotationDatum<Class<?>> getClassDatum(Class<?> type);
 
     List<AnnotationDatum<Class<?>>> getClassData(Class<?>... types);
 
-    List<AnnotationDatum<?>> getAccessibleData(Class<? extends Annotation> type);
+    List<AnnotationDatum<?>> getAccessibleData(Class<?> type);
 
-    Map<String, AnnotationDatum<?>> getAccessibleDataIndex(Class<? extends Annotation> type);
+    Map<String, AnnotationDatum<?>> getAccessibleDataIndex(Class<?> type);
 
-    List<AnnotationDatum<Field>> getFieldData(Class<? extends Annotation> type);
+    List<AnnotationDatum<Field>> getFieldData(Class<?> type);
 
-    Map<String, AnnotationDatum<Field>> getFieldDataIndex(Class<? extends Annotation> type);
+    Map<String, AnnotationDatum<Field>> getFieldDataIndex(Class<?> type);
 
-    List<AnnotationDatum<Method>> getMethodData(Class<? extends Annotation> type);
+    List<AnnotationDatum<Method>> getMethodData(Class<?> type);
 
-    Map<Method, List<List<AnnotationDatum<Integer>>>> getParameterDataIndex(Class<? extends Annotation> type);
+    Map<Method, List<List<AnnotationDatum<Integer>>>> getParameterDataIndex(Class<?> type);
 
-    Map<String, AnnotationDatum<Method>> getMethodDataIndex(Class<? extends Annotation> type);
+    Map<String, AnnotationDatum<Method>> getMethodDataIndex(Class<?> type);
 
     AnnotationDatum<Class<?>> getClassDatum(String type);
 
@@ -68,9 +67,11 @@ public interface AnnotationsDigest {
 
     List<AnnotationDatum<Method>> getMethodData(String type);
 
-    boolean hasClassData(Class<? extends Annotation>... classes);
+    boolean hasClassData(Class<?>... classes);
 
-    boolean hasMethodData(Class<? extends Annotation>... classes);
+    boolean hasMethodData(Class<?>... classes);
 
-    boolean hasFieldData(Class<? extends Annotation>... classes);
+    boolean hasFieldData(Class<?>... classes);
+
+    boolean hasParamData(Class<?>... classes);
 }

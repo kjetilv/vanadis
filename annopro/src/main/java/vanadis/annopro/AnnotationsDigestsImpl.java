@@ -23,7 +23,6 @@ import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 
 import java.io.InputStream;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -68,7 +67,7 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
             throw new IllegalArgumentException("Expected non-null class object or bytecode");
         }
         this.inherits = inherits;
-        AbstractReader reader;
+        AnnotationReader reader;
         if (type == null) {
             this.typeChain = null;
             reader = new BytecodesReader(bytecode, targetAnnotation);
@@ -120,7 +119,7 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     }
 
     @Override
-    public Map<String, AnnotationDatum<?>> getAccessibleDataIndex(Class<? extends Annotation> type) {
+    public Map<String, AnnotationDatum<?>> getAccessibleDataIndex(Class<?> type) {
         Map<String, AnnotationDatum<?>> data = Generic.map();
         Map<String, AnnotationDatum<Field>> fieldIndex = getFieldDataIndex(type);
         Map<String, AnnotationDatum<Method>> methodIndex = getMethodDataIndex(type);
@@ -135,7 +134,7 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     }
 
     @Override
-    public List<AnnotationDatum<?>> getAccessibleData(Class<? extends Annotation> type) {
+    public List<AnnotationDatum<?>> getAccessibleData(Class<?> type) {
         List<AnnotationDatum<?>> data = Generic.list();
         data.addAll(getMethodData(type));
         data.addAll(getFieldData(type));
@@ -157,7 +156,7 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     }
 
     @Override
-    public <A extends Annotation> AnnotationDatum<Class<?>> getClassDatum(Class<A> type) {
+    public AnnotationDatum<Class<?>> getClassDatum(Class<?> type) {
         return getClassDatum(name(type));
     }
 
@@ -167,12 +166,12 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     }
 
     @Override
-    public List<AnnotationDatum<Field>> getFieldData(Class<? extends Annotation> type) {
+    public List<AnnotationDatum<Field>> getFieldData(Class<?> type) {
         return getFieldData(name(type));
     }
 
     @Override
-    public List<AnnotationDatum<Method>> getMethodData(Class<? extends Annotation> type) {
+    public List<AnnotationDatum<Method>> getMethodData(Class<?> type) {
         return getMethodData(name(type));
     }
 
@@ -189,7 +188,7 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     }
 
     @Override
-    public Map<String, AnnotationDatum<Field>> getFieldDataIndex(Class<? extends Annotation> type) {
+    public Map<String, AnnotationDatum<Field>> getFieldDataIndex(Class<?> type) {
         Map<String, AnnotationDatum<Field>> map = Generic.map();
         for (AnnotationDatum<Field> datum : getFieldData(type)) {
             Field field = datum.getElement();
@@ -199,7 +198,7 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     }
 
     @Override
-    public Map<Method, List<List<AnnotationDatum<Integer>>>> getParameterDataIndex(Class<? extends Annotation> type) {
+    public Map<Method, List<List<AnnotationDatum<Integer>>>> getParameterDataIndex(Class<?> type) {
         Map<Method, List<List<AnnotationDatum<Integer>>>> map = Generic.map();
         for (AnnotationDatum<Method> datum : getMethodData(type)) {
             Method element = datum.getElement();
@@ -209,7 +208,7 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     }
 
     @Override
-    public Map<String, AnnotationDatum<Method>> getMethodDataIndex(Class<? extends Annotation> type) {
+    public Map<String, AnnotationDatum<Method>> getMethodDataIndex(Class<?> type) {
         Map<String, AnnotationDatum<Method>> map = Generic.map();
         for (AnnotationDatum<Method> datum : getMethodData(type)) {
             Method method = datum.getElement();
@@ -219,23 +218,39 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     }
 
     @Override
-    public boolean hasMethodData(Class<? extends Annotation>... classes) {
+    public boolean hasMethodData(Class<?>... classes) {
         return checkMap(methodsByType, classes);
     }
 
     @Override
-    public boolean hasFieldData(Class<? extends Annotation>... classes) {
+    public boolean hasFieldData(Class<?>... classes) {
         return checkMap(fieldsByType, classes);
     }
 
     @Override
-    public boolean hasClassData(Class<? extends Annotation>... classes) {
+    public boolean hasClassData(Class<?>... classes) {
         return checkMap(classAnnotations, classes);
+    }
+
+    @Override
+    public boolean hasParamData(Class<?>... classes) {
+        for (Map.Entry<Method, List<List<AnnotationDatum<Integer>>>> entry : methodParametersAnnotations.entrySet()) {
+            for (List<AnnotationDatum<Integer>> methods : entry.getValue()) {
+                for (Class<?> annotationClass : classes) {
+                    for (AnnotationDatum<Integer> datum : methods) {
+                        if (datum.isType(annotationClass)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private static boolean checkMap(Map<String, ?> map, Class<?>... classes) {
         for (Class<?> clazz : classes) {
-            if (map.containsKey(clazz.getName())) {
+            if (clazz != null && map.containsKey(clazz.getName())) {
                 return true;
             }
         }
@@ -302,7 +317,7 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
         }
     }
 
-    private static String name(Class<? extends Annotation> type) {
+    private static String name(Class<?> type) {
         return Not.nil(type, "type").getName();
     }
 

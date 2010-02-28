@@ -22,10 +22,7 @@ import vanadis.core.lang.Proxies;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 
 public final class AnnotationDatum<E> {
 
@@ -52,16 +49,6 @@ public final class AnnotationDatum<E> {
         this.propertySet = shallow ? propertySet.orphan() : propertySet;
     }
 
-    public String getTypeName() {
-        if (element instanceof Field) {
-            return ((Field)element).getType().getName();
-        }
-        if (element instanceof Method) {
-            return ((Method)element).getReturnType().getName();
-        }
-        return null;
-    }
-
     public E getElement() {
         if (element == null) {
             throw new IllegalStateException(this + " was not initialized with an actual element");
@@ -73,7 +60,7 @@ public final class AnnotationDatum<E> {
         return propertySet;
     }
 
-    public boolean isType(Class<? extends Annotation> type) {
+    public boolean isType(Class<?> type) {
         return type != null && type.getName().equals(annotationType);
     }
 
@@ -81,23 +68,23 @@ public final class AnnotationDatum<E> {
         return annotationType;
     }
 
-    public <A extends Annotation> A createProxy(ClassLoader classLoader, Class<A> type) {
+    public <A> A createProxy(ClassLoader classLoader, Class<A> type) {
         return createProxy(classLoader, type, true, null);
     }
 
-    public <A extends Annotation> A createProxy(ClassLoader classLoader, Class<A> type, PropertySet propertySet) {
+    public <A> A createProxy(ClassLoader classLoader, Class<A> type, PropertySet propertySet) {
         return createProxy(classLoader, type, true, propertySet);
     }
 
-    public <A extends Annotation> A createShallowProxy(ClassLoader classLoader, Class<A> type) {
+    public <A> A createShallowProxy(ClassLoader classLoader, Class<A> type) {
         return createProxy(classLoader, type, false, null);
     }
 
-    public <A extends Annotation> A createShallowProxy(ClassLoader classLoader, Class<A> type, PropertySet propertySet) {
+    public <A> A createShallowProxy(ClassLoader classLoader, Class<A> type, PropertySet propertySet) {
         return createProxy(classLoader, type, false, propertySet);
     }
 
-    <A extends Annotation> A createProxy(ClassLoader classLoader, Class<A> type, boolean deep, PropertySet propertySet) {
+    <A> A createProxy(ClassLoader classLoader, Class<A> type, boolean deep, PropertySet propertySet) {
         AnnotationDatum<E> instrumentedData = deep
             ? this.withShadowingProperties(propertySet)
             : this.shallowWithShadowingProperties(propertySet);

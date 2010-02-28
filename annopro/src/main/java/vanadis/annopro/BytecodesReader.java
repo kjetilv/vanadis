@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-class BytecodesReader extends AbstractReader {
+class BytecodesReader implements AnnotationReader {
 
     private final InputStream bytecode;
 
@@ -40,7 +40,7 @@ class BytecodesReader extends AbstractReader {
     }
 
     @Override
-    Map<Method, List<List<AnnotationDatum<Integer>>>> readAllParameters() {
+    public Map<Method, List<List<AnnotationDatum<Integer>>>> readAllParameters() {
         return Collections.emptyMap();
     }
 
