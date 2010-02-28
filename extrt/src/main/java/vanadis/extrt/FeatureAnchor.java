@@ -24,7 +24,7 @@ import vanadis.core.properties.PropertySets;
 import vanadis.objectmanagers.ObjectManager;
 import vanadis.osgi.Context;
 
-class FeatureAnchor<T> {
+final class FeatureAnchor<T> {
 
     static <T> FeatureAnchor<T> create(ObjectManager objectManager, String featureName, Class<T> serviceInterface,
                                        Context context, OperationQueuer queuer) {

@@ -36,8 +36,8 @@ import java.util.Map;
 
 class ValidAnnotations {
 
-    static AnnotationsDigest read(Object managed) {
-        AnnotationsDigest digest = AnnotationsDigests.createFullFromInstance(managed);
+    static AnnotationsDigest read(Class<?> managedType) {
+        AnnotationsDigest digest = AnnotationsDigests.createFullFromType(managedType);
         for (AnnotationDatum<Method> datum : digest.methodData()) {
             validate(digest, datum.getElement());
         }

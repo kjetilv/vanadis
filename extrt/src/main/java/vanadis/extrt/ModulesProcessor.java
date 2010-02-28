@@ -66,7 +66,7 @@ final class ModulesProcessor {
         return objectManagerFactory(context, classLoader, null, className, inputStream, observer, dispatch);
     }
 
-    private static Module moduleProxy(AnnotationDatum<Class<?>> datum, Class<?> annotatedClass) {
+    private static Module module(AnnotationDatum<Class<?>> datum, Class<?> annotatedClass) {
         return datum.createProxy(annotatedClass.getClassLoader(), Module.class);
     }
 
@@ -138,7 +138,7 @@ final class ModulesProcessor {
         if (digest.hasClassData(Module.class)) {
             Class<?> annotatedClass = loadClass(classLoader, bundle, className);
             AnnotationDatum<Class<?>> datum = moduleData(annotatedClass);
-            Module module = moduleProxy(datum, annotatedClass);
+            Module module = module(datum, annotatedClass);
             String type = moduleType(bundle, annotatedClass, module);
             return new ObjectManagerFactoryImpl(context, annotatedClass, type,
                                                 launches(type, module.autolaunch(), module.launch()),

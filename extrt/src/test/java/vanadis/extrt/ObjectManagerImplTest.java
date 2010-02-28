@@ -16,8 +16,9 @@
 
 package vanadis.extrt;
 
-import junit.framework.Assert;
 import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertSame;
+
 import org.junit.Test;
 import vanadis.core.collections.Generic;
 import vanadis.core.properties.PropertySet;
@@ -31,7 +32,6 @@ import vanadis.osgi.impl.BonyRegistration;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ObjectManagerImplTest extends ObjectManagementTestCase {
 
@@ -93,76 +93,7 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
         RemotableInjectee remotableInjectee = new RemotableInjectee();
         manage(remotableInjectee);
 
-        Assert.assertSame(remotableExposer.getLastExposed(), remotableInjectee.getLastAdded());
-    }
-
-    private interface TestService extends Cloneable {
-
-    }
-
-    private interface TestService2 extends Cloneable {
-
-    }
-
-    public static class VanillaExposer {
-
-        @Expose
-        public static TestService getTestService() {
-            return new TestService() {
-            };
-        }
-
-    }
-
-    public interface Vanilla {
-
-        @Expose
-        TestService getTestService();
-    }
-
-    public static class VanillaImplExposer implements Vanilla {
-
-        @Override
-        public TestService getTestService() {
-            return new TestService() {
-            };
-        }
-
-    }
-
-    public static class PropertyExposer {
-
-        @Expose(properties = {@Property(name = "navn", value = "ola nordmann")})
-        public static TestService getTest() {
-            return new TestService() {
-            };
-        }
-    }
-
-    public static class ClassyPropertyExposer {
-
-        @Expose(properties = {@Property(name = "navn", value = "ola nordmann")},
-                objectClasses = {Cloneable.class})
-        public static TestService getTest() {
-            return new TestService() {
-            };
-        }
-
-        @Expose(properties = {@Property(name = "gift", value = "true", propertyType = Boolean.class)})
-        public static TestService getBeautifulService() {
-            return new TestService() {
-            };
-        }
-    }
-
-    public static class SpecificExposer {
-
-        @Expose(exposedType = TestService.class)
-        public static Cloneable getCloneable() {
-            return new TestService() {
-            };
-        }
-
+        assertSame(remotableExposer.getLastExposed(), remotableInjectee.getLastAdded());
     }
 
     @Test
@@ -179,116 +110,6 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
         assertEquals(1, registrationList.size());
         BonyRegistration<?> registration = registrationList.iterator().next();
         assertEquals(TestService.class, registration.getServiceProperties().getMainClass());
-    }
-
-    public static class RemotableInjectee {
-
-        public Object getLastAdded() {
-            return lastAdded;
-        }
-
-        private Object lastAdded;
-
-        @SuppressWarnings({"UnusedDeclaration"})
-        @Inject(remotable = true)
-        public void addX(Object x) {
-            lastAdded = x;
-        }
-    }
-
-    public static class ObjectInjectee implements GetObject<Object> {
-
-        private Object object;
-
-        @Override
-        public Object getObject() {
-            return object;
-        }
-
-        @Inject
-        public void setObject(Object object) {
-            this.object = object;
-        }
-    }
-
-    public static class FieldObjectInjectee implements GetObject<Object> {
-
-        @SuppressWarnings({"UnusedDeclaration"})
-        @Inject
-        private Object object;
-
-        @Override
-        public Object getObject() {
-            return object;
-        }
-    }
-
-    public static class RemotableExposer {
-
-        private TestService lastExposed;
-
-        public TestService getLastExposed() {
-            return lastExposed;
-        }
-
-        @Expose(remotable = true)
-        public TestService getTest() {
-            lastExposed = new TestService() {
-            };
-            return lastExposed;
-        }
-    }
-
-    public static class ReferenceInjectee {
-
-        private Reference<TestService> propertiedTestServiceRef;
-
-        private TestService testService;
-
-        private ServiceProperties<TestService> properties;
-
-        private ServiceProperties<TestService> refProperties;
-
-        public ServiceProperties<TestService> getRefProperties() {
-            return refProperties;
-        }
-
-        public Reference<TestService> getTestServiceRef() {
-            return testServiceRef;
-        }
-
-        private Reference<TestService> testServiceRef;
-
-        @Inject(injectType = TestService.class)
-        public void setPropertiedTestServiceRef(Reference<TestService> registration) {
-            this.testServiceRef = registration;
-        }
-
-        @Inject(injectType = TestService.class)
-        public void setTestServiceRef(Reference<TestService> registration,
-                                      ServiceProperties<TestService> properties) {
-            this.propertiedTestServiceRef = registration;
-            this.refProperties = properties;
-        }
-
-        public Reference<TestService> getPropertiedTestServiceRef() {
-            return propertiedTestServiceRef;
-        }
-
-        @Inject
-        public void setTestService(TestService testService,
-                                   ServiceProperties<TestService> properties) {
-            this.testService = testService;
-            this.properties = properties;
-        }
-
-        public TestService getTestService() {
-            return testService;
-        }
-
-        public ServiceProperties<TestService> getPropertySet() {
-            return properties;
-        }
     }
 
     @Test
@@ -322,16 +143,6 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
         assertNotNull(objectInjectee.getObject());
     }
 
-    public static class RuntimePropertiesExposer {
-
-        @Expose
-        public static TestService getTestService(PropertySet propertySet) {
-            propertySet.set("foo", "bar");
-            return new TestService() {
-            };
-        }
-    }
-
     @Test
     public void exposeWithRuntimeProperties() {
         manage(new RuntimePropertiesExposer());
@@ -344,41 +155,10 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
         assertEquals("bar", propertySet.get("foo"));
     }
 
-    public static class EasyGoingExposer {
-
-        @Expose(optional = true)
-        public static TestService getOptionally() {
-            return new TestService() {
-            };
-        }
-
-        @Expose
-        public static TestService getRequiredly() {
-            return new TestService() {
-            };
-        }
-    }
-
     @Test
     public void exposeRequiredAndOptional() {
         manage(new EasyGoingExposer());
         assertEquals(6, getContext().registrationCount()); // Incl. ObjectManager itself, jmx regs...
-    }
-
-    public class PropertiedInjector {
-
-        public TestService getHrService() {
-            return hrService;
-        }
-
-        private TestService hrService;
-
-        @Inject(properties = {
-                @Property(name = "foo", value = "1", propertyType = Integer.class),
-                @Property(name = "bar", value = "true", propertyType = Boolean.class)})
-        public void setFoo(TestService hrService) {
-            this.hrService = hrService;
-        }
     }
 
     @Test
@@ -390,53 +170,27 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
         getContext().register(new TestService() {
         }, TestService.class);
         assertNull("HR service injected: " + injector.getHrService(), injector.getHrService());
-        getContext().register(new TestService() {
-        },
+        getContext().register(new TestService() { },
                               ServiceProperties.create(TestService.class,
                                                        Generic.map("foo", 1)));
         assertNull(injector.getHrService());
-        getContext().register(new TestService() {
-        },
+        getContext().register(new TestService() { },
                               ServiceProperties.create(TestService.class,
                                                        Generic.map("foo", 1,
                                                                    "bar", false)));
         assertNull(injector.getHrService());
-        getContext().register(new TestService() {
-        },
+        getContext().register(new TestService() { },
                               ServiceProperties.create(TestService.class,
                                                        Generic.map("foo", 2,
                                                                    "bar", true)));
         assertNull(injector.getHrService());
-        TestService hit = new TestService() {
-        };
+        TestService hit = new TestService() { };
         getContext().register(hit,
                               ServiceProperties.create(TestService.class,
                                                        Generic.map("foo", 1,
                                                                    "bar", true)));
         assertNotNull(injector.getHrService());
-        Assert.assertSame(hit, injector.getHrService());
-    }
-
-    public static class ApacheReference {
-
-        @Track(trackedType = TestService.class, trackReferences = true)
-        private final Set<Reference<TestService>> testServices = Generic.set();
-    }
-
-    public static class Apache {
-
-        private final Set<TestService> testServices = Generic.set();
-
-        @Track(trackedType = TestService.class)
-        public Collection<TestService> testServices() {
-            return testServices;
-        }
-    }
-
-    public static class FieldApache {
-
-        @Track(trackedType = TestService.class)
-        private final Set<TestService> testServices = Generic.set();
+        assertSame(hit, injector.getHrService());
     }
 
     @Test
@@ -488,30 +242,6 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
         assertNotNull(inject.getService());
     }
 
-    public interface InjectHeritage {
-
-        @Inject
-        void setTestService(TestService service);
-    }
-
-    public class InheritedInject implements InjectHeritage {
-        private TestService service;
-
-        @Override
-        public void setTestService(TestService service) {
-            this.service = service;
-        }
-
-        public TestService getService() {
-            return service;
-        }
-    }
-
-    @Expose(exposedType = TestService.class)
-    public class Blotter implements TestService {
-
-    }
-
     @Test
     public void blotMe() {
         InheritedInject inheritedInject = new InheritedInject();
@@ -521,21 +251,16 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
         assertNotNull(inheritedInject.getService());
     }
 
-    public static class ConstructedObject {
-
-        public ConstructedObject(TestService testService) {
-            assertNotNull(testService);
-        }
-
-        @Expose
-        public TestService2 getMe() {
-            return new TestService2() {};
-        }
-    }
-
     @Test
     public void autoConstructInject() {
-
+        ConstructorExposer.instance = null;
+        ObjectManager objectManager = manage(null, ConstructorExposer.class);
+        assertNull(ConstructorExposer.instance);
+        getContext().register(new TestService() {}, TestService.class);
+        assertNotNull("Should have instanceof " + ConstructorExposer.class, ConstructorExposer.instance);
+        List<BonyRegistration<TestService2>> registrations = getContext().registrations(TestService2.class);
+        assertNotNull(registrations);
+        assertEquals(1, registrations.size());
     }
 }
 

@@ -22,6 +22,7 @@ import org.objectweb.asm.ClassReader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -40,7 +41,12 @@ class BytecodesReader implements AnnotationReader {
     }
 
     @Override
-    public Map<Method, List<List<AnnotationDatum<Integer>>>> readAllParameters() {
+    public Map<Constructor, List<List<AnnotationDatum<Integer>>>> readAllConstructorParameters() {
+        return Collections.emptyMap();
+    }
+
+    @Override
+    public Map<Method, List<List<AnnotationDatum<Integer>>>> readAllMethodParameters() {
         return Collections.emptyMap();
     }
 
@@ -51,6 +57,11 @@ class BytecodesReader implements AnnotationReader {
 
     @Override
     public Map<Field, List<AnnotationDatum<Field>>> readAllFields() {
+        return Collections.emptyMap();
+    }
+
+    @Override
+    public Map<Constructor, List<AnnotationDatum<Constructor>>> readAllConstructors() {
         return Collections.emptyMap();
     }
 

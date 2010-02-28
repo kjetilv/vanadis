@@ -116,12 +116,10 @@ final class ObjectManagerFactoryImpl implements ObjectManagerFactory {
         if (specification.isGlobalProperties()) {
             PortUtils.writeToSystemProperties(specification.getPropertySet(), context.getLocation());
         }
-        Object object = newInstance();
         ObjectManager objectManager =
-                ObjectManagerImpl.create(context, specification, null, object, observer, dispatch);
+                ObjectManagerImpl.create(context, specification, implementationClass , observer, dispatch);
         managers.put(specification, objectManager);
-        log.info(this + " received " + specification + ", created " + object + " of " + object.getClass() +
-                ", managing it with " + objectManager);
+        log.info(this + " received " + specification + ", created " + objectManager);
         return objectManager;
     }
 
@@ -137,14 +135,6 @@ final class ObjectManagerFactoryImpl implements ObjectManagerFactory {
         jmxRegistration.unregister();
         for (ObjectManager objectManager : managers.values()) {
             objectManager.shutdown();
-        }
-    }
-
-    private Object newInstance() {
-        try {
-            return implementationClass.newInstance();
-        } catch (Exception e) {
-            throw new ModuleSystemException(this + " failed to create instance of " + implementationClass, e);
         }
     }
 

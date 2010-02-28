@@ -23,6 +23,7 @@ import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
 
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -35,17 +36,25 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
 
     private final Map<String, List<AnnotationDatum<Method>>> methodsByType;
 
+    private final Map<String, List<AnnotationDatum<Constructor>>> constructorsByType;
+
     private final Map<String, List<AnnotationDatum<Field>>> fieldsByType;
+
+    private final Map<Constructor, List<AnnotationDatum<Constructor>>> constructorAnnotations;
 
     private final Map<Method, List<AnnotationDatum<Method>>> methodAnnotations;
 
     private final Map<Field, List<AnnotationDatum<Field>>> fieldAnnotations;
+
+    private final Iterable<AnnotationDatum<Constructor>> constructors;
 
     private final Iterable<AnnotationDatum<Method>> methods;
 
     private final Iterable<AnnotationDatum<Field>> fields;
 
     private final List<Class<?>> typeChain;
+
+    private final Map<Constructor, List<List<AnnotationDatum<Integer>>>> constructorParametersAnnotations;
 
     private final Map<Method, List<List<AnnotationDatum<Integer>>>> methodParametersAnnotations;
 
@@ -77,12 +86,16 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
         }
         this.classAnnotations = reader.annotations();
         this.fieldAnnotations = reader.readAllFields();
+        this.constructorAnnotations = reader.readAllConstructors();
+        this.constructorParametersAnnotations = reader.readAllConstructorParameters();
         this.methodAnnotations = reader.readAllMethods();
-        this.methodParametersAnnotations = reader.readAllParameters();
+        this.methodParametersAnnotations = reader.readAllMethodParameters();
         this.fieldsByType = annotatedFields();
-        this.fields = Iterables.chain(fieldAnnotations.values());
         this.methodsByType = annotatedMetods();
+        this.constructorsByType = annotatedConstructors();
+        this.fields = Iterables.chain(fieldAnnotations.values());
         this.methods = Iterables.chain(methodAnnotations.values());
+        this.constructors = Iterables.chain(constructorAnnotations.values());
         if (inherits) {
             indexMethodOverrides();
         }
@@ -96,6 +109,11 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     @Override
     public Iterable<AnnotationDatum<Field>> fieldData(Field field) {
         return fieldAnnotations.get(field);
+    }
+
+    @Override
+    public List<List<AnnotationDatum<Integer>>> parameterData(Constructor constructor) {
+        return constructorParametersAnnotations.get(constructor);
     }
 
     @Override
@@ -176,6 +194,11 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     }
 
     @Override
+    public List<AnnotationDatum<Constructor>> getConstructorData(Class<?> type) {
+        return getConstructorData(name(type));
+    }
+
+    @Override
     public List<AnnotationDatum<Field>> getFieldData(String type) {
         List<AnnotationDatum<Field>> data = fieldsByType.get(type);
         return data == null ? Collections.<AnnotationDatum<Field>>emptyList() : data;
@@ -185,6 +208,12 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     public List<AnnotationDatum<Method>> getMethodData(String type) {
         List<AnnotationDatum<Method>> data = methodsByType.get(type);
         return data == null ? Collections.<AnnotationDatum<Method>>emptyList() : data;
+    }
+
+    @Override
+    public List<AnnotationDatum<Constructor>> getConstructorData(String type) {
+        List<AnnotationDatum<Constructor>> data = constructorsByType.get(type);
+        return data == null ? Collections.<AnnotationDatum<Constructor>>emptyList() : data;
     }
 
     @Override
@@ -198,7 +227,25 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     }
 
     @Override
-    public Map<Method, List<List<AnnotationDatum<Integer>>>> getParameterDataIndex(Class<?> type) {
+    public Map<Constructor, List<List<AnnotationDatum<Integer>>>> getConstructorParameterDataIndex(Class<?> type) {
+        Map<Constructor, List<List<AnnotationDatum<Integer>>>> map = Generic.map();
+        for (Map.Entry<Constructor,List<List<AnnotationDatum<Integer>>>> entry : constructorParametersAnnotations.entrySet()) {
+            List<List<AnnotationDatum<Integer>>> filteredDataLists = Generic.list();
+            List<List<AnnotationDatum<Integer>>> storedDataLists = entry.getValue();
+            for (List<AnnotationDatum<Integer>> storedData : storedDataLists) {
+                List<AnnotationDatum<Integer>> filteredData = Generic.list();
+                for (AnnotationDatum<Integer> storedDatum : storedData) {
+                    if (storedDatum.isType(type)) { filteredData.add(storedDatum); }
+                }
+                filteredDataLists.add(filteredData);
+            }
+            map.put(entry.getKey(), filteredDataLists);
+        }
+        return map;
+    }
+
+    @Override
+    public Map<Method, List<List<AnnotationDatum<Integer>>>> getMethodParameterDataIndex(Class<?> type) {
         Map<Method, List<List<AnnotationDatum<Integer>>>> map = Generic.map();
         for (AnnotationDatum<Method> datum : getMethodData(type)) {
             Method element = datum.getElement();
@@ -276,29 +323,28 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
     }
 
     private Map<String, List<AnnotationDatum<Method>>> annotatedMetods() {
-        if (methodAnnotations == null || methodAnnotations.isEmpty()) {
-            return Collections.emptyMap();
-        }
-        Map<String, List<AnnotationDatum<Method>>> map = Generic.map();
-        for (Map.Entry<Method, List<AnnotationDatum<Method>>> entry : methodAnnotations.entrySet()) {
-            for (AnnotationDatum<Method> data : entry.getValue()) {
-                mappedList(map, data.annotationType()).add(data);
-            }
-        }
-        return map;
+        return mapByName(methodAnnotations);
+    }
+
+    private Map<String, List<AnnotationDatum<Constructor>>> annotatedConstructors() {
+        return mapByName(constructorAnnotations);
     }
 
     private Map<String, List<AnnotationDatum<Field>>> annotatedFields() {
-        if (fieldAnnotations == null || fieldAnnotations.isEmpty()) {
+        return mapByName(fieldAnnotations);
+    }
+
+    private <T> Map<String,List<AnnotationDatum<T>>> mapByName(Map<T, List<AnnotationDatum<T>>> map) {
+        if (map == null || map.isEmpty()) {
             return Collections.emptyMap();
         }
-        Map<String, List<AnnotationDatum<Field>>> map = Generic.map();
-        for (Map.Entry<Field, List<AnnotationDatum<Field>>> entry : fieldAnnotations.entrySet()) {
-            for (AnnotationDatum<Field> data : entry.getValue()) {
-                mappedList(map, data.annotationType()).add(data);
+        Map<String, List<AnnotationDatum<T>>> byName = Generic.map();
+        for (Map.Entry<T, List<AnnotationDatum<T>>> entry : map.entrySet()) {
+            for (AnnotationDatum<T> data : entry.getValue()) {
+                mappedList(byName, data.annotationType()).add(data);
             }
         }
-        return map;
+        return byName;
     }
 
     private void indexMethodOverrides() {

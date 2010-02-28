@@ -60,7 +60,7 @@ public class ManagedDynamicMBeanType {
         this.attributeMethods = organizeAttributes(digest.getMethodData(this.mapping.getFieldType()));
         this.attributeFields = digest.getFieldDataIndex(this.mapping.getFieldType());
         this.operations = digest.getMethodDataIndex(this.mapping.getOperationType());
-        this.operationParams = digest.getParameterDataIndex(this.mapping.getOperationType());
+        this.operationParams = digest.getMethodParameterDataIndex(this.mapping.getOperationType());
         MBeanAttributeInfo[] attributeInfoArray = attributeInfos();
         MBeanOperationInfo[] operationInfoArray = operationInfos();
         this.mBeanInfo = info(type, null, managed, attributeInfoArray, operationInfoArray);

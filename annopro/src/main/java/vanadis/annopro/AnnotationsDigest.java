@@ -16,6 +16,7 @@
 
 package vanadis.annopro;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -32,6 +33,8 @@ public interface AnnotationsDigest {
     Iterable<AnnotationDatum<Method>> methodData(Method method);
 
     Iterable<AnnotationDatum<Field>> fieldData(Field field);
+
+    List<List<AnnotationDatum<Integer>>> parameterData(Constructor constructor);
 
     List<List<AnnotationDatum<Integer>>> parameterData(Method method);
 
@@ -55,7 +58,11 @@ public interface AnnotationsDigest {
 
     List<AnnotationDatum<Method>> getMethodData(Class<?> type);
 
-    Map<Method, List<List<AnnotationDatum<Integer>>>> getParameterDataIndex(Class<?> type);
+    List<AnnotationDatum<Constructor>> getConstructorData(Class<?> type);
+
+    Map<Constructor, List<List<AnnotationDatum<Integer>>>> getConstructorParameterDataIndex(Class<?> type);
+
+    Map<Method, List<List<AnnotationDatum<Integer>>>> getMethodParameterDataIndex(Class<?> type);
 
     Map<String, AnnotationDatum<Method>> getMethodDataIndex(Class<?> type);
 
@@ -66,6 +73,8 @@ public interface AnnotationsDigest {
     List<AnnotationDatum<Field>> getFieldData(String type);
 
     List<AnnotationDatum<Method>> getMethodData(String type);
+
+    List<AnnotationDatum<Constructor>> getConstructorData(String type);
 
     boolean hasClassData(Class<?>... classes);
 

@@ -53,6 +53,7 @@ abstract class AccessibleInjector<T> extends Injector<T> {
         getContext().removeContextListener(contextListener);
     }
 
+    @SuppressWarnings({"unchecked"})
     @Override
     protected final void doActivate() {
         ContextListener<?> listener = getQueuer() == null

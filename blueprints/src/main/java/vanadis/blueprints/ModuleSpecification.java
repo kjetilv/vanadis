@@ -25,8 +25,11 @@ import vanadis.core.properties.PropertySet;
 import java.net.URI;
 import java.util.Collections;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 public final class ModuleSpecification extends AbstractSpecification {
+
+    private static final AtomicLong counter = new AtomicLong();
 
     public static ModuleSpecification create(String type) {
         return new ModuleSpecification(type, type, null, null, null, null);
@@ -68,9 +71,21 @@ public final class ModuleSpecification extends AbstractSpecification {
     }
 
     public static ModuleSpecification createDefault(Object managed) {
-        String typeName = Not.nil(managed, "managed").getClass().getName();
-        String instanceName = managed.getClass().getSimpleName() + "@" +
-                System.identityHashCode(managed);
+        return doCreateDefault(Not.nil(managed, "managed"), managed.getClass());
+    }
+
+    public static ModuleSpecification createDefault(Class<?> managedType) {
+        return doCreateDefault(null, Not.nil(managedType, "managed type"));
+    }
+
+    public static ModuleSpecification createDefault(Object managed, Class<?> managedType) {
+        return doCreateDefault(managed, managedType == null ? Not.nil(managed, "managed").getClass() : managedType);
+    }
+
+    private static ModuleSpecification doCreateDefault(Object managed, Class<?> managedType) {
+        String typeName = managedType.getName();
+        String instanceName = managedType.getSimpleName() + "@" +
+                (managed == null ? "T" + counter.incrementAndGet() : System.identityHashCode(managed));
         return new ModuleSpecification(typeName, instanceName, null, null, null, null);
     }
 

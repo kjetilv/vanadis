@@ -23,6 +23,7 @@ import vanadis.core.reflection.Invoker;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -47,23 +48,33 @@ final class ClassObjectReader implements AnnotationReader {
     }
 
     @Override
-    public Map<Method, List<List<AnnotationDatum<Integer>>>> readAllParameters() {
+    public Map<Constructor, List<List<AnnotationDatum<Integer>>>> readAllConstructorParameters() {
+        Map<Constructor, List<List<AnnotationDatum<Integer>>>> map = Generic.linkedHashMap();
+        Constructor<?>[] constructors = typeChain.get(0).getConstructors();
+        for (Constructor<?> constructor : constructors) {
+            map.put(constructor, listParameterAnnotations(constructor.getParameterAnnotations()));
+        }
+        return map;
+    }
+
+    @Override
+    public Map<Method, List<List<AnnotationDatum<Integer>>>> readAllMethodParameters() {
         Map<Method, List<List<AnnotationDatum<Integer>>>> map = Generic.linkedHashMap();
         Set<Method> methods = allMethods();
         for (Method method : methods) {
-            List<List<AnnotationDatum<Integer>>> parametersAnnotations = Generic.list();
-            Annotation[][] parametersAnnotationsArray = method.getParameterAnnotations();
-            for (Annotation[] parameterAnnotationsArray : parametersAnnotationsArray) {
-                List<AnnotationDatum<Integer>> parameterAnnotations = Generic.list();
-                for (int i = 0; i < parameterAnnotationsArray.length; i++) {
-                    Annotation annotation = parameterAnnotationsArray[i];
-                    parameterAnnotations.add(datum(i, annotation));
-                }
-                parametersAnnotations.add(parameterAnnotations);
-            }
-            map.put(method, parametersAnnotations);
+            map.put(method, listParameterAnnotations(method.getParameterAnnotations()));
         }
         return map;
+    }
+
+    @SuppressWarnings({"unchecked"})
+    @Override
+    public Map<Constructor, List<AnnotationDatum<Constructor>>> readAllConstructors() {
+        Map<Constructor, List<AnnotationDatum<Constructor>>> constructors = Generic.linkedHashMap();
+        for (Constructor<?> constructor : typeChain.get(0).getConstructors()) {
+            constructors.put(constructor, readAllFromConstructor(constructor));
+        }
+        return constructors;
     }
 
     @Override
@@ -95,6 +106,19 @@ final class ClassObjectReader implements AnnotationReader {
             map.put(field, readAllFromField(field));
         }
         return map;
+    }
+
+    private List<List<AnnotationDatum<Integer>>> listParameterAnnotations(Annotation[][] parametersAnnotationsArray) {
+        List<List<AnnotationDatum<Integer>>> parametersAnnotations = Generic.list();
+        for (Annotation[] parameterAnnotationsArray : parametersAnnotationsArray) {
+            List<AnnotationDatum<Integer>> parameterAnnotations = Generic.list();
+            for (int i = 0; i < parameterAnnotationsArray.length; i++) {
+                Annotation annotation = parameterAnnotationsArray[i];
+                parameterAnnotations.add(datum(i, annotation));
+            }
+            parametersAnnotations.add(parameterAnnotations);
+        }
+        return parametersAnnotations;
     }
 
     private static <E> void loadInto(Map<String, AnnotationDatum<E>> map, Annotation annotation, E element) {
@@ -248,6 +272,14 @@ final class ClassObjectReader implements AnnotationReader {
         List<AnnotationDatum<Field>> list = Generic.list();
         for (Annotation annotation : field.getAnnotations()) {
             list.add(datum(field, annotation));
+        }
+        return list;
+    }
+
+    private static List<AnnotationDatum<Constructor>> readAllFromConstructor(Constructor constructor) {
+        List<AnnotationDatum<Constructor>> list = Generic.list();
+        for (Annotation annotation : constructor.getAnnotations()) {
+            list.add(datum(constructor, annotation));
         }
         return list;
     }

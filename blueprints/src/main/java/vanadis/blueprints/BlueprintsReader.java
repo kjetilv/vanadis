@@ -290,24 +290,24 @@ public class BlueprintsReader {
     }
 
     private static void addModules(List<JAXBElement<?>> children, List<ModuleSpecification> modules) {
-        for (ModuleType moduleType : scan(ModuleType.class, children)) {
-            modules.add(toModuleSpecification(moduleType)); // features(moduleType)));
+        for (ModuleType element : scan(ModuleType.class, children)) {
+            modules.add(toModuleSpecification(element));
         }
     }
 
-    public static ModuleSpecification toModuleSpecification(JAXBElement<?> moduleType) {
-        if (moduleType.getDeclaredType().equals(ModuleType.class)) {
-            return toModuleSpecification((ModuleType) moduleType.getValue());
+    public static ModuleSpecification toModuleSpecification(JAXBElement<?> element) {
+        if (element.getDeclaredType().equals(ModuleType.class)) {
+            return toModuleSpecification((ModuleType) element.getValue());
         }
-        if (moduleType.getDeclaredType().equals(BlueprintType.class)) {
-            return toModuleSpecification(((BlueprintType)moduleType.getValue()).getBundlesOrAutoBundleOrBundle().get(0));
+        if (element.getDeclaredType().equals(BlueprintType.class)) {
+            return toModuleSpecification(((BlueprintType)element.getValue()).getBundlesOrAutoBundleOrBundle().get(0));
         }
-        if (moduleType.getDeclaredType().equals(BlueprintsType.class)) {
-            return toModuleSpecification(((BlueprintsType)moduleType.getValue()).getBlueprint().get(0));
+        if (element.getDeclaredType().equals(BlueprintsType.class)) {
+            return toModuleSpecification(((BlueprintsType)element.getValue()).getBlueprint().get(0));
         }
         throw new IllegalArgumentException
                 ("Invalid JAXBElement, expected value of " + ModuleType.class +
-                        ", got " + moduleType.getDeclaredType());
+                        ", got " + element.getDeclaredType());
     }
 
     private static ModuleSpecification toModuleSpecification(BlueprintType blueprintType) {
@@ -315,30 +315,32 @@ public class BlueprintsReader {
                 (scan(ModuleType.class, blueprintType.getBundlesOrAutoBundleOrBundle()).iterator().next());
     }
 
-    private static ModuleSpecification toModuleSpecification(ModuleType moduleType) {
-        String name = r(moduleType.getName());
-        String type = r(moduleType.getType());
+    private static ModuleSpecification toModuleSpecification(ModuleType element) {
+        String name = r(element.getName());
+        String type = r(element.getType());
         return ModuleSpecification.create(type, name == null ? type : name,
                                           properties(scan(PropertiesType.class,
-                                                          moduleType.getPropertiesOrInjectOrExpose())),
-                                          toBool(moduleType.getGlobalProperties()),
-                                          r(moduleType.getConfigurationPid()),
-                                          features(moduleType));
+                                                          element.getPropertiesOrInjectOrExpose())),
+                                          toBool(element.getGlobalProperties()),
+                                          r(element.getConfigurationPid()),
+                                          features(element));
     }
 
-    private static Iterable<ModuleSpecificationFeature> features(ModuleType moduleType) {
+    private static Iterable<ModuleSpecificationFeature> features(ModuleType element) {
         List<ModuleSpecificationFeature> features = Generic.list();
-        features(moduleType, features, ModuleSpecificationFeatureType.EXPOSE);
-        features(moduleType, features, ModuleSpecificationFeatureType.TRACK);
-        features(moduleType, features, ModuleSpecificationFeatureType.INJECT);
+        addTo(features, element, ModuleSpecificationFeatureType.EXPOSE);
+        addTo(features, element, ModuleSpecificationFeatureType.TRACK);
+        addTo(features, element, ModuleSpecificationFeatureType.INJECT);
         return features;
     }
 
-    private static void features(ModuleType moduleType, List<ModuleSpecificationFeature> features, ModuleSpecificationFeatureType type) {
+    private static void addTo(List<ModuleSpecificationFeature> features,
+                              ModuleType element,
+                              ModuleSpecificationFeatureType type) {
         String msft = type.name().toLowerCase();
         Iterable<FeatureType> iterable = scan(FeatureType.class,
                                               msft,
-                                              moduleType.getPropertiesOrInjectOrExpose());
+                                              element.getPropertiesOrInjectOrExpose());
         for (FeatureType featureType : iterable) {
             PropertySet propertySet = properties(featureType.getProperties());
             features.add(new ModuleSpecificationFeature(r(featureType.getName()), type, propertySet));

@@ -39,23 +39,34 @@ import vanadis.osgi.ServiceProperties;
 import javax.management.DynamicMBean;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static vanadis.objectmanagers.ManagedState.*;
 
-final class ObjectManagerImpl implements ObjectManager, InjectionListener {
+final class ObjectManagerImpl implements ObjectManager, InjectionListener, ConstructionListener {
 
     static <T> ObjectManager create(Context context, ModuleSpecification moduleSpecification,
-                                    Class<T> managedClass, T managed,
+                                    Class<T> type,
                                     ObjectManagerObserver observer, OperationQueuer dispatch) {
+        return create(context, moduleSpecification, type, null, observer, dispatch);
+    }
+
+    @SuppressWarnings({"unchecked"})
+    static <T> ObjectManager create(Context context, ModuleSpecification moduleSpecification,
+                                    Class<T> type, T managed,
+                                    ObjectManagerObserver observer, OperationQueuer dispatch) {
+        Class<T> managedType = type == null ? (Class<T>)managed.getClass() : type;
+        AnnotationsDigest digest = ValidAnnotations.read(managedType);
+        T managedInstance = managed == null
+                ? isNoArgConstructable(digest) ? newInstance(managedType) : null
+                : managed;
         return new ObjectManagerImpl(context, moduleSpecification,
-                                     managedClass, managed,
+                                     managedType, managedInstance, digest,
                                      observer, dispatch);
     }
 
@@ -64,6 +75,8 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
     private final ModuleSpecification moduleSpecification;
 
     private final Class<?> managedClass;
+
+    private final AtomicBoolean managedSet = new AtomicBoolean();
 
     private final AtomicReference<Object> managed = new AtomicReference<Object>();
 
@@ -80,11 +93,17 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
     private final DependencyTracker<Injector<?>> injectorDependencyTracker = new DependencyTracker<Injector<?>>();
 
     /**
+     * Tracks constructor injectors such as {@link vanadis.extrt.MethodInjector}
+     * and {@link vanadis.extrt.TrackingInjector}.
+     */
+    private final DependencyTracker<Injector<?>> constructorDependencyTracker = new DependencyTracker<Injector<?>>();
+
+    /**
      * Tracks {@link MethodExposer} instances.
      */
     private final DependencyTracker<Exposer<?>> exposerDependencyTracker = new DependencyTracker<Exposer<?>>();
 
-    private final Set<Configurer> configurers;
+    private final Set<Configurer> configurers = Generic.set();
 
     private final ObjectManagerFailureTracker failureTracker = new ObjectManagerFailureTracker();
 
@@ -98,26 +117,21 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
 
     private final ModuleSystemCallback asynchModuleSystemCallback;
 
+    private final List<ConstructorGatherer> constructorGatherers;
+
     private ObjectManagerImpl(Context context, ModuleSpecification moduleSpecification,
                               Class<?> managedClass, Object managed,
-                              ObjectManagerObserver observer,
+                              AnnotationsDigest digest, ObjectManagerObserver observer,
                               OperationQueuer queuer) {
         this.context = Not.nil(context, "context");
-        validate(this.context, managedClass, managed);
-        if (managed != null) {
-            this.managed.set(managed);
-        }
-        this.managedClass = managedClass == null ? this.managed.get().getClass() : managedClass;
+        this.annotationsDigest = Not.nil(digest, "digest");
+        this.managedClass = Not.nil(managedClass, "managed class");
         this.managedClassLoader = this.managedClass.getClassLoader();
         this.state = new ObjectManagerState(this, observer, failureTracker);
-        this.annotationsDigest = ValidAnnotations.read(this.managed.get());
         this.moduleSpecification = moduleSpecification == null
-            ? ModuleSpecification.createDefault(this.managed.get())
-            : moduleSpecification;
+                ? ModuleSpecification.createDefault(this.managed.get(), this.managedClass)
+                : moduleSpecification;
         this.queuer = queuer;
-
-        configurers = setupConfigurers(this.context.getLocation());
-        setupManagedFeatures();
 
         this.asyncInjectionListener = asynchInjectionListener();
         this.asynchModuleSystemCallback = asynchCallback();
@@ -125,13 +139,12 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
         this.registration = this.context.register(this, objectManagerServiceProperties());
         this.jmxRegs.add(objectManagerBean());
 
-        addCustomJmx();
+        constructorGatherers = constructorListeners();
 
-        try {
-            boot();
-        } catch (Throwable e) {
-            log.error(ObjectManagerImpl.this + " failed initialization", e);
-            state.transition(Transition.FAIL);
+        if (managed == null) {
+            startConstructorListeners();
+        } else {
+            startManagedInstance(managed);
         }
     }
 
@@ -234,6 +247,17 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
     }
 
     @Override
+    public void constructionTimeAgain(ConstructorGatherer gatherer) {
+        Object managed = gatherer.create();
+        startManagedInstance(managed);
+    }
+
+    @Override
+    public void destructionTimeAgain(ConstructorGatherer gatherer) {
+
+    }
+
+    @Override
     public void wasInjected(ManagedFeature<?,?> injector) {
         asyncInjectionListener.wasInjected(injector);
     }
@@ -241,6 +265,60 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
     @Override
     public void wasRetracted(ManagedFeature<?, ?> injector) {
         asyncInjectionListener.wasRetracted(injector);
+    }
+
+    private void startConstructorListeners() {
+        for (ConstructorGatherer constructorGatherer : constructorGatherers) {
+            constructorGatherer.activate();
+        }
+    }
+
+    private List<ConstructorGatherer> constructorListeners() {
+        List<ConstructorGatherer> gatherers = Generic.list();
+        Map<Constructor, List<List<AnnotationDatum<Integer>>>> constructors =
+                annotationsDigest.getConstructorParameterDataIndex(Inject.class);
+        int constructorNo = 0;
+        for (Map.Entry<Constructor, List<List<AnnotationDatum<Integer>>>> entry : constructors.entrySet()) {
+            List<AnnotationDatum<Integer>> injectData = Generic.list();
+            for (List<AnnotationDatum<Integer>> data : entry.getValue()) {
+                injectData.addAll(data);
+            }
+            if (!injectData.isEmpty()) {
+                gatherers.add(new ConstructorGatherer
+                        (this, this, entry.getKey(), constructorNo++, managedClassLoader, injectData, context, queuer));
+            }
+        }
+        return gatherers;
+    }
+
+    private void startManagedInstance(Object managed) {
+        if (managed != null) {
+            if (this.managedSet.compareAndSet(false, true)) {
+                if (this.managed.compareAndSet(null, managed)) {
+                    try {
+                        bootSequence();
+                    } catch (Throwable e) {
+                        log.error(ObjectManagerImpl.this + " failed initialization", e);
+                        state.transition(Transition.FAIL);
+                    }
+                } else {
+                    throw new IllegalStateException(this + " expected to find no managed instance");
+                }
+            } else {
+                throw new IllegalStateException("Already has managed instance: " + this.managed.get());
+            }
+        }
+    }
+
+    private void bootSequence() {
+        setupConfigurers();
+        setupManagedFeatures();
+        addCustomJmx();
+        boot();
+    }
+
+    private void setupConfigurers() {
+        configurers.addAll(setupConfigurers(this.context.getLocation()));
     }
 
     private ModuleSystemCallback asynchCallback() {
@@ -268,11 +346,13 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
     }
 
     private void addCustomJmx() {
-        DynamicMBean mbean = mbeans.create(managed.get());
+        Object target = managed.get();
+        if (target == null) {
+            return;
+        }
+        DynamicMBean mbean = mbeans.create(target);
         if (mbean != null) {
-            jmxRegs.add(JmxRegistration.create(context, mbean,
-                                               managedClass.getName(),
-                                               propertySet(getType())));
+            jmxRegs.add(JmxRegistration.create(context, mbean, managedClass.getName(), propertySet(getType())));
         }
     }
 
@@ -336,6 +416,22 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
         }
     }
 
+    private void setupConstructors(Set<String> names) {
+        Map<Constructor,List<List<AnnotationDatum<Integer>>>> constructorAnnotations =
+                annotationsDigest.getConstructorParameterDataIndex(Inject.class);
+        int constructorNo = 0;
+        for (Map.Entry<Constructor, List<List<AnnotationDatum<Integer>>>> entry : constructorAnnotations.entrySet()) {
+            List<List<AnnotationDatum<Integer>>> dataList = entry.getValue();
+            if (!dataList.isEmpty()) {
+                for (List<AnnotationDatum<Integer>> data : dataList) {
+                    for (AnnotationDatum<Integer> datum : data) {
+
+                    }
+                }
+            }
+        }
+    }
+
     private void setupInjectors(Set<String> names) {
         for (AnnotationDatum<Method> datum : annotationsDigest.getMethodData(Inject.class)) {
             setupMethodInjector(names, datum);
@@ -355,8 +451,7 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
             String featureName = validateName(Names.nameOfMethod(datum), names);
             setupMethodInjector(injectMethod, retractMethod, serviceInterface, injectDirective, featureName);
         } else {
-            // It's a scala var field, the real setter gets handled in a different
-            // call to this method.
+            // It's a scala var field, the real setter gets handled in a different call to this method.
         }
     }
 
@@ -432,17 +527,26 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
         setupMethodExposer(method, serviceInterface, expose, featureName);
     }
 
+//    private <T> ConstructorInjector<T> setupConstructorInjector(Constructor constructor,
+//                                                                Class<T> serviceInterface,
+//                                                                Inject inject,
+//                                                                int constructorNo,
+//                                                                int index) {
+//        return track(new ConstructorInjector<T>
+//            (anchor(serviceInterface, constructorNo + "-" + index), inject, this, this));
+//    }
+
     private <T> TrackingInjector<T> setupTracker(AccessibleObject trackObject, Class<T> serviceInterface,
                                                  Track track, String featureName) {
         return track(new TrackingInjector<T>
-            (anchor(serviceInterface, featureName), trackObject, track, this));
+                (anchor(serviceInterface, featureName), trackObject, track, this));
     }
 
     private <T> MethodInjector<T> setupMethodInjector(Method injectMethod, Method retractMethod,
                                                       Class<T> serviceInterface,
                                                       Inject inject, String featureName) {
         return track(new MethodInjector<T>
-            (anchor(serviceInterface, featureName), injectMethod, retractMethod, inject, this));
+                (anchor(serviceInterface, featureName), injectMethod, retractMethod, inject, this));
     }
 
     private <T> FieldInjector<T> setupFieldInjector(Field injectField, Class<T> serviceInterface,
@@ -489,6 +593,11 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
 
     private <T extends Annotation> T proxy(AnnotationDatum<?> datum, Class<T> type) {
         return datum.createProxy(getClass().getClassLoader(), type);
+    }
+
+    private <T, I extends Injector<T>> I trackConstruction(I injector) {
+        constructorDependencyTracker.track(injector);
+        return injector;
     }
 
     private <T, I extends Injector<T>> I track(I injector) {
@@ -588,6 +697,26 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
 
     private static final String SCALASET_SUFFIX = "_$eq";
 
+    private static boolean isNoArgConstructable(AnnotationsDigest digest) {
+        Map<Constructor, List<List<AnnotationDatum<Integer>>>> index = digest.getConstructorParameterDataIndex(Inject.class);
+        for (Map.Entry<Constructor, List<List<AnnotationDatum<Integer>>>> entry : index.entrySet()) {
+            for (List<AnnotationDatum<Integer>> dataList : entry.getValue()) {
+                if (!dataList.isEmpty()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static <T> T newInstance(Class<T> implementationClass) {
+        try {
+            return implementationClass.newInstance();
+        } catch (Exception e) {
+            throw new ModuleSystemException("Failed to create new instance of " + implementationClass, e);
+        }
+    }
+
     private static String scalaSetterFeature(Field field) {
         return field.getName() + SCALASET_SUFFIX;
     }
@@ -595,13 +724,13 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
     private static void validate(Context context, Class<?> managedClass, Object managed) {
         if (managedClass == null && managed == null) {
             throw new IllegalArgumentException
-                ("Neither managed class nor managed instance passed to constructor, context: " + context);
+                    ("Neither managed class nor managed instance passed to constructor, context: " + context);
         }
         if (managedClass != null && managed != null && !managedClass.isInstance(managed)) {
             throw new IllegalArgumentException
-                ("Managed instance " + managed +
-                    " is not an instance of managed " + managedClass +
-                    ", context: " + context);
+                    ("Managed instance " + managed +
+                            " is not an instance of managed " + managedClass +
+                            ", context: " + context);
         }
     }
 
@@ -610,8 +739,8 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
         if (serviceInterface.equals(Reference.class)) {
             if (unannotated) {
                 throw new IllegalArgumentException
-                    (injectPoint + " has annotation with argument of " +
-                        Reference.class + ", annotation should specify service interface");
+                        (injectPoint + " has annotation with argument of " +
+                                Reference.class + ", annotation should specify service interface");
             }
             return annotated;
         }
@@ -632,9 +761,9 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener {
         Class<?>[] addParams = injectMethod.getParameterTypes();
         Class<?>[] removeParams = retractMethod.getParameterTypes();
         return addName.startsWith("add") && removeName.startsWith("remove") &&
-            addName.substring(3).equals(removeName.substring(6)) &&
-            addParams.length >= 1 && removeParams.length == 1 &&
-            addParams[0] == removeParams[0];
+                addName.substring(3).equals(removeName.substring(6)) &&
+                addParams.length >= 1 && removeParams.length == 1 &&
+                addParams[0] == removeParams[0];
     }
 
     private static <M extends ManagedFeature<?, ?>> void deactivate(M managedFeature,

@@ -77,6 +77,7 @@ final class JmxRegistration<T> {
         }
     }
 
+    @SuppressWarnings({"unchecked"})
     private static <T> ServiceProperties<T> serviceProperties(T instance, ObjectName objectName) {
         Class<T> type = (Class<T>) instance.getClass();
         return ServiceProperties.create(type, properties(objectName));

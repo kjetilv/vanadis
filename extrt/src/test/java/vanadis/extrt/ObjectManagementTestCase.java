@@ -29,6 +29,12 @@ public abstract class ObjectManagementTestCase {
     protected static final Location location = new Location("localhost", 4200);
 
     protected ObjectManager manage(ModuleSpecification moduleSpecification,
+                                   Class<?> managedType) {
+        return ObjectManagerImpl.create
+                (context, moduleSpecification, managedType, null, null, null);
+    }
+
+    protected ObjectManager manage(ModuleSpecification moduleSpecification,
                                    Object managed) {
         return ObjectManagerImpl.create
                 (context, moduleSpecification, null, managed, null, null);

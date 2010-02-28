@@ -50,13 +50,10 @@ public class InjectorTest {
     }
 
     public interface HRService {
-
         void complain();
-
     }
 
     public static class HRServiceImpl implements HRService {
-
         @Override
         public void complain() {
             // ignore

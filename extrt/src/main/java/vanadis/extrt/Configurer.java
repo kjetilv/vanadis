@@ -23,6 +23,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import vanadis.annopro.AnnotationDatum;
 import vanadis.common.io.Location;
+import vanadis.core.lang.Not;
 import vanadis.core.lang.Strings;
 import vanadis.core.lang.ToString;
 import vanadis.core.properties.PropertySet;
@@ -69,7 +70,7 @@ class Configurer {
 
     Configurer(Object managed, Location location, AnnotationDatum<?> datum,
                PropertySet moduleSpecificationPropertySet) {
-        this.managed = managed;
+        this.managed = Not.nil(managed, "managed");
         this.location = location;
         this.moduleSpecificationPropertySet = moduleSpecificationPropertySet == null
             ? PropertySets.EMPTY
