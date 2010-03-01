@@ -46,6 +46,8 @@ class Configurer {
 
     private static final Logger log = LoggerFactory.getLogger(Configurer.class);
 
+    private static final ClassLoader CLASS_LOADER = Configurer.class.getClassLoader();
+
     private final AnnotationDatum<?> datum;
 
     private final Object managed;
@@ -72,14 +74,13 @@ class Configurer {
                PropertySet moduleSpecificationPropertySet) {
         this.managed = Not.nil(managed, "managed");
         this.location = location;
-        this.moduleSpecificationPropertySet = moduleSpecificationPropertySet == null
-            ? PropertySets.EMPTY
+        this.moduleSpecificationPropertySet = moduleSpecificationPropertySet == null ? PropertySets.EMPTY
             : moduleSpecificationPropertySet.copy(false);
         this.datum = datum;
         element = datum.getElement();
         propertyType = typeOf(element);
         if (datum.isType(Configure.class)) {
-            Configure configure = datum.createProxy(getClass().getClassLoader(), Configure.class);
+            Configure configure = datum.createProxy(CLASS_LOADER, Configure.class);
             required = configure.required();
             propertyName = propertyName(element, configure.name());
             defaultValue = defaultValue(configure);
@@ -182,12 +183,6 @@ class Configurer {
         throw new IllegalStateException(this + " could not convert properties to " + type + ": " + set);
     }
 
-    private static <E> Class<?> typeOf(E element) {
-        return element instanceof Method
-            ? ((Method) element).getParameterTypes()[0]
-            : ((Field) element).getType();
-    }
-
     private Node getXml() {
         return moduleSpecificationPropertySet.has(Node.class, propertyName)
             ? moduleSpecificationPropertySet.get(Node.class, propertyName)
@@ -213,27 +208,6 @@ class Configurer {
             throw new IllegalArgumentException
                 (this + " got value of " + node.getClass() + " for argument of " + propertyType);
         }
-    }
-
-    private static DocumentBuilder documentBuilder() {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        try {
-            return documentBuilderFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            throw new IllegalStateException("Failed to create document builder", e);
-        }
-    }
-
-    private static Document toDocument(Element original) {
-        Document document = documentBuilder().newDocument();
-        Node clone = original.cloneNode(true);
-        document.adoptNode(clone);
-        document.appendChild(clone);
-        return document;
-    }
-
-    private static Element documentElement(Node node) {
-        return ((Document) node).getDocumentElement();
     }
 
     private void setPropertyValue(Object configured, boolean xml, PropertySet variables,
@@ -278,6 +252,33 @@ class Configurer {
             return adjustedPort.toLocationString();
         }
         return value;
+    }
+
+    private static <E> Class<?> typeOf(E element) {
+        return element instanceof Method
+            ? ((Method) element).getParameterTypes()[0]
+            : ((Field) element).getType();
+    }
+
+    private static DocumentBuilder documentBuilder() {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        try {
+            return documentBuilderFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            throw new IllegalStateException("Failed to create document builder", e);
+        }
+    }
+
+    private static Document toDocument(Element original) {
+        Document document = documentBuilder().newDocument();
+        Node clone = original.cloneNode(true);
+        document.adoptNode(clone);
+        document.appendChild(clone);
+        return document;
+    }
+
+    private static Element documentElement(Node node) {
+        return ((Document) node).getDocumentElement();
     }
 
     private static String propertyName(Object object, String annotatedName) {
