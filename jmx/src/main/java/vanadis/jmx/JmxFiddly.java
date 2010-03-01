@@ -30,10 +30,10 @@ class JmxFiddly {
                              attributeInfos, null, operationInfos, null);
     }
 
-    static MBeanAttributeInfo beanAttributeInfo(String name, Field field) {
-        Attr annotation = field.getAnnotation(Attr.class);
+    static MBeanAttributeInfo beanAttributeInfo(String name, AnnotationDatum<Field> datum) {
+        Attr annotation = attr(datum);
         return new MBeanAttributeInfo(name,
-                                      annotation.asString() ? STRING : namedType(field.getType()),
+                                      asString(annotation) ? STRING : namedType(datum.getElement().getType()),
                                       annotation.desc(),
                                       true,
                                       false,
@@ -197,11 +197,9 @@ class JmxFiddly {
     }
 
     private static MBeanParameterInfo paramInfo(Class<?> parameterType, Param[] paramArray, int index) {
-        if (index < paramArray.length) {
-            Param param = paramArray[index];
-            return new MBeanParameterInfo(param.name(), namedType(parameterType), param.desc());
-        }
-        return new MBeanParameterInfo("param" + index, namedType(parameterType), "param" + index);
+        return paramArray != null && index < paramArray.length
+                ? new MBeanParameterInfo(paramArray[index].name(), namedType(parameterType), paramArray[index].desc()) 
+                : new MBeanParameterInfo("param" + index, namedType(parameterType), "param" + index);
     }
 
     private static boolean empty(List<List<AnnotationDatum<Integer>>> params) {

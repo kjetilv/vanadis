@@ -108,9 +108,7 @@ public class ManagedDynamicMBeanType {
             infos.add(beanAttributeInfo(name, pair));
         }
         for (Map.Entry<String, AnnotationDatum<Field>> entry : attributeFields.entrySet()) {
-            String name = entry.getKey();
-            Field field = entry.getValue().getElement();
-            infos.add(beanAttributeInfo(name, field));
+            infos.add(beanAttributeInfo(entry.getKey(), entry.getValue()));
         }
         return infos.toArray(new MBeanAttributeInfo[infos.size()]);
     }
