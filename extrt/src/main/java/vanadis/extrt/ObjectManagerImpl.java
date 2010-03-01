@@ -297,9 +297,10 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener, Const
                 if (this.managed.compareAndSet(null, managed)) {
                     try {
                         bootSequence();
-                    } catch (Throwable e) {
+                    } catch (RuntimeException e) {
                         log.error(ObjectManagerImpl.this + " failed initialization", e);
                         state.transition(Transition.FAIL);
+                        throw e;
                     }
                 } else {
                     throw new IllegalStateException(this + " expected to find no managed instance");

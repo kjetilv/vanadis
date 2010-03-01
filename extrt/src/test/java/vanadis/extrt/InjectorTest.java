@@ -197,16 +197,12 @@ public class InjectorTest {
 
     private void dismiss(Object employee) {
         try {
-            Assert.fail(ObjectManagerImpl.create(context, null, null, employee,
-                                                 null, null) +
+            Assert.fail(ObjectManagerImpl.create(context, null, null, employee, null, null) +
                     " should not get the job!");
-        } catch (ModuleSystemException ignore) {
-        }
+        } catch (ModuleSystemException ignore) { }
     }
 
     private void hire(Object employee) {
-        ObjectManagerImpl.create(context, null, null, employee,
-                                 null, null);
+        ObjectManagerImpl.create(context, null, null, employee, null, null);
     }
-
 }
