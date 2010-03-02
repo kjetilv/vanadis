@@ -74,8 +74,8 @@ public class BlueprintsReader {
                                   List<String> bootConfigPaths,
                                   List<String> bootConfigResources) {
         Not.nil(resourceLoader, "resourceLoader");
-        Iterable<String> bootPaths = bootConfigPaths == null ? Collections.<String>emptyList()
-                : bootConfigPaths;
+        Iterable<String> bootPaths =
+                bootConfigPaths == null ? Collections.<String>emptyList() : bootConfigPaths;
         Iterable<String> bootResources =
                 resolveResources(bootConfigPaths == null ? Collections.<String>emptyList() : bootConfigPaths,
                                  bootConfigResources);

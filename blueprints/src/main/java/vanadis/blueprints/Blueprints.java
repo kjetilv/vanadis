@@ -15,6 +15,7 @@
  */
 package vanadis.blueprints;
 
+import vanadis.common.test.ForTestingPurposes;
 import vanadis.core.collections.Generic;
 import vanadis.core.lang.Not;
 import vanadis.core.lang.ToString;
@@ -29,14 +30,12 @@ public final class Blueprints implements Iterable<String>, Serializable {
 
     private final List<URI> sources;
 
-    public Blueprints(URI source, Blueprint... blueprints) {
-        this(Collections.singletonList(source), null,
-             Arrays.<Blueprint>asList(Not.emptyVarArgs(blueprints, "blueprints")), false);
-    }
-
-    public Blueprints(URI source, Blueprints blueprints, Blueprint... blueprintArray) {
-        this(Collections.singletonList(source), blueprints,
-             Arrays.<Blueprint>asList(Not.emptyVarArgs(blueprintArray, "blueprints")), false);
+    @ForTestingPurposes
+    Blueprints(URI source, Blueprint... blueprints) {
+        this(Collections.singletonList(source),
+             null,
+             Arrays.<Blueprint>asList(Not.emptyVarArgs(blueprints, "blueprints")),
+             false);
     }
 
     public Blueprints(URI source, Blueprints blueprints, Collection<Blueprint> blueprintCollection) {
@@ -53,11 +52,6 @@ public final class Blueprints implements Iterable<String>, Serializable {
         }
     }
 
-    public Blueprints combinedWith(Blueprints blueprints) {
-        return blueprints == null ? this
-                : new Blueprints(sources, blueprints, this.blueprints.values(), true);
-    }
-
     public Blueprints validate() {
         return new Blueprints(sources, null, blueprints.values(), true);
     }
@@ -65,10 +59,6 @@ public final class Blueprints implements Iterable<String>, Serializable {
     @Override
     public Iterator<String> iterator() {
         return blueprints.keySet().iterator();
-    }
-
-    public List<URI> getSources() {
-        return sources;
     }
 
     public SystemSpecification getSystemSpecification(URI root, String... blueprintNames) {
@@ -92,15 +82,6 @@ public final class Blueprints implements Iterable<String>, Serializable {
 
     public Blueprint getBlueprint(String nodeName) {
         return blueprints.get(nodeName);
-    }
-
-    public boolean hasBlueprints(String... names) {
-        for (String name : names) {
-            if (!blueprints.containsKey(name)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private void validateTemplate(String name, Blueprint blueprint) {
