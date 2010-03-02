@@ -20,6 +20,8 @@ import org.junit.Test;
 
 import javax.management.*;
 
+import static org.junit.Assert.*;
+
 public class ManagedDynamicMBeanTest {
 
     private static final Object[] NO_ARGS = new Object[]{};
@@ -68,6 +70,35 @@ public class ManagedDynamicMBeanTest {
         @Attr
         public void setField(String string) {
             this.field = string;
+        }
+    }
+
+    class Managed1RWAttrMethAndField {
+
+        @Attr(desc = "f1")
+        private String field;
+
+        @Attr(desc = "f")
+        public void setField(String string) {
+            this.field = string;
+        }
+    }
+
+    class Managed1RWAttrMethAndFieldTakeTwo {
+
+        @Attr(desc = "f1", writable = true)
+        private String field;
+
+        private boolean getterCalled;
+
+        @Attr(desc = "f")
+        public String getField() {
+            this.getterCalled = true;
+            return this.field;
+        }
+
+        public boolean isGetterCalled() {
+            return getterCalled;
         }
     }
 
@@ -138,23 +169,23 @@ public class ManagedDynamicMBeanTest {
     public void managedNonAttr() throws ReflectionException, AttributeNotFoundException, MBeanException {
         ManagedDynamicMBeans beans = new ManagedDynamicMBeans();
         DynamicMBean bean = beans.create(new ManagedNonAttr());
-        Assert.assertEquals("0", bean.getAttribute("fi"));
+        assertEquals("0", bean.getAttribute("fi"));
     }
 
     @Test
     public void useDescription() {
         ManagedDynamicMBeans beans = new ManagedDynamicMBeans();
         Managed1 target = new Managed1();
-        Assert.assertEquals("foobar", beans.create(target, "foobar").getMBeanInfo().getDescription());
-        Assert.assertEquals("one", beans.create(target).getMBeanInfo().getDescription());
+        assertEquals("foobar", beans.create(target, "foobar").getMBeanInfo().getDescription());
+        assertEquals("one", beans.create(target).getMBeanInfo().getDescription());
     }
 
     @Test
     public void manageObjectName() throws Exception {
         DynamicMBean bean = new ManagedDynamicMBeans().create(new Managed2());
         ObjectName objectName = ((MBeanRegistration) bean).preRegister(null, null);
-        Assert.assertNotNull(objectName);
-        Assert.assertEquals(new ObjectName("foo.bar.zot:type=name"), objectName);
+        assertNotNull(objectName);
+        assertEquals(new ObjectName("foo.bar.zot:type=name"), objectName);
     }
 
     @Test
@@ -179,37 +210,37 @@ public class ManagedDynamicMBeanTest {
     private void doManageOperPar(Managed1OperPar oper, DynamicMBean bean) throws MBeanException, ReflectionException {
         MBeanInfo mBeanInfo = bean.getMBeanInfo();
         MBeanOperationInfo[] operationInfos = mBeanInfo.getOperations();
-        Assert.assertEquals(1, operationInfos.length);
+        assertEquals(1, operationInfos.length);
         MBeanOperationInfo operationInfo = operationInfos[0];
         MBeanParameterInfo[] parameterInfos = operationInfo.getSignature();
-        Assert.assertEquals(1, parameterInfos.length);
+        assertEquals(1, parameterInfos.length);
         MBeanParameterInfo parameterInfo = parameterInfos[0];
-        Assert.assertEquals("truth", parameterInfo.getName());
-        Assert.assertEquals("And nothing but", parameterInfo.getDescription());
+        assertEquals("truth", parameterInfo.getName());
+        assertEquals("And nothing but", parameterInfo.getDescription());
 
-        Assert.assertFalse(oper.isTroo());
+        assertFalse(oper.isTroo());
         bean.invoke("doIt", new Object[]{Boolean.TRUE}, new String[]{"boolean"});
-        Assert.assertTrue(oper.isTroo());
+        assertTrue(oper.isTroo());
         bean.invoke("doIt", new Object[]{Boolean.FALSE}, new String[]{"boolean"});
-        Assert.assertFalse(oper.isTroo());
+        assertFalse(oper.isTroo());
     }
 
     private void doManageOperPar(Managed1OperPar2 oper, DynamicMBean bean) throws MBeanException, ReflectionException {
         MBeanInfo mBeanInfo = bean.getMBeanInfo();
         MBeanOperationInfo[] operationInfos = mBeanInfo.getOperations();
-        Assert.assertEquals(1, operationInfos.length);
+        assertEquals(1, operationInfos.length);
         MBeanOperationInfo operationInfo = operationInfos[0];
         MBeanParameterInfo[] parameterInfos = operationInfo.getSignature();
-        Assert.assertEquals(1, parameterInfos.length);
+        assertEquals(1, parameterInfos.length);
         MBeanParameterInfo parameterInfo = parameterInfos[0];
-        Assert.assertEquals("truth", parameterInfo.getName());
-        Assert.assertEquals("And nothing but", parameterInfo.getDescription());
+        assertEquals("truth", parameterInfo.getName());
+        assertEquals("And nothing but", parameterInfo.getDescription());
 
-        Assert.assertFalse(oper.isTroo());
+        assertFalse(oper.isTroo());
         bean.invoke("doIt", new Object[]{Boolean.TRUE}, new String[]{"boolean"});
-        Assert.assertTrue(oper.isTroo());
+        assertTrue(oper.isTroo());
         bean.invoke("doIt", new Object[]{Boolean.FALSE}, new String[]{"boolean"});
-        Assert.assertFalse(oper.isTroo());
+        assertFalse(oper.isTroo());
     }
 
     @Test
@@ -218,29 +249,29 @@ public class ManagedDynamicMBeanTest {
         DynamicMBean op = new ManagedDynamicMBeans().create(oper);
         MBeanInfo info = op.getMBeanInfo();
         MBeanOperationInfo[] infos = info.getOperations();
-        Assert.assertNotNull(infos);
-        Assert.assertEquals(1, infos.length);
+        assertNotNull(infos);
+        assertEquals(1, infos.length);
         MBeanOperationInfo operationInfo = infos[0];
-        Assert.assertNotNull(operationInfo);
-        Assert.assertEquals("f1", operationInfo.getDescription());
-        Assert.assertEquals("doIt", operationInfo.getName());
-        Assert.assertEquals(MBeanOperationInfo.ACTION_INFO, operationInfo.getImpact());
+        assertNotNull(operationInfo);
+        assertEquals("f1", operationInfo.getDescription());
+        assertEquals("doIt", operationInfo.getName());
+        assertEquals(MBeanOperationInfo.ACTION_INFO, operationInfo.getImpact());
 
-        Assert.assertFalse(oper.isDone());
-        Assert.assertEquals(Boolean.TRUE, op.invoke("doIt", NO_ARGS, EMPTY_SIG));
-        Assert.assertTrue(oper.isDone());
+        assertFalse(oper.isDone());
+        assertEquals(Boolean.TRUE, op.invoke("doIt", NO_ARGS, EMPTY_SIG));
+        assertTrue(oper.isDone());
     }
 
     @Test
     public void manageSimple() {
         DynamicMBean m1 = new ManagedDynamicMBeans().create(new Managed1());
-        Assert.assertNotNull(m1);
+        assertNotNull(m1);
         MBeanInfo info = m1.getMBeanInfo();
-        Assert.assertNotNull(info.getAttributes());
-        Assert.assertEquals(0, info.getAttributes().length);
-        Assert.assertEquals(0, info.getOperations().length);
-        Assert.assertEquals(0, info.getConstructors().length);
-        Assert.assertEquals("one", info.getDescription());
+        assertNotNull(info.getAttributes());
+        assertEquals(0, info.getAttributes().length);
+        assertEquals(0, info.getOperations().length);
+        assertEquals(0, info.getConstructors().length);
+        assertEquals("one", info.getDescription());
     }
 
     @Test
@@ -249,18 +280,43 @@ public class ManagedDynamicMBeanTest {
     }
 
     @Test
+    public void manageMixedRWFieldMethod() throws InvalidAttributeValueException, ReflectionException, AttributeNotFoundException, MBeanException {
+        Managed1RWAttrMethAndField attr = new Managed1RWAttrMethAndField();
+        DynamicMBean bean = new ManagedDynamicMBeans().create(attr);
+        MBeanAttributeInfo info = assertOneField(Managed1RWAttrMethAndField.class, bean);
+        assertTrue(info.isReadable());
+        assertTrue(info.isWritable());
+        assertFalse(info.isIs());
+        assertEquals("f1", info.getDescription());
+
+        bean.setAttribute(new Attribute("field", "foo"));
+        assertEquals("foo", bean.getAttribute("field"));
+    }
+
+    @Test
+    public void manageMixedRWFieldMethodTakeTwo() throws InvalidAttributeValueException, ReflectionException, AttributeNotFoundException, MBeanException {
+        Managed1RWAttrMethAndFieldTakeTwo attr = new Managed1RWAttrMethAndFieldTakeTwo();
+        DynamicMBean bean = new ManagedDynamicMBeans().create(attr);
+
+        bean.setAttribute(new Attribute("field", "foo"));
+        assertFalse(attr.isGetterCalled());
+        assertEquals("foo", bean.getAttribute("field"));
+        assertTrue(attr.isGetterCalled());
+    }
+
+    @Test
     public void manageRWOneField() throws ReflectionException, MBeanException, AttributeNotFoundException, InvalidAttributeValueException {
         Managed1RWAttrMeth attr = new Managed1RWAttrMeth();
         DynamicMBean bean = new ManagedDynamicMBeans().create(attr);
         MBeanAttributeInfo info = assertOneField(Managed1RWAttrMeth.class, bean);
-        Assert.assertTrue(info.isReadable());
-        Assert.assertTrue(info.isWritable());
-        Assert.assertFalse(info.isIs());
+        assertTrue(info.isReadable());
+        assertTrue(info.isWritable());
+        assertFalse(info.isIs());
 
-        Assert.assertEquals(attr.getField(), bean.getAttribute("field"));
+        assertEquals(attr.getField(), bean.getAttribute("field"));
         bean.setAttribute(new Attribute("field", "newValue"));
-        Assert.assertEquals("newValue", attr.getField());
-        Assert.assertEquals(attr.getField(), bean.getAttribute("field"));
+        assertEquals("newValue", attr.getField());
+        assertEquals(attr.getField(), bean.getAttribute("field"));
     }
 
     @Test
@@ -272,46 +328,46 @@ public class ManagedDynamicMBeanTest {
     public void manageOneMethodIsAttr() throws ReflectionException, MBeanException, AttributeNotFoundException {
         DynamicMBean mBean = new ManagedDynamicMBeans().create(new Managed1AttrIsMeth());
         MBeanAttributeInfo info = assertOneField(Managed1AttrIsMeth.class, mBean);
-        Assert.assertEquals("field", info.getName());
-        Assert.assertTrue(info.isIs());
-        Assert.assertFalse(info.isWritable());
-        Assert.assertTrue(info.isReadable());
-        Assert.assertEquals(Boolean.TRUE, mBean.getAttribute(info.getName()));
+        assertEquals("field", info.getName());
+        assertTrue(info.isIs());
+        assertFalse(info.isWritable());
+        assertTrue(info.isReadable());
+        assertEquals(Boolean.TRUE, mBean.getAttribute(info.getName()));
     }
 
     @Test
     public void manageOneMethodIsAttrAsString() throws ReflectionException, MBeanException, AttributeNotFoundException {
         DynamicMBean mBean = new ManagedDynamicMBeans().create(new Managed1AttrIsMethToString());
         MBeanAttributeInfo info = assertOneField(Managed1AttrIsMethToString.class, mBean);
-        Assert.assertEquals("field", info.getName());
-        Assert.assertFalse(info.isIs());
-        Assert.assertFalse(info.isWritable());
-        Assert.assertTrue(info.isReadable());
-        Assert.assertEquals("true", mBean.getAttribute(info.getName()));
+        assertEquals("field", info.getName());
+        assertFalse(info.isIs());
+        assertFalse(info.isWritable());
+        assertTrue(info.isReadable());
+        assertEquals("true", mBean.getAttribute(info.getName()));
     }
 
     private static void assertOneFieldAttribute(Class<?> clazz, DynamicMBean m1f)
             throws AttributeNotFoundException, MBeanException, ReflectionException {
-        Assert.assertNotNull(m1f);
+        assertNotNull(m1f);
         MBeanAttributeInfo mBeanAttributeInfo = assertOneField(clazz, m1f);
-        Assert.assertEquals("f1", mBeanAttributeInfo.getDescription());
-        Assert.assertEquals("field", mBeanAttributeInfo.getName());
-        Assert.assertEquals("java.lang.String", mBeanAttributeInfo.getType());
-        Assert.assertFalse(mBeanAttributeInfo.isWritable());
-        Assert.assertFalse(mBeanAttributeInfo.isIs());
-        Assert.assertTrue(mBeanAttributeInfo.isReadable());
-        Assert.assertEquals("value1", m1f.getAttribute("field"));
+        assertEquals("f1", mBeanAttributeInfo.getDescription());
+        assertEquals("field", mBeanAttributeInfo.getName());
+        assertEquals("java.lang.String", mBeanAttributeInfo.getType());
+        assertFalse(mBeanAttributeInfo.isWritable());
+        assertFalse(mBeanAttributeInfo.isIs());
+        assertTrue(mBeanAttributeInfo.isReadable());
+        assertEquals("value1", m1f.getAttribute("field"));
     }
 
     private static MBeanAttributeInfo assertOneField(Class<?> clazz, DynamicMBean m1f) {
         MBeanInfo info = m1f.getMBeanInfo();
-        Assert.assertNotNull(info);
-        Assert.assertEquals(clazz.getName(), info.getDescription());
-        Assert.assertEquals(0, info.getOperations().length);
-        Assert.assertEquals(0, info.getConstructors().length);
-        Assert.assertEquals(1, info.getAttributes().length);
+        assertNotNull(info);
+        assertEquals(clazz.getName(), info.getDescription());
+        assertEquals(0, info.getOperations().length);
+        assertEquals(0, info.getConstructors().length);
+        assertEquals(1, info.getAttributes().length);
         MBeanAttributeInfo mBeanAttributeInfo = info.getAttributes()[0];
-        Assert.assertNotNull(mBeanAttributeInfo);
+        assertNotNull(mBeanAttributeInfo);
         return mBeanAttributeInfo;
     }
 }

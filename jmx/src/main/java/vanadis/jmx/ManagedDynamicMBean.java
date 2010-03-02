@@ -25,6 +25,7 @@ import vanadis.core.reflection.ArgumentTypeMismatchException;
 import vanadis.core.reflection.Invoker;
 
 import javax.management.*;
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -53,13 +54,13 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
 
     @Override
     public Object getAttribute(String name)
-        throws AttributeNotFoundException, ReflectionException {
+            throws AttributeNotFoundException, ReflectionException {
         return get(name, true);
     }
 
     @Override
     public void setAttribute(Attribute attribute)
-        throws AttributeNotFoundException, InvalidAttributeValueException {
+            throws AttributeNotFoundException, InvalidAttributeValueException, ReflectionException {
         set(attribute, true);
     }
 
@@ -77,7 +78,7 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
 
     @Override
     public Object invoke(String actionName, Object[] params, String[] signature)
-        throws MBeanException, ReflectionException {
+            throws MBeanException, ReflectionException {
         if (type.getOperations().containsKey(actionName)) {
             AnnotationDatum<Method> datum = type.getOperations().get(actionName);
             Method method = AccessibleHelper.openSesame(datum.getElement());
@@ -120,16 +121,25 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
     }
 
     private void set(Attribute attribute, boolean required)
-        throws AttributeNotFoundException, InvalidAttributeValueException {
+            throws AttributeNotFoundException, InvalidAttributeValueException, ReflectionException {
         String name = attribute.getName();
         if (type.getAttributeMethods().containsKey(name)) {
             Pair<AnnotationDatum<Method>, AnnotationDatum<Method>> datumPair = type.getAttributeMethods().get(name);
-            Method setter = AccessibleHelper.openSesame(datumPair.getTwo().getElement());
-            try {
-                Invoker.invoke(this, target, setter, attribute.getValue());
-            } catch (ArgumentTypeMismatchException e) {
-                //noinspection ThrowInsideCatchBlockWhichIgnoresCaughtException
-                throw new InvalidAttributeValueException(e.toString());
+            AnnotationDatum<Method> setMethod = datumPair.getTwo();
+            if (setMethod != null) {
+                Method setter = AccessibleHelper.openSesame(setMethod.getElement());
+                try {
+                    Invoker.invoke(this, target, setter, attribute.getValue());
+                    return;
+                } catch (ArgumentTypeMismatchException e) {
+                    //noinspection ThrowInsideCatchBlockWhichIgnoresCaughtException
+                    throw new InvalidAttributeValueException(e.toString());
+                }
+            }
+            AnnotationDatum<Field> datum = type.getAttributeFields().get(name);
+            if (datum != null) {
+                Field field = accessible(datum.getElement());
+                Invoker.assign(this, target, field, attribute.getValue());
             }
         } else if (required) {
             throw new AttributeNotFoundException(name);
@@ -149,11 +159,14 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
     }
 
     private Object get(String name, boolean required)
-        throws AttributeNotFoundException, ReflectionException {
+            throws AttributeNotFoundException, ReflectionException {
         if (type.getAttributeMethods().containsKey(name)) {
             Pair<AnnotationDatum<Method>, AnnotationDatum<Method>> datumPair = type.getAttributeMethods().get(name);
-            Method getter = accessible(datumPair.getOne().getElement());
-            return typed(name, Invoker.invoke(this, target, getter));
+            AnnotationDatum<Method> getMethod = datumPair.getOne();
+            if (getMethod != null) {
+                Method getter = accessible(getMethod.getElement());
+                return typed(name, Invoker.invoke(this, target, getter));
+            }
         }
         if (type.getAttributeFields().containsKey(name)) {
             AnnotationDatum<Field> datum = type.getAttributeFields().get(name);
@@ -169,15 +182,15 @@ public class ManagedDynamicMBean implements DynamicMBean, MBeanRegistration {
     private Object typed(String name, Object value) {
         String type = this.type.getAttributeInfos().get(name).getType();
         return value == null ? null
-            : type.equals(STRING) ? String.valueOf(value)
+                : type.equals(STRING) ? String.valueOf(value)
                 : value;
     }
 
-    private static Method accessible(Method getter) throws ReflectionException {
+    private static <T extends AccessibleObject> T accessible(T accessible) throws ReflectionException {
         try {
-            return AccessibleHelper.openSesame(getter);
+            return AccessibleHelper.openSesame(accessible);
         } catch (SecurityException e) {
-            throw new ReflectionException(e, "Failed to access " + getter);
+            throw new ReflectionException(e, "Failed to access " + accessible);
         }
     }
 

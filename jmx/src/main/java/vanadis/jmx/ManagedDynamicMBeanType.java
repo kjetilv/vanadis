@@ -28,14 +28,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static vanadis.jmx.JmxFiddly.*;
+import static vanadis.jmx.JmxFiddly.beanAttributeInfo;
 
 public class ManagedDynamicMBeanType {
 
     private final Class<?> type;
-
-    private final JmxMapping mapping;
 
     private final ObjectName objectName;
 
@@ -53,18 +53,22 @@ public class ManagedDynamicMBeanType {
 
     ManagedDynamicMBeanType(AnnotationsDigest digest, Class<?> type, JmxMapping mapping) {
         this.type = Not.nil(type, "type");
-        this.mapping = mapping == null ? JmxMapping.DEFAULT : mapping;
-        Managed managed = toManaged(Not.nil(digest, "digest").getClassDatum(this.mapping.getClassType()));
+        JmxMapping mpng = resolve(mapping);
+        Managed managed = toManaged(Not.nil(digest, "digest").getClassDatum(mpng.getClassType()));
 
         this.objectName = objectName(managed, type);
-        this.attributeMethods = organizeAttributes(digest.getMethodData(this.mapping.getFieldType()));
-        this.attributeFields = digest.getFieldDataIndex(this.mapping.getFieldType());
-        this.operations = digest.getMethodDataIndex(this.mapping.getOperationType());
-        this.operationParams = digest.getMethodParameterDataIndex(this.mapping.getOperationType());
+        this.attributeMethods = organizeMethodAttributes(digest.getMethodData(mpng.getFieldType()));
+        this.attributeFields = digest.getFieldDataIndex(mpng.getFieldType());
+        this.operations = digest.getMethodDataIndex(mpng.getOperationType());
+        this.operationParams = digest.getMethodParameterDataIndex(mpng.getOperationType());
         MBeanAttributeInfo[] attributeInfoArray = attributeInfos();
         MBeanOperationInfo[] operationInfoArray = operationInfos();
         this.mBeanInfo = info(type, null, managed, attributeInfoArray, operationInfoArray);
         this.attributeInfos = map(attributeInfoArray);
+    }
+
+    private JmxMapping resolve(JmxMapping mapping) {
+        return mapping == null ? JmxMapping.DEFAULT : mapping;
     }
 
     public Class<?> getType() {
@@ -101,16 +105,52 @@ public class ManagedDynamicMBeanType {
     }
 
     private MBeanAttributeInfo[] attributeInfos() {
-        List<MBeanAttributeInfo> infos = Generic.list(attributeMethods.size() + attributeFields.size());
+        Map<String,MBeanAttributeInfo> methodInfos = Generic.map();
         for (Map.Entry<String, Pair<AnnotationDatum<Method>, AnnotationDatum<Method>>> entry : attributeMethods.entrySet()) {
             String name = entry.getKey();
             Pair<AnnotationDatum<Method>, AnnotationDatum<Method>> pair = entry.getValue();
-            infos.add(beanAttributeInfo(name, pair));
+            MBeanAttributeInfo beanAttributeInfo = beanAttributeInfo(name, pair);
+            methodInfos.put(beanAttributeInfo.getName(), beanAttributeInfo);
         }
+        Map<String,MBeanAttributeInfo> fieldInfos = Generic.map();
         for (Map.Entry<String, AnnotationDatum<Field>> entry : attributeFields.entrySet()) {
-            infos.add(beanAttributeInfo(entry.getKey(), entry.getValue()));
+            MBeanAttributeInfo beanAttributeInfo = beanAttributeInfo(entry.getKey(), entry.getValue());
+            fieldInfos.put(beanAttributeInfo.getName(), beanAttributeInfo);
         }
+        List<MBeanAttributeInfo> infos = Generic.list(methodInfos.size() + fieldInfos.size());
+        Set<String> overlapping = overlappingNames(methodInfos, fieldInfos);
+        for (String name : overlapping) {
+            MBeanAttributeInfo method = methodInfos.remove(name);
+            MBeanAttributeInfo field = fieldInfos.remove(name);
+            if (method.getType().equals(field.getType())) {
+                infos.add(new MBeanAttributeInfo(name, method.getType(),
+                                                 better(method.getDescription(), field.getDescription()),
+                                                 method.isReadable() || field.isReadable(),
+                                                 method.isWritable() || field.isReadable(),
+                                                 method.isIs()));
+            } else {
+                throw new IllegalArgumentException
+                        ("Unable to resolve two attributes with the same name '" + name + "' " +
+                                "and different types " + method.getType() + " and " + field.getType());
+            }
+        }
+        infos.addAll(methodInfos.values());
+        infos.addAll(fieldInfos.values());
         return infos.toArray(new MBeanAttributeInfo[infos.size()]);
+    }
+
+    private String better(String desc1, String desc2) {
+        return desc1 == null && desc2 == null ? null
+                : desc1 == null ? desc2
+                : desc2 == null ? desc1
+                : desc1.length() > desc2.length() ? desc1
+                : desc2;
+    }
+
+    private Set<String> overlappingNames(Map<String, MBeanAttributeInfo> methodInfos, Map<String, MBeanAttributeInfo> fieldInfos) {
+        Set<String> overlapping  = Generic.set(methodInfos.keySet());
+        overlapping.retainAll(fieldInfos.keySet());
+        return overlapping;
     }
 
     private static ObjectName objectName(Managed managedAnnotation, Class<?> type) {

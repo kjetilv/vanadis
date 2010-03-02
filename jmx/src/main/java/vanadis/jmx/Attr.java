@@ -38,4 +38,8 @@ public @interface Attr {
     boolean asString() default false;
 
     String desc() default "";
+
+    boolean readable() default true;
+
+    boolean writable() default false;
 }

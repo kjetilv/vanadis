@@ -35,8 +35,8 @@ class JmxFiddly {
         return new MBeanAttributeInfo(name,
                                       asString(annotation) ? STRING : namedType(datum.getElement().getType()),
                                       annotation.desc(),
-                                      true,
-                                      false,
+                                      annotation.readable(),
+                                      annotation.writable(),
                                       false);
     }
 
@@ -66,7 +66,7 @@ class JmxFiddly {
              impact(annotation));
     }
 
-    static Map<String, Pair<AnnotationDatum<Method>, AnnotationDatum<Method>>> organizeAttributes(List<AnnotationDatum<Method>> data) {
+    static Map<String, Pair<AnnotationDatum<Method>, AnnotationDatum<Method>>> organizeMethodAttributes(List<AnnotationDatum<Method>> data) {
         Map<String, AnnotationDatum<Method>> getters = Generic.map();
         Map<String, AnnotationDatum<Method>> setters = Generic.map();
         Set<String> attributeNames = Generic.set();
@@ -198,7 +198,7 @@ class JmxFiddly {
 
     private static MBeanParameterInfo paramInfo(Class<?> parameterType, Param[] paramArray, int index) {
         return paramArray != null && index < paramArray.length
-                ? new MBeanParameterInfo(paramArray[index].name(), namedType(parameterType), paramArray[index].desc()) 
+                ? new MBeanParameterInfo(paramArray[index].name(), namedType(parameterType), paramArray[index].desc())
                 : new MBeanParameterInfo("param" + index, namedType(parameterType), "param" + index);
     }
 
