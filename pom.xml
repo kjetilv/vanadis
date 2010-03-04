@@ -18,7 +18,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>vanadis</groupId>
   <artifactId>vanadis</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <description>Vanadis</description>
   <name>${artifactId}</name>
@@ -155,7 +155,7 @@
       <dependency>
         <groupId>vanadis.lang</groupId>
         <artifactId>vanadis.lang.piji</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
@@ -175,17 +175,17 @@
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.ext</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.main</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.jmx</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
@@ -195,19 +195,19 @@
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.extrt</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.extrt</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.deployer</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
@@ -224,151 +224,151 @@
       <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.jmxsetup</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.log</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.reposerv</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis.modules.lang</groupId>
         <artifactId>vanadis.modules.lang.piji</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.networker</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.services</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.remoting</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.httpprovider</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.rmiprovider</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.scripting</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.osgi</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.felixcmds</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.remoting</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.remoting</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.mvn</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.concurrent</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.core</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.common</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.core</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.common</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.annopro</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.launcher</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.launchsite</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis.modules</groupId>
         <artifactId>vanadis.modules.httpwhiteboard</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.blueprints</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.osgi</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.objectmanagers</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.logsetup</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.osgi</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
@@ -431,7 +431,7 @@
         <plugin>
           <groupId>vanadis</groupId>
           <artifactId>vanadis-maven-plugin</artifactId>
-          <version>1.1.1</version>
+          <version>1.1.2-SNAPSHOT</version>
         </plugin>
         <plugin>
           <artifactId>maven-idea-plugin</artifactId>
