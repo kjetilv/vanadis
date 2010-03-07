@@ -74,7 +74,7 @@ public class MapPropertySetTest extends Assert {
         assertEquals("bar", chained.get("foo"));
         assertEquals((Integer) 2, chained.getInt("zip"));
 
-        PropertySet unchained = chained.orphan();
+        PropertySet unchained = chained.asOrphan();
         assertNotSame(pOuter, unchained);
         assertNotSame(chained, unchained);
 

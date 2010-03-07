@@ -436,7 +436,8 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
 
     @Override
     public String toString() {
-        return ToString.of(this, classAnnotations.keySet(),
+        return ToString.of(this, "types:" + typeChain,
+                           "annotations", classAnnotations.keySet(),
                            "fields", fieldsByType.size(),
                            "methods", methodsByType.size());
     }

@@ -140,9 +140,17 @@ public interface PropertySet extends Iterable<String> {
      * Create a copy of this property set, without its parent.
      * If this property set has no parent, returns a {@link #copy(boolean)}.
      *
-     * @return A new orphan
+     * @return A new asOrphan
      */
-    PropertySet orphan();
+    PropertySet asOrphan();
+
+    /**
+     * Use the more non-mutating-sounding {@link #asOrphan()} instead.
+     *
+     * @deprecated
+     * @return {@link #asOrphan()}
+     */
+    @SuppressWarnings({"UnusedDeclaration"}) @Deprecated PropertySet orphan();
 
     /**
      * Return true iff a parent is set.

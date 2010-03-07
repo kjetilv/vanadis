@@ -83,10 +83,9 @@ public class ManagedDynamicMBeans {
     }
 
     private AnnotationsDigest newDigest(Class<?> type, boolean full) {
-        AnnotationsDigest digest = full
+        return mapping.managed(full
                 ? AnnotationsDigests.createFullFromType(type)
-                : AnnotationsDigests.createFromType(type);
-        return mapping.managed(digest);
+                : AnnotationsDigests.createFromType(type));
     }
 
     private static class TypeMap extends LinkedHashMap<Object, ManagedDynamicMBeanType> {

@@ -1,98 +1,117 @@
 package vanadis.jmx;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import javax.management.*;
 import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import java.util.Arrays;
 
-import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class MappedMBeanTest {
 
-    private static final JmxMapping MAPPING = new JmxMapping(Mng.class, Op.class, At.class, null);
+    @Retention(RUNTIME) @interface O { String desc(); }
+    @Retention(RUNTIME) @interface A { String desc(); }
+    @Retention(RUNTIME) @interface P { String desc(); }
+    @Retention(RUNTIME) @interface M { String desc(); }
 
     @Test
     public void testMapped() throws ReflectionException, AttributeNotFoundException, MBeanException {
-        ManagedDynamicMBeans beans = new ManagedDynamicMBeans(MAPPING);
-        DynamicMBean bean = beans.create(new LocalManaged());
-        assertNotNull(bean);
+        ManagedDynamicMBeans beans = new ManagedDynamicMBeans(new JmxMapping(M.class, O.class, A.class, P.class));
 
-        assertEquals("Managed", bean.getMBeanInfo().getDescription());
-        MBeanOperationInfo[] beanOperationInfos = bean.getMBeanInfo().getOperations();
-        assertNotNull(beanOperationInfos);
-        assertEquals(2, beanOperationInfos.length);
+        @M(desc = "Manager of operations") class MyObject {
+            private int cost;
 
-        boolean foundParameterLess = false;
-        boolean foundWithParameter= false;
-
-        for (MBeanOperationInfo info : beanOperationInfos) {
-            MBeanParameterInfo[] sig = info.getSignature();
-            if (sig.length == 1) {
-                foundWithParameter = true;
-                assertEquals("Nose operation again", info.getDescription());
-                MBeanParameterInfo parameterInfo = sig[0];
-                assertEquals("cost", parameterInfo.getDescription());
+            @O(desc = "Simple operation, first fix is free")
+            public void operate() {
+                cost = 0;
             }
-            if (sig.length == 0) {
-                foundParameterLess = true;
-                assertEquals("Nose operation", info.getDescription());
+
+            @O(desc = "Another simple operation, but now we pay")
+            public void operateMore(@P(desc = "The cost") int cost) {
+                this.cost = cost;
             }
+
+            @A(desc = "Cost so far")
+            public int cost() {
+                return cost;
+            }
+
         }
-        Assert.assertTrue(foundWithParameter);
-        Assert.assertTrue(foundParameterLess);
+        Object manager = new MyObject();
+        DynamicMBean bean = digest(manager, beans);
+        MBeanInfo mbeanInfo = assertMBeanInfoWithDescription(bean);
+        MBeanOperationInfo[] operationInfos = assertTwoOperations(bean, mbeanInfo);
+        assertNoParameterOperation(operationInfos);
+        assertSingleParameterOperation(operationInfos);
+        assertSingleAttribute(mbeanInfo);
+    }
 
-        MBeanAttributeInfo[] attributeInfos = bean.getMBeanInfo().getAttributes();
+    private static <T> T notNull(String error, T t) {
+        assertNotNull(error, t);
+        return t;
+    }
+
+    private void assertSingleParameterOperation(MBeanOperationInfo[] operationInfos) {
+        MBeanOperationInfo oneParameter = get(operationInfos, "operateMore");
+        assertEquals("Another simple operation, but now we pay", oneParameter.getDescription());
+        assertEquals("The cost", signature(oneParameter)[0].getDescription());
+    }
+
+    private DynamicMBean digest(Object target, ManagedDynamicMBeans beans) {
+        return notNull(target + " should be digestable",
+                       beans.create(target));
+    }
+
+    private MBeanInfo assertMBeanInfoWithDescription(DynamicMBean bean) {
+        MBeanInfo mbeanInfo = notNull(bean + " produced no mbean info",
+                                      bean.getMBeanInfo());
+
+        assertEquals("Wrong description of " + bean,
+                     "Manager of operations", mbeanInfo.getDescription());
+        return mbeanInfo;
+    }
+
+    private void assertSingleAttribute(MBeanInfo mbeanInfo) {
+        MBeanAttributeInfo[] attributeInfos = mbeanInfo.getAttributes();
         assertNotNull(attributeInfos);
         assertEquals(1, attributeInfos.length);
-    }
-}
 
-@Mng(desc = "Managed")
-class LocalManaged {
-
-    private String nose;
-
-    @Op(desc = "Nose operation")
-    public void operate() {
-        nose = "nose";
+        MBeanAttributeInfo attributeInfo = notNull("Null attribute info!",
+                                                   attributeInfos[0]);
+        assertEquals("Wrong description of " + attributeInfo,
+                     "Cost so far", attributeInfo.getDescription());
     }
 
-    @Op(desc = "Nose operation again")
-    public void operateMore(@Par(desc = "cost") int cost) {
-        nose = "" + cost;
+    private void assertNoParameterOperation(MBeanOperationInfo[] operationInfos) {
+        MBeanOperationInfo parameterLess = get(operationInfos, "operate");
+        assertEquals("Expected no arguments to " + parameterLess,
+                     0, signature(parameterLess).length);
+        assertEquals("Simple operation, first fix is free", parameterLess.getDescription());
     }
 
-    @At(desc = "Nose result")
-    public String nose() {
-        return nose;
+    private MBeanOperationInfo[] assertTwoOperations(DynamicMBean bean, MBeanInfo mbeanInfo) {
+        MBeanOperationInfo[] operationInfos = notNull("Expected two operations in " + bean,
+                                                      mbeanInfo.getOperations());
+        assertEquals("Expected two operations: " + Arrays.toString(operationInfos),
+                     2, operationInfos.length);
+        return operationInfos;
     }
-}
 
-@Retention(RUNTIME)
-@Target(METHOD)
-@interface Op {
-    String desc();
-}
+    private MBeanParameterInfo[] signature(MBeanOperationInfo parameterLess) {
+        return notNull(parameterLess + " had no signature",
+                                           parameterLess.getSignature());
+    }
 
-@Retention(RUNTIME)
-@Target(METHOD)
-@interface At {
-    String desc();
-}
+    public static MBeanOperationInfo get(MBeanOperationInfo[] infos, String method) {
+        for (MBeanOperationInfo info : infos) {
+            if (info.getName().equals(method)) {
+                return info;
+            }
+        }
+        fail("Found no method " + method + " among " + Arrays.toString(infos));
+        return null; // As if!
+    }
 
-@Retention(RUNTIME)
-@Target(PARAMETER)
-@interface Par {
-    String desc();
-}
-
-@Retention(RUNTIME)
-@Target(TYPE)
-@interface Mng {
-    String desc();
 }

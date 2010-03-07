@@ -92,7 +92,7 @@ public abstract class AbstractPropertySet implements PropertySet, Serializable {
     }
 
     @Override
-    public PropertySet orphan() {
+    public PropertySet asOrphan() {
         return hasParent() ? doOrphan() : copy(isWritable());
     }
 

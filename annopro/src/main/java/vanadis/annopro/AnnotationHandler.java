@@ -26,6 +26,7 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 
+@SuppressWarnings({"unchecked"})
 class AnnotationHandler implements InvocationHandler {
 
     private final ClassLoader classLoader;

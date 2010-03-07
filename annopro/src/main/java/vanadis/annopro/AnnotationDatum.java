@@ -46,7 +46,7 @@ public final class AnnotationDatum<E> {
         this.element = element;
         this.annotationType = Not.nil(annotationType, "annotationType");
         Not.nil(propertySet, "propertySet");
-        this.propertySet = shallow ? propertySet.orphan() : propertySet;
+        this.propertySet = shallow ? propertySet.asOrphan() : propertySet;
     }
 
     public E getElement() {
@@ -84,7 +84,7 @@ public final class AnnotationDatum<E> {
         return createProxy(classLoader, type, false, propertySet);
     }
 
-    <A> A createProxy(ClassLoader classLoader, Class<A> type, boolean deep, PropertySet propertySet) {
+    private <A> A createProxy(ClassLoader classLoader, Class<A> type, boolean deep, PropertySet propertySet) {
         AnnotationDatum<E> instrumentedData = deep
             ? this.withShadowingProperties(propertySet)
             : this.shallowWithShadowingProperties(propertySet);
@@ -105,7 +105,7 @@ public final class AnnotationDatum<E> {
     }
 
     private AnnotationDatum<E> shallow() {
-        return derivedData(propertySet.orphan());
+        return derivedData(propertySet.asOrphan());
     }
 
     private AnnotationDatum<E> shallowWithShadowingProperties(PropertySet propertySet) {
