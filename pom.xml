@@ -160,7 +160,7 @@
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.slf4jsetup</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.codehaus.groovy</groupId>
@@ -190,7 +190,7 @@
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.felix</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
@@ -213,13 +213,13 @@
         <groupId>vanadis</groupId>
         <artifactId>vanadis.install</artifactId>
         <classifier>vanadis-felix</classifier>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
         <type>zip</type>
       </dependency>
       <dependency>
         <groupId>vanadis</groupId>
         <artifactId>vanadis.install</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>vanadis.modules</groupId>
