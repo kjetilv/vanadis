@@ -96,6 +96,16 @@ public abstract class AbstractPropertySet implements PropertySet, Serializable {
         return hasParent() ? doOrphan() : copy(isWritable());
     }
 
+    /**
+     * @deprecated
+     * @return {@link #asOrphan()}
+     */
+    @Override
+    @Deprecated
+    public final PropertySet orphan() {
+        return asOrphan();
+    }
+
     protected abstract AbstractPropertySet doOrphan();
 
     @Override
