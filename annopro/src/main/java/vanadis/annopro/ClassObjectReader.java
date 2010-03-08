@@ -32,8 +32,11 @@ final class ClassObjectReader implements AnnotationReader {
 
     private final List<Class<?>> typeChain;
 
-    ClassObjectReader(List<Class<?>> typeChain) {
+    private final AnnotationMapper mapper;
+
+    ClassObjectReader(List<Class<?>> typeChain, AnnotationMapper mapper) {
         this.typeChain = typeChain;
+        this.mapper = mapper;
     }
 
     @Override
@@ -41,7 +44,7 @@ final class ClassObjectReader implements AnnotationReader {
         Map<String, AnnotationDatum<Class<?>>> map = Generic.map();
         for (Class<?> type : typeChain) {
             for (Annotation annotation : type.getDeclaredAnnotations()) {
-                loadInto(map, annotation, type);
+                loadInto(map, annotation, type, mapper);
             }
         }
         return map;
@@ -72,7 +75,7 @@ final class ClassObjectReader implements AnnotationReader {
     public Map<Constructor, List<AnnotationDatum<Constructor>>> readAllConstructors() {
         Map<Constructor, List<AnnotationDatum<Constructor>>> constructors = Generic.linkedHashMap();
         for (Constructor<?> constructor : typeChain.get(0).getConstructors()) {
-            constructors.put(constructor, readAllFromConstructor(constructor));
+            constructors.put(constructor, readAllFromConstructor(constructor, mapper));
         }
         return constructors;
     }
@@ -103,7 +106,7 @@ final class ClassObjectReader implements AnnotationReader {
         }
         Map<Field, List<AnnotationDatum<Field>>> map = Generic.linkedHashMap();
         for (Field field : fields) {
-            map.put(field, readAllFromField(field));
+            map.put(field, readAllFromField(field, mapper));
         }
         return map;
     }
@@ -114,39 +117,42 @@ final class ClassObjectReader implements AnnotationReader {
             List<AnnotationDatum<Integer>> parameterAnnotations = Generic.list();
             for (int i = 0; i < parameterAnnotationsArray.length; i++) {
                 Annotation annotation = parameterAnnotationsArray[i];
-                parameterAnnotations.add(datum(i, annotation));
+                parameterAnnotations.add(datum(i, annotation, mapper));
             }
             parametersAnnotations.add(parameterAnnotations);
         }
         return parametersAnnotations;
     }
 
-    private static <E> void loadInto(Map<String, AnnotationDatum<E>> map, Annotation annotation, E element) {
+    private static <E> void loadInto(Map<String, AnnotationDatum<E>> map, Annotation annotation, E element,
+                                     AnnotationMapper mapper) {
         String key = annotation.annotationType().getName();
         AnnotationDatum<E> existingData = map.get(key);
         if (existingData == null) {
-            map.put(key, datum(element, annotation));
+            map.put(key, datum(element, annotation, mapper));
         }
     }
 
-    private static <E> AnnotationDatum<E> datum(E element, Annotation annotation) {
+    private static <E> AnnotationDatum<E> datum(E element, Annotation annotation, AnnotationMapper mapper) {
         return AnnotationDatum.create(element,
                                       annotation.annotationType().getName(),
-                                      properties(element, annotation));
+                                      properties(element, annotation, mapper),
+                                      mapper);
     }
 
-    private static <E> PropertySet properties(E element, Annotation annotation) {
+    private static <E> PropertySet properties(E element, Annotation annotation, AnnotationMapper mapper) {
         PropertySet propertySet = PropertySets.create();
         Class<? extends Annotation> annoClass = annotation.annotationType();
         Method[] declaredMethods = annoClass.getDeclaredMethods();
         for (Method method : declaredMethods) {
-            Object value = createValue(element, annotation, method);
+            Object value = createValue(element, annotation, method, mapper);
             propertySet.set(method.getName(), value);
         }
         return propertySet;
     }
 
-    private static <E> Object createValue(E element, Annotation annotation, Method method) {
+    private static <E> Object createValue(E element, Annotation annotation, Method method,
+                                          AnnotationMapper mapper) {
         boolean array = method.getReturnType().isArray();
         Method annotationMethod = methodOnAnnotation(annotation, method);
         Object value = Invoker.invoke(AnnotationsDigestsImpl.class,
@@ -155,9 +161,9 @@ final class ClassObjectReader implements AnnotationReader {
         if (array) {
             Class<?> returnType = method.getReturnType().getComponentType();
             Object valueArray = value.getClass().isArray() ? value : wrap(method, value);
-            return possiblyNestedArray(element, returnType, valueArray);
+            return possiblyNestedArray(element, returnType, valueArray, mapper);
         } else {
-            return possiblyNested(element, method.getReturnType(), value);
+            return possiblyNested(element, method.getReturnType(), value, mapper);
         }
     }
 
@@ -167,14 +173,14 @@ final class ClassObjectReader implements AnnotationReader {
         return newArray;
     }
 
-    private static <E> Object possiblyNestedArray(E element, Class<?> type, Object array) {
+    private static <E> Object possiblyNestedArray(E element, Class<?> type, Object array, AnnotationMapper mapper) {
         if (!isAnnotation(type)) {
             return array;
         }
         int length = Array.getLength(array);
         List<AnnotationDatum<?>> data = Generic.list(length);
         for (int i = 0; i < length; i++) {
-            data.add(datum(element, (Annotation) Array.get(array, i)));
+            data.add(datum(element, (Annotation) Array.get(array, i), mapper));
         }
         return data;
     }
@@ -183,11 +189,11 @@ final class ClassObjectReader implements AnnotationReader {
         return Annotation.class.isAssignableFrom(type);
     }
 
-    private static <E> Object possiblyNested(E element, Class<?> type, Object value) {
+    private static <E> Object possiblyNested(E element, Class<?> type, Object value, AnnotationMapper mapper) {
         if (!isAnnotation(type)) {
             return value;
         }
-        return datum(element, (Annotation)value);
+        return datum(element, (Annotation)value, mapper);
     }
 
     private static Method methodOnAnnotation(Annotation annotation, Method method) {
@@ -268,18 +274,19 @@ final class ClassObjectReader implements AnnotationReader {
         return classMethod.getAnnotations().length > 0;
     }
 
-    private static List<AnnotationDatum<Field>> readAllFromField(Field field) {
+    private static List<AnnotationDatum<Field>> readAllFromField(Field field, AnnotationMapper mapper) {
         List<AnnotationDatum<Field>> list = Generic.list();
         for (Annotation annotation : field.getAnnotations()) {
-            list.add(datum(field, annotation));
+            list.add(datum(field, annotation, mapper));
         }
         return list;
     }
 
-    private static List<AnnotationDatum<Constructor>> readAllFromConstructor(Constructor constructor) {
+    private static List<AnnotationDatum<Constructor>> readAllFromConstructor(Constructor constructor,
+                                                                             AnnotationMapper mapper) {
         List<AnnotationDatum<Constructor>> list = Generic.list();
         for (Annotation annotation : constructor.getAnnotations()) {
-            list.add(datum(constructor, annotation));
+            list.add(datum(constructor, annotation, mapper));
         }
         return list;
     }
@@ -288,7 +295,7 @@ final class ClassObjectReader implements AnnotationReader {
         Map<String, AnnotationDatum<Method>> annotations = Generic.linkedHashMap();
         for (Class<?> type : typeChain) {
             for (Method potentialOverride : type.getDeclaredMethods()) {
-                extractOverrides(method, annotations, potentialOverride);
+                extractOverrides(method, annotations, potentialOverride, mapper);
             }
         }
         return Generic.list(annotations.values());
@@ -296,11 +303,12 @@ final class ClassObjectReader implements AnnotationReader {
 
     private static void extractOverrides(Method anchorMethod,
                                          Map<String, AnnotationDatum<Method>> map,
-                                         Method potentialOverrider) {
+                                         Method potentialOverrider,
+                                         AnnotationMapper mapper) {
         Annotation[] declaredAnnotations = potentialOverrider.getDeclaredAnnotations();
         if (declaredAnnotations.length > 0 && overrides(anchorMethod, potentialOverrider, true)) {
             for (Annotation declaredAnnotation : declaredAnnotations) {
-                loadInto(map, declaredAnnotation, anchorMethod);
+                loadInto(map, declaredAnnotation, anchorMethod, mapper);
             }
         }
     }

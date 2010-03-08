@@ -39,7 +39,5 @@ public @interface Operation {
 
     String desc() default "";
 
-    Param[] params() default {};
-
     int impact() default 0; // MBeanOperationInfo.INFO;
 }

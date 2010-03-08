@@ -33,9 +33,12 @@ class AnnotationHandler implements InvocationHandler {
 
     private final AnnotationDatum<?> datum;
 
-    AnnotationHandler(ClassLoader classLoader, AnnotationDatum<?> datum) {
+    private final AnnotationMapper mapper;
+
+    AnnotationHandler(ClassLoader classLoader, AnnotationDatum<?> datum, AnnotationMapper mapper) {
         this.classLoader = classLoader;
         this.datum = datum;
+        this.mapper = mapper;
     }
 
     @SuppressWarnings({"unchecked"})
@@ -44,9 +47,17 @@ class AnnotationHandler implements InvocationHandler {
         if (method.getDeclaringClass() == Object.class) {
             return method.invoke(this, args);
         }
-        String propertyName = method.getName();
-        Class<?> returnType = method.getReturnType();
-        return get(propertyName, returnType);
+        String propertyName = propertyName(method);
+        return get(propertyName, method.getReturnType());
+    }
+
+    private String propertyName(Method method) {
+        String propertyName = mapper == null ? method.getName()
+                : mapper.getClientCodeAttribute(method.getDeclaringClass(), method.getName());
+        if (propertyName == null) {
+            propertyName = method.getName();
+        }
+        return propertyName;
     }
 
     public Object get(String propertyName, Class<?> returnType) {

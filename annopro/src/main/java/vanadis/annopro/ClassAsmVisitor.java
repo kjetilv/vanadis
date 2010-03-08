@@ -26,9 +26,12 @@ class ClassAsmVisitor implements ClassVisitor {
 
     private final String targetAnnotation;
 
-    ClassAsmVisitor(Map<String, AnnotationDatum<Class<?>>> data, String targetAnnotation) {
+    private AnnotationMapper mapper;
+
+    ClassAsmVisitor(Map<String, AnnotationDatum<Class<?>>> data, String targetAnnotation, AnnotationMapper mapper) {
         this.data = data;
         this.targetAnnotation = targetAnnotation;
+        this.mapper = mapper;
     }
 
     @Override
@@ -46,7 +49,7 @@ class ClassAsmVisitor implements ClassVisitor {
     @Override
     public AnnotationVisitor visitAnnotation(String name, boolean unused) {
         String type = Bytedecoder.className(name);
-        return new AnnotationAsmVisitor<Class<?>>(type, type, data, null, null, targetAnnotation);
+        return new AnnotationAsmVisitor<Class<?>>(type, type, data, null, null, targetAnnotation, mapper);
     }
 
     @Override

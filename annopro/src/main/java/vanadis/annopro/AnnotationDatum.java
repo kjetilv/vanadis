@@ -32,20 +32,28 @@ public final class AnnotationDatum<E> {
 
     private final E element;
 
+    private final AnnotationMapper mapper;
+
     private static final String DEFAULT_PROPERTY = "value";
 
-    static <E> AnnotationDatum<E> create(String annotationType, PropertySet propertySet) {
-        return create(null, annotationType, propertySet);
+    static <E> AnnotationDatum<E> create(String annotationType, PropertySet propertySet,
+                                         AnnotationMapper mapper) {
+        return create(null, annotationType, propertySet,
+                      mapper);
     }
 
-    static <E> AnnotationDatum<E> create(E element, String annotationType, PropertySet propertySet) {
-        return new AnnotationDatum<E>(element, annotationType, propertySet, false);
+    static <E> AnnotationDatum<E> create(E element, String annotationType, PropertySet propertySet,
+                                         AnnotationMapper mapper) {
+        return new AnnotationDatum<E>(element, annotationType, propertySet, mapper, false);
     }
 
-    private AnnotationDatum(E element, String annotationType, PropertySet propertySet, boolean shallow) {
+    private AnnotationDatum(E element, String annotationType, PropertySet propertySet,
+                            AnnotationMapper mapper,
+                            boolean shallow) {
+        Not.nil(propertySet, "propertySet");
         this.element = element;
         this.annotationType = Not.nil(annotationType, "annotationType");
-        Not.nil(propertySet, "propertySet");
+        this.mapper = mapper;
         this.propertySet = shallow ? propertySet.asOrphan() : propertySet;
     }
 
@@ -88,7 +96,7 @@ public final class AnnotationDatum<E> {
         AnnotationDatum<E> instrumentedData = deep
             ? this.withShadowingProperties(propertySet)
             : this.shallowWithShadowingProperties(propertySet);
-        InvocationHandler handler = new AnnotationHandler(classLoader, instrumentedData);
+        InvocationHandler handler = new AnnotationHandler(classLoader, instrumentedData, mapper);
         return Proxies.genericProxy(classLoader, type, handler);
     }
 
@@ -119,7 +127,7 @@ public final class AnnotationDatum<E> {
     }
 
     private AnnotationDatum<E> derivedData(PropertySet shadowed) {
-        return new AnnotationDatum<E>(element, annotationType, shadowed, false);
+        return new AnnotationDatum<E>(element, annotationType, shadowed, mapper, false);
     }
 
     @Override

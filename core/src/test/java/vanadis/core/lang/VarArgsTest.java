@@ -48,7 +48,7 @@ public class VarArgsTest extends TestCase {
     @SuppressWarnings({ "NullArgumentToVariableArgMethod" })
     public void testNoVarags() {
         noVarArgsHere();
-        noVarArgsHere(null); // I know there's a warning here.
+        noVarArgsHere(null); // I know there's a compiler warning here.
     }
 
 }

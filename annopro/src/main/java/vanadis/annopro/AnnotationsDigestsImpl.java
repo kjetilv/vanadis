@@ -58,20 +58,28 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
 
     private final Map<Method, List<List<AnnotationDatum<Integer>>>> methodParametersAnnotations;
 
-    AnnotationsDigestsImpl(Class<?> type, boolean inherits) {
-        this(Not.nil(type, "type"), null, inherits, null);
+    AnnotationsDigestsImpl(Class<?> type, AnnotationMapper mapper, boolean inherits) {
+        this(Not.nil(type, "type"), null, mapper, inherits, null);
     }
 
     AnnotationsDigestsImpl(InputStream bytecode) {
-        this(null, Not.nil(bytecode, "byte code"), false, null);
+        this(null, Not.nil(bytecode, "byte code"), null, false, null);
+    }
+
+    AnnotationsDigestsImpl(InputStream bytecode, AnnotationMapper mapper) {
+        this(null, Not.nil(bytecode, "byte code"), mapper, false, null);
     }
 
     AnnotationsDigestsImpl(InputStream bytecode, String targetAnnotation) {
-        this(null, bytecode, false, targetAnnotation);
+        this(null, bytecode, null, false, targetAnnotation);
     }
 
-    private AnnotationsDigestsImpl(Class<?> type, InputStream bytecode, boolean inherits,
-                                   String targetAnnotation) {
+    AnnotationsDigestsImpl(InputStream bytecode, AnnotationMapper mapper, String targetAnnotation) {
+        this(null, bytecode, mapper, false, targetAnnotation);
+    }
+
+    private AnnotationsDigestsImpl(Class<?> type, InputStream bytecode, AnnotationMapper mapper,
+                                   boolean inherits, String targetAnnotation) {
         if (type == null && bytecode == null) {
             throw new IllegalArgumentException("Expected non-null class object or bytecode");
         }
@@ -79,10 +87,10 @@ final class AnnotationsDigestsImpl implements AnnotationsDigest {
         AnnotationReader reader;
         if (type == null) {
             this.typeChain = null;
-            reader = new BytecodesReader(bytecode, targetAnnotation);
+            reader = new BytecodesReader(bytecode, targetAnnotation, mapper);
         } else {
             this.typeChain = typeChain(type);
-            reader = new ClassObjectReader(typeChain);
+            reader = new ClassObjectReader(typeChain, mapper);
         }
         this.classAnnotations = reader.annotations();
         this.fieldAnnotations = reader.readAllFields();

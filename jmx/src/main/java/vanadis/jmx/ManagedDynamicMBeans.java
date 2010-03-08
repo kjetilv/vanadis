@@ -1,5 +1,6 @@
 package vanadis.jmx;
 
+import vanadis.annopro.AnnotationMapper;
 import vanadis.annopro.AnnotationsDigest;
 import vanadis.annopro.AnnotationsDigests;
 import vanadis.core.collections.Generic;
@@ -19,14 +20,17 @@ public class ManagedDynamicMBeans {
 
     private final Map<Object, ManagedDynamicMBeanType> fullDigests = new TypeMap();
 
-    private JmxMapping mapping;
+    private final JmxMapping mapping;
+
+    private final AnnotationMapper mapper;
 
     public ManagedDynamicMBeans(JmxMapping mapping) {
         this.mapping = mapping;
+        this.mapper = (mapping == null ? JmxMapping.DEFAULT_JMX_MAPPING : mapping).getAnnotationMapper();
     }
 
     public ManagedDynamicMBeans() {
-        this(JmxMapping.DEFAULT);
+        this(JmxMapping.DEFAULT_JMX_MAPPING);
     }
 
     public final DynamicMBean create(Object target) {
@@ -69,7 +73,7 @@ public class ManagedDynamicMBeans {
                     undigestable.add(key);
                     return null;
                 }
-                ManagedDynamicMBeanType beanType = new ManagedDynamicMBeanType(digest, type, mapping);
+                ManagedDynamicMBeanType beanType = new ManagedDynamicMBeanType(digest, type, mapper);
                 digests.put(key, beanType);
                 return beanType;
             }
@@ -84,8 +88,8 @@ public class ManagedDynamicMBeans {
 
     private AnnotationsDigest newDigest(Class<?> type, boolean full) {
         return mapping.managed(full
-                ? AnnotationsDigests.createFullFromType(type)
-                : AnnotationsDigests.createFromType(type));
+                ? AnnotationsDigests.createFullFromType(type, mapper)
+                : AnnotationsDigests.createFromType(type, mapper));
     }
 
     private static class TypeMap extends LinkedHashMap<Object, ManagedDynamicMBeanType> {

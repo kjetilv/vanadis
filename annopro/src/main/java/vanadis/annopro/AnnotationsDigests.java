@@ -31,11 +31,19 @@ public class AnnotationsDigests {
     }
 
     public static AnnotationsDigest createFullFromType(Class<?> clazz) {
-        return new AnnotationsDigestsImpl(Not.nil(clazz, "class"), true);
+        return new AnnotationsDigestsImpl(Not.nil(clazz, "class"), null, true);
+    }
+
+    public static AnnotationsDigest createFullFromType(Class<?> clazz, AnnotationMapper mapper) {
+        return new AnnotationsDigestsImpl(Not.nil(clazz, "class"), mapper, true);
     }
 
     public static AnnotationsDigest createFromType(Class<?> clazz) {
-        return new AnnotationsDigestsImpl(Not.nil(clazz, "class"), false);
+        return new AnnotationsDigestsImpl(Not.nil(clazz, "class"), null, false);
+    }
+
+    public static AnnotationsDigest createFromType(Class<?> clazz, AnnotationMapper mapper) {
+        return new AnnotationsDigestsImpl(Not.nil(clazz, "class"), mapper, false);
     }
 
     public static AnnotationsDigest createFromStream(InputStream bytecode) {
@@ -43,7 +51,14 @@ public class AnnotationsDigests {
     }
 
     public static AnnotationsDigest createFromStream(InputStream bytecode, String targetAnnotation) {
+        return createFromStream(bytecode, null, targetAnnotation);
+    }
+
+    public static AnnotationsDigest createFromStream(InputStream bytecode,
+                                                     AnnotationMapper mapper,
+                                                     String targetAnnotation) {
         return new AnnotationsDigestsImpl(Not.nil(bytecode, "bytecode stream"),
+                                          mapper,
                                           Not.nil(targetAnnotation, "target annotation"));
     }
 }

@@ -55,13 +55,13 @@ class JmxFiddly {
     }
 
     static MBeanOperationInfo beanOperationInfo(AnnotationDatum<Method> datum,
-                                                List<List<AnnotationDatum<Integer>>> params) {
+                                                Class<?> paramType, List<List<AnnotationDatum<Integer>>> params) {
         Method method = datum.getElement();
         Operation annotation = oper(datum);
         return new MBeanOperationInfo
             (method.getName(),
              annotation.desc(),
-             parameters(annotation, params, method),
+             useParamAnnotations(paramType, params, method),
              asString(annotation) ? STRING : JmxFiddly.namedType(method.getReturnType()),
              impact(annotation));
     }
@@ -163,13 +163,7 @@ class JmxFiddly {
         return returnType.isArray() ? "[L" + name + ";" : name;
     }
 
-    private static MBeanParameterInfo[] parameters(Operation operation,
-                                                   List<List<AnnotationDatum<Integer>>> params,
-                                                   Method method) {
-        return empty(params) ? useOperationParams(operation, method) : useParamAnnotations(params, method);
-    }
-
-    private static MBeanParameterInfo[] useParamAnnotations(List<List<AnnotationDatum<Integer>>> params,
+    private static MBeanParameterInfo[] useParamAnnotations(Class<?> paramType, List<List<AnnotationDatum<Integer>>> params,
                                                             Method method) {
         List<MBeanParameterInfo> infos = Generic.list();
         Class<?>[] types = method.getParameterTypes();
@@ -177,33 +171,11 @@ class JmxFiddly {
             String type = namedType(types[i]);
             List<AnnotationDatum<Integer>> paramAnnotations = params.get(i);
             for (int j = 0, paramAnnotationsSize = paramAnnotations.size(); j < paramAnnotationsSize; j++) {
-                AnnotationDatum<Integer> paramAnnotation = paramAnnotations.get(j);
-                infos.add(new MBeanParameterInfo(paramAnnotation.getPropertySet().getString("name"),
-                                                 type,
-                                                 paramAnnotation.getPropertySet().getString("desc")));
+                Param param = param(paramAnnotations.get(j));
+                infos.add(new MBeanParameterInfo(param.name(), type, param.desc()));
             }
         }
         return infos.toArray(new MBeanParameterInfo[infos.size()]);
-    }
-
-    private static MBeanParameterInfo[] useOperationParams(Operation operation, Method method) {
-        Param[] paramArray = operation.params();
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        MBeanParameterInfo[] infos = new MBeanParameterInfo[parameterTypes.length];
-        for (int i = 0; i < parameterTypes.length; i++) {
-            infos[i] = paramInfo(parameterTypes[i], paramArray, i);
-        }
-        return infos;
-    }
-
-    private static MBeanParameterInfo paramInfo(Class<?> parameterType, Param[] paramArray, int index) {
-        return paramArray != null && index < paramArray.length
-                ? new MBeanParameterInfo(paramArray[index].name(), namedType(parameterType), paramArray[index].desc())
-                : new MBeanParameterInfo("param" + index, namedType(parameterType), "param" + index);
-    }
-
-    private static boolean empty(List<List<AnnotationDatum<Integer>>> params) {
-        return params == null || params.isEmpty() || params.get(0) == null || params.get(0).isEmpty();
     }
 
     private static boolean nonMatching(AnnotationDatum<Method> getDatum, AnnotationDatum<Method> setDatum) {
@@ -224,6 +196,10 @@ class JmxFiddly {
 
     static Operation oper(AnnotationDatum<Method> datum) {
         return datum.createProxy(ManagedDynamicMBean.class.getClassLoader(), Operation.class);
+    }
+
+    static Param param(AnnotationDatum<Integer> datum) {
+        return datum.createProxy(ManagedDynamicMBean.class.getClassLoader(), Param.class);
     }
 
     static MBeanInfo info(MBeanInfo info, String description) {

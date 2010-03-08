@@ -16,6 +16,7 @@
 package vanadis.jmx;
 
 import vanadis.annopro.AnnotationDatum;
+import vanadis.annopro.AnnotationMapper;
 import vanadis.annopro.AnnotationsDigest;
 import vanadis.core.collections.Generic;
 import vanadis.core.collections.Pair;
@@ -51,24 +52,21 @@ public class ManagedDynamicMBeanType {
 
     private final MBeanInfo mBeanInfo;
 
-    ManagedDynamicMBeanType(AnnotationsDigest digest, Class<?> type, JmxMapping mapping) {
-        this.type = Not.nil(type, "type");
-        JmxMapping mpng = resolve(mapping);
-        Managed managed = toManaged(Not.nil(digest, "digest").getClassDatum(mpng.getClassType()));
 
+    ManagedDynamicMBeanType(AnnotationsDigest digest, Class<?> type, AnnotationMapper annotationMapper) {
+        this.type = Not.nil(type, "type");
+
+        AnnotationMapper mapper = annotationMapper == null ? JmxMapping.DEFAULT : annotationMapper;
+        Managed managed = toManaged(Not.nil(digest, "digest").getClassDatum(mapper.getClientCodeType(Managed.class)));
         this.objectName = objectName(managed, type);
-        this.attributeMethods = organizeMethodAttributes(digest.getMethodData(mpng.getFieldType()));
-        this.attributeFields = digest.getFieldDataIndex(mpng.getFieldType());
-        this.operations = digest.getMethodDataIndex(mpng.getOperationType());
-        this.operationParams = digest.getMethodParameterDataIndex(mpng.getOperationType());
+        this.attributeMethods = organizeMethodAttributes(digest.getMethodData(mapper.getClientCodeType(Attr.class)));
+        this.attributeFields = digest.getFieldDataIndex(mapper.getClientCodeType(Attr.class));
+        this.operations = digest.getMethodDataIndex(mapper.getClientCodeType(Operation.class));
+        this.operationParams = digest.getMethodParameterDataIndex(mapper.getClientCodeType(Operation.class));
         MBeanAttributeInfo[] attributeInfoArray = attributeInfos();
-        MBeanOperationInfo[] operationInfoArray = operationInfos();
+        MBeanOperationInfo[] operationInfoArray = operationInfos(mapper.getClientCodeType(Param.class));
         this.mBeanInfo = info(type, null, managed, attributeInfoArray, operationInfoArray);
         this.attributeInfos = map(attributeInfoArray);
-    }
-
-    private JmxMapping resolve(JmxMapping mapping) {
-        return mapping == null ? JmxMapping.DEFAULT : mapping;
     }
 
     public Class<?> getType() {
@@ -94,12 +92,12 @@ public class ManagedDynamicMBeanType {
                                        target);
     }
 
-    private MBeanOperationInfo[] operationInfos() {
+    private MBeanOperationInfo[] operationInfos(Class<?> paramType) {
         List<MBeanOperationInfo> infos = Generic.list(operations.size());
         for (Map.Entry<String, AnnotationDatum<Method>> entry : operations.entrySet()) {
             AnnotationDatum<Method> datum = entry.getValue();
             List<List<AnnotationDatum<Integer>>> params = operationParams.get(datum.getElement());
-            infos.add(beanOperationInfo(datum, params));
+            infos.add(beanOperationInfo(datum, paramType, params));
         }
         return infos.toArray(new MBeanOperationInfo[infos.size()]);
     }

@@ -42,19 +42,23 @@ class AnnotationAsmVisitor<E>
 
     private final String targetAnnotation;
 
+    private final AnnotationMapper mapper;
+
     private boolean gotWhatWeNeeded;
 
     AnnotationAsmVisitor(String name, String type,
                          Map<String, AnnotationDatum<E>> hostData,
                          List<AnnotationDatum<E>> hostArray,
                          PropertySet propertySet,
-                         String targetAnnotation) {
+                         String targetAnnotation,
+                         AnnotationMapper mapper) {
         this.name = name;
         this.type = type;
         this.hostData = hostData;
         this.hostArray = hostArray;
         this.hostPropertySet = propertySet;
         this.targetAnnotation = targetAnnotation;
+        this.mapper = mapper;
         if (hostData != null) {
             assert hostArray == null && hostPropertySet == null;
         } else if (hostArray != null) {
@@ -80,20 +84,20 @@ class AnnotationAsmVisitor<E>
             gotWhatWeNeeded = true;
         }
         return name != null
-            ? new AnnotationAsmVisitor<E>(name, type, null, null, propertySet, targetAnnotation)
-            : new AnnotationAsmVisitor<E>(null, type, null, hostArray, null, targetAnnotation);
+            ? new AnnotationAsmVisitor<E>(name, type, null, null, propertySet, targetAnnotation, mapper)
+            : new AnnotationAsmVisitor<E>(null, type, null, hostArray, null, targetAnnotation, mapper);
     }
 
     @Override
     public AnnotationVisitor visitArray(String name) {
         List<AnnotationDatum<E>> collection = Generic.list();
         propertySet.set(name, collection);
-        return new AnnotationAsmVisitor<E>(name, type, null, collection, null, targetAnnotation);
+        return new AnnotationAsmVisitor<E>(name, type, null, collection, null, targetAnnotation, mapper);
     }
 
     @Override
     public void visitEnd() {
-        AnnotationDatum<E> datum = AnnotationDatum.create(type, propertySet);
+        AnnotationDatum<E> datum = AnnotationDatum.create(type, propertySet, mapper);
         if (hostArray != null) {
             if (name == null) {
                 hostArray.add(datum);

@@ -138,9 +138,8 @@ public class ManagedDynamicMBeanTest {
         private boolean troo;
 
         @Operation(desc = "f1",
-                   params = @Param(name = "truth", desc = "And nothing but"),
                    impact = MBeanOperationInfo.ACTION_INFO)
-        boolean doIt(boolean truth) {
+        boolean doIt(@Param(name = "truth", desc = "And nothing but") boolean truth) {
             troo = truth;
             return truth;
         }

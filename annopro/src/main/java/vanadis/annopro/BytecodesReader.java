@@ -35,7 +35,10 @@ class BytecodesReader implements AnnotationReader {
 
     private final String targetAnnotation;
 
-    BytecodesReader(InputStream bytecode, String targetAnnotation) {
+    private final AnnotationMapper mapper;
+
+    BytecodesReader(InputStream bytecode, String targetAnnotation, AnnotationMapper mapper) {
+        this.mapper = mapper;
         this.bytecode = Not.nil(bytecode, "bytecode stream");
         this.targetAnnotation = targetAnnotation;
     }
@@ -70,7 +73,7 @@ class BytecodesReader implements AnnotationReader {
         Map<String, AnnotationDatum<Class<?>>> annos = Generic.map();
         ClassReader reader = createReader();
         try {
-            reader.accept(new ClassAsmVisitor(annos, targetAnnotation), ClassReader.SKIP_CODE);
+            reader.accept(new ClassAsmVisitor(annos, targetAnnotation, mapper), ClassReader.SKIP_CODE);
         } catch (EarlyBreakException ignore) {
         }
         return annos;
