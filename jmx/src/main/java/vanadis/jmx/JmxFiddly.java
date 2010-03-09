@@ -35,8 +35,8 @@ class JmxFiddly {
         return new MBeanAttributeInfo(name,
                                       asString(annotation) ? STRING : namedType(datum.getElement().getType()),
                                       annotation.desc(),
-                                      annotation.readable(),
-                                      annotation.writable(),
+                                      readable(annotation),
+                                      writable(annotation),
                                       false);
     }
 
@@ -57,21 +57,12 @@ class JmxFiddly {
     private static Attr validAnnotation(String name, AnnotationDatum<Method> getDatum, AnnotationDatum<Method> setDatum,
                                         boolean r, boolean w) {
         Attr annotation = r ? attr(getDatum) : attr(setDatum);
-        if (!annotation.readable() && r) {
+        if (!readable(annotation) && r) {
             throw new IllegalArgumentException("Unexpected get method " + getDatum.getElement() +
                     "for non-readable attribute " + name +
                     ", avoid using readable() and writable() for methods");
         }
-        if (annotation.readable() && !r) {
-            throw new IllegalArgumentException("No get method matching readable attribute " + name +
-                    ", avoid using readable() and writable() for methods");
-        }
-        if (!annotation.writable() && w) {
-            throw new IllegalArgumentException("Unexpected set method " + setDatum.getElement() +
-                    "for non-writable attribute " + name +
-                    ", avoid using readable() and writable() for methods");
-        }
-        if (annotation.writable() && !w) {
+        if (writable(annotation) && !w) {
             throw new IllegalArgumentException("No set method for writable attribute " + name +
                     ", avoid using readable() and writable() for methods");
         }
@@ -107,7 +98,23 @@ class JmxFiddly {
     private static boolean asString(Attr annotation) {
         try {
             return annotation.asString();
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignore) {
+            return false;
+        }
+    }
+
+    private static boolean readable(Attr annotation) {
+        try {
+            return annotation.readable();
+        } catch (NullPointerException ignore) {
+            return true;
+        }
+    }
+
+    private static boolean writable(Attr annotation) {
+        try {
+            return annotation.writable();
+        } catch (NullPointerException ignore) {
             return false;
         }
     }
@@ -115,7 +122,7 @@ class JmxFiddly {
     private static boolean asString(Operation annotation) {
         try {
             return annotation.asString();
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignore) {
             return false;
         }
     }
@@ -123,7 +130,7 @@ class JmxFiddly {
     private static int impact(Operation annotation) {
         try {
             return annotation.impact();
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignore) {
             return MBeanOperationInfo.ACTION;
         }
     }
