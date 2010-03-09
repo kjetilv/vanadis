@@ -41,8 +41,8 @@ public class ConstructorInjector<T> extends AccessibleInjector<T> {
     @Override
     protected void performUninject(Reference<T> reference, T service) {
         matches.remove(Pair.of(service, reference));
-        if (parameters[parameterIndex] == service && !matches.isEmpty()) {
-            parameters[parameterIndex] = matches.iterator().next();
+        if (parameters[parameterIndex] == service) {
+            parameters[parameterIndex] = matches.isEmpty() ? null : matches.iterator().next();
         }
     }
 }

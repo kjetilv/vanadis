@@ -232,29 +232,33 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener, Const
 
     @Override
     public void shutdown() {
-        if (getManagedState() == DISPOSED) {
-            log.info(this + " was asked to close again");
-            return;
+        try {
+            if (getManagedState() == DISPOSED) {
+                log.info(this + " was asked to close again");
+                return;
+            }
+            notifyManagedFeatures();
+            for (JmxRegistration<?> jmxReg : jmxRegs) {
+                jmxReg.unregister();
+            }
+            deactivate(injectorDependencyTracker);
+            deactivate(exposerDependencyTracker);
+            state.transition(Transition.DISPOSE);
+            registration.unregister();
+        } finally {
+            this.managedSet.set(false);
+            this.managed.set(null);
         }
-        notifyManagedFeatures();
-        for (JmxRegistration<?> jmxReg : jmxRegs) {
-            jmxReg.unregister();
-        }
-        deactivate(injectorDependencyTracker);
-        deactivate(exposerDependencyTracker);
-        state.transition(Transition.DISPOSE);
-        registration.unregister();
     }
 
     @Override
     public void constructionTimeAgain(ConstructorGatherer gatherer) {
-        Object managed = gatherer.create();
-        startManagedInstance(managed);
+        startManagedInstance(gatherer.create());
     }
 
     @Override
     public void destructionTimeAgain(ConstructorGatherer gatherer) {
-
+        shutdown();
     }
 
     @Override
@@ -777,8 +781,12 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener, Const
     }
 
     private static <M extends ManagedFeature<?, ?>> void deactivate(DependencyTracker<M> dependencyTracker) {
-        for (M managedFeature : dependencyTracker) {
-            deactivate(managedFeature, dependencyTracker);
+        try {
+            for (M managedFeature : dependencyTracker) {
+                deactivate(managedFeature, dependencyTracker);
+            }
+        } finally {
+            dependencyTracker.reset();
         }
     }
 

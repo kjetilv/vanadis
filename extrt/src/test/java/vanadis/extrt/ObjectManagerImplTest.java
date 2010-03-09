@@ -254,13 +254,35 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
     @Test
     public void autoConstructInject() {
         ConstructorExposer.instance = null;
-        ObjectManager objectManager = manage(null, ConstructorExposer.class);
+        manage(null, ConstructorExposer.class);
         assertNull(ConstructorExposer.instance);
         getContext().register(new TestService() {}, TestService.class);
         assertNotNull("Should have instanceof " + ConstructorExposer.class, ConstructorExposer.instance);
         List<BonyRegistration<TestService2>> registrations = getContext().registrations(TestService2.class);
         assertNotNull(registrations);
         assertEquals(1, registrations.size());
+    }
+
+    @Test
+    public void autoConstructInjectAndDestroyUnject() {
+        ConstructorExposer.instance = null;
+        manage(null, ConstructorExposer.class);
+        Registration<TestService> registration = getContext().register(new TestService() { }, TestService.class);
+        assertNotNull("Should have instanceof " + ConstructorExposer.class, ConstructorExposer.instance);
+        assertFalse(getContext().registrations(TestService2.class).isEmpty());
+        registration.unregister();
+        assertTrue(getContext().registrations(TestService2.class).isEmpty());
+    }
+
+    @Test
+    public void autoConstructInjectAndDestroyUnjectAndAgain() {
+        ConstructorExposer.instance = null;
+        manage(null, ConstructorExposer.class);
+        Registration<TestService> registration = getContext().register(new TestService() { }, TestService.class);
+        registration.unregister();
+        assertTrue(getContext().registrations(TestService2.class).isEmpty());
+        getContext().register(new TestService() { }, TestService.class);
+        assertFalse(getContext().registrations(TestService2.class).isEmpty());
     }
 }
 

@@ -113,6 +113,13 @@ final class DependencyTracker<T extends ManagedFeature<?,?>> implements Iterable
     public boolean isRequiredComplete() {
         return requiredIncomplete.isEmpty();
     }
+    
+    public void reset() {
+        complete.clear();
+        requiredIncomplete.clear();
+        incomplete.clear();
+        trackees.clear();
+    }
 
     private T trackee(String name) {
         return trackees.get(name);
