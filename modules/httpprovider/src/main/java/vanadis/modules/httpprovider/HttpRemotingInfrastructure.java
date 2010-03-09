@@ -22,14 +22,6 @@ import vanadis.remoting.GenericHttpInfrastructure;
 
 public class HttpRemotingInfrastructure extends GenericHttpInfrastructure {
 
-    public HttpRemotingInfrastructure() {
-        this(AbstractHttpInfrastructure.DEFAULT_KEEPALIVE);
-    }
-
-    public HttpRemotingInfrastructure(TimeSpan keepAlive) {
-        this(null, keepAlive, 1, 1, false);
-    }
-
     public HttpRemotingInfrastructure(Location location,
                                       TimeSpan keepAlive,
                                       int coreThreads, int maxThreads,
