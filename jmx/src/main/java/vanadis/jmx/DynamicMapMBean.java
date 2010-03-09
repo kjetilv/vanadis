@@ -36,7 +36,12 @@ public class DynamicMapMBean implements DynamicMBean {
        if (!writable) {
            throw new IllegalStateException("Received set call: " + attribute);
        }
-       map.put(attribute.getName(), attribute.getValue());
+       String name = attribute.getName();
+       Object value = map.get(name);
+       if (value == null) {
+           throw new IllegalArgumentException("No value " + name);
+       }
+       map.put(name, attribute.getValue());
    }
 
    @Override
