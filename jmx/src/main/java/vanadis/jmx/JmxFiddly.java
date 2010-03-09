@@ -44,14 +44,38 @@ class JmxFiddly {
                                                 Pair<AnnotationDatum<Method>, AnnotationDatum<Method>> pair) {
         AnnotationDatum<Method> getDatum = pair.getOne();
         AnnotationDatum<Method> setDatum = pair.getTwo();
-        Attr annotation = getDatum != null ? attr(getDatum) : attr(setDatum);
+        boolean r = getDatum != null;
+        boolean w = setDatum != null;
+        Attr annotation = validAnnotation(name, getDatum, setDatum, r, w);
         boolean asString = asString(annotation);
         return new MBeanAttributeInfo(name,
                                       asString ? STRING : namedType(attributeType(getDatum, setDatum)),
-                                      annotation.desc(),
-                                      getDatum != null,
-                                      setDatum != null,
+                                      annotation.desc(), r, w,
                                       !asString && isIs(getDatum));
+    }
+
+    private static Attr validAnnotation(String name, AnnotationDatum<Method> getDatum, AnnotationDatum<Method> setDatum,
+                                        boolean r, boolean w) {
+        Attr annotation = r ? attr(getDatum) : attr(setDatum);
+        if (!annotation.readable() && r) {
+            throw new IllegalArgumentException("Unexpected get method " + getDatum.getElement() +
+                    "for non-readable attribute " + name +
+                    ", avoid using readable() and writable() for methods");
+        }
+        if (annotation.readable() && !r) {
+            throw new IllegalArgumentException("No get method matching readable attribute " + name +
+                    ", avoid using readable() and writable() for methods");
+        }
+        if (!annotation.writable() && w) {
+            throw new IllegalArgumentException("Unexpected set method " + setDatum.getElement() +
+                    "for non-writable attribute " + name +
+                    ", avoid using readable() and writable() for methods");
+        }
+        if (annotation.writable() && !w) {
+            throw new IllegalArgumentException("No set method for writable attribute " + name +
+                    ", avoid using readable() and writable() for methods");
+        }
+        return annotation;
     }
 
     static MBeanOperationInfo beanOperationInfo(AnnotationDatum<Method> datum,

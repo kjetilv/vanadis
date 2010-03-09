@@ -98,7 +98,7 @@ public class MappedMBeanTest {
                 this.cost = cost;
             }
 
-            @A2(d = "Cost so far", r = true, w = true, as = true)
+            @A2(d = "Cost so far", r = true, w = false, as = true)
             public int cost() {
                 return cost;
             }
@@ -121,7 +121,7 @@ public class MappedMBeanTest {
         assertSingleParameterOperation(operationInfos, checkImpact);
         MBeanAttributeInfo info = assertSingleAttribute(mbeanInfo);
         if (checkRW) {
-            assertRW(info, true, true);
+            assertRW(info, true, false);
         }
     }
 
