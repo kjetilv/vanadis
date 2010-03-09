@@ -76,7 +76,7 @@ class JmxFiddly {
         return new MBeanOperationInfo
             (method.getName(),
              annotation.desc(),
-             useParamAnnotations(paramType, params, method),
+             useParamAnnotations(params, method),
              asString(annotation) ? STRING : JmxFiddly.namedType(method.getReturnType()),
              impact(annotation));
     }
@@ -194,7 +194,7 @@ class JmxFiddly {
         return returnType.isArray() ? "[L" + name + ";" : name;
     }
 
-    private static MBeanParameterInfo[] useParamAnnotations(Class<?> paramType, List<List<AnnotationDatum<Integer>>> params,
+    private static MBeanParameterInfo[] useParamAnnotations(List<List<AnnotationDatum<Integer>>> params,
                                                             Method method) {
         List<MBeanParameterInfo> infos = Generic.list();
         Class<?>[] types = method.getParameterTypes();
