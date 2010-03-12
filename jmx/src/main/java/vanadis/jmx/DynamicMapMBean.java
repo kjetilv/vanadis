@@ -6,6 +6,8 @@ import javax.management.*;
 import java.util.List;
 import java.util.Map;
 
+import static vanadis.jmx.MapAttributes.attributes;
+
 public class DynamicMapMBean implements DynamicMBean {
 
    private final Map<String, Object> map;
@@ -14,9 +16,7 @@ public class DynamicMapMBean implements DynamicMBean {
 
    private final boolean toString;
 
-   private static final String STRING_TYPE = String.class.getName();
-
-   public DynamicMapMBean(Map<String, Object> map) {
+    public DynamicMapMBean(Map<String, Object> map) {
        this(map, true, false);
    }
 
@@ -72,23 +72,11 @@ public class DynamicMapMBean implements DynamicMBean {
 
    @Override
    public MBeanInfo getMBeanInfo() {
-       return new MBeanInfo(Map.class.getName(), "A map", attributes(), null, null, null, null);
+       return new MBeanInfo(Map.class.getName(), "A map", attributes(map, writable, toString), null, null, null, null);
    }
 
    private Object val(Object value) {
        return toString ? String.valueOf(value) : value;
    }
 
-   private MBeanAttributeInfo[] attributes() {
-       List<MBeanAttributeInfo> infos = Generic.list();
-       for (Map.Entry<String, Object> entry : map.entrySet()) {
-           Class<?> type = entry.getValue().getClass();
-           String name = entry.getKey();
-           String typeName = toString ? STRING_TYPE : type.getName();
-           boolean bool = !toString && type == Boolean.class;
-           String desc = "Key:" + name;
-           infos.add(new MBeanAttributeInfo(name, typeName, desc, true, writable, bool));
-       }
-       return infos.toArray(new MBeanAttributeInfo[infos.size()]);
-   }
 }

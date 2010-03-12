@@ -203,10 +203,17 @@ class JmxFiddly {
             List<AnnotationDatum<Integer>> paramAnnotations = params.get(i);
             for (int j = 0, paramAnnotationsSize = paramAnnotations.size(); j < paramAnnotationsSize; j++) {
                 Param param = param(paramAnnotations.get(j));
-                infos.add(new MBeanParameterInfo(param.name(), type, param.desc()));
+                infos.add(new MBeanParameterInfo(better(param.name(), param.desc()),
+                                                 better(param.desc(), param.name()),
+                                                 type));
             }
         }
         return infos.toArray(new MBeanParameterInfo[infos.size()]);
+    }
+
+
+    private static String better(String main, String fallback) {
+        return main == null || main.trim().isEmpty() ? fallback : main;
     }
 
     private static boolean nonMatching(AnnotationDatum<Method> getDatum, AnnotationDatum<Method> setDatum) {

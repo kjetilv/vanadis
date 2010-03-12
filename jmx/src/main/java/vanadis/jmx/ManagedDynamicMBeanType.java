@@ -52,7 +52,6 @@ public class ManagedDynamicMBeanType {
 
     private final MBeanInfo mBeanInfo;
 
-
     ManagedDynamicMBeanType(AnnotationsDigest digest, Class<?> type, AnnotationMapper annotationMapper) {
         this.type = Not.nil(type, "type");
 
