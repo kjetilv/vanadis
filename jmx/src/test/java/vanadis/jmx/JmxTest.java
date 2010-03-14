@@ -2,6 +2,7 @@ package vanadis.jmx;
 
 import org.junit.Assert;
 import org.junit.Test;
+import vanadis.core.jmx.Jmx;
 import vanadis.core.system.VM;
 
 import javax.management.*;

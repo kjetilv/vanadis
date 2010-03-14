@@ -70,7 +70,7 @@ class JmxFiddly {
     }
 
     static MBeanOperationInfo beanOperationInfo(AnnotationDatum<Method> datum,
-                                                Class<?> paramType, List<List<AnnotationDatum<Integer>>> params) {
+                                                List<List<AnnotationDatum<Integer>>> params) {
         Method method = datum.getElement();
         Operation annotation = oper(datum);
         return new MBeanOperationInfo
@@ -204,8 +204,8 @@ class JmxFiddly {
             for (int j = 0, paramAnnotationsSize = paramAnnotations.size(); j < paramAnnotationsSize; j++) {
                 Param param = param(paramAnnotations.get(j));
                 infos.add(new MBeanParameterInfo(better(param.name(), param.desc()),
-                                                 better(param.desc(), param.name()),
-                                                 type));
+                                                 type,
+                                                 better(param.desc(), param.name())));
             }
         }
         return infos.toArray(new MBeanParameterInfo[infos.size()]);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package vanadis.jmx;
+package vanadis.core.jmx;
 
 import vanadis.core.lang.Not;
 import vanadis.core.system.VM;

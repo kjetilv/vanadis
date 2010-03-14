@@ -250,7 +250,9 @@ public class BlueprintsReader {
         List<Blueprint> blueprints = Generic.list();
         BundleBuilder builder = basicBuilder(blueprintsType);
         for (BlueprintType blueprintType : blueprintsType.getBlueprint()) {
-            blueprints.add(processBlueprint(source, copyFor(blueprintType, builder), blueprintType));
+            BundleBuilder bundleBuilder = copyFor(blueprintType, builder);
+            Blueprint blueprint = processBlueprint(source, bundleBuilder, blueprintType);
+            blueprints.add(blueprint);
         }
         return blueprints;
     }

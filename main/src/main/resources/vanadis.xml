@@ -15,136 +15,138 @@
   ~ limitations under the License.
   -->
 <!-- Basic configurations for vanadis runtimes. -->
-<blueprints default-version="1.1-SNAPSHOT"
+<blueprints default-version="1.1.2-SNAPSHOT"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns="http://kjetilv.github.com/vanadis/blueprints">
-  <!-- Configuration with all that defines vanadis, all auto-loaded -->
-  <blueprint name="base">
+    <!-- Configuration with all that defines vanadis, all auto-loaded -->
+    <blueprint name="base">
 
-    <!-- PAX Stuff.  -->
-    <bundles group="org.ops4j.pax.url">
-      <auto-bundle artifact="pax-url-mvn" version="1.0.0"/>
-      <auto-bundle artifact="pax-url-wrap" version="1.0.0"/>
-    </bundles>
+        <!-- PAX Stuff.  -->
+        <bundles group="org.ops4j.pax.url">
+            <auto-bundle artifact="pax-url-mvn" version="1.0.0"/>
+            <auto-bundle artifact="pax-url-wrap" version="1.0.0"/>
+        </bundles>
 
-    <!-- Additional OSGi services -->
-    <auto-bundle group="org.apache.felix" artifact="org.osgi.compendium"
-                 version="1.2.0"/>
-    <!-- ASM -->
-    <auto-bundle group="org.objectweb.asm" artifact="com.springsource.org.objectweb.asm"
-                 version="3.1.0"/>
-    <bundles group="vanadis" artifact-prefix="vanadis">
-      <!-- Annotation muncher -->
-      <auto-bundle artifact="annopro"/>
-      <!-- Humane OSGi API's -->
-      <auto-bundle artifact="osgi"/>
-      <!-- Object Manager interfaces -->
-      <auto-bundle artifact="objectmanagers"/>
-      <!-- Vanadis services -->
-      <auto-bundle artifact="services"/>
-      <!-- Concurrency support -->
-      <auto-bundle artifact="concurrent"/>
-      <!-- API for users of extender module -->
-      <auto-bundle artifact="ext"/>
-      <!-- The extender module picks up managed modules using a quick ASM scan. -->
-      <auto-bundle artifact="extrt"/>
-    </bundles>
+        <!-- Additional OSGi services -->
+        <auto-bundle group="org.apache.felix" artifact="org.osgi.compendium"
+                     version="1.2.0"/>
 
-    <!-- Logger Service -->
-    <auto-bundle group="vanadis.modules" artifact="vanadis.modules.log"/>
-  </blueprint>
+        <!-- ASM -->
+        <auto-bundle group="org.objectweb.asm" artifact="com.springsource.org.objectweb.asm"
+                     version="3.2.0"/>
 
-  <!-- Shell-enabled extension of the base -->
-  <blueprint name="base-shell" extends="base">
-    <!-- The felix shell -->
-    <auto-bundle group="org.apache.felix" artifact="org.apache.felix.shell" version="1.2.0"/>
-    <!-- The felix shell text interface -->
-    <auto-bundle group="org.apache.felix" artifact="org.apache.felix.shell.tui" version="1.2.0"/>
-  </blueprint>
+        <bundles group="vanadis" artifact-prefix="vanadis">
+            <!-- Annotation muncher -->
+            <auto-bundle artifact="annopro"/>
+            <!-- Humane OSGi API's -->
+            <auto-bundle artifact="osgi"/>
+            <!-- Object Manager interfaces -->
+            <auto-bundle artifact="objectmanagers"/>
+            <!-- Vanadis services -->
+            <auto-bundle artifact="services"/>
+            <!-- Concurrency support -->
+            <auto-bundle artifact="concurrent"/>
+            <!-- API for users of extender module -->
+            <auto-bundle artifact="ext"/>
+            <!-- The extender module picks up managed modules using a quick ASM scan. -->
+            <auto-bundle artifact="extrt"/>
+        </bundles>
 
-  <!-- Extensions adding vanadis commands -->
-  <blueprint name="base-commands" extends="base-shell">
-    <bundles group="vanadis.modules" artifact-prefix="vanadis.modules">
-      <bundle artifact="felixcmds"/>
-    </bundles>
-  </blueprint>
+        <!-- Logger Service -->
+        <auto-bundle group="vanadis.modules" artifact="vanadis.modules.log"/>
+    </blueprint>
 
-  <blueprint name="grizzly-networking">
-    <bundle group="com.sun.grizzly" artifact="grizzly-servlet-webserver" version="1.9.15a"/>
-  </blueprint>
+    <!-- Shell-enabled extension of the base -->
+    <blueprint name="base-shell" extends="base">
+        <!-- The felix shell -->
+        <auto-bundle group="org.apache.felix" artifact="org.apache.felix.shell" version="1.2.0"/>
+        <!-- The felix shell text interface -->
+        <auto-bundle group="org.apache.felix" artifact="org.apache.felix.shell.tui" version="1.2.0"/>
+    </blueprint>
 
-  <blueprint name="grizzly-http">
-    <bundle group="javax.servlet" artifact="com.springsource.javax.servlet" version="2.5.0"/>
-    <!-- Grizzly -->
-    <bundle group="com.sun.grizzly.osgi" artifact="grizzly-httpservice-bundle"
-            global-properties="true" version="1.9.15a">
-      <properties>
-        <property name="org.osgi.service.http.port">baseport+80</property>
-        <property name="org.osgi.service.http.port.secure">baseport+81</property>
-      </properties>
-    </bundle>
-    <bundle group="vanadis.modules" artifact="vanadis.modules.httpwhiteboard"/>
-  </blueprint>
+    <!-- Extensions adding vanadis commands -->
+    <blueprint name="base-commands" extends="base-shell">
+        <bundles group="vanadis.modules" artifact-prefix="vanadis.modules">
+            <bundle artifact="felixcmds"/>
+        </bundles>
+    </blueprint>
 
-  <blueprint name="jetty-http">
-    <bundle group="javax.servlet" artifact="com.springsource.javax.servlet" version="2.5.0"/>
-    <bundle group="org.apache.felix" artifact="org.apache.felix.http.jetty"
-            global-properties="true" version="1.0.0">
-      <properties>
-        <property name="org.osgi.service.http.port">baseport+80</property>
-        <property name="org.osgi.service.http.port.secure">baseport+80</property>
-      </properties>
-    </bundle>
-    <bundle group="vanadis.modules" artifact="vanadis.modules.httpwhiteboard"/>
-  </blueprint>
+    <blueprint name="grizzly-networking">
+        <bundle group="com.sun.grizzly" artifact="grizzly-servlet-webserver" version="1.9.15a"/>
+    </blueprint>
 
-  <!-- Template for full stand-alone vanadis -->
-  <blueprint name="vanadis-basic" extends="base-commands">
-    <bundle group="org.apache.felix" artifact="org.apache.felix.eventadmin" version="1.0.0"/>
-    <bundles group="vanadis" artifact-prefix="vanadis">
-      <bundle artifact="deployer"/>
-      <bundle artifact="remoting"/>
-    </bundles>
-    <bundle group="vanadis.lang" artifact="vanadis.lang.piji"/>
+    <blueprint name="grizzly-http">
+        <bundle group="javax.servlet" artifact="com.springsource.javax.servlet" version="2.5.0"/>
+        <!-- Grizzly -->
+        <bundle group="com.sun.grizzly.osgi" artifact="grizzly-httpservice-bundle"
+                global-properties="true" version="1.9.15a">
+            <properties>
+                <property name="org.osgi.service.http.port">baseport+80</property>
+                <property name="org.osgi.service.http.port.secure">baseport+81</property>
+            </properties>
+        </bundle>
+        <bundle group="vanadis.modules" artifact="vanadis.modules.httpwhiteboard"/>
+    </blueprint>
 
-    <bundles group="vanadis.modules" artifact-prefix="vanadis.modules">
-      <bundle artifact="jmxsetup"/>
-      <bundle artifact="networker"/>
-      <bundle artifact="remoting"/>
-      <bundle artifact="httpprovider"/>
-      <bundle artifact="reposerv"/>
-      <bundle artifact="scripting"/>
-    </bundles>
-    <bundle group="vanadis.modules.lang" artifact="vanadis.modules.lang.piji"/>
+    <blueprint name="jetty-http">
+        <bundle group="javax.servlet" artifact="com.springsource.javax.servlet" version="2.5.0"/>
+        <bundle group="org.apache.felix" artifact="org.apache.felix.http.jetty"
+                global-properties="true" version="1.0.0">
+            <properties>
+                <property name="org.osgi.service.http.port">baseport+80</property>
+                <property name="org.osgi.service.http.port.secure">baseport+80</property>
+            </properties>
+        </bundle>
+        <bundle group="vanadis.modules" artifact="vanadis.modules.httpwhiteboard"/>
+    </blueprint>
 
-    <module name="httpprovider" type="httpprovider">
-      <properties>
-        <property name="location">baseport+82</property>
-      </properties>
-    </module>
-    <module name="remoting" type="remoting"/>
-  </blueprint>
+    <!-- Template for full stand-alone vanadis -->
+    <blueprint name="vanadis-basic" extends="base-commands">
+        <bundle group="org.apache.felix" artifact="org.apache.felix.eventadmin" version="1.0.0"/>
+        <bundles group="vanadis" artifact-prefix="vanadis">
+            <bundle artifact="deployer"/>
+            <bundle artifact="remoting"/>
+        </bundles>
+        <bundle group="vanadis.lang" artifact="vanadis.lang.piji"/>
 
-  <!-- node that routes registrations to other nodes -->
-  <blueprint name="vanadis-router" extends="vanadis-basic">
-    <module name="networker" type="networker">
-      <properties>
-        <property name="routing">${networker.routing}</property>
-      </properties>
-    </module>
-  </blueprint>
+        <bundles group="vanadis.modules" artifact-prefix="vanadis.modules">
+            <bundle artifact="jmxsetup"/>
+            <bundle artifact="networker"/>
+            <bundle artifact="remoting"/>
+            <bundle artifact="httpprovider"/>
+            <bundle artifact="reposerv"/>
+            <bundle artifact="scripting"/>
+        </bundles>
+        <bundle group="vanadis.modules.lang" artifact="vanadis.modules.lang.piji"/>
 
-  <!-- vanadis node that use routers to distribute registartons -->
-  <blueprint name="vanadis-routed" extends="vanadis-basic">
-    <module name="networker" type="networker">
-      <properties>
-        <property name="routerLocations">${networker.routerLocations}</property>
-      </properties>
-    </module>
-  </blueprint>
+        <module name="httpprovider" type="httpprovider">
+            <properties>
+                <property name="location">baseport+82</property>
+            </properties>
+        </module>
+        <module name="remoting" type="remoting"/>
+    </blueprint>
 
-  <!-- vanadis node that serves up the local maven repository -->
-  <blueprint name="vanadis-reposerv" extends="vanadis-basic">
-    <module name="reposerv" type="reposerv"/>
-  </blueprint>
+    <!-- node that routes registrations to other nodes -->
+    <blueprint name="vanadis-router" extends="vanadis-basic">
+        <module name="networker" type="networker">
+            <properties>
+                <property name="routing">${networker.routing}</property>
+            </properties>
+        </module>
+    </blueprint>
+
+    <!-- vanadis node that use routers to distribute registartons -->
+    <blueprint name="vanadis-routed" extends="vanadis-basic">
+        <module name="networker" type="networker">
+            <properties>
+                <property name="routerLocations">${networker.routerLocations}</property>
+            </properties>
+        </module>
+    </blueprint>
+
+    <!-- vanadis node that serves up the local maven repository -->
+    <blueprint name="vanadis-reposerv" extends="vanadis-basic">
+        <module name="reposerv" type="reposerv"/>
+    </blueprint>
 </blueprints>

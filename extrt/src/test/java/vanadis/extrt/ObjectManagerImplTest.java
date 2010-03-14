@@ -282,7 +282,9 @@ public class ObjectManagerImplTest extends ObjectManagementTestCase {
         registration.unregister();
         assertTrue(getContext().registrations(TestService2.class).isEmpty());
         getContext().register(new TestService() { }, TestService.class);
-        assertFalse(getContext().registrations(TestService2.class).isEmpty());
+        List<BonyRegistration<TestService2>> registrationList = getContext().registrations(TestService2.class);
+        assertFalse("Expected no registrations of " + TestService2.class + ": " + registrationList,
+                    registrationList.isEmpty());
     }
 }
 

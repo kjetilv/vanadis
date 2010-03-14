@@ -18,7 +18,7 @@
 <!-- Simple calculator applications     -->
 <!-- To call up calculator, go to:      -->
 <!--   http://<location + 80>/scripting -->
-<blueprints default-version="1.1-SNAPSHOT"
+<blueprints default-version="1.1.2-SNAPSHOT"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns="http://kjetilv.github.com/vanadis/blueprints">
 

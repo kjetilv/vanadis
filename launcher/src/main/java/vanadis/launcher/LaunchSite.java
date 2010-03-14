@@ -19,7 +19,7 @@ package vanadis.launcher;
 import vanadis.blueprints.*;
 import vanadis.core.collections.Generic;
 import vanadis.common.io.Location;
-import vanadis.jmx.Jmx;
+import vanadis.core.jmx.Jmx;
 import vanadis.core.lang.ToString;
 import vanadis.core.system.VM;
 import vanadis.common.test.ForTestingPurposes;

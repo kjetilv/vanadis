@@ -771,16 +771,20 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener, Const
                 addParams[0] == removeParams[0];
     }
 
-    private static <M extends ManagedFeature<?, ?>> void deactivate(M managedFeature,
+    private <M extends ManagedFeature<?, ?>> void deactivate(M managedFeature,
                                                                     DependencyTracker<M> dependencyTracker) {
+        boolean debug = log.isDebugEnabled();
         try {
             managedFeature.deactivate();
         } finally {
-            dependencyTracker.setback(managedFeature.getFeatureName());
+            M m = dependencyTracker.setback(managedFeature.getFeatureName());
+            if (debug) {
+                log.debug(this + " deactivated " + m);
+            }
         }
     }
 
-    private static <M extends ManagedFeature<?, ?>> void deactivate(DependencyTracker<M> dependencyTracker) {
+    private <M extends ManagedFeature<?, ?>> void deactivate(DependencyTracker<M> dependencyTracker) {
         try {
             for (M managedFeature : dependencyTracker) {
                 deactivate(managedFeature, dependencyTracker);

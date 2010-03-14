@@ -15,40 +15,40 @@
   ~ limitations under the License.
   -->
 <assembly>
-  <id>vanadis</id>
-  <includeBaseDirectory>false</includeBaseDirectory>
-  <formats>
-    <format>zip</format>
-    <format>tar.gz</format>
-  </formats>
-  <fileSet>
-    <lineEnding>unix</lineEnding>
-    <directory>src/main/resources/vanadis</directory>
-    <outputDirectory>vanadis</outputDirectory>
-    <directoryMode>0755</directoryMode>
-    <excludes>
-      <exclude>bin/*.sh</exclude>
-    </excludes>
-  </fileSet>
-  <fileSet>
-    <lineEnding>unix</lineEnding>
-    <directory>src/main/resources/vanadis</directory>
-    <outputDirectory>vanadis</outputDirectory>
-    <fileMode>0755</fileMode>
-    <directoryMode>0755</directoryMode>
-    <includes>
-      <include>bin/*.sh</include>
-    </includes>
-  </fileSet>
-  <binaries>
-    <dependencySets>
-      <dependencySet>
-        <useTransitiveDependencies>false</useTransitiveDependencies>
-        <outputDirectory>vanadis/lib</outputDirectory>
+    <id>vanadis</id>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <formats>
+        <format>zip</format>
+        <format>tar.gz</format>
+    </formats>
+    <fileSet>
+        <lineEnding>unix</lineEnding>
+        <directory>src/main/resources/vanadis</directory>
+        <outputDirectory>vanadis</outputDirectory>
+        <directoryMode>0755</directoryMode>
         <excludes>
-          <exclude>*pax-runner*</exclude>
+            <exclude>bin/*.sh</exclude>
         </excludes>
-      </dependencySet>
-    </dependencySets>
-  </binaries>
+    </fileSet>
+    <fileSet>
+        <lineEnding>unix</lineEnding>
+        <directory>src/main/resources/vanadis</directory>
+        <outputDirectory>vanadis</outputDirectory>
+        <fileMode>0755</fileMode>
+        <directoryMode>0755</directoryMode>
+        <includes>
+            <include>bin/*.sh</include>
+        </includes>
+    </fileSet>
+    <binaries>
+        <dependencySets>
+            <dependencySet>
+                <useTransitiveDependencies>false</useTransitiveDependencies>
+                <outputDirectory>vanadis/lib</outputDirectory>
+                <excludes>
+                    <exclude>*pax-runner*</exclude>
+                </excludes>
+            </dependencySet>
+        </dependencySets>
+    </binaries>
 </assembly>

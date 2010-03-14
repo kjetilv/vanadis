@@ -96,7 +96,7 @@ public class ManagedDynamicMBeanType {
         for (Map.Entry<String, AnnotationDatum<Method>> entry : operations.entrySet()) {
             AnnotationDatum<Method> datum = entry.getValue();
             List<List<AnnotationDatum<Integer>>> params = operationParams.get(datum.getElement());
-            infos.add(beanOperationInfo(datum, paramType, params));
+            infos.add(beanOperationInfo(datum, params));
         }
         return infos.toArray(new MBeanOperationInfo[infos.size()]);
     }

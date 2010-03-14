@@ -151,11 +151,11 @@ public final class FelixTestSession {
     }
 
     public final Registration<BundleSpecification> registerVBundle(String groupAndArtifactPrefix, String artifactId) {
-        return registerBundle(groupAndArtifactPrefix, groupAndArtifactPrefix + "." + artifactId, "1.1-SNAPSHOT");
+        return registerBundle(groupAndArtifactPrefix, groupAndArtifactPrefix + "." + artifactId, "1.1.2-SNAPSHOT");
     }
 
     public final Registration<BundleSpecification> registerBundle(String groupId, String artifactId) {
-        return registerBundle(groupId, artifactId, "1.1-SNAPSHOT");
+        return registerBundle(groupId, artifactId, "1.1.2-SNAPSHOT");
     }
 
     public final Registration<BundleSpecification> registerBundle(String groupId, String artifactId, String version) {
@@ -376,21 +376,21 @@ public final class FelixTestSession {
              id("org.slf4j:slf4j-api:1.5.10"),
              id("org.slf4j:slf4j-simple:1.5.10"),
              id("org.apache.commons:com.springsource.org.apache.commons.logging:1.1.1"),
-             id("org.objectweb.asm:com.springsource.org.objectweb.asm:3.1.0"),
-             vana("annopro", "1.1-SNAPSHOT"),
-             vana("osgi", "1.1-SNAPSHOT"),
-             vana("objectmanagers", "1.1-SNAPSHOT"),
-             vana("services", "1.1-SNAPSHOT"),
-             vana("concurrent", "1.1-SNAPSHOT"),
-             vana("mvn", "1.1-SNAPSHOT"),
-             vana("ext", "1.1-SNAPSHOT"),
-             vana("extrt", "1.1-SNAPSHOT"));
+             id("org.objectweb.asm:com.springsource.org.objectweb.asm:3.2.0"),
+             vana("annopro", "1.1.2-SNAPSHOT"),
+             vana("osgi", "1.1.2-SNAPSHOT"),
+             vana("objectmanagers", "1.1.2-SNAPSHOT"),
+             vana("services", "1.1.2-SNAPSHOT"),
+             vana("concurrent", "1.1.2-SNAPSHOT"),
+             vana("mvn", "1.1.2-SNAPSHOT"),
+             vana("ext", "1.1.2-SNAPSHOT"),
+             vana("extrt", "1.1.2-SNAPSHOT"));
 
     private static final Collection<BundleSpecification> DYNA_CONFIGURATION = Arrays.asList
             (id("com.sun.grizzly.osgi:grizzly-httpservice-bundle:1.9.15a",
                 PropertySets.create("org.osgi.service.http.port", "baseport+80",
                                     "org.osgi.service.http.port.secure", "baseport+81")),
-             vanaModule("log", "1.1-SNAPSHOT"));
+             vanaModule("log", "1.1.2-SNAPSHOT"));
 
     private static BundleSpecification id(String id) {
         return id(id, null);

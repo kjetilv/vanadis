@@ -77,7 +77,7 @@ final class DependencyTracker<T extends ManagedFeature<?,?>> implements Iterable
         }
     }
 
-    public void setback(String name) {
+    public T setback(String name) {
         checkArgument(name);
         T trackee = trackee(name);
         if (complete.contains(name) && !trackee.isComplete()) {
@@ -86,7 +86,9 @@ final class DependencyTracker<T extends ManagedFeature<?,?>> implements Iterable
             if (trackee.isRequired()) {
                 requiredIncomplete.add(name);
             }
+            return trackees.get(name);
         }
+        return null;
     }
 
     @Override
@@ -113,7 +115,7 @@ final class DependencyTracker<T extends ManagedFeature<?,?>> implements Iterable
     public boolean isRequiredComplete() {
         return requiredIncomplete.isEmpty();
     }
-    
+
     public void reset() {
         complete.clear();
         requiredIncomplete.clear();

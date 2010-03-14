@@ -133,8 +133,8 @@ public class VersionTest extends Assert {
     public void compareSnapshots() {
         assertTrue(new Version("1.0-SNAPSHOT").isAfter(new Version("1.0")));
         assertFalse(new Version("1.0-SNAPSHOT").isBefore(new Version("1.0")));
-        assertTrue(new Version("1.1-SNAPSHOT").isAfter(new Version("1.0-SNAPSHOT")));
-        assertFalse(new Version("1.1-SNAPSHOT").isBefore(new Version("1.0-SNAPSHOT")));
+        assertTrue(new Version("1.0.1-SNAPSHOT").isAfter(new Version("1.0-SNAPSHOT")));
+        assertFalse(new Version("1.0.1-SNAPSHOT").isBefore(new Version("1.0-SNAPSHOT")));
     }
 
     @Test
