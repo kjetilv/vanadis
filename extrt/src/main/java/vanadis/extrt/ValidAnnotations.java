@@ -26,7 +26,6 @@ import vanadis.core.properties.PropertySet;
 import vanadis.ext.*;
 import vanadis.osgi.ServiceProperties;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -39,10 +38,10 @@ class ValidAnnotations {
     static AnnotationsDigest read(Class<?> managedType) {
         AnnotationsDigest digest = AnnotationsDigests.createFullFromType(managedType);
         for (AnnotationDatum<Method> datum : digest.methodData()) {
-            validate(digest, datum.getElement());
+            validateMethods(digest, datum);
         }
         for (AnnotationDatum<Field> datum : digest.fieldData()) {
-            validate(digest, datum.getElement());
+            validateField(digest, datum);
         }
         return digest;
     }
@@ -55,28 +54,35 @@ class ValidAnnotations {
     // Doggonit
     private static final Class<ServiceProperties> SERVICE_PROPERTIES_CLASS = ServiceProperties.class;
 
-    private static AccessibleObject validate(AnnotationsDigest digest, AccessibleObject object) {
-        for (Annotation annotation : object.getAnnotations()) {
-            Class<? extends Annotation> type = annotation.annotationType();
-            if (object instanceof Method) {
-                if (type == Inject.class) {
-                    return validInjectionMethod(digest, (Method) object);
-                }
-                if (type == Expose.class) {
-                    return validExposureMethod((Method) object);
-                }
-                if (type == Retract.class) {
-                    return validRetractMethod((Method) object);
-                }
-                if (type == Track.class) {
-                    return validTrackingMethod((Method) object);
-                }
+    private static AccessibleObject validateMethods(AnnotationsDigest digest, AnnotationDatum<Method> datum) {
+        for (AnnotationDatum<Method> annotation : digest.methodData(datum.getElement())) {
+            if (annotation.isType(Inject.class)) {
+                return validInjectionMethod(digest, annotation.getElement());
             }
-            if (object instanceof Field && type == Expose.class) {
-                return validExposedField((Field) object);
+            if (annotation.isType(Expose.class)) {
+                return validExposureMethod(annotation.getElement());
             }
-            if (type == Configure.class) {
-                return validConfigObject(object);
+            if (annotation.isType(Retract.class)) {
+                return validRetractMethod(annotation.getElement());
+            }
+            if (annotation.isType(Track.class)) {
+                return validTrackingMethod(annotation.getElement());
+            }
+            if (annotation.isType(Configure.class)) {
+                return validConfigParameters(annotation.getElement());
+            }
+        }
+        return null;
+    }
+
+
+    private static AccessibleObject validateField(AnnotationsDigest digest, AnnotationDatum<Field> datum) {
+        for (AnnotationDatum<Field> annotation : digest.getFieldData(datum.annotationType())) {
+            if (annotation.isType(Expose.class)) {
+                return validExposedField(annotation.getElement());
+            }
+            if (annotation.isType(Configure.class)) {
+                return validConfigField(annotation.getElement());
             }
         }
         return null;
@@ -99,11 +105,8 @@ class ValidAnnotations {
         return accessibleFor("Tracking", method);
     }
 
-    private static AccessibleObject validConfigObject(AccessibleObject object) {
-        if (object instanceof Method) {
-            validateConfigParameters((Method) object);
-        }
-        return accessibleFor("Configuration", object);
+    private static AccessibleObject validConfigField(Field field) {
+        return accessibleFor("Configuration", field);
     }
 
     private static void validateTrackingSignature(Method method) {
@@ -118,12 +121,13 @@ class ValidAnnotations {
         }
     }
 
-    private static void validateConfigParameters(Method method) {
+    private static Method validConfigParameters(Method method) {
         Class<?>[] classes = method.getParameterTypes();
         if (classes == null || classes.length != 1) {
             throw new ModuleSystemException
                     ("Configuration method should have one parameter: " + method);
         }
+        return method;
     }
 
     private static Method validInjectionMethod(AnnotationsDigest digest, Method method) {
@@ -137,7 +141,7 @@ class ValidAnnotations {
     }
 
     private static <T extends AccessibleObject> T accessibleFor(String type, T object) {
-        int modifiers = object instanceof Method ? ((Method) object).getModifiers()
+        int modifiers = object instanceof Method ? ((Method)object).getModifiers()
                 : ((Field) object).getModifiers();
         if (object instanceof Field && Modifier.isFinal(modifiers)) {
             throw new ModuleSystemException
