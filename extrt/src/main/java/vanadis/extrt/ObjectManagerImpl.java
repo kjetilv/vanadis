@@ -698,7 +698,7 @@ final class ObjectManagerImpl implements ObjectManager, InjectionListener, Const
 
     private static final ManagedDynamicMBeans mbeans = new ManagedDynamicMBeans();
 
-    private static final Logger log = LoggerFactory.getLogger(ObjectManagerImpl.class);
+    private static final Logger log =LoggerFactory.getLogger(ObjectManagerImpl.class);
 
     private static final String SCALASET_SUFFIX = "_$eq";
 

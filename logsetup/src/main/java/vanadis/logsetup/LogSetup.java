@@ -17,9 +17,9 @@ package vanadis.logsetup;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
-import vanadis.core.collections.Generic;
 import vanadis.common.io.Files;
 import vanadis.common.io.Location;
+import vanadis.core.collections.Generic;
 
 import java.io.File;
 import java.io.IOException;
